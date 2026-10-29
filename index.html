@@ -445,32 +445,18 @@
 <meta name="theme-color" content="#12355B">
 <script src="https://maimoonah.com/js/items.js" defer></script>
 <script src="https://maimoonah.com/js/promos.js" defer></script>
+<script src="mk-common.js"></script>
 </head>
 <body oncontextmenu="return false;" data-app-bar>
 
   <header>
+    <button type="button" class="mk-menu-btn" onclick="mkOpenDrawer()" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <a href="index.html" class="brand-logo-text">
       <!-- جعل اللوجو المصغر يعرض خيار التكبير والتحميل عند النقر -->
       <img src="assets/makeen-logo.jpeg" alt="لوجو مكين المصغر" class="mini-header-logo" onclick="event.preventDefault(); openImageModal('assets/makeen-logo.jpeg', 'لوجو_شركة_مكين.jpeg')">
       <span>شركة مكين للاستشارات والتدريب والتعليم</span>
     </a>
 
-    <div class="menu-container">
-      <button class="menu-toggle-btn" onclick="toggleDropdown(event)">
-        <span>☰</span> القائمة
-      </button>
-
-      <!-- القائمة المنسدلة الخالية من رابط الشيخة ميمونة -->
-      <ul class="dropdown-menu" id="dropdownMenu">
-        <li><a href="programs.html">تسجيل طالب جديد</a></li>
-        <li><a href="https://maimoonah.com/student.html">تسجيل دخول الطالبة والداعم</a></li>
-        <li><a href="#about-makeen-section" onclick="closeDropdown()">من نحن وعن شركة مكين</a></li>
-        <li><a href="https://wa.me/201013356935" target="_blank">تواصل معنا عبر الواتساب</a></li>
-        <li><a href="teachers.html">صفحات المعلمين والمعلمات</a></li>
-        <li><a href="join.html">انضم/ي إلى كادر مكين</a></li>
-        <li><a href="programs.html">قائمة البرامج المقدمة</a></li>
-      </ul>
-    </div>
   </header>
 
   <section class="company-hero">
@@ -645,24 +631,6 @@
   </div>
 
   <script>
-    function toggleDropdown(event) {
-      event.stopPropagation();
-      const menu = document.getElementById('dropdownMenu');
-      menu.classList.toggle('show');
-    }
-
-    function closeDropdown() {
-      const menu = document.getElementById('dropdownMenu');
-      menu.classList.remove('show');
-    }
-
-    window.onclick = function(event) {
-      const menu = document.getElementById('dropdownMenu');
-      if (menu.classList.contains('show')) {
-        menu.classList.remove('show');
-      }
-    }
-
     // دوال فتح نافذة التكبير والتحميل المباشر للصورة
     function openImageModal(imgSrc, downloadFileName) {
       const overlay = document.getElementById('imageModalOverlay');

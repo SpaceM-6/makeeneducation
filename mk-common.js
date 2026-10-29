@@ -57,10 +57,61 @@
   MK.LEVELS = ['ثانوي أو ما يعادله', 'دبلوم', 'بكالوريوس / ليسانس', 'دبلوم دراسات عليا', 'ماجستير', 'دكتوراه', 'دراسة شرعية حرة (مشايخ وإجازات)'];
   MK.DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
   MK.hourLabel = function (h) { var p = h < 12 ? 'ص' : 'م', x = h % 12 || 12; return String(x).replace(/[0-9]/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'[d]; }) + ' ' + p; };
-  // الرأس الموحد لصفحات مكين الجديدة
-  MK.header = function (active) {
-    var links = [['index.html', 'الرئيسية'], ['programs.html', 'البرامج'], ['teachers.html', 'المعلمون والمعلمات'], ['join.html', 'انضم/ي إلى الكادر']];
-    return '<header class="mk-top"><a class="mk-brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>شركة مكين</span></a><nav>' +
-      links.map(function (l) { return '<a href="' + l[0] + '"' + (l[0] === active ? ' class="on" aria-current="page"' : '') + '>' + l[1] + '</a>'; }).join('') + '</nav></header>';
+  // ===== القائمة الجانبية (مثل موقع ميمونة) =====
+  var IC = function (d) { return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
+  MK.MENU = [
+    ['#install', 'تثبيت تطبيق MakeenEducation', IC('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/>'), 'install'],
+    ['index.html', 'الرئيسية', IC('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],
+    ['index.html#about-makeen-section', 'من نحن وعن شركة مكين', IC('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>')],
+    ['programs.html', 'البرامج والتسجيل', IC('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/>')],
+    ['teachers.html', 'المعلمون والمعلمات', IC('<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M16 4.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z"/>')],
+    ['join.html', 'انضم/ي إلى كادر مكين', IC('<circle cx="10" cy="8" r="4"/><path d="M3 21c0-4 3-6.5 7-6.5"/><path d="M18 14v6M15 17h6"/>'), 'gold'],
+    [MK.MAIN + '/student.html', 'دخول الطلاب', IC('<path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/>')],
+    [MK.MAIN + '/messages.html', 'مراسلة الإدارة', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>')],
+    ['https://wa.me/201013356935', 'تواصل معنا عبر الواتساب', IC('<path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.4z"/><path d="M9.5 9.5c.3 1.7 1.8 3.4 3.6 3.9l1-1 1.6.8"/>'), 'ext'],
+    [MK.MAIN + '/', 'موقع أ/ ميمونة', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>')]
+  ];
+  var CSS = '.mk-menu-btn{width:44px;height:44px;border-radius:10px;border:1.5px solid #F3D37A;background:transparent;color:#F3D37A;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}' +
+    '.mk-dov{position:fixed;inset:0;z-index:3000;display:none;justify-content:flex-start;align-items:stretch;background:rgba(18,53,91,.55)}.mk-dov.open{display:flex}' +
+    '.mk-drawer{width:50vw;max-width:480px;min-width:230px;height:100%;background:#FFFDF8 url("assets/beige-texture.jpg") repeat;border-left:3px solid #F3D37A;box-shadow:-8px 0 30px rgba(0,0,0,.25);padding:14px 14px 24px;overflow-y:auto;animation:mkDrIn .22s ease-out;font-family:Cairo,Tahoma,sans-serif;direction:rtl}' +
+    '@keyframes mkDrIn{from{transform:translateX(100%)}to{transform:none}}' +
+    '.mk-dhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #F3D37A;padding-bottom:10px;margin-bottom:8px}' +
+    '.mk-dhead strong{color:#12355B;font-size:17px;display:flex;align-items:center;gap:8px}.mk-dhead img{width:36px;height:36px;border-radius:50%;border:2px solid #F3D37A}' +
+    '.mk-dx{background:#12355B;color:#fff;border:none;border-radius:8px;padding:4px 10px;font:700 14px Cairo,sans-serif;cursor:pointer}' +
+    '.mk-drawer a{display:flex;align-items:center;gap:10px;padding:12px 8px;color:#12355B;text-decoration:none;font-weight:700;font-size:15px;border-bottom:1px solid #E8DCC0}' +
+    '.mk-drawer a:hover,.mk-drawer a.cur{background:rgba(243,211,122,.25)}.mk-drawer a svg{flex:0 0 auto;color:#A8822F}' +
+    '.mk-drawer a.gold{background:linear-gradient(90deg,#F3D37A,#E5C158);color:#12355B;font-weight:900;border-radius:12px;border:0;margin:6px 0}.mk-drawer a.gold svg{color:#12355B}' +
+    '.mk-drawer a.inst{color:#A8822F;font-weight:800}.mk-drawer a[hidden]{display:none}' +
+    '@media (max-width:768px){.mk-drawer a{font-size:14px;padding:11px 4px}}';
+  (function () { var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st); })();
+  function ensureDrawer() {
+    if (document.getElementById('mkDrawer') || !document.body) return;
+    var here = location.pathname.split('/').pop() || 'index.html';
+    var ov = document.createElement('div'); ov.className = 'mk-dov'; ov.id = 'mkDrawer';
+    ov.innerHTML = '<nav class="mk-drawer" aria-label="القائمة"><div class="mk-dhead"><strong><img src="assets/makeen-logo.jpeg" alt="">القائمة</strong><button type="button" class="mk-dx">✕ إغلاق</button></div>' +
+      MK.MENU.map(function (m) {
+        var cls = m[3] === 'gold' ? 'gold' : m[3] === 'install' ? 'inst' : (m[0] === here ? 'cur' : '');
+        return '<a href="' + m[0] + '"' + (cls ? ' class="' + cls + '"' : '') + (m[3] === 'install' ? ' data-install hidden' : '') + (m[3] === 'ext' ? ' target="_blank" rel="noopener"' : '') + (m[0] === here ? ' aria-current="page"' : '') + '>' + m[2] + m[1] + '</a>';
+      }).join('') + '</nav>';
+    ov.onclick = function (e) {
+      if (e.target === ov || e.target.closest('.mk-dx')) return MK.closeDrawer();
+      var a = e.target.closest('a'); if (!a) return;
+      if (a.hasAttribute('data-install')) { e.preventDefault(); MK.closeDrawer(); if (window.mnInstallApp) window.mnInstallApp(); return; }
+      MK.closeDrawer();
+    };
+    document.body.appendChild(ov);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') MK.closeDrawer(); });
+    var standalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
+    if (!standalone) setTimeout(function () { var i = ov.querySelector('[data-install]'); if (i && (window.mnInstallApp)) i.hidden = false; }, 300);
+  }
+  MK.openDrawer = function () { ensureDrawer(); document.getElementById('mkDrawer').classList.add('open'); };
+  MK.closeDrawer = function () { var d = document.getElementById('mkDrawer'); if (d) d.classList.remove('open'); };
+  window.mkOpenDrawer = MK.openDrawer;
+  MK.MENU_ICON = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  // الرأس الموحد لصفحات مكين الجديدة: زر القائمة، والشعار
+  MK.header = function () {
+    return '<header class="mk-top"><button type="button" class="mk-menu-btn" onclick="mkOpenDrawer()" aria-label="القائمة">' + MK.MENU_ICON + '</button>' +
+      '<a class="mk-brand" href="index.html"><span>شركة مكين</span><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"></a></header>';
   };
+  document.addEventListener('DOMContentLoaded', ensureDrawer);
 })();
