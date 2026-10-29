@@ -87,7 +87,9 @@
     '.mk-drawer a.gold{background:linear-gradient(90deg,#F3D37A,#E5C158);color:#12355B;font-weight:900;border-radius:12px;border:0;margin:6px 0}.mk-drawer a.gold svg{color:#12355B}' +
     '.mk-drawer a.inst{color:#A8822F;font-weight:800}.mk-drawer a[hidden]{display:none}' +
     '@media (max-width:768px){.mk-drawer a{font-size:14px;padding:11px 4px}}' +
-    '@media (hover:none){.service-card:hover{transform:none;border-color:#E2E8F0}}';
+    '@media (hover:none){.service-card:hover{transform:none;border-color:#E2E8F0}}' +
+    '@media (max-width:520px){header .brand-logo-text span{font-size:0!important}header .brand-logo-text span::after{content:"شركة مكين";font-size:19px}}' +
+    'footer{padding-bottom:92px!important}body:not(:has(footer)){padding-bottom:88px}';
   (function () { var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st); })();
   function ensureDrawer() {
     if (document.getElementById('mkDrawer') || !document.body) return;
