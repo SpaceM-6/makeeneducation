@@ -148,7 +148,7 @@
     var p = document.createElement('div'); p.className = 'mc-panel'; p.id = 'mcPanel'; p.setAttribute('role', 'dialog'); p.setAttribute('aria-label', 'تواصل معنا');
     p.innerHTML = '<h3>تواصل مع مكين <button type="button" class="mc-x" aria-label="إغلاق">✕</button></h3>' +
       '<a class="mc-row" href="' + wa + '" target="_blank" rel="noopener">' + SV('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 9.5c.3 2.2 2.3 4.2 4.5 4.5l1-1.2 1.6.8"/>') + '<span>واتساب مكين<small dir="ltr">+20 101 335 6935</small></span></a>' +
-      '<a class="mc-row" href="mailto:info@maimoonah.com">' + SV('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>') + '<span>البريد الإلكتروني<small dir="ltr">info@maimoonah.com</small></span></a>' +
+      // بريد مكين يُضاف هنا بعد إنشائه (info@makeeneducation.com)
       '<a class="mc-row" href="programs.html">' + SV('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/>') + '<span>البرامج والتسجيل<small>اختر/ي برنامجك وسجّل/ي</small></span></a>' +
       '<a class="mc-row gold" href="join.html">' + SV('<circle cx="10" cy="8" r="4"/><path d="M3 21c0-4 3-6.5 7-6.5"/><path d="M18 14v6M15 17h6"/>') + '<span>انضم/ي إلى كادر مكين<small style="color:#12355B">للمعلمين والمعلمات</small></span></a>' +
       '<a class="mc-row" href="' + MK.MAIN + '/complaints.html">' + SV('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4.5"/><path d="M12 15.5h.01"/>') + '<span>الشكاوى والبلاغات<small>رسالة مباشرة إلى الإدارة</small></span></a>';
