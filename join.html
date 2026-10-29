@@ -11,10 +11,10 @@
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
 <meta name="description" content="نموذج انضمام المعلمين والمعلمات إلى كادر شركة مكين.">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="mk.css?v=500ce12e">
-<script src="mk-common.js?v=78933648"></script>
-<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",logo:"#mk-no-header-flag"};</script>
-<script src="https://maimoonah.com/js/items.js" defer></script>
+<link rel="stylesheet" href="mk.css?v=a9c078e1">
+<script src="mk-common.js?v=d4dfc74c"></script>
+<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/dailypick.js"></script>
 <script src="https://maimoonah.com/js/daily.js" defer></script>
@@ -24,6 +24,7 @@
 <main class="mk-wrap" style="max-width:800px">
   <h1 class="mk-h1">انضم/ي إلى كادر مكين</h1>
   <p class="mk-sub">خطوات قصيرة، ثم تراجع/ين بياناتك وتتقدّم/ين للمقابلة.</p>
+  <p style="text-align:center;margin:-8px 0 14px"><button type="button" class="mk-share" onclick="MNItems.share({ key: 'page:makeen-join', type: 'page', title: 'انضم/ي إلى كادر مكين', url: 'join.html' })">🔗 شارك/ي رابط الانضمام مع معلم/ة تعرفه</button></p>
   <div class="mk-box" style="padding:12px 16px"><b style="color:var(--navy)">مراحل الانضمام:</b><ol style="margin:4px 0 0;padding-right:20px;line-height:2">
     <li>إرسال بياناتك ووثائقك من هذه الصفحة.</li><li>تتواصل معك إدارة مكين على الواتساب الذي تكتبه/ينه.</li><li>مقابلة عبر رابط مرئي في موعد يُتفق عليه.</li><li>اعتمادك معلمًا/معلمةً في مكين، ونشر صفحتك التعريفية.</li></ol></div>
   <div class="mk-note" style="margin-bottom:14px">🔒 الاسم الكامل والهاتف والبريد والوثائق خاصة بإدارة مكين وحدها. ويظهر للطلاب اسمك الأول وأول حرف من اسمك الثاني فقط، مثل: «أ/ فاطمة أ.».</div>
@@ -95,7 +96,7 @@
     <p class="mk-err" id="err" role="alert" hidden></p>
     <div class="mk-nav"><button type="button" class="mk-btn ghost" id="back" hidden>→ السابق</button><span></span><button type="button" class="mk-btn" id="next">التالي ←</button></div>
   </form>
-  <div class="mk-ok" id="done" hidden><h2 style="margin:0 0 6px">تم تقديمك للمقابلة، جزاك الله خيرًا 🌿</h2><p style="margin:0 0 6px">وصلت بياناتك ووثائقك إلى إدارة مكين. الخطوات القادمة:</p><ol style="text-align:right;display:inline-block;margin:0;line-height:2"><li>نراجع بياناتك.</li><li>نتواصل معك على الواتساب الذي كتبته/يه.</li><li>نرسل لك رابط المقابلة وموعدها.</li><li>بعد المقابلة يتم اعتمادك ونشر صفحتك بإذن الله.</li></ol></div>
+  <div class="mk-ok" id="done" hidden><h2 style="margin:0 0 6px">تم تقديمك للمقابلة، جزاك الله خيرًا 🌿</h2><p style="margin:0 0 8px"><button type="button" class="mk-share" onclick="MNItems.share({ key: 'page:makeen-join', type: 'page', title: 'انضم/ي إلى كادر مكين', url: 'join.html' })">🔗 دُلّ/ي زملاءك على مكين</button></p><p style="margin:0 0 6px">وصلت بياناتك ووثائقك إلى إدارة مكين. الخطوات القادمة:</p><ol style="text-align:right;display:inline-block;margin:0;line-height:2"><li>نراجع بياناتك.</li><li>نتواصل معك على الواتساب الذي كتبته/يه.</li><li>نرسل لك رابط المقابلة وموعدها.</li><li>بعد المقابلة يتم اعتمادك ونشر صفحتك بإذن الله.</li></ol></div>
 </main>
 <footer class="mk-foot">© شركة مكين للاستشارات والتدريب والتعليم</footer>
 <script>

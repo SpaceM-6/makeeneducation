@@ -11,10 +11,10 @@
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
 <meta name="description" content="تعرّف/ي على كادر المعلمين والمعلمات في شركة مكين: مؤهلاتهم وإجازاتهم وبرامجهم وتقييمات طلابهم.">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="mk.css?v=500ce12e">
-<script src="mk-common.js?v=78933648"></script>
-<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",logo:"#mk-no-header-flag"};</script>
-<script src="https://maimoonah.com/js/items.js" defer></script>
+<link rel="stylesheet" href="mk.css?v=a9c078e1">
+<script src="mk-common.js?v=d4dfc74c"></script>
+<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/dailypick.js"></script>
 <script src="https://maimoonah.com/js/daily.js" defer></script>
@@ -24,6 +24,7 @@
 <main class="mk-wrap">
   <h1 class="mk-h1">كادر المعلمين والمعلمات</h1>
   <p class="mk-sub">نخبة من المجازين والمتخصصين، وأ/ ميمونة المشرفة التعليمية لقسم الفتيات في مكين. نجوم مكين بحسب عدد برامج مكين التي يقدّمها المعلم/ة، وآراء الطلاب من طلاب درسوا فعلًا.</p>
+  <p style="text-align:center;margin:0 0 14px"><button type="button" class="mk-share" onclick="MNItems.share({ key: 'page:makeen-teachers', type: 'page', title: 'معلمو ومعلمات مكين', url: 'teachers.html' })">🔗 مشاركة صفحة المعلمين</button></p>
   <div class="mk-chips" id="filters" role="group" aria-label="تصفية">
     <button type="button" class="mk-chip on" data-g="">الكل</button>
     <button type="button" class="mk-chip" data-g="f">المعلمات</button>
@@ -56,7 +57,7 @@
     if (!list.length) { grid.innerHTML = '<p class="mk-msg">' + (all.length ? 'لا يوجد من يطابق هذا الاختيار حاليًا.' : 'تُضاف صفحات المعلمين والمعلمات قريبًا بإذن الله.') + '</p>'; return; }
     grid.innerHTML = list.map(function (t) {
       var s = stats[t.id] || {};
-      return '<article class="mk-card' + (t.is_head ? ' head' : '') + '">' +
+      return '<article class="mk-card' + (t.is_head ? ' head' : '') + '" data-compact data-item="teacher:' + t.id + '" data-title="' + MK.esc(MK.title(t)) + '" data-sub="' + MK.esc(t.headline || '') + '" data-url="teacher.html?id=' + t.id + '" data-img="' + MK.esc(t.photo_url || '') + '">' +
         (t.badge || t.is_head ? '<span class="mk-badge">' + MK.esc(t.badge || 'على رأس الكادر التعليمي') + '</span>' : '') +
         MK.avatar(t, 104) + '<h3>' + MK.esc(MK.title(t)) + '</h3>' +
         (t.headline ? '<p class="mk-head">' + MK.esc(t.headline) + '</p>' : '') +
@@ -65,6 +66,7 @@
         '<div class="mk-tags">' + (t.programs || []).slice(0, 4).map(function (p) { return '<span class="mk-tag">' + MK.esc(p.replace(/^برنامج /, '')) + '</span>'; }).join('') + '</div>' +
         '<a class="mk-btn" style="margin-top:6px" href="teacher.html?id=' + encodeURIComponent(t.id) + '">الصفحة التعريفية</a></article>';
     }).join('');
+    if (window.MNItems) MNItems.mount(grid);
   }
   Promise.all([
     MK.get('mk_teachers?select=id,first_name,gender,photo_url,headline,programs,is_head,sort,level,specialty,badge&published=eq.true&order=is_head.desc,sort.asc,created_at.asc'),

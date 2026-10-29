@@ -69,3 +69,6 @@ footer.mk-foot{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 .mk-drop input{display:none}
 .mk-prev{background:#FBF6EA;border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-top:6px}
 .mk-count{font-size:13px;color:var(--muted);margin-top:6px}
+
+.mk-share{display:inline-flex;align-items:center;gap:6px;font:800 14px Cairo,Tahoma,sans-serif;background:#fff;color:var(--navy);border:1.5px solid var(--navy);border-radius:999px;padding:6px 16px;cursor:pointer}
+.mk-card .mn-acts{justify-content:center;margin-top:4px}

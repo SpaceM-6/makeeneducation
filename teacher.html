@@ -10,10 +10,10 @@
 <title>الصفحة التعريفية للمعلم/ة | شركة مكين</title>
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="mk.css?v=500ce12e">
-<script src="mk-common.js?v=78933648"></script>
-<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",logo:"#mk-no-header-flag"};</script>
-<script src="https://maimoonah.com/js/items.js" defer></script>
+<link rel="stylesheet" href="mk.css?v=a9c078e1">
+<script src="mk-common.js?v=d4dfc74c"></script>
+<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/dailypick.js"></script>
 <script src="https://maimoonah.com/js/daily.js" defer></script>
@@ -40,7 +40,7 @@
     var sec = function (h, v) { return v ? '<section class="mk-box"><h2>' + h + '</h2><p class="mk-pre">' + E(v) + '</p></section>' : ''; };
     var she = t.gender === 'f';
     main.innerHTML =
-      '<section class="mk-box"><div class="mk-prof">' + MK.avatar(t, 120) + '<div style="flex:1;min-width:200px">' +
+      '<section class="mk-box" data-item="teacher:' + t.id + '" data-title="' + E(MK.title(t)) + '" data-sub="' + E(t.headline || '') + '" data-url="teacher.html?id=' + t.id + '" data-img="' + E(t.photo_url || '') + '"><div class="mk-prof">' + MK.avatar(t, 120) + '<div style="flex:1;min-width:200px">' +
         (t.badge || t.is_head ? '<span class="mk-badge">' + E(t.badge || 'على رأس الكادر التعليمي') + '</span>' : '') +
         '<h1>' + E(MK.title(t)) + '</h1>' + (t.headline ? '<p class="mk-head" style="font-size:15.5px">' + E(t.headline) + '</p>' : '') +
         (t.level || t.specialty ? '<p class="mk-head">' + E([t.level, t.specialty].filter(Boolean).join(' · ')) + '</p>' : '') +
@@ -54,6 +54,7 @@
           return '<div class="mk-rev"><b>' + E(v.first_name) + '</b> <span class="mk-stars">' + st + '</span> <small>' + new Date(v.created_at).toLocaleDateString('ar-EG', { year: 'numeric', month: 'long' }) + '</small>' + (v.comment ? '<p class="mk-pre">' + E(v.comment) + '</p>' : '') + '</div>';
         }).join('') : '<p class="mk-nostars" style="margin:0">لا تقييمات منشورة بعد.</p>') +
         '<p class="hint" style="font-size:12.5px;color:var(--muted);margin:10px 0 0">التقييمات من طلاب درسوا فعلًا مع ' + (she ? 'المعلمة' : 'المعلم') + '، ويكتبونها من لوحة الطالب، وتراجعها إدارة مكين قبل نشرها.</p></section>';
+    if (window.MNItems) MNItems.mount(main);
   }).catch(function () { main.innerHTML = '<p class="mk-msg">تعذّر التحميل، حاول/ي مرة أخرى.</p>'; });
 })();
 </script>

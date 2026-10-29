@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: blob: https://cdn.jsdelivr.net https://maimoonah.com; connect-src 'self' https://*.supabase.co https://maimoonah.com; worker-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>المفضلة والمحفوظات | شركة مكين</title>
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
+<link rel="icon" href="https://maimoonah.com/favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="https://maimoonah.com/favicon-96.png"><link rel="icon" type="image/png" sizes="192x192" href="https://maimoonah.com/favicon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#12355B">
+<style>
+  :root { --navy:#12355B; --gold:#F3D37A; --gold2:#A8822F; --ink:#2B2416; --brown:#6B5320; --line:#DCC79A; --cream:#FBF6EA; }
+  * { box-sizing:border-box; }
+  html, body { overflow-x:clip; max-width:100%; }
+  body { margin:0; background:#F6EEE2 url('assets/beige-texture.jpg') repeat center top; color:var(--ink); font-family:Cairo, Tahoma, sans-serif; line-height:1.8; }
+  header { background:var(--navy); border-bottom:3px solid var(--gold); padding:8px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  header a.home { color:var(--gold); text-decoration:none; font-weight:800; }
+  header img { width:44px; height:44px; border-radius:50%; border:2px solid var(--gold); display:block; }
+  main { max-width:720px; margin:14px auto; padding:0 14px 50px; }
+  h1 { color:var(--navy); font-size:22px; margin:4px 0 10px; }
+  .tabs { display:flex; gap:6px; background:#fff; border:1px solid var(--line); border-radius:999px; padding:4px; }
+  .tabs button { flex:1; border:0; background:none; border-radius:999px; padding:9px; font:800 15px Cairo, Tahoma, sans-serif; color:var(--navy); cursor:pointer; }
+  .tabs button[aria-selected="true"] { background:var(--navy); color:var(--gold); }
+  .tabs b { font-weight:700; opacity:.8; font-size:13px; }
+  .tools { display:flex; gap:8px; margin:12px 0; flex-wrap:wrap; }
+  .tools input, .tools select { flex:1 1 160px; min-width:0; padding:10px 12px; border:1.5px solid var(--line); border-radius:12px; font:inherit; background:#fff; color:var(--ink); }
+  .list { display:flex; flex-direction:column; gap:10px; }
+  .it { background:rgba(255,253,248,.97); border:1px solid var(--line); border-radius:14px; padding:12px; display:flex; gap:12px; align-items:flex-start; }
+  .it img.th { width:58px; height:76px; object-fit:cover; border-radius:6px; border:1px solid var(--line); flex:0 0 auto; }
+  .it .ph { width:58px; height:58px; border-radius:12px; background:var(--cream); border:1px solid #E8DCC0; display:flex; align-items:center; justify-content:center; color:var(--gold2); flex:0 0 auto; }
+  .it .body { flex:1; min-width:0; }
+  .it .tp { display:inline-block; font-size:12px; font-weight:800; color:var(--gold2); background:var(--cream); border:1px solid #E8DCC0; border-radius:999px; padding:0 10px; }
+  .it h2 { font-size:16px; color:var(--navy); margin:2px 0 0; line-height:1.6; }
+  .it .sub { color:var(--brown); font-size:13px; }
+  .it .q { background:var(--cream); border-right:3px solid #C9A04A; border-radius:8px; padding:6px 10px; margin:6px 0; font-size:14.5px; white-space:pre-wrap; }
+  .it .note { margin-top:6px; }
+  .it .note textarea { width:100%; min-height:62px; border:1.5px dashed var(--line); border-radius:10px; padding:8px 10px; font:14.5px/1.8 Cairo, Tahoma, sans-serif; background:#fff; color:var(--ink); resize:vertical; }
+  .it .note textarea:focus { border-style:solid; border-color:var(--navy); outline:none; }
+  .it .when { font-size:12px; color:#8A7A55; }
+  .acts { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+  .acts a, .acts button { display:inline-flex; align-items:center; gap:5px; text-decoration:none; background:#fff; border:1.5px solid #E2D2AA; color:var(--navy); border-radius:999px; padding:4px 12px; font:700 13px Cairo, Tahoma, sans-serif; cursor:pointer; }
+  .acts a.go { background:var(--navy); color:var(--gold); border-color:var(--navy); }
+  .acts button.rm { color:#991B1B; }
+  .empty { text-align:center; background:rgba(255,253,248,.95); border:1px dashed var(--line); border-radius:14px; padding:26px 16px; color:var(--brown); }
+  .empty h2 { color:var(--navy); font-size:17px; margin:0 0 4px; }
+  .empty a { display:inline-block; margin-top:10px; background:var(--navy); color:var(--gold); text-decoration:none; border-radius:999px; padding:9px 18px; font-weight:800; }
+  .hint { font-size:13px; color:var(--brown); margin:10px 2px 0; }
+  .saved-ok { font-size:12px; color:#166534; margin-right:6px; }
+  .mk-brand { display:flex; align-items:center; gap:8px; color:var(--gold, #F3D37A); text-decoration:none; font-weight:800; }
+</style>
+<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/items.js"></script>
+<script src="https://maimoonah.com/js/app.js"></script>
+<script src="https://maimoonah.com/js/dailypick.js"></script>
+<script src="https://maimoonah.com/js/daily.js" defer></script>
+<script src="mk-common.js?v=d4dfc74c"></script>
+</head>
+<body data-daily-popup data-app-bar>
+<header class="mk-top"><a class="mk-brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>شركة مكين</span></a><button type="button" class="mk-menu-btn" onclick="mkOpenDrawer()" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></header>
+<main>
+  <h1>قوائمي</h1>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tFav" aria-selected="true" onclick="setTab('fav')">♥ المفضلة <b id="nFav"></b></button>
+    <button role="tab" id="tSaved" aria-selected="false" onclick="setTab('saved')">🔖 المحفوظات <b id="nSaved"></b></button>
+  </div>
+  <div class="tools">
+    <input type="search" id="q" placeholder="ابحث/ي في قائمتك…" aria-label="بحث">
+    <select id="ty" aria-label="النوع"><option value="">كل الأنواع</option></select>
+  </div>
+  <div class="list" id="list"></div>
+  <p class="hint" id="hint"></p>
+</main>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const P = (window.MNApp && MNApp.profile()) || {};
+  const G = (m, f) => P.gender === 'f' ? f : P.gender === 'm' ? m : m + '/ي';
+  let tab = location.hash === '#saved' ? 'saved' : 'fav';
+  const MONTHS = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  const when = (iso) => { const d = new Date(iso); return isNaN(d) ? '' : `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; };
+  $('q').placeholder = G('ابحث', 'ابحثي') + ' في قائمتك…';
+  Object.entries(MNItems.TYPES).forEach(([k, v]) => { const o = document.createElement('option'); o.value = k; o.textContent = v; $('ty').appendChild(o); });
+
+  function setTab(t) { tab = t; try { history.replaceState(null, '', '#' + t); } catch (e) {} render(); }
+  function thumb(x) { return x.img ? `<img class="th" src="${esc(x.img.replace(/^\//, ''))}" alt="">` : `<span class="ph" aria-hidden="true">${x.type === 'quote' ? MNItems.IC.save : x.type === 'audio' || x.type === 'podcast' ? '♪' : '۞'}</span>`; }
+  function render() {
+    const favs = MNItems.favs(), saved = MNItems.saved();
+    $('nFav').textContent = favs.length ? `(${favs.length})` : ''; $('nSaved').textContent = saved.length ? `(${saved.length})` : '';
+    $('tFav').setAttribute('aria-selected', tab === 'fav'); $('tSaved').setAttribute('aria-selected', tab === 'saved');
+    const q = $('q').value.trim().toLowerCase(), ty = $('ty').value;
+    const src = tab === 'fav' ? favs : saved;
+    const rows = src.filter((x) => (!ty || x.type === ty) && (!q || [x.title, x.sub, x.note, x.quote].join(' ').toLowerCase().includes(q)));
+    $('hint').textContent = tab === 'fav' ? 'المفضلة محفوظة على هذا الجهاز. اضغط/ي ♥ على أي كتاب أو تفسير أو تسجيل أو برنامج لإضافته.'.replace(/اضغط\/ي/, G('اضغط', 'اضغطي')) : 'المحفوظات محفوظة على هذا الجهاز. ولحفظ جملة أعجبتك من الموقع حدِّد/ي النص ثم اضغط/ي «احفظ المقتطف».'.replace('حدِّد/ي', G('حدِّد', 'حدِّدي')).replace('اضغط/ي', G('اضغط', 'اضغطي'));
+    if (!src.length) {
+      $('list').innerHTML = tab === 'fav'
+        ? `<div class="empty"><h2>لا شيء في المفضلة بعد</h2>${G('اضغط', 'اضغطي')} زر ♥ «المفضلة» على أي كتاب أو تفسير أو تسجيل أو برنامج، فيظهر هنا لتصل إليه بلمسة.<br><a href="index.html#books">تصفّح الكتب والتفسير</a></div>`
+        : `<div class="empty"><h2>لا محفوظات بعد</h2>${G('اضغط', 'اضغطي')} زر 🔖 «حفظ» على ما أعجبك، و${G('اكتب', 'اكتبي')} عليه ملاحظتك، ثم ${G('ارجع', 'ارجعي')} إليه هنا متى شئت.<br><a href="index.html#tafsir">ابدأ/ي من التفسير</a></div>`.replace('ابدأ/ي', G('ابدأ', 'ابدئي'));
+      return;
+    }
+    if (!rows.length) { $('list').innerHTML = '<div class="empty">لا نتائج لهذا البحث.</div>'; return; }
+    $('list').innerHTML = rows.map((x) => {
+      const id = tab === 'fav' ? x.key : x.id;
+      return `<article class="it" data-id="${esc(id)}">${thumb(x)}<div class="body">
+        <span class="tp">${esc(MNItems.TYPES[x.type] || 'عنصر')}</span><h2>${esc(x.title)}</h2>${x.sub ? `<div class="sub">${esc(x.sub)}</div>` : ''}
+        ${x.quote ? `<div class="q">«${esc(x.quote)}»</div>` : ''}
+        ${tab === 'saved' ? `<div class="note"><label class="when" for="n-${esc(id)}">ملاحظتي</label><textarea id="n-${esc(id)}" data-note="${esc(id)}" placeholder="${G('اكتب', 'اكتبي')} ملاحظتك هنا…">${esc(x.note || '')}</textarea></div>` : ''}
+        <div class="when">${tab === 'fav' ? 'أُضيف' : 'حُفظ'} في ${when(x.at)}</div>
+        <div class="acts"><a class="go" href="${esc(x.url)}">فتح</a><button type="button" data-share="${esc(id)}">مشاركة</button><button type="button" class="rm" data-rm="${esc(id)}">إزالة</button></div>
+      </div></article>`;
+    }).join('');
+  }
+  document.addEventListener('click', (e) => {
+    const rm = e.target.closest('[data-rm]'), sh = e.target.closest('[data-share]');
+    if (rm) {
+      const id = rm.dataset.rm;
+      if (tab === 'fav') { const x = MNItems.favs().find((f) => f.key === id); if (x) MNItems.toggleFav(x); }
+      else MNItems.removeSaved(id);
+      MNItems.toast('أُزيل من القائمة');
+    }
+    if (sh) {
+      const id = sh.dataset.share; const x = (tab === 'fav' ? MNItems.favs().find((f) => f.key === id) : MNItems.saved().find((f) => f.id === id));
+      if (x) MNItems.share(x.quote ? { ...x, title: '«' + x.quote.slice(0, 120) + (x.quote.length > 120 ? '…' : '') + '»', sub: x.title } : x);
+    }
+  });
+  let noteT = null;
+  document.addEventListener('input', (e) => {
+    const t = e.target.closest('[data-note]'); if (!t) return;
+    clearTimeout(noteT); noteT = setTimeout(() => { MNItems.updateNote(t.dataset.note, t.value.trim()); const lb = t.parentElement.querySelector('label'); if (lb && !lb.querySelector('.saved-ok')) { const s = document.createElement('span'); s.className = 'saved-ok'; s.textContent = 'حُفظت ✓'; lb.appendChild(s); setTimeout(() => s.remove(), 1500); } }, 500);
+  });
+  $('q').oninput = render; $('ty').onchange = render;
+  document.addEventListener('mn-lists', () => { if (!document.activeElement || !document.activeElement.matches('[data-note]')) render(); });
+  window.addEventListener('hashchange', () => { tab = location.hash === '#saved' ? 'saved' : 'fav'; render(); });
+  window.addEventListener('storage', render);
+  render();
+</script>
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-back]');
+    if (!a) return;
+    try { if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1) { e.preventDefault(); history.back(); } } catch (x) {}
+  });
+</script>
+</body>
+</html>
