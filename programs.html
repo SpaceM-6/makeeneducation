@@ -559,6 +559,19 @@
     .slot-row label { font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; margin:0; flex:1; }
     .slot-row input[type=time] { width:130px; padding:6px 8px; border:1px solid #CBD5E1; border-radius:6px; font:inherit; direction:ltr; }
     .slot-row input[type=time]:disabled { opacity:.35; }
+    .slot-row .tp { display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+    .slot-row .tp-hm { display:inline-flex; align-items:center; gap:3px; }
+    .slot-row .tp select { padding:6px 4px; border:1px solid #CBD5E1; border-radius:6px; font:inherit; font-size:15px; width:auto; min-width:52px; background:#fff; }
+    .slot-row .tp-ap { display:inline-flex; gap:4px; }
+    .slot-row .tp-ap label { flex:0 0 auto; gap:3px; font-size:14px; padding:3px 8px; border:1.5px solid #E2E8F0; border-radius:999px; }
+    .slot-row .tp-ap label:has(input:checked) { border-color:var(--navy-dark); background:#EEF2F7; }
+    .slot-row .tp-ap input { width:17px; height:17px; margin:0; accent-color:var(--navy-dark); }
+    .slot-row .tp :disabled { opacity:.4; }
+    .slot-row:has(.tp-ap input:disabled) .tp-ap label { opacity:.45; }
+    @media (max-width:420px){ .slot-row { flex-wrap:wrap; } .slot-row .tp { width:100%; justify-content:flex-end; } }
+    #programBookingForm:not(.confirmed) #inquiryBox button[type=submit], #programBookingForm:not(.confirmed) #programSubmitBtn { display:none !important; }
+    .confirm-box { display:flex; gap:10px; align-items:flex-start; background:#F0FDF4; border:1.5px solid #10B981; border-radius:10px; padding:12px; margin-top:12px; font-weight:700; color:var(--navy-dark); line-height:1.8; cursor:pointer; }
+    .confirm-box input { width:22px; height:22px; flex:0 0 auto; margin-top:3px; accent-color:#10B981; }
     .slot-hint { font-size:12.5px; color:#6B5320; margin:2px 0 6px; line-height:1.7; }
     .slot-err { color:#C53030; font-size:13px; font-weight:700; min-height:1em; margin-top:4px; }
 
@@ -710,13 +723,13 @@
           <label>حدد/ي أيام الحصص وساعة كل حصة:</label>
           <p class="slot-hint">اختر/ي اليوم ثم الساعة <b id="slotTzName">بتوقيت بلدك</b>. وبعد تفعيل اشتراكك تظهر هذه المواعيد في تقويم لوحتك، ويصلك تذكير بكل حصة.</p>
           <div class="days-slots">
-            <div class="slot-row"><label><input type="checkbox" name="p_days" value="السبت" data-dow="6"> السبت</label><input type="time" class="slot-time" aria-label="ساعة حصة السبت" disabled></div>
-            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الأحد" data-dow="0"> الأحد</label><input type="time" class="slot-time" aria-label="ساعة حصة الأحد" disabled></div>
-            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الإثنين" data-dow="1"> الإثنين</label><input type="time" class="slot-time" aria-label="ساعة حصة الإثنين" disabled></div>
-            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الثلاثاء" data-dow="2"> الثلاثاء</label><input type="time" class="slot-time" aria-label="ساعة حصة الثلاثاء" disabled></div>
-            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الأربعاء" data-dow="3"> الأربعاء</label><input type="time" class="slot-time" aria-label="ساعة حصة الأربعاء" disabled></div>
-            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الخميس" data-dow="4"> الخميس</label><input type="time" class="slot-time" aria-label="ساعة حصة الخميس" disabled></div>
-            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الجمعة" data-dow="5"> الجمعة</label><input type="time" class="slot-time" aria-label="ساعة حصة الجمعة" disabled></div>
+            <div class="slot-row"><label><input type="checkbox" name="p_days" value="السبت" data-dow="6"> السبت</label><span class="tp" aria-label="ساعة حصة السبت"><span class="tp-hm" dir="ltr"><select class="tp-h" aria-label="الساعة" disabled><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select><b>:</b><select class="tp-m" aria-label="الدقيقة" disabled><option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option></select></span><span class="tp-ap"><label><input type="radio" name="ap6" value="am" disabled> ص</label><label><input type="radio" name="ap6" value="pm" disabled> م</label></span></span><input type="hidden" class="slot-time" disabled></div>
+            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الأحد" data-dow="0"> الأحد</label><span class="tp" aria-label="ساعة حصة الأحد"><span class="tp-hm" dir="ltr"><select class="tp-h" aria-label="الساعة" disabled><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select><b>:</b><select class="tp-m" aria-label="الدقيقة" disabled><option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option></select></span><span class="tp-ap"><label><input type="radio" name="ap0" value="am" disabled> ص</label><label><input type="radio" name="ap0" value="pm" disabled> م</label></span></span><input type="hidden" class="slot-time" disabled></div>
+            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الإثنين" data-dow="1"> الإثنين</label><span class="tp" aria-label="ساعة حصة الإثنين"><span class="tp-hm" dir="ltr"><select class="tp-h" aria-label="الساعة" disabled><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select><b>:</b><select class="tp-m" aria-label="الدقيقة" disabled><option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option></select></span><span class="tp-ap"><label><input type="radio" name="ap1" value="am" disabled> ص</label><label><input type="radio" name="ap1" value="pm" disabled> م</label></span></span><input type="hidden" class="slot-time" disabled></div>
+            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الثلاثاء" data-dow="2"> الثلاثاء</label><span class="tp" aria-label="ساعة حصة الثلاثاء"><span class="tp-hm" dir="ltr"><select class="tp-h" aria-label="الساعة" disabled><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select><b>:</b><select class="tp-m" aria-label="الدقيقة" disabled><option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option></select></span><span class="tp-ap"><label><input type="radio" name="ap2" value="am" disabled> ص</label><label><input type="radio" name="ap2" value="pm" disabled> م</label></span></span><input type="hidden" class="slot-time" disabled></div>
+            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الأربعاء" data-dow="3"> الأربعاء</label><span class="tp" aria-label="ساعة حصة الأربعاء"><span class="tp-hm" dir="ltr"><select class="tp-h" aria-label="الساعة" disabled><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select><b>:</b><select class="tp-m" aria-label="الدقيقة" disabled><option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option></select></span><span class="tp-ap"><label><input type="radio" name="ap3" value="am" disabled> ص</label><label><input type="radio" name="ap3" value="pm" disabled> م</label></span></span><input type="hidden" class="slot-time" disabled></div>
+            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الخميس" data-dow="4"> الخميس</label><span class="tp" aria-label="ساعة حصة الخميس"><span class="tp-hm" dir="ltr"><select class="tp-h" aria-label="الساعة" disabled><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select><b>:</b><select class="tp-m" aria-label="الدقيقة" disabled><option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option></select></span><span class="tp-ap"><label><input type="radio" name="ap4" value="am" disabled> ص</label><label><input type="radio" name="ap4" value="pm" disabled> م</label></span></span><input type="hidden" class="slot-time" disabled></div>
+            <div class="slot-row"><label><input type="checkbox" name="p_days" value="الجمعة" data-dow="5"> الجمعة</label><span class="tp" aria-label="ساعة حصة الجمعة"><span class="tp-hm" dir="ltr"><select class="tp-h" aria-label="الساعة" disabled><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select><b>:</b><select class="tp-m" aria-label="الدقيقة" disabled><option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option></select></span><span class="tp-ap"><label><input type="radio" name="ap5" value="am" disabled> ص</label><label><input type="radio" name="ap5" value="pm" disabled> م</label></span></span><input type="hidden" class="slot-time" disabled></div>
           </div>
           <div class="slot-err" id="slotErr"></div>
         </div>
@@ -745,9 +758,10 @@
         </div>
 
         <div class="total-price-banner" id="programPriceDisplay">المبلغ المطلوب: 0 ر.س</div>
+        <label class="confirm-box" for="p_confirm"><input type="checkbox" id="p_confirm"><span>أؤكد صحة بياناتي ومواعيد حلقتي المكتوبة أعلاه، وأوافق على حفظها لتظهر لي كاملة في لوحة الطالب.</span></label>
         <div id="inquiryBox" style="display:none; text-align:center; padding:14px; background:#FFFBEB; border:1px solid var(--gold-18k); border-radius:10px; margin-top:12px;">
           <p style="font-weight:800; color:var(--navy-dark); line-height:1.9;">لإجراء التقييم والاستفسار عن رسوم البرامج تواصل معنا عبر <a href="https://wa.me/201013356935" target="_blank" rel="noopener">الواتساب</a>.</p>
-          <button type="submit" class="btn-gold" style="margin-top:8px;">الاستفسار عبر الواتساب</button>
+          <button type="submit" class="btn-gold" style="margin-top:8px;">إجراء التقييم والتواصل عبر الواتساب</button>
         </div>
         <button type="submit" class="btn-gold" id="programSubmitBtn">تأكيد الحجز والتواصل مباشرة عبر الواتساب</button>
       </form>
@@ -856,6 +870,7 @@
 
     function openProgramModal(id) {
       selectedProgramIDGlobal = id;
+      { const c = document.getElementById('p_confirm'); if (c) c.checked = false; document.getElementById('programBookingForm').classList.remove('confirmed'); }
       const currentProgram = programsData.find(p => p.id === id);
       document.getElementById('modalTitle').textContent = currentProgram.title;
       document.getElementById('modalDesc').textContent = currentProgram.desc;
@@ -1064,11 +1079,27 @@
     document.addEventListener('change', (e) => {
       if (e.target && (e.target.id === 'p_quran_memorized' || e.target.id === 'p_tajweed_level')) e.target.dataset.touched = '1';
       if (e.target && e.target.name === 'p_days') {
-        const ti = e.target.closest('.slot-row').querySelector('.slot-time');
+        const row = e.target.closest('.slot-row'), ti = row.querySelector('.slot-time');
         ti.disabled = !e.target.checked; if (e.target.checked && !ti.value) { const prev = bookingSlots().find((x) => x.time); ti.value = prev ? prev.time : '19:00'; }
+        row.querySelectorAll('.tp select, .tp input').forEach((x) => { x.disabled = !e.target.checked; });
+        tpShow(row);
         document.getElementById('slotErr').textContent = '';
       }
+      if (e.target && e.target.closest && e.target.closest('.slot-row .tp')) tpRead(e.target.closest('.slot-row'));
+      if (e.target && e.target.id === 'p_confirm') document.getElementById('programBookingForm').classList.toggle('confirmed', e.target.checked);
     });
+    // منتقي الساعة: الساعة والدقيقة، ودائرتا «ص» و«م» (تُحفظ داخليًا بنظام ٢٤ ساعة)
+    function tpShow(row) {
+      const v = row.querySelector('.slot-time').value || '19:00';
+      let [h, m] = v.split(':').map(Number); const pm = h >= 12; h = h % 12 || 12; m = Math.round(m / 5) * 5 % 60;
+      row.querySelector('.tp-h').value = String(h); row.querySelector('.tp-m').value = String(m).padStart(2, '0');
+      row.querySelectorAll('.tp-ap input').forEach((r) => { r.checked = (r.value === 'pm') === pm; });
+    }
+    function tpRead(row) {
+      let h = Number(row.querySelector('.tp-h').value) % 12; const m = row.querySelector('.tp-m').value;
+      const ap = row.querySelector('.tp-ap input:checked'); if (ap && ap.value === 'pm') h += 12;
+      row.querySelector('.slot-time').value = String(h).padStart(2, '0') + ':' + m;
+    }
     // يملأ النموذج من بيانات التطبيق إن كانت مسجلة (ويبقى قابلًا للتعديل)
     function prefillBooking() {
       const p = window.MNApp && MNApp.profile(); if (!p || !p.done) return;
