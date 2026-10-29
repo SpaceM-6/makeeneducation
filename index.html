@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://images.unsplash.com https://*.supabase.co; media-src 'self' blob: https://raw.githubusercontent.com https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://open.er-api.com https://formsubmit.co https://cdnjs.cloudflare.com; worker-src 'self' blob: https://cdnjs.cloudflare.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script>/* منع عرض الموقع داخل إطار موقع آخر (حماية من الخداع بالنقر) */ if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شركة مكين للاستشارات والتدريب والتعليم | المنصة التعليمية الرسمية</title>
+<link rel="icon" href="assets/makeen-logo.jpeg"><link rel="apple-touch-icon" href="assets/makeen-logo.jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-dark: #12355B;
+      --navy-light: #1E3A8A;
+      --gold-18k: #F3D37A;        /* ذهب عيار 18 فاتح ناصع */
+      --gold-18k-hover: #E5C158;  
+      --bg-light: #F8F9FA;
+      --text-dark: #1F2937;
+      --text-muted: #4B5563;
+      --white: #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.8;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header Navbar */
+    header {
+      background-color: var(--navy-dark);
+      border-bottom: 3px solid var(--gold-18k);
+      padding: 12px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo-text {
+      color: var(--gold-18k);
+      font-size: 18px;
+      font-weight: 900;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mini-header-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-18k);
+      object-fit: contain;
+      background-color: var(--navy-dark);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .mini-header-logo:hover {
+      transform: scale(1.1);
+    }
+
+    /* حاوية القائمة المنسدلة تحت الزر مباشرة */
+    .menu-container {
+      position: relative;
+    }
+
+    .menu-toggle-btn {
+      background-color: var(--gold-18k);
+      color: var(--navy-dark);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Cairo', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle-btn:hover {
+      background-color: var(--gold-18k-hover);
+    }
+
+    /* القائمة المنسدلة أسفل الزر في أقصى اليسار */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      width: 270px;
+      background-color: var(--navy-dark);
+      border: 2px solid var(--gold-18k);
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      padding: 10px 0;
+      z-index: 1500;
+      list-style: none;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+      animation: fadeInDown 0.3s ease;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-menu li a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 18px;
+      display: block;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .dropdown-menu li:last-child a {
+      border-bottom: none;
+    }
+
+    .dropdown-menu li a:hover {
+      background-color: rgba(243, 211, 122, 0.15);
+      color: var(--gold-18k);
+      padding-right: 22px;
+    }
+
+    /* Hero Section */
+    .company-hero {
+      background: linear-gradient(135deg, rgba(18, 53, 91, 0.92) 0%, rgba(30, 58, 138, 0.82) 100%),
+                  url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
+      color: var(--white);
+      padding: 50px 5%;
+      text-align: center;
+      border-bottom: 3px solid var(--gold-18k);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .main-hero-logo {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 3px solid var(--gold-18k);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      margin-bottom: 20px;
+      background-color: var(--navy-dark);
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .main-hero-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .company-hero h1 {
+      font-size: 32px;
+      color: var(--gold-18k);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .company-hero p {
+      font-size: 15.5px;
+      max-width: 850px;
+      margin: 0 auto;
+      color: #F1F5F9;
+      line-height: 1.9;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 15px; }
+
+    .section-header { text-align: center; margin-bottom: 35px; }
+    .section-title { font-size: 24px; color: var(--navy-dark); font-weight: 900; position: relative; display: inline-block; }
+    .section-title::after { content: ''; display: block; width: 70px; height: 3px; background-color: var(--gold-18k); margin: 8px auto 0; }
+    .section-subtitle { color: var(--text-muted); font-size: 14px; margin-top: 6px; }
+
+    /* الجزء التعريفي بشركة مكين */
+    .about-makeen-card {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      padding: 30px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+      margin-bottom: 45px;
+    }
+
+    .about-makeen-card h3 {
+      color: var(--navy-dark);
+      font-size: 20px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--gold-18k);
+      padding-bottom: 6px;
+    }
+
+    .about-makeen-card p {
+      font-size: 14.5px;
+      color: var(--text-dark);
+      line-height: 1.9;
+      margin-bottom: 15px;
+    }
+
+    .value-box-features {
+      background: #F8FAFC;
+      border-right: 4px solid var(--gold-18k);
+      padding: 18px;
+      border-radius: 6px;
+    }
+
+    .value-box-features ul {
+      list-style-type: square;
+      padding-right: 20px;
+      font-size: 14px;
+      color: #334155;
+      line-height: 2;
+    }
+
+    /* Features Grid */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 45px; }
+    .feature-card { background: var(--white); border: 1px solid #E2E8F0; padding: 22px; border-radius: 12px; text-align: center; }
+    .feature-icon { font-size: 32px; margin-bottom: 10px; display: inline-block; }
+    .feature-card h3 { color: var(--navy-dark); font-size: 17px; margin-bottom: 8px; font-weight: 800; }
+    .feature-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
+
+    /* Teachers Grid */
+    .teachers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+    
+    .teacher-card {
+      background: var(--white);
+      border-radius: 14px;
+      border: 1px solid #E2E8F0;
+      padding: 25px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .teacher-card.head-teacher {
+      border: 2px solid var(--gold-18k);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF5 100%);
+    }
+
+    .head-badge {
+      position: absolute;
+      top: -12px;
+      right: 50%;
+      transform: translateX(50%);
+      background: var(--gold-18k);
+      color: var(--navy-dark);
+      padding: 3px 16px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 900;
+    }
+
+    /* استبدال الحرف بصورة اللوجو للمجازين بالقراءات العشر */
+    .teacher-avatar-img {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 10px auto 12px;
+      border: 2.5px solid var(--gold-18k);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background-color: var(--white);
+    }
+
+    .teacher-avatar-img:hover {
+      transform: scale(1.08);
+    }
+
+    .teacher-card h3 { font-size: 18px; color: var(--navy-dark); font-weight: 800; margin-bottom: 5px; }
+    .teacher-card h3 a { color: var(--navy-dark); text-decoration: none; }
+    .teacher-title { color: #92400E; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+    .teacher-bio { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.7; }
+
+    .btn-view-profile {
+      display: inline-block;
+      width: 100%;
+      background-color: var(--navy-dark);
+      color: var(--gold-18k);
+      padding: 9px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 13.5px;
+      text-decoration: none;
+      border: 1px solid var(--gold-18k);
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .btn-view-profile:hover {
+      background-color: var(--gold-18k);
+      color: var(--navy-dark);
+    }
+
+    /* Programs Summary Box */
+    .programs-summary-box {
+      background: var(--navy-dark);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 35px 25px;
+      border: 2px solid var(--gold-18k);
+      margin-top: 45px;
+      text-align: center;
+    }
+
+    .programs-summary-box h3 { color: var(--gold-18k); font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+
+    .programs-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 25px;
+    }
+
+    .tag-item {
+      background: rgba(243, 211, 122, 0.15);
+      border: 1px solid var(--gold-18k);
+      color: var(--gold-18k);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    footer {
+      background-color: var(--navy-dark);
+      color: var(--white);
+      text-align: center;
+      padding: 20px;
+      border-top: 3px solid var(--gold-18k);
+      font-size: 13px;
+      margin-top: auto;
+    }
+
+    /* Modal LightBox للتكبير والتحميل المباشر للصورة */
+    .image-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(18, 53, 91, 0.9);
+      z-index: 3000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .image-modal-overlay.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-image-preview {
+      max-width: 85%;
+      max-height: 70vh;
+      border-radius: 12px;
+      border: 3px solid var(--gold-18k);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      object-fit: contain;
+      background-color: #FFFFFF;
+    }
+
+    .modal-action-btns {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .btn-download-img {
+      background-color: var(--gold-18k);
+      color: var(--navy-dark);
+      padding: 10px 24px;
+      border-radius: 25px;
+      font-weight: 800;
+      text-decoration: none;
+      font-size: 14.5px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(243, 211, 122, 0.4);
+    }
+
+    .btn-download-img:hover {
+      background-color: var(--gold-18k-hover);
+      transform: scale(1.05);
+    }
+
+    .btn-close-modal {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--gold-18k);
+      padding: 9px 20px;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-close-modal:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* الاستجابة للجوال والتابلت */
+    @media (max-width: 768px) {
+      header { padding: 10px 4%; }
+      .brand-logo-text span { font-size: 15px; }
+      .mini-header-logo { width: 35px; height: 35px; }
+      .company-hero h1 { font-size: 24px; }
+      .company-hero p { font-size: 14px; }
+      .main-hero-logo { width: 130px; height: 130px; }
+      .dropdown-menu { width: 230px; left: -10px; }
+      .container { padding: 25px 12px; }
+    }
+    html, body { overflow-x: clip; max-width: 100%; }
+  img, video, iframe, table { max-width: 100%; }
+</style>
+<meta name="theme-color" content="#12355B">
+<script src="https://maimoonah.com/js/items.js" defer></script>
+<script src="https://maimoonah.com/js/promos.js" defer></script>
+</head>
+<body oncontextmenu="return false;">
+
+  <header>
+    <a href="index.html" class="brand-logo-text">
+      <!-- جعل اللوجو المصغر يعرض خيار التكبير والتحميل عند النقر -->
+      <img src="assets/makeen-logo.jpeg" alt="لوجو مكين المصغر" class="mini-header-logo" onclick="event.preventDefault(); openImageModal('assets/makeen-logo.jpeg', 'لوجو_شركة_مكين.jpeg')">
+      <span>شركة مكين للاستشارات والتدريب والتعليم</span>
+    </a>
+
+    <div class="menu-container">
+      <button class="menu-toggle-btn" onclick="toggleDropdown(event)">
+        <span>☰</span> القائمة
+      </button>
+
+      <!-- القائمة المنسدلة الخالية من رابط الشيخة ميمونة -->
+      <ul class="dropdown-menu" id="dropdownMenu">
+        <li><a href="programs.html">تسجيل طالب جديد</a></li>
+        <li><a href="https://maimoonah.com/student.html">تسجيل دخول الطالبة والداعم</a></li>
+        <li><a href="#about-makeen-section" onclick="closeDropdown()">من نحن وعن شركة مكين</a></li>
+        <li><a href="https://wa.me/201013356935" target="_blank">تواصل معنا عبر الواتساب</a></li>
+        <li><a href="#teachers" onclick="closeDropdown()">قائمة المعلمين والمقرئين</a></li>
+        <li><a href="programs.html">قائمة البرامج المقدمة</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="company-hero">
+    <!-- جعل اللوجو الكيمي قابل للنقر والتكبير والتحميل المباشر -->
+    <img src="assets/makeen-logo.jpeg" alt="لوجو شركة مكين الرسمي" class="main-hero-logo" onclick="openImageModal('assets/makeen-logo.jpeg', 'لوجو_شركة_مكين_الرسمي.jpeg')">
+    <h1>شركة مكين للاستشارات والتدريب والتعليم</h1>
+    <p>
+      مؤسسة تعليمية واستشارية عالمية رائدة مقرها الرئيسي بجمهورية مصر العربية، وتصل خدماتها للطلاب والحافظين في جميع أنحاء العالم. نختص باستقطاب نخبة المعلمين المتقنين الحاملين للأسانيد العالية وتقديم باقة متكاملة من البرامج القرآنية والشرعية واللغوية.
+    </p>
+  </section>
+
+  <div class="container">
+
+    <section id="about-makeen-section" class="about-makeen-card">
+      <h3>عن شركة مكين للاستشارات والتدريب والتعليم</h3>
+      <p>
+        <strong>شركة مكين للاستشارات والتدريب والتعليم</strong> هي مؤسسة تعليمية واستشارية رائدة، يقع مقرها الرئيسي في <strong>جمهورية مصر العربية</strong>، وتتميز بنطاق خدمات عالمي يصل للطالبات والطلاب في مختلف أنحاء العالم.
+      </p>
+
+      <div class="value-box-features">
+        <h4 style="color: var(--navy-dark); font-size: 15px; margin-bottom: 8px;">ما تمتاز وتختص به شركة مكين:</h4>
+        <ul>
+          <li><strong>استقطاب أعلى الكفاءات:</strong> الحرص التام على استقطاب ونخبة أجود المعلمين والمعلمات والمقرئين والمقرئات المتقنين حول العالم ممن يحملون الأسانيد العالية والخبرات المرموقة.</li>
+          <li><strong>بناء وتطوير الكفاءات:</strong> العمل المستمر على بناء ورفع الكفاءة العلمية والأدائية لدى الطلاب والمعلمين على حد سواء وفق أعلى المعايير.</li>
+          <li><strong>المرونة وحسن الإدارة:</strong> توفير بيئة تعليمية وإدارية مرنة تتكيف بذكاء مع أوقات وجداول الطالبات والطلاب بمرونة عالية مع حسن المتابعة والتنسيق.</li>
+          <li><strong>توفير التسهيلات:</strong> تقديم كافة التسهيلات والدعم لطلاب القرآن الكريم وحفظته وطالبي العلم الشرعي لتيسير طريق التعلم والتحصيل.</li>
+          <li><strong>تكامل البرامج العلمية:</strong> تقديم باقة متكاملة من البرامج القرآنية، الإجازات بالسند المتصل، علوم الحديث، الفقه، اللغة العربية، الرقية الشرعية الموثقة، وخدمات البحوث والرسائل العلمية.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="about" style="margin-bottom: 50px;">
+      <div class="section-header">
+        <h2 class="section-title">لماذا تختار شركة مكين؟</h2>
+        <p class="section-subtitle">معايير رفيعة في الإتقان والإحسان والتعليم المباشر بالسند المتصل</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">◆</span>
+          <h3>أجود الكفاءات والعلماء</h3>
+          <p>استقطاب نخبة المقرئين والعلماء المتقنين الملتزمين بنقل العلم الشريف بالأسانيد العالية والموثوقة.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">◆</span>
+          <h3>بناء وتطوير المهارات</h3>
+          <p>رفع الكفاءة العلمية والأدائية للطلاب والمعلمين وفق أحدث المناهج الشرعية والتربوية المحكمة.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">◆</span>
+          <h3>مرونة الجدول والمتابعة</h3>
+          <p>توفير جداول دراسية تتكيف بذكاء مع أوقات الطالبات والطلاب مع متابعة دقيقة لكل حصة وواجب.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">◆</span>
+          <h3>تكامل التخصصات الشرعية</h3>
+          <p>منظومة برامج شاملة تضم القراءات العشر، علوم الحديث، الفقه، اللغة العربية، والبحوث العلمية.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="teachers">
+      <div class="section-header">
+        <h2 class="section-title">نخبة كادر المعلمين والمقرئين بالمؤسسة</h2>
+        <p class="section-subtitle">فريق علمي متميز يقوده أعلى الكفاءات العلمية والقرآنية</p>
+      </div>
+
+      <div class="teachers-grid">
+        <!-- بطاقة الشيخة ميمونة ندا وبها اللوجو الفاخر بدلاً من حرف الميم -->
+        <div class="teacher-card head-teacher">
+          <div class="head-badge">على رأس الكادر التعليمي</div>
+          
+          <!-- استبدال حرف الميم باللوجو الشريف للمجازين بالقراءات العشر (شيخة ميمونة ندا) متضمناً ميزة التكبير والتحميل -->
+          <img src="assets/sheikha-logo.jpeg" alt="لوجو القراءات العشر للشيخة ميمونة ندا" class="teacher-avatar-img" onclick="openImageModal('assets/sheikha-logo.jpeg', 'لوجو_الشيخة_د_ميمونة_ندا_القراءات_العشر.jpg')">
+          
+          <h3>
+            <a href="https://maimoonah.com/">الشيخة المُقرئة ميمونة بنت عبدالعزيز ندا</a>
+          </h3>
+          <div class="teacher-title">باحثة الشريعة الإسلامية ومُدرّبة القراءات العشر والعلوم الشرعية</div>
+          <p class="teacher-bio">
+            حاصلة على السند العالي المتصل في القراءات العشر الصغرى والكبرى، والأولى بمرتبة الشرف على جامعة الإمام بالرياض. باحثة ماجستير ودكتوراه بكلية دار العلوم – جامعة القاهرة.
+          </p>
+          <a href="https://maimoonah.com/" class="btn-view-profile">عرض المنصة الشخصية والكتب للشيخة</a>
+        </div>
+
+        <div class="teacher-card">
+          <!-- استخدام اللوجو الشريف لكادر المقرئين المجازين أيضاً -->
+          <img src="assets/sheikha-logo.jpeg" alt="لوجو القراءات العشر" class="teacher-avatar-img" onclick="openImageModal('assets/sheikha-logo.jpeg', 'شعار_مقرئي_القراءات_العشر.jpg')">
+          <h3>نخبة مقرئي القراءات العشر</h3>
+          <div class="teacher-title">مجيزون ومجيزات بالسند العالي المتصل</div>
+          <p class="teacher-bio">
+            نخبة مختارة من المعلمين والمعلمات الحاصلين على إجازات القراءات مع الخبرة الطويلة في تصحيح المخارج وضبط الأداء.
+          </p>
+          <a href="programs.html" class="btn-view-profile">استعراض برامج الإقراء لشركة مكين</a>
+        </div>
+
+        <div class="teacher-card">
+          <div class="teacher-avatar" style="width:90px; height:90px; border-radius:50%; background:var(--navy-dark); color:var(--gold-18k); display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:900; margin:10px auto 12px; border:2.5px solid var(--gold-18k);">م</div>
+          <h3>أساتذة الحديث واللغة العربية</h3>
+          <div class="teacher-title">متخصصون في النحو والبلاغة وعلوم الحديث</div>
+          <p class="teacher-bio">
+            كادر متخصص لتأصيل علوم السنة النبوية الشريفة، ومصطلح الحديث، وفقه العبادات، وتأسيس قواعد لغة القرآن الكريم.
+          </p>
+          <a href="programs.html" class="btn-view-profile">استعراض البرامج الشرعية لشركة مكين</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="maimouna-works" style="max-width:1100px;margin:40px auto 10px;padding:0 16px;">
+      <div style="text-align:center;margin-bottom:18px">
+        <h2 class="section-title">من إصدارات الشيخة ميمونة عبدالعزيز ندا</h2>
+        <p class="section-subtitle">كتب وتفسير وبودكاست، على موقعها الرسمي maimoonah.com</p>
+      </div>
+      <div class="mk-ads">
+        <a class="mk-ad" href="https://maimoonah.com/#book-ihya"><img src="assets/book-cover.jpg?v=2" alt="غلاف كتاب إحياء العقل السليم"><div><b>كتاب «إحياء العقل السليم بكلام الخلاق العليم»</b><span>دراسة في الاستشفاء القرآني المعرفي، ورقيًا ورقميًا وصوتيًا.</span><em>تفاصيل الكتاب ‹</em></div></a>
+        <a class="mk-ad" href="https://maimoonah.com/#tafsir"><span class="ic">۞</span><div><b>تفسير «تدبر التنزيل لأهل العصر والتأويل»</b><span>تفسير السور كتابيًا وصوتيًا، مع وقفات تدبرية وغريب وفوائد.</span><em>تصفّح السور ‹</em></div></a>
+        <a class="mk-ad" href="https://maimoonah.com/#podcast"><span class="ic">🎙</span><div><b>بودكاست ميمونة</b><span>دروس صوتية في التفسير والتجويد وعلوم القرآن.</span><em>استمع/ي الآن ‹</em></div></a>
+        <a class="mk-ad" href="https://maimoonah.com/today.html"><img src="assets/maimouna-logo-square.jpg" alt="تطبيق ميمونة"><div><b>تطبيق ميمونة</b><span>مواقيت الصلاة، والورد القرآني، والمصحف، ومتابعة حلقتك.</span><em>افتح التطبيق ‹</em></div></a>
+      </div>
+    </section>
+    <style>
+      .mk-ads { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; }
+      .mk-ad { display:flex; gap:12px; align-items:center; background:#fff; border:1px solid #E2E8F0; border-top:4px solid var(--gold-18k, #C9A04A); border-radius:14px; padding:14px; text-decoration:none; color:inherit; box-shadow:0 6px 18px rgba(0,0,0,.05); transition:transform .2s; }
+      .mk-ad:hover { transform:translateY(-3px); }
+      .mk-ad img { width:64px; height:86px; object-fit:cover; border-radius:8px; flex:0 0 auto; }
+      .mk-ad .ic { width:64px; height:64px; border-radius:50%; background:var(--navy-dark, #12355B); color:var(--gold-18k, #F3D37A); display:flex; align-items:center; justify-content:center; font-size:30px; flex:0 0 auto; }
+      .mk-ad b { display:block; color:var(--navy-dark, #12355B); line-height:1.6; } .mk-ad span { display:block; font-size:13.5px; color:#64748B; margin:2px 0 4px; } .mk-ad em { font-style:normal; font-weight:800; color:#A8822F; font-size:13.5px; }
+    </style>
+
+    <section id="programs" class="programs-summary-box">
+      <h3>منظومة البرامج التعليمية المتاحة بشركة مكين</h3>
+      <p style="max-width: 800px; margin: 0 auto; color: #CBD5E1; font-size: 14px;">
+        نقدم 19 برنامجاً تعليمياً وتخصصياً محكماً لتلبية كافة احتياجات الحفظة وطالبي العلم الشرعي والباحثين:
+      </p>
+
+      <div class="programs-tags">
+        <span class="tag-item">برنامج الحفظ والمراجعة والسرد</span>
+        <span class="tag-item">الإجازة بالقراءات العشر</span>
+        <span class="tag-item">تصحيح التلاوة المتقدم</span>
+        <span class="tag-item">برنامج التفسير الشامل</span>
+        <span class="tag-item">برنامج إعداد معلمات القرآن</span>
+        <span class="tag-item">الإجازة في الحديث النبوي</span>
+        <span class="tag-item">تعليم اللغة العربية والنحو</span>
+        <span class="tag-item">خدمات البحوث والرسائل العلمية</span>
+        <span class="tag-item">برنامج الرقية الشرعية الموثقة</span>
+      </div>
+
+      <a href="programs.html" class="btn-view-profile" style="max-width: 320px; margin: 0 auto; background: var(--gold-18k); color: var(--navy-dark);">
+        الانتقال لجدول برامج شركة مكين والحجز
+      </a>
+    </section>
+
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة &copy; 2026 | شركة مكين للاستشارات والتدريب والتعليم
+  </footer>
+
+  <!-- نافذة LightBox لتكبير الصورة وتوفير زر تحميل مباشر من المتصفح -->
+  <div class="image-modal-overlay" id="imageModalOverlay" onclick="closeImageModal()">
+    <img src="" alt="صورة مكبرة" class="modal-image-preview" id="modalPreviewImg" onclick="event.stopPropagation()">
+    
+    <div class="modal-action-btns" onclick="event.stopPropagation()">
+      <a href="" download="" id="downloadImgBtn" class="btn-download-img">تحميل الصورة الآن</a>
+      <button type="button" class="btn-close-modal" onclick="closeImageModal()">إغلاق الشاشة</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown(event) {
+      event.stopPropagation();
+      const menu = document.getElementById('dropdownMenu');
+      menu.classList.toggle('show');
+    }
+
+    function closeDropdown() {
+      const menu = document.getElementById('dropdownMenu');
+      menu.classList.remove('show');
+    }
+
+    window.onclick = function(event) {
+      const menu = document.getElementById('dropdownMenu');
+      if (menu.classList.contains('show')) {
+        menu.classList.remove('show');
+      }
+    }
+
+    // دوال فتح نافذة التكبير والتحميل المباشر للصورة
+    function openImageModal(imgSrc, downloadFileName) {
+      const overlay = document.getElementById('imageModalOverlay');
+      const img = document.getElementById('modalPreviewImg');
+      const dlBtn = document.getElementById('downloadImgBtn');
+
+      img.src = imgSrc;
+      dlBtn.href = imgSrc;
+      dlBtn.download = downloadFileName || 'صورة.jpg';
+
+      overlay.classList.add('show');
+    }
+
+    function closeImageModal() {
+      const overlay = document.getElementById('imageModalOverlay');
+      overlay.classList.remove('show');
+    }
+  </script>
+</body>
+</html>
