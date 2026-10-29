@@ -82,7 +82,7 @@
   const MONTHS = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
   const when = (iso) => { const d = new Date(iso); return isNaN(d) ? '' : `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; };
   $('q').placeholder = G('ابحث', 'ابحثي') + ' في قائمتك…';
-  Object.entries(MNItems.TYPES).forEach(([k, v]) => { const o = document.createElement('option'); o.value = k; o.textContent = v; $('ty').appendChild(o); });
+  Object.entries(MNItems.TYPES).filter(([k]) => ['program', 'teacher', 'page', 'quote'].includes(k)).forEach(([k, v]) => { const o = document.createElement('option'); o.value = k; o.textContent = v; $('ty').appendChild(o); });
 
   function setTab(t) { tab = t; try { history.replaceState(null, '', '#' + t); } catch (e) {} render(); }
   function thumb(x) { return x.img ? `<img class="th" src="${esc(x.img.replace(/^\//, ''))}" alt="">` : `<span class="ph" aria-hidden="true">${x.type === 'quote' ? MNItems.IC.save : x.type === 'audio' || x.type === 'podcast' ? '♪' : '۞'}</span>`; }
@@ -91,13 +91,13 @@
     $('nFav').textContent = favs.length ? `(${favs.length})` : ''; $('nSaved').textContent = saved.length ? `(${saved.length})` : '';
     $('tFav').setAttribute('aria-selected', tab === 'fav'); $('tSaved').setAttribute('aria-selected', tab === 'saved');
     const q = $('q').value.trim().toLowerCase(), ty = $('ty').value;
-    const src = tab === 'fav' ? favs : saved;
+    const MK_T = ['program', 'teacher', 'page', 'quote']; const src = (tab === 'fav' ? favs : saved).filter((x) => MK_T.includes(x.type));
     const rows = src.filter((x) => (!ty || x.type === ty) && (!q || [x.title, x.sub, x.note, x.quote].join(' ').toLowerCase().includes(q)));
-    $('hint').textContent = tab === 'fav' ? 'المفضلة محفوظة على هذا الجهاز. اضغط/ي ♥ على أي كتاب أو تفسير أو تسجيل أو برنامج لإضافته.'.replace(/اضغط\/ي/, G('اضغط', 'اضغطي')) : 'المحفوظات محفوظة على هذا الجهاز. ولحفظ جملة أعجبتك من الموقع حدِّد/ي النص ثم اضغط/ي «احفظ المقتطف».'.replace('حدِّد/ي', G('حدِّد', 'حدِّدي')).replace('اضغط/ي', G('اضغط', 'اضغطي'));
+    $('hint').textContent = tab === 'fav' ? 'المفضلة محفوظة على هذا الجهاز. اضغط/ي ♥ على أي برنامج أو معلم/ة أو صفحة لإضافته.'.replace(/اضغط\/ي/, G('اضغط', 'اضغطي')) : 'المحفوظات محفوظة على هذا الجهاز. ولحفظ جملة أعجبتك من الموقع حدِّد/ي النص ثم اضغط/ي «احفظ المقتطف».'.replace('حدِّد/ي', G('حدِّد', 'حدِّدي')).replace('اضغط/ي', G('اضغط', 'اضغطي'));
     if (!src.length) {
       $('list').innerHTML = tab === 'fav'
-        ? `<div class="empty"><h2>لا شيء في المفضلة بعد</h2>${G('اضغط', 'اضغطي')} زر ♥ «المفضلة» على أي كتاب أو تفسير أو تسجيل أو برنامج، فيظهر هنا لتصل إليه بلمسة.<br><a href="index.html#books">تصفّح الكتب والتفسير</a></div>`
-        : `<div class="empty"><h2>لا محفوظات بعد</h2>${G('اضغط', 'اضغطي')} زر 🔖 «حفظ» على ما أعجبك، و${G('اكتب', 'اكتبي')} عليه ملاحظتك، ثم ${G('ارجع', 'ارجعي')} إليه هنا متى شئت.<br><a href="index.html#tafsir">ابدأ/ي من التفسير</a></div>`.replace('ابدأ/ي', G('ابدأ', 'ابدئي'));
+        ? `<div class="empty"><h2>لا شيء في المفضلة بعد</h2>${G('اضغط', 'اضغطي')} زر ♥ «المفضلة» على أي برنامج أو معلم/ة أو صفحة، فيظهر هنا لتصل إليه بلمسة.<br><a href="programs.html">تصفّح برامج مكين</a> · <a href="teachers.html">المعلمون والمعلمات</a></div>`
+        : `<div class="empty"><h2>لا محفوظات بعد</h2>${G('اضغط', 'اضغطي')} زر 🔖 «حفظ» على ما أعجبك، و${G('اكتب', 'اكتبي')} عليه ملاحظتك، ثم ${G('ارجع', 'ارجعي')} إليه هنا متى شئت.<br><a href="teachers.html">ابدأ/ي من صفحات المعلمين</a></div>`.replace('ابدأ/ي', G('ابدأ', 'ابدئي'));
       return;
     }
     if (!rows.length) { $('list').innerHTML = '<div class="empty">لا نتائج لهذا البحث.</div>'; return; }
