@@ -75,7 +75,7 @@
     [MK.MAIN + '/messages.html', 'مراسلة الإدارة', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>')],
     ['https://wa.me/201013356935', 'تواصل معنا عبر الواتساب', IC('<path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.4z"/><path d="M9.5 9.5c.3 1.7 1.8 3.4 3.6 3.9l1-1 1.6.8"/>'), 'ext'],
     [MK.MAIN + '/', 'موقع أ/ ميمونة', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>')],
-    [MK.MAIN + '/privacy.html', 'سياسة الخصوصية', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')]
+    ['privacy.html', 'سياسة الخصوصية', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')]
   ];
   var CSS = '.mk-menu-btn{width:44px;height:44px;border-radius:10px;border:1.5px solid #F3D37A;background:transparent;color:#F3D37A;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}' +
     '.mk-dov{position:fixed;inset:0;z-index:3000;display:none;justify-content:flex-end;align-items:stretch;background:rgba(18,53,91,.55)}.mk-dov.open{display:flex}' +
@@ -231,10 +231,10 @@
   // روابط سياسة الخصوصية والشروط في كل صفحات مكين (تُخدم من موقع ميمونة)
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('a[href="terms.html"]').forEach(function (a) { a.href = 'study-terms.html'; });
-    document.querySelectorAll('a[href="privacy.html"],a[href="refund.html"]').forEach(function (a) { a.href = MK.MAIN + '/' + a.getAttribute('href'); });
+    document.querySelectorAll('a[href="refund.html"]').forEach(function (a) { a.href = MK.MAIN + '/' + a.getAttribute('href'); });
     var f = document.querySelector('footer'); if (!f || f.querySelector('a[href$="privacy.html"]')) return;
     var p = document.createElement('p'); p.style.cssText = 'margin:6px 0 0;font-size:13.5px';
-    p.innerHTML = '<a href="' + MK.MAIN + '/privacy.html" style="color:inherit">سياسة الخصوصية</a> · <a href="join-terms.html" style="color:inherit">شروط الالتحاق بكادر مكين</a> · <a href="study-terms.html" style="color:inherit">شروط الدراسة للطلاب</a>';
+    p.innerHTML = '<a href="privacy.html" style="color:inherit">سياسة الخصوصية</a> · <a href="join-terms.html" style="color:inherit">شروط الالتحاق بكادر مكين</a> · <a href="study-terms.html" style="color:inherit">شروط الدراسة للطلاب</a>';
     f.appendChild(p);
   });
   document.addEventListener('DOMContentLoaded', ensureFab);
