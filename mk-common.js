@@ -91,8 +91,8 @@
     'header .brand-logo-text .mk-two{display:inline-block;line-height:1.45;text-align:center;white-space:nowrap}' +
     '@media (max-width:520px){header .brand-logo-text .mk-two{font-size:15.5px!important}}' +
     '.mk-hact{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto}' +
-    '.mk-hflag{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;width:44px;padding:0;border-radius:10px;border:1.5px solid #F3D37A;color:#F3D37A;text-decoration:none;font:800 14px Cairo,Tahoma,sans-serif;white-space:nowrap;-webkit-tap-highlight-color:transparent}' +
-    '.mk-hflag .fl{width:30px;height:30px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);flex:0 0 auto}.mk-hflag .fl img{width:30px;height:30px;object-fit:cover;display:block}' +
+    '.mk-hflag{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;background:none;text-decoration:none;-webkit-tap-highlight-color:transparent}' +
+    '.mk-hflag .fl{width:36px;height:36px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid #F3D37A;background:rgba(255,255,255,.12);flex:0 0 auto}.mk-hflag .fl img{width:36px;height:36px;object-fit:cover;display:block}' +
         'footer{padding-bottom:92px!important}body:not(:has(footer)){padding-bottom:88px}';
   (function () { var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st); })();
   function ensureDrawer() {
