@@ -678,7 +678,7 @@
         <div id="sponsorFieldsArea" style="display: none; background: #E0F2FE; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #38BDF8;">
           <h5 style="color: #0369A1; font-weight: 800; margin-bottom: 10px;">بياناتك أنت (المسجِّل / الداعم — عضو ماسّي):</h5>
           <div class="form-row">
-            <div class="form-group"><label for="s_name">اسم الداعم بالكامل:</label><input type="text" id="s_name" placeholder="أدخل اسمك الكافل"></div>
+            <div class="form-group"><label for="s_name">اسم الداعم بالكامل:</label><input type="text" id="s_name" placeholder="أدخل/ي اسمك (الكافل)"></div>
             <div class="form-group"><label for="s_phone">رقم واتساب الداعم:</label><input type="tel" id="s_phone" placeholder="00966XXXXXXX"></div>
           </div>
           <div class="form-row"><div class="form-group"><label for="s_job">مهنة الداعم:</label><input type="text" id="s_job" placeholder="مثال: مهندس"></div></div>
@@ -688,7 +688,7 @@
         <h5 id="studentHeaderTitle" style="color: var(--navy-dark); font-weight: 800; margin-bottom: 10px;">بيانات الطالب / الطالبة:</h5>
 
         <div class="form-row">
-          <div class="form-group"><label for="p_name">اسم الطالب / الطالبة بالكامل:</label><input type="text" id="p_name" required placeholder="أدخل الاسم"></div>
+          <div class="form-group"><label for="p_name">اسم الطالب / الطالبة بالكامل:</label><input type="text" id="p_name" required placeholder="أدخل/ي الاسم"></div>
           <div class="form-group"><label for="p_age">العمر:</label><input type="number" id="p_age" required placeholder="مثال: 25"></div>
         </div>
 
@@ -969,11 +969,11 @@
         container.innerHTML = `
           <div class="form-group">
             <label for="priceNationalitySelect">الجنسية:</label>
-            <select id="priceNationalitySelect" onchange="onPriceCountryChange()">${priceCountryOptions('اختر جنسيتك', true)}</select>
+            <select id="priceNationalitySelect" onchange="onPriceCountryChange()">${priceCountryOptions('اختر/ي جنسيتك', true)}</select>
           </div>
           <div class="form-group">
             <label for="priceCountrySelect">بلد الإقامة:</label>
-            <select id="priceCountrySelect" onchange="onPriceCountryChange()">${priceCountryOptions('اختر بلد إقامتك')}</select>
+            <select id="priceCountrySelect" onchange="onPriceCountryChange()">${priceCountryOptions('اختر/ي بلد إقامتك')}</select>
           </div>
           <div class="booking-options-btns" id="pricingButtons" style="display:none;">
             <button class="btn-option" onclick="showPricingTable('hourly')">الحجز بالساعة (عضو جديد)</button>
