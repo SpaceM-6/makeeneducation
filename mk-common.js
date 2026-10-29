@@ -61,7 +61,6 @@
   var IC = function (d) { return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
   MK.MENU = [
     ['#install', 'تثبيت تطبيق MakeenEducation', IC('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/>'), 'install'],
-    ['today.html', 'يومي: مواقيت الصلاة والورد', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'), 'flag'],
     [MK.MAIN + '/student.html', 'لوحة الطالب', IC('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h3v3H8z"/>'), 'top'],
     ['my.html', 'المفضلة والمحفوظات', IC('<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'), 'top'],
     ['index.html', 'الرئيسية', IC('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],
@@ -90,6 +89,10 @@
     '@media (hover:none){.service-card:hover{transform:none;border-color:#E2E8F0}}' +
     'header .brand-logo-text .mk-two{display:inline-block;line-height:1.45;text-align:center;white-space:nowrap}' +
     '@media (max-width:520px){header .brand-logo-text .mk-two{font-size:15.5px!important}}' +
+    '.mk-hact{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto}' +
+    '.mk-hflag{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 10px 0 8px;border-radius:10px;border:1.5px solid #F3D37A;color:#F3D37A;text-decoration:none;font:800 14px Cairo,Tahoma,sans-serif;white-space:nowrap;-webkit-tap-highlight-color:transparent}' +
+    '.mk-hflag .fl{width:26px;height:26px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);flex:0 0 auto}.mk-hflag .fl img{width:26px;height:26px;object-fit:cover;display:block}' +
+    '@media (max-width:380px){.mk-hflag b{display:none}.mk-hflag{padding:0 8px}}' +
     'footer{padding-bottom:92px!important}body:not(:has(footer)){padding-bottom:88px}';
   (function () { var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st); })();
   function ensureDrawer() {
@@ -123,6 +126,23 @@
     } else a.querySelector('[data-place]').textContent = 'حدّد/ي دولتك ومدينتك';
   }
   document.addEventListener('mn-profile', renderFlagItem);
+  // علم الدولة و«يومي» في الشريط العلوي بجانب زر القائمة
+  function headerFlag() {
+    var p = window.MNApp && MNApp.profile && MNApp.profile();
+    var fl = p && p.done && MNApp.flagHtml ? MNApp.flagHtml(p.cc, 26) : '🌍';
+    var title = p && p.done ? 'يومي: مواقيت الصلاة والورد · ' + (p.city || '') + (p.country && p.country !== 'دولة أخرى' ? '، ' + p.country : '') : 'يومي: مواقيت الصلاة والورد';
+    document.querySelectorAll('.mk-menu-btn').forEach(function (btn) {
+      var a = btn.parentNode.classList.contains('mk-hact') ? btn.parentNode.querySelector('.mk-hflag') : null;
+      if (!a) {
+        var w = document.createElement('span'); w.className = 'mk-hact';
+        a = document.createElement('a'); a.className = 'mk-hflag'; a.href = 'today.html';
+        btn.parentNode.insertBefore(w, btn); w.appendChild(a); w.appendChild(btn);
+      }
+      a.innerHTML = '<span class="fl">' + fl + '</span><b>يومي</b>'; a.title = title; a.setAttribute('aria-label', title);
+    });
+  }
+  document.addEventListener('mn-profile', headerFlag);
+  document.addEventListener('DOMContentLoaded', function () { headerFlag(); setTimeout(headerFlag, 800); });
   MK.openDrawer = function () { ensureDrawer(); renderFlagItem(); document.getElementById('mkDrawer').classList.add('open'); };
   MK.closeDrawer = function () { var d = document.getElementById('mkDrawer'); if (d) d.classList.remove('open'); };
   window.mkOpenDrawer = MK.openDrawer;
