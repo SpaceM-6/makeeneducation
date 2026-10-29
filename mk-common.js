@@ -150,6 +150,25 @@
   MK.openDrawer = function () { ensureDrawer(); renderFlagItem(); document.getElementById('mkDrawer').classList.add('open'); };
   MK.closeDrawer = function () { var d = document.getElementById('mkDrawer'); if (d) d.classList.remove('open'); };
   window.mkOpenDrawer = MK.openDrawer;
+  // سحب القائمة باليد من الحافة اليسرى (القائمة تفتح من اليسار)
+  (function () {
+    var EDGE = 32, DIST = 55, sx = 0, sy = 0, mode = '', done = false;
+    var isOpen = function () { var d = document.getElementById('mkDrawer'); return !!(d && d.classList.contains('open')); };
+    document.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) { mode = ''; return; }
+      var t = e.touches[0]; sx = t.clientX; sy = t.clientY; done = false; mode = '';
+      if (!isOpen()) { if (!document.querySelector('.mn-ob, .modal-overlay[style*="flex"], .mc-panel.open') && sx <= EDGE) mode = 'open'; }
+      else { var p = document.querySelector('#mkDrawer .mk-drawer'); if (p && p.contains(e.target)) mode = 'close'; }
+    }, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+      if (!mode || done) return;
+      var t = e.touches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 12) { mode = ''; return; }
+      if (mode === 'open' && dx > DIST) { done = true; MK.openDrawer(); }
+      else if (mode === 'close' && dx < -DIST) { done = true; MK.closeDrawer(); }
+    }, { passive: true });
+    document.addEventListener('touchend', function () { mode = ''; }, { passive: true });
+  })();
   MK.MENU_ICON = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
   // الرأس الموحد لصفحات مكين الجديدة: زر القائمة، والشعار
   MK.header = function () {
