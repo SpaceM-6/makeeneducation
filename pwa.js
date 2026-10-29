@@ -62,3 +62,10 @@
   window.addEventListener('appinstalled', function () { deferred = null; show(false); try { localStorage.setItem('mk_app_bar', '1'); } catch (e) {} });
   document.addEventListener('DOMContentLoaded', function () { show(!standalone); bar(); });
 })();
+
+// تجربة لون البني الفاتح (لصفحات موقع ميمونة فقط، لا لصفحات مكين)
+(function () {
+  if (/^\/(makeen\/|makeen-admin|student\.html|teacher-panel|research|room)/.test(location.pathname)) return;
+  try { if (!/[?&]try=(brown|off)/.test(location.search) && localStorage.getItem('mn_tone_try') !== '1') return; } catch (e) { return; }
+  var s = document.createElement('script'); s.src = '/js/tone-try.js'; (document.head || document.documentElement).appendChild(s);
+})();
