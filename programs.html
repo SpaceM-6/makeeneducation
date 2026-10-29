@@ -831,7 +831,7 @@
     const TARGET_WHATSAPP = "201013356935";
     let PRICES_HIDDEN = true;
 
-    const ADMIN_EMAIL = 'info@maimoonah.com';
+    const ADMIN_H = '381c0ba669528286e3bac53cb3d11c7225148774a884e21ce492abf1868d6029';
     const SB_URL = 'https://arkopqzjjvrqrcaxroke.supabase.co', SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFya29wcXpqanZycXJjYXhyb2tlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzODM3MzUsImV4cCI6MjEwNzk1OTczNX0.ayR8IjhhlrrBIx-O2-fTvDlyc9Ax3w_JIoYrZ1LztR4';
     let _sb = null;
     function _loadSB() {
@@ -841,7 +841,7 @@
         sc.onload = () => { _sb = window.supabase.createClient(SB_URL, SB_ANON); res(_sb); }; sc.onerror = rej; document.head.appendChild(sc); });
     }
     // تظهر الأسعار للإدارة فقط
-    (async () => { try { const sb = await _loadSB(); const { data: { session } } = await sb.auth.getSession(); if (session && (session.user.email || '').toLowerCase() === ADMIN_EMAIL) PRICES_HIDDEN = false; } catch (e) {} })();
+    (async () => { try { const sb = await _loadSB(); const { data: { session } } = await sb.auth.getSession(); if (session) { const h = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode((session.user.email || '').toLowerCase())))).map(b => b.toString(16).padStart(2, '0')).join(''); if (h === ADMIN_H) PRICES_HIDDEN = false; } } catch (e) {} })();
         function switchProgramTab(type) {
       document.getElementById('tabAdultsBtn').classList.remove('active');
       document.getElementById('tabKidsBtn').classList.remove('active');
