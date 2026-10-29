@@ -79,3 +79,5 @@ footer.mk-foot{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 .mk-book b{font-size:13.5px;line-height:1.6}.mk-book small{font-size:12px;color:#8A6A1F}
 
 .mk-box[data-item] > .mn-acts{margin-top:16px}
+
+.mk-fname{font-size:13.5px;color:#166534;font-weight:700;margin-top:6px;word-break:break-all}
