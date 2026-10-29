@@ -69,4 +69,5 @@
   if (/[?&]from=makeen/.test(location.search)) return;
   try { localStorage.removeItem('mn_tone_try'); localStorage.removeItem('mn_tone_try_on'); } catch (e) {}
   var s = document.createElement('script'); s.src = '/js/tone.js?v=1'; (document.head || document.documentElement).appendChild(s);
+  try { if (/[?&]try=(sky|off)/.test(location.search) || localStorage.getItem('mn_sky_try') === '1') { var k = document.createElement('script'); k.src = '/js/sky-try.js?v=1'; (document.head || document.documentElement).appendChild(k); } } catch (e) {}
 })();
