@@ -148,8 +148,11 @@
 
     /* Hero Section */
     .company-hero {
-      background: linear-gradient(135deg, rgba(18, 53, 91, 0.92) 0%, rgba(30, 58, 138, 0.82) 100%),
-                  url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
+      /* نصفان: طالب على اليمين وطالبة على اليسار، تحت تظليل كحلي */
+      background: linear-gradient(135deg, rgba(18, 53, 91, 0.86) 0%, rgba(30, 58, 138, 0.74) 100%),
+                  url('assets/hero-boy.jpg') right 70% / 50% 100% no-repeat,
+                  url('assets/hero-girl.jpg') left 70% / 50% 100% no-repeat,
+                  #12355B;
       color: var(--white);
       padding: 50px 5%;
       text-align: center;
@@ -157,6 +160,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    @media (max-width: 760px) {
+      .company-hero {
+        background: linear-gradient(180deg, rgba(18, 53, 91, 0.84) 0%, rgba(30, 58, 138, 0.76) 100%),
+                    url('assets/hero-boy.jpg') 78% top / auto 50% no-repeat,
+                    url('assets/hero-girl.jpg') 78% bottom / auto 50% no-repeat,
+                    #12355B;
+      }
     }
 
     .main-hero-logo {
