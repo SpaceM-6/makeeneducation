@@ -559,6 +559,15 @@
     .slot-row label { font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; margin:0; flex:1; }
     .slot-row input[type=time] { width:130px; padding:6px 8px; border:1px solid #CBD5E1; border-radius:6px; font:inherit; direction:ltr; }
     .slot-row input[type=time]:disabled { opacity:.35; }
+    .mode-btns { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .mode-btn { display:flex; flex-direction:column; align-items:center; gap:2px; padding:14px 8px; border:2px solid #E2E8F0; border-radius:14px; background:#fff; cursor:pointer; font-family:inherit; font-size:22px; }
+    .mode-btn b { font-size:16px; color:var(--navy-dark); } .mode-btn small { font-size:12.5px; color:var(--text-muted); }
+    .mode-btn.on { border-color:var(--navy-dark); background:#EEF2F7; }
+    .grp-card { border:1.5px solid #E8DCC0; background:#FFFDF8; border-radius:12px; padding:12px; margin-top:10px; }
+    .grp-card h4 { margin:0 0 4px; color:var(--navy-dark); font-size:16px; } .grp-card p { margin:2px 0; font-size:14px; }
+    .grp-card .seats { display:inline-block; background:#DCFCE7; color:#166534; border-radius:999px; padding:0 10px; font-size:12.5px; font-weight:800; }
+    .grp-card .seats.full { background:#FEE2E2; color:#991B1B; }
+    .grp-picked { background:#EEF2F7; border:1.5px solid var(--navy-dark); border-radius:10px; padding:10px 12px; margin-bottom:12px; font-weight:700; color:var(--navy-dark); line-height:1.9; }
     .slot-row .tp { display:flex; align-items:center; gap:8px; flex:0 0 auto; }
     .slot-row .tp-hm { display:inline-flex; align-items:center; gap:3px; }
     .slot-row .tp select { padding:6px 4px; border:1px solid #CBD5E1; border-radius:6px; font:inherit; font-size:15px; width:auto; min-width:52px; background:#fff; }
@@ -649,9 +658,15 @@
             <option value="sponsor">التسجيل لشخص آخر (ابن/ابنة/صديق)</option>
           </select>
         </div>
+      <div id="modeChooser" hidden>
+        <p style="font-weight:800;color:var(--navy-dark);text-align:center;margin:10px 0 8px">اختر/ي طريقة الدراسة:</p>
+        <div class="mode-btns"><button type="button" class="mode-btn" data-mode="group">👥<b>حلقة جماعية</b><small>مع مجموعة بمواعيد ثابتة</small></button><button type="button" class="mode-btn" data-mode="single">👤<b>حصص فردية</b><small>بمواعيد تختارها أنت</small></button></div>
+        <div id="groupList"></div>
+      </div>
       <div id="bookingOptionsContainer"></div>
 
       <form id="programBookingForm" style="display: none; margin-top: 20px; background: #F8FAFC; padding: 15px; border-radius: 8px; border: 1px solid #E2E8F0;">
+        <div class="grp-picked" id="groupPicked" hidden></div>
         <h4 id="selectedPlanTitle" style="color: var(--navy-dark); margin-bottom: 12px; font-size: 15px;"></h4>
         
 
@@ -950,7 +965,69 @@
         `;
       }
       setInquiryMode(PRICES_HIDDEN, currentProgram);
+      studyModeInit(id);
       document.getElementById('programModal').style.display = 'flex';
+    }
+
+    // ===== الحلقات الجماعية: برامج يختار فيها الطالب أولًا جماعي أو فردي =====
+    const GROUP_PROGS = [2, 3, 6, 7, 8, 12, 13, 14, 15, 16, 17, 18];
+    let STUDY_MODE = 'single', GROUP = null;
+    const DAYS_AR = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+    function grpTimes(g) { try { return window.MNClasses ? MNClasses.slotsText(g.slots, g.tz || 'Africa/Cairo', USER_TZ) : g.slots.map((x) => DAYS_AR[x.dow] + ' ' + x.time).join('، '); } catch (e) { return ''; } }
+    function studyModeInit(id) {
+      STUDY_MODE = 'single'; GROUP = null;
+      const ch = document.getElementById('modeChooser'), form = document.getElementById('programBookingForm'), cont = document.getElementById('bookingOptionsContainer');
+      document.getElementById('groupPicked').hidden = true; document.getElementById('groupList').innerHTML = '';
+      document.querySelectorAll('.mode-btn').forEach((b) => b.classList.remove('on'));
+      if (!GROUP_PROGS.includes(id)) { ch.hidden = true; return; }
+      ch.hidden = false; cont.dataset.wasShown = cont.style.display; form.dataset.wasShown = form.style.display;
+      cont.style.display = 'none'; form.style.display = 'none';
+    }
+    document.addEventListener('click', (e) => {
+      const b = e.target.closest && e.target.closest('.mode-btn'); if (!b) return;
+      document.querySelectorAll('.mode-btn').forEach((x) => x.classList.toggle('on', x === b));
+      const form = document.getElementById('programBookingForm'), cont = document.getElementById('bookingOptionsContainer');
+      if (b.dataset.mode === 'single') {
+        STUDY_MODE = 'single'; GROUP = null; document.getElementById('groupList').innerHTML = ''; document.getElementById('groupPicked').hidden = true;
+        cont.style.display = ''; form.style.display = form.dataset.wasShown || 'none';
+        const prog = programsData.find((p) => p.id === selectedProgramIDGlobal);
+        if (PRICES_HIDDEN) setInquiryMode(true, prog);
+        return;
+      }
+      STUDY_MODE = 'group'; cont.style.display = 'none'; form.style.display = 'none';
+      loadGroups(selectedProgramIDGlobal);
+    });
+    async function loadGroups(pid) {
+      const box = document.getElementById('groupList');
+      box.innerHTML = '<p style="text-align:center;color:var(--text-muted)">جارٍ تحميل الحلقات…</p>';
+      let list = [];
+      try {
+        const r = await fetch(SB_URL + '/rest/v1/rpc/mk_groups_open', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON }, body: JSON.stringify({ p_program: pid }) });
+        if (r.ok) list = await r.json();
+      } catch (e) {}
+      window._GROUPS = Array.isArray(list) ? list : [];
+      if (!window._GROUPS.length) {
+        box.innerHTML = `<div class="grp-card"><h4>لا توجد حلقة جماعية مفتوحة الآن لهذا البرنامج</h4><p>سجّل/ي اهتمامك ومواعيدك المناسبة، فنضمّك إلى أول حلقة تُفتح بما يناسبك بإذن الله.</p><button type="button" class="btn-gold" style="margin-top:8px" onclick="pickGroup(-1)">سجّل/ي اهتمامك بالحلقة الجماعية</button></div>`;
+        return;
+      }
+      box.innerHTML = window._GROUPS.map((g, i) => `<div class="grp-card"><h4>${g.title.replace(/</g, '&lt;')}</h4>
+        <p>👥 ${String(g.category || '').replace(/</g, '&lt;')}${g.teacher ? ' · المعلم/ة: ' + (g.teacher_id ? `<a href="https://maimoonah.com/makeen/teacher.html?id=${g.teacher_id}" target="_blank" rel="noopener">${g.teacher}</a>` : g.teacher) : ''}</p>
+        <p>🕒 ${grpTimes(g)} <small>(بتوقيتك)</small></p>${g.starts_on ? `<p>📅 تبدأ: ${g.starts_on}</p>` : ''}${g.note ? `<p>${String(g.note).replace(/</g, '&lt;')}</p>` : ''}
+        <p><span class="seats${g.seats_left ? '' : ' full'}">${g.seats_left ? 'المقاعد المتبقية: ' + g.seats_left : 'اكتملت المقاعد'}</span></p>
+        ${g.seats_left ? `<button type="button" class="btn-gold" style="margin-top:8px" onclick="pickGroup(${i})">الانضمام إلى هذه الحلقة</button>` : ''}</div>`).join('') +
+        `<p style="text-align:center;margin-top:10px;font-size:13.5px"><a href="javascript:void 0" onclick="pickGroup(-1)">لا يناسبني موعد؟ سجّل/ي اهتمامك بحلقة أخرى</a></p>`;
+    }
+    function pickGroup(i) {
+      GROUP = i >= 0 ? window._GROUPS[i] : null;
+      const prog = programsData.find((p) => p.id === selectedProgramIDGlobal);
+      setInquiryMode(true, prog);
+      const form = document.getElementById('programBookingForm');
+      selectedPlanNameGlobal = GROUP ? 'حلقة جماعية: ' + GROUP.title : 'حلقة جماعية — قائمة الانتظار';
+      document.getElementById('daysSelectionGroup').style.display = GROUP ? 'none' : 'block';
+      syncSlotUI();
+      const pk = document.getElementById('groupPicked'); pk.hidden = false;
+      pk.innerHTML = GROUP ? `👥 الحلقة المختارة: «${GROUP.title.replace(/</g, '&lt;')}»<br><small>${grpTimes(GROUP)} (بتوقيتك)${GROUP.teacher ? ' · ' + GROUP.teacher : ''}</small>` : '👥 تسجيل اهتمام بحلقة جماعية: اختر/ي أدناه الأيام والساعات المناسبة لك.';
+      form.style.display = 'block'; form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     const GULF_CUR = {'السعودية':['SAR','ريال سعودي'],'الإمارات':['AED','درهم إماراتي'],'الكويت':['KWD','دينار كويتي'],
@@ -1215,6 +1292,9 @@
       const p = { program: prog.title || '', plan: PRICES_HIDDEN ? '' : selectedPlanNameGlobal, name: v('p_name'), age: v('p_age'), phone: v('p_phone'),
         email: v('p_email').toLowerCase(), nationality: v('p_nationality'), country: v('p_country'), details,
         slots: slotsVisible() ? bookingSlots().filter((x) => x.time).map((x) => ({ dow: x.dow, time: x.time })) : [], tz: USER_TZ };
+      if (STUDY_MODE === 'group' && GROUP) p.group_id = GROUP.id;
+      if (STUDY_MODE === 'group') p.plan = selectedPlanNameGlobal;
+      if (STUDY_MODE === 'group') details['نوع الدراسة'] = GROUP ? 'حلقة جماعية: ' + GROUP.title : 'حلقة جماعية (قائمة الانتظار)';
       try {
         fetch(SB_URL + '/rest/v1/rpc/request_subscription', { method: 'POST', keepalive: true,
           headers: { 'Content-Type': 'application/json', apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON }, body: JSON.stringify({ p }) }).catch(() => {});
@@ -1267,6 +1347,7 @@
         if (document.getElementById('p_health').value.trim()) m += `• ظروف صحية خاصة: ${document.getElementById('p_health').value.trim()}\n`;
         if (days) m += `• الأيام المفضلة: ${days}\n`;
         m += slotsVisible() ? `• مواعيد الحصص: ${timeSlot}` : `• الفترة المفضلة: ${timeSlot}`;
+        if (STUDY_MODE === 'group') m += GROUP ? `\n• نوع الدراسة: حلقة جماعية «${GROUP.title}» (${grpTimes(GROUP)})` : `\n• نوع الدراسة: حلقة جماعية (قائمة الانتظار)`;
         window.open(`https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(m)}`, '_blank');
         closeModal();
         return;
