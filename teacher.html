@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: blob: https://*.supabase.co https://cdn.jsdelivr.net https://maimoonah.com; connect-src 'self' https://*.supabase.co https://maimoonah.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <script> if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +11,14 @@
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="mk.css?v=500ce12e">
-<script src="mk-common.js?v=aeba744c"></script>
+<script src="mk-common.js?v=78933648"></script>
+<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/items.js" defer></script>
+<script src="https://maimoonah.com/js/app.js"></script>
+<script src="https://maimoonah.com/js/dailypick.js"></script>
+<script src="https://maimoonah.com/js/daily.js" defer></script>
 </head>
-<body data-app-bar>
+<body data-daily-popup data-app-bar>
 <script>document.write(MK.header('teachers.html'))</script>
 <main class="mk-wrap" id="main"><p class="mk-msg">جارٍ التحميل…</p></main>
 <footer class="mk-foot">© شركة مكين للاستشارات والتدريب والتعليم</footer>

@@ -61,20 +61,23 @@
   var IC = function (d) { return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
   MK.MENU = [
     ['#install', 'تثبيت تطبيق MakeenEducation', IC('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/>'), 'install'],
+    ['today.html', 'يومي: مواقيت الصلاة والورد', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'), 'flag'],
+    [MK.MAIN + '/student.html', 'لوحة الطالب', IC('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h3v3H8z"/>'), 'top'],
     ['index.html', 'الرئيسية', IC('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],
     ['index.html#about-makeen-section', 'من نحن وعن شركة مكين', IC('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>')],
     ['programs.html', 'البرامج والتسجيل', IC('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/>')],
     ['teachers.html', 'المعلمون والمعلمات', IC('<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M16 4.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z"/>')],
     ['join.html', 'انضم/ي إلى كادر مكين', IC('<circle cx="10" cy="8" r="4"/><path d="M3 21c0-4 3-6.5 7-6.5"/><path d="M18 14v6M15 17h6"/>'), 'gold'],
-    [MK.MAIN + '/student.html', 'دخول الطلاب', IC('<path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/>')],
     [MK.MAIN + '/messages.html', 'مراسلة الإدارة', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>')],
     ['https://wa.me/201013356935', 'تواصل معنا عبر الواتساب', IC('<path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.4z"/><path d="M9.5 9.5c.3 1.7 1.8 3.4 3.6 3.9l1-1 1.6.8"/>'), 'ext'],
     [MK.MAIN + '/', 'موقع أ/ ميمونة', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>')]
   ];
   var CSS = '.mk-menu-btn{width:44px;height:44px;border-radius:10px;border:1.5px solid #F3D37A;background:transparent;color:#F3D37A;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}' +
-    '.mk-dov{position:fixed;inset:0;z-index:3000;display:none;justify-content:flex-start;align-items:stretch;background:rgba(18,53,91,.55)}.mk-dov.open{display:flex}' +
-    '.mk-drawer{width:50vw;max-width:480px;min-width:230px;height:100%;background:#FFFDF8 url("assets/beige-texture.jpg") repeat;border-left:3px solid #F3D37A;box-shadow:-8px 0 30px rgba(0,0,0,.25);padding:14px 14px 24px;overflow-y:auto;animation:mkDrIn .22s ease-out;font-family:Cairo,Tahoma,sans-serif;direction:rtl}' +
-    '@keyframes mkDrIn{from{transform:translateX(100%)}to{transform:none}}' +
+    '.mk-dov{position:fixed;inset:0;z-index:3000;display:none;justify-content:flex-end;align-items:stretch;background:rgba(18,53,91,.55)}.mk-dov.open{display:flex}' +
+    '.mk-drawer{width:50vw;max-width:480px;min-width:230px;height:100%;background:#FFFDF8 url("assets/beige-texture.jpg") repeat;border-right:3px solid #F3D37A;box-shadow:8px 0 30px rgba(0,0,0,.25);padding:14px 14px 24px;overflow-y:auto;animation:mkDrIn .22s ease-out;font-family:Cairo,Tahoma,sans-serif;direction:rtl}' +
+    '@keyframes mkDrIn{from{transform:translateX(-100%)}to{transform:none}}' +
+    '.mk-drawer a.flag{background:#12355B;color:#F3D37A;border-radius:12px;border:0;margin:4px 0}.mk-drawer a.flag small{display:block;color:#CBD5E1;font-weight:600;font-size:12px}.mk-drawer a.flag .fl{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid #F3D37A;display:inline-flex;align-items:center;justify-content:center;overflow:hidden}' +
+    '.mk-drawer a.top{font-weight:900}' +
     '.mk-dhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #F3D37A;padding-bottom:10px;margin-bottom:8px}' +
     '.mk-dhead strong{color:#12355B;font-size:17px;display:flex;align-items:center;gap:8px}.mk-dhead img{width:36px;height:36px;border-radius:50%;border:2px solid #F3D37A}' +
     '.mk-dx{background:#12355B;color:#fff;border:none;border-radius:8px;padding:4px 10px;font:700 14px Cairo,sans-serif;cursor:pointer}' +
@@ -90,7 +93,8 @@
     var ov = document.createElement('div'); ov.className = 'mk-dov'; ov.id = 'mkDrawer';
     ov.innerHTML = '<nav class="mk-drawer" aria-label="القائمة"><div class="mk-dhead"><strong><img src="assets/makeen-logo.jpeg" alt="">القائمة</strong><button type="button" class="mk-dx">✕ إغلاق</button></div>' +
       MK.MENU.map(function (m) {
-        var cls = m[3] === 'gold' ? 'gold' : m[3] === 'install' ? 'inst' : (m[0] === here ? 'cur' : '');
+        var cls = m[3] === 'gold' ? 'gold' : m[3] === 'install' ? 'inst' : m[3] === 'flag' ? 'flag' : m[3] === 'top' ? 'top' + (m[0] === here ? ' cur' : '') : (m[0] === here ? 'cur' : '');
+        if (m[3] === 'flag') return '<a href="' + m[0] + '" class="flag" data-flag><span class="fl">' + m[2] + '</span><span><b>' + m[1] + '</b><small data-place></small></span></a>';
         return '<a href="' + m[0] + '"' + (cls ? ' class="' + cls + '"' : '') + (m[3] === 'install' ? ' data-install hidden' : '') + (m[3] === 'ext' ? ' target="_blank" rel="noopener"' : '') + (m[0] === here ? ' aria-current="page"' : '') + '>' + m[2] + m[1] + '</a>';
       }).join('') + '</nav>';
     ov.onclick = function (e) {
@@ -104,7 +108,17 @@
     var standalone = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
     if (!standalone) setTimeout(function () { var i = ov.querySelector('[data-install]'); if (i && (window.mnInstallApp)) i.hidden = false; }, 300);
   }
-  MK.openDrawer = function () { ensureDrawer(); document.getElementById('mkDrawer').classList.add('open'); };
+  // علم الدولة والمدينة في أول القائمة (من بيانات الطالب في هذا الجهاز)
+  function renderFlagItem() {
+    var a = document.querySelector('#mkDrawer [data-flag]'); if (!a) return;
+    var p = window.MNApp && MNApp.profile && MNApp.profile();
+    if (p && p.done && MNApp.flagHtml) {
+      a.querySelector('.fl').innerHTML = MNApp.flagHtml(p.cc, 26);
+      a.querySelector('[data-place]').textContent = (p.city || '') + (p.country && p.country !== 'دولة أخرى' ? '، ' + p.country : '');
+    } else a.querySelector('[data-place]').textContent = 'حدّد/ي دولتك ومدينتك';
+  }
+  document.addEventListener('mn-profile', renderFlagItem);
+  MK.openDrawer = function () { ensureDrawer(); renderFlagItem(); document.getElementById('mkDrawer').classList.add('open'); };
   MK.closeDrawer = function () { var d = document.getElementById('mkDrawer'); if (d) d.classList.remove('open'); };
   window.mkOpenDrawer = MK.openDrawer;
   MK.MENU_ICON = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';

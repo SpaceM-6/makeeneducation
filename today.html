@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://cdn.jsdelivr.net https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: blob: https://cdn.jsdelivr.net https://maimoonah.com; connect-src 'self' https://*.supabase.co https://maimoonah.com; worker-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>يومي | تطبيق MakeenEducation</title>
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
+<link rel="icon" href="https://maimoonah.com/favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="https://maimoonah.com/favicon-96.png"><link rel="icon" type="image/png" sizes="192x192" href="https://maimoonah.com/favicon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#12355B">
+<style>
+  :root { --navy:#12355B; --gold:#F3D37A; --gold2:#A8822F; --ink:#2B2416; --brown:#6B5320; --line:#DCC79A; --cream:#FBF6EA; }
+  * { box-sizing:border-box; }
+  html, body { overflow-x:clip; max-width:100%; }
+  body { margin:0; background:#F6EEE2 url('assets/beige-texture.jpg') repeat center top; color:var(--ink); font-family:Cairo, Tahoma, sans-serif; line-height:1.8; }
+  header { background:var(--navy); border-bottom:3px solid var(--gold); padding:8px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; position:sticky; top:0; z-index:20; }
+  header a.home { color:var(--gold); text-decoration:none; font-weight:800; }
+  header img { width:44px; height:44px; border-radius:50%; border:2px solid var(--gold); display:block; }
+  main { max-width:620px; margin:14px auto; padding:0 14px 50px; }
+  .card { background:rgba(255,253,248,.96); border:1px solid var(--line); border-radius:16px; padding:16px; margin-bottom:12px; }
+  h2 { color:var(--navy); font-size:18px; margin:0 0 6px; display:flex; align-items:center; gap:8px; }
+  .muted { color:var(--brown); font-size:13.5px; }
+  .hello { background:var(--navy); color:#fff; border:1px solid var(--gold); border-radius:16px; padding:16px; margin-bottom:12px; position:relative; overflow:hidden; }
+  .hello h1 { color:var(--gold); font-size:21px; margin:0; }
+  .hello .dates { color:#E2E8F0; font-size:14px; margin-top:2px; }
+  .hello .place { display:inline-flex; align-items:center; gap:6px; margin-top:6px; background:rgba(255,255,255,.1); border-radius:999px; padding:2px 10px 2px 4px; font-size:13.5px; color:#fff; }
+  .next { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:12px; background:rgba(243,211,122,.14); border:1px solid rgba(243,211,122,.5); border-radius:12px; padding:10px 12px; }
+  .next b { color:var(--gold); font-size:18px; } .next .cd { font-size:22px; font-weight:800; color:#fff; direction:ltr; font-variant-numeric:tabular-nums; }
+  .pt { list-style:none; margin:0; padding:0; }
+  .pt li { display:flex; align-items:center; gap:10px; padding:9px 4px; border-bottom:1px dashed #E8DCC0; }
+  .pt li:last-child { border-bottom:0; }
+  .pt li .n { flex:1; font-weight:700; color:var(--navy); } .pt li .t { font-weight:800; font-size:17px; color:var(--ink); }
+  .pt li.now { background:#FFF7E0; border-radius:10px; } .pt li.now .n::after { content:' • التالية'; color:var(--gold2); font-size:12.5px; }
+  .pt li.sun .n, .pt li.sun .t { color:#8A7A55; font-weight:600; }
+  .bell { width:38px; height:34px; border-radius:10px; border:1.5px solid var(--line); background:#fff; cursor:pointer; font-size:16px; line-height:1; }
+  .bell.on { background:var(--navy); border-color:var(--navy); }
+  .btn { display:inline-block; font:inherit; font-weight:800; cursor:pointer; text-decoration:none; text-align:center; background:var(--navy); color:var(--gold); border:0; border-radius:999px; padding:10px 18px; }
+  .btn.ghost { background:#fff; color:var(--navy); border:1.5px solid var(--navy); }
+  .btn.gold { background:var(--gold); color:var(--navy); }
+  .btn.block { display:block; width:100%; }
+  .btn:disabled { opacity:.55; cursor:default; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; } .row > * { flex:1 1 140px; }
+  select, input[type=time] { width:100%; padding:10px; border:1.5px solid var(--line); border-radius:10px; font:inherit; background:#fff; color:var(--ink); }
+  label.f { display:block; font-weight:800; color:var(--navy); font-size:14px; margin:10px 0 4px; }
+  .wird-range { background:var(--cream); border:1px solid #E8DCC0; border-radius:12px; padding:12px; text-align:center; margin:8px 0; }
+  .wird-range b { display:block; color:var(--navy); font-size:19px; }
+  .prog { height:10px; background:#EFE4C8; border-radius:9px; overflow:hidden; margin-top:6px; } .prog i { display:block; height:100%; background:linear-gradient(90deg, var(--gold2), var(--gold)); }
+  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; }
+  .stat { background:var(--cream); border:1px solid #E8DCC0; border-radius:12px; padding:8px; text-align:center; } .stat b { display:block; color:var(--navy); font-size:19px; } .stat small { color:var(--brown); font-size:12.5px; }
+  .switch { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px dashed #E8DCC0; font-weight:700; color:var(--navy); }
+  .switch:last-of-type { border-bottom:0; }
+  .tg { position:relative; width:48px; height:28px; flex:0 0 auto; } .tg input { opacity:0; width:0; height:0; }
+  .tg span { position:absolute; inset:0; background:#D6CCB4; border-radius:999px; transition:.2s; cursor:pointer; } .tg span::before { content:''; position:absolute; width:22px; height:22px; right:3px; top:3px; background:#fff; border-radius:50%; transition:.2s; }
+  .tg input:checked + span { background:var(--navy); } .tg input:checked + span::before { transform:translateX(-20px); }
+  .state { border-radius:12px; padding:10px 12px; font-weight:700; font-size:14.5px; margin:6px 0 10px; }
+  .state.ok { background:#DCFCE7; color:#166534; } .state.warn { background:#FFF7E6; color:#7A5A12; border:1px solid #F3D37A; } .state.bad { background:#FEF2F2; color:#991B1B; }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:14.5px; } .kv span { color:var(--brown); } .kv b { color:var(--navy); }
+  .msg { font-size:14px; margin-top:6px; color:var(--navy); min-height:1em; }
+  details summary { cursor:pointer; color:var(--gold2); font-weight:800; }
+  .empty { text-align:center; padding:28px 16px; }
+  .mk-brand { display:flex; align-items:center; gap:8px; color:var(--gold); text-decoration:none; font-weight:800; }
+</style>
+<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/items.js" defer></script>
+<script src="https://maimoonah.com/js/app.js"></script>
+<script src="https://maimoonah.com/js/dailypick.js"></script>
+<script src="https://maimoonah.com/js/daily.js" defer></script>
+<script src="mk-common.js?v=78933648"></script>
+</head>
+<body data-daily-popup data-app-bar>
+<header class="mk-top"><a class="mk-brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>شركة مكين</span></a><button type="button" class="mk-menu-btn" onclick="mkOpenDrawer()" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></header>
+<main id="main">
+  <div class="card empty" id="noProfile" style="display:none">
+    <h2 style="justify-content:center">مرحبًا بك في تطبيق MakeenEducation</h2>
+    <p class="muted">لنجهّز لك مواقيت الصلاة في مدينتك وتذكير وردك القرآني.</p>
+    <button class="btn" onclick="MNApp.onboard({ onDone: () => location.reload() })">لنبدأ</button>
+  </div>
+
+  <div id="app" style="display:none">
+    <section class="hello">
+      <h1 id="greet"></h1>
+      <div class="dates" id="dates"></div>
+      <div class="place" id="place"></div>
+      <div class="next" id="nextBox"><div><small style="color:#E2E8F0">الصلاة التالية</small><br><b id="nextName"></b> <span id="nextAt" style="color:#fff"></span></div><div class="cd" id="cd"></div></div>
+    </section>
+
+    <section id="daily"><div id="dailyBox" hidden></div></section>
+
+    <section class="card" id="prayers">
+      <h2>🕌 مواقيت الصلاة اليوم</h2>
+      <ul class="pt" id="pt"></ul>
+      <p class="muted" style="margin:8px 0 0">الجرس 🔔 يعني أن التنبيه مفعّل عند الأذان. المواقيت محسوبة فلكيًا على طريقة <span id="methodName"></span>، وقد تختلف دقيقة أو دقيقتين عن تقويم مسجدك.</p>
+    </section>
+
+    <section class="card" id="wird">
+      <h2>📖 وردي القرآني</h2>
+      <div class="wird-range" id="wirdRange"></div>
+      <button class="btn block" id="wirdDone"></button>
+      <div class="stats">
+        <div class="stat"><b id="stStreak">٠</b><small>أيام متتالية</small></div>
+        <div class="stat"><b id="stPage">١</b><small>الصفحة الحالية</small></div>
+        <div class="stat"><b id="stKh">٠</b><small>ختمات</small></div>
+      </div>
+      <div class="prog" title="التقدم في الختمة"><i id="wirdProg" style="width:0"></i></div>
+      <p class="muted" style="margin:4px 0 0" id="wirdPct"></p>
+      <div class="row" style="margin-top:6px">
+        <div><label class="f" for="wPages">مقدار الورد اليومي</label>
+          <select id="wPages"><option value="1">صفحة واحدة</option><option value="2">صفحتان</option><option value="3">٣ صفحات</option><option value="4">٤ صفحات</option><option value="5">٥ صفحات</option><option value="10">نصف جزء (١٠ صفحات)</option><option value="20">جزء كامل (٢٠ صفحة)</option><option value="40">جزءان (٤٠ صفحة)</option></select></div>
+        <div><label class="f" for="wTime">وقت التذكير</label><input type="time" id="wTime" value="21:00"></div>
+      </div>
+      <div class="switch" style="margin-top:6px"><span>تذكيري بالورد كل يوم</span><label class="tg"><input type="checkbox" id="wOn"><span></span></label></div>
+      <details style="margin-top:6px"><summary>تغيير موضع البدء</summary>
+        <div class="row" style="margin-top:6px"><div><label class="f" for="wFrom">أبدأ من الصفحة</label><select id="wFrom"></select></div></div>
+      </details>
+    </section>
+
+    <section class="card" id="notif">
+      <h2>🔔 التنبيهات</h2>
+      <div id="nState"></div>
+      <div class="row" id="nBtns"></div>
+      <div class="switch" style="margin-top:8px"><span>تنبيهات مواقيت الصلاة</span><label class="tg"><input type="checkbox" id="nPrayer"><span></span></label></div>
+      <div class="switch"><span>تذكير الورد القرآني</span><label class="tg"><input type="checkbox" id="nWird"><span></span></label></div>
+      <div class="switch"><span>زادك اليومي (٣ مرات في اليوم)</span><label class="tg"><input type="checkbox" id="nDaily"><span></span></label></div>
+      <div class="switch"><span>تذكير الحصص وانتهاء الاشتراك</span><label class="tg"><input type="checkbox" id="nClasses"><span></span></label></div>
+      <p class="muted" style="margin:6px 0 0">تذكير الحصص يصل بعد الدخول إلى <a href="https://maimoonah.com/student.html" style="color:var(--gold2)">لوحة الطالب</a> من هذا الجهاز مرة واحدة.</p>
+      <div class="msg" id="nMsg"></div>
+    </section>
+
+    <section class="card">
+      <h2>⚙️ طريقة الحساب</h2>
+      <div class="row">
+        <div><label class="f" for="pMethod">الجهة المعتمدة</label><select id="pMethod"></select></div>
+        <div><label class="f" for="pAsr">وقت العصر</label><select id="pAsr"><option value="shafii">الجمهور (ظل المثل)</option><option value="hanafi">الحنفية (ظل المثلين)</option></select></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>👤 بياناتي</h2>
+      <div class="kv" id="me"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn ghost" onclick="MNApp.onboard({ edit: true })">تعديل بياناتي</button>
+        <a class="btn" href="https://maimoonah.com/student.html">لوحة متابعة دراستي</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="https://maimoonah.com/js/prayer.js"></script>
+<script src="https://maimoonah.com/js/places.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const ar = (n) => String(n).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d]);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const FIVE = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+  let P = MNApp.profile(), T = null, T2 = null;
+  const save = () => { MNApp.saveProfile(P); };
+  const G = (m, f) => P.gender === 'f' ? f : P.gender === 'm' ? m : m + '/ي';
+  const todayStr = () => { const x = MNPrayer.localYMD(new Date(), P.tz); return `${x.y}-${String(x.m).padStart(2, '0')}-${String(x.d).padStart(2, '0')}`; };
+  const hm = (d) => d.toLocaleTimeString('ar-EG', { timeZone: P.tz, hour: 'numeric', minute: '2-digit' });
+
+  function calc() {
+    const o = { lat: P.lat, lng: P.lng, tz: P.tz, method: P.prayer.method, asr: P.prayer.asr };
+    T = MNPrayer.times(o, new Date()); T2 = MNPrayer.times(o, new Date(Date.now() + 86400000));
+  }
+  function greet() {
+    const h = Number(new Date().toLocaleString('en-US', { timeZone: P.tz, hour: 'numeric', hourCycle: 'h23' }));
+    const first = (P.name || '').split(/\s+/)[0];
+    const part = h < 4 ? 'طاب ليلك' : h < 12 ? 'صباح الخير' : h < 17 ? 'طاب يومك' : 'مساء الخير';
+    $('greet').textContent = `${part} يا ${first}`;
+    let hijri = ''; try { hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric', timeZone: P.tz }).format(new Date()); } catch (e) {}
+    const greg = new Intl.DateTimeFormat('ar-EG', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: P.tz }).format(new Date());
+    $('dates').textContent = greg + (hijri ? ' — ' + hijri : '');
+    $('place').innerHTML = MNApp.flagHtml(P.cc, 20) + '<span>' + esc(P.city || '') + (P.country && P.country !== 'دولة أخرى' ? '، ' + esc(P.country) : '') + '</span>';
+  }
+  function renderPrayers() {
+    calc();
+    const now = Date.now();
+    const all = FIVE.map((k) => ({ k, at: T[k] })).concat(FIVE.map((k) => ({ k, at: T2[k], tomorrow: true })));
+    const nx = all.find((x) => x.at.getTime() > now);
+    const friday = new Date(T.date + 'T12:00:00Z').getUTCDay() === 5;
+    const name = (k) => k === 'dhuhr' && friday && P.gender !== 'f' ? 'الجمعة' : MNPrayer.NAMES[k];
+    $('pt').innerHTML = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'].map((k) => {
+      const on = P.prayer.on ? P.prayer.on[k] !== false : true;
+      const isNow = nx && !nx.tomorrow && nx.k === k;
+      return `<li class="${k === 'sunrise' ? 'sun' : ''}${isNow ? ' now' : ''}"><span class="n">${name(k)}</span><span class="t">${hm(T[k])}</span>${k === 'sunrise' ? '<span style="width:38px"></span>' : `<button class="bell${on ? ' on' : ''}" data-k="${k}" aria-label="تنبيه ${MNPrayer.NAMES[k]}" aria-pressed="${on}">${on ? '🔔' : '🔕'}</button>`}</li>`;
+    }).join('');
+    $('pt').querySelectorAll('.bell').forEach((b) => b.onclick = () => { P.prayer.on = P.prayer.on || {}; P.prayer.on[b.dataset.k] = !(P.prayer.on[b.dataset.k] !== false); save(); renderPrayers(); });
+    $('methodName').textContent = (MNPrayer.METHODS[P.prayer.method] || MNPrayer.METHODS.mwl).name;
+    window._next = nx; $('nextName').textContent = nx ? name(nx.k) : ''; $('nextAt').textContent = nx ? (nx.tomorrow ? 'غدًا ' : '') + hm(nx.at) : '';
+    tickCd();
+  }
+  function tickCd() {
+    const nx = window._next; if (!nx) return;
+    let s = Math.max(0, Math.round((nx.at.getTime() - Date.now()) / 1000));
+    if (s === 0) { setTimeout(() => { renderPrayers(); greet(); }, 1500); }
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
+    $('cd').textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')}`;
+  }
+
+  function renderWird() {
+    const w = P.wird = Object.assign({ on: true, time: '21:00', pages: 2, page: 1, streak: 0, khatmas: 0 }, P.wird || {});
+    const n = Number(w.pages) || 1, from = Math.min(604, Math.max(1, Number(w.page) || 1)), to = Math.min(604, from + n - 1);
+    const doneToday = w.last === todayStr();
+    $('wirdRange').innerHTML = doneToday
+      ? `<b>أحسنت${P.gender === 'f' ? 'ِ' : ''}، أتممت${P.gender === 'f' ? 'ِ' : ''} وردك اليوم ✓</b><span class="muted">وردك القادم: من صفحة ${ar(from)}${to > from ? ' إلى ' + ar(to) : ''}</span>`
+      : `<span class="muted">وردك اليوم</span><b>${to > from ? `من صفحة ${ar(from)} إلى صفحة ${ar(to)}` : `صفحة ${ar(from)}`}</b><a href="https://maimoonah.com/mushaf.html?p=${MNWirdPage(from)}" style="color:var(--gold2);font-weight:800;font-size:14px">افتح/ي المصحف على هذه الصفحة ‹</a>`.replace('افتح/ي', G('افتح', 'افتحي'));
+    $('wirdDone').textContent = doneToday ? 'تراجع: لم أُتمّه بعد' : `قرأتُ وردي اليوم ✓`;
+    $('wirdDone').className = doneToday ? 'btn ghost block' : 'btn block';
+    // السلسلة تنقطع إن مضى يوم كامل دون قراءة
+    const yest = MNClassesLite.addDays(todayStr(), -1);
+    const streak = (w.last === todayStr() || w.last === yest) ? (w.streak || 0) : 0;
+    $('stStreak').textContent = ar(streak); $('stPage').textContent = ar(from); $('stKh').textContent = ar(w.khatmas || 0);
+    $('wirdProg').style.width = ((from - 1) / 604 * 100).toFixed(1) + '%';
+    $('wirdPct').textContent = `قرأت${P.gender === 'f' ? 'ِ' : ''} ${ar(from - 1)} صفحة من ٦٠٤ في هذه الختمة` + (n ? `، وتتم الختمة بإذن الله بعد ${ar(Math.ceil((604 - from + 1) / n))} يومًا تقريبًا.` : '.');
+    $('wPages').value = String(n); $('wTime').value = w.time || '21:00'; $('wOn').checked = w.on !== false;
+    if (!$('wFrom').options.length) $('wFrom').innerHTML = Array.from({ length: 30 }, (_, j) => `<option value="${j * 20 + 2 > 2 ? j * 20 + 2 : 1}">بداية الجزء ${ar(j + 1)} (ص ${ar(j * 20 + 2 > 2 ? j * 20 + 2 : 1)})</option>`).join('');
+    $('wFrom').value = '';
+  }
+  const MNWirdPage = (n) => n; // صفحات الورد هي صفحات مصحف المدينة نفسها
+  const MNClassesLite = { addDays: (ymd, n) => { const d = new Date(ymd + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); } };
+  $('wirdDone').onclick = () => {
+    const w = P.wird, t = todayStr(), n = Number(w.pages) || 1;
+    if (w.last === t) { // تراجع
+      w.page = (Number(w.page) || 1) - n; if (w.page < 1) { w.page += 604; w.khatmas = Math.max(0, (w.khatmas || 0) - 1); }
+      w.streak = Math.max(0, (w.streak || 1) - 1); w.last = w.prevLast || null;
+    } else {
+      w.prevLast = w.last || null;
+      w.streak = (w.last === MNClassesLite.addDays(t, -1) ? (w.streak || 0) : 0) + 1;
+      w.page = (Number(w.page) || 1) + n; if (w.page > 604) { w.page = 1; w.khatmas = (w.khatmas || 0) + 1; }
+      w.last = t;
+    }
+    save(); renderWird();
+  };
+  $('wPages').onchange = () => { P.wird.pages = Number($('wPages').value); save(); renderWird(); };
+  $('wTime').onchange = () => { if ($('wTime').value) { P.wird.time = $('wTime').value; save(); } };
+  $('wOn').onchange = () => { P.wird.on = $('wOn').checked; save(); };
+  $('wFrom').onchange = () => { if ($('wFrom').value) { P.wird.page = Number($('wFrom').value); P.wird.last = null; save(); renderWird(); } };
+
+  function renderNotif() {
+    const st = MNApp.notifyState();
+    const ios = MNApp.isIOS();
+    const box = $('nState'), btns = $('nBtns');
+    const S = {
+      push: ['ok', 'التنبيهات مفعّلة، وتصلك في وقتها حتى والتطبيق مغلق.'],
+      local: ['warn', 'التنبيهات مفعّلة ما دام التطبيق مفتوحًا. وتصلك وهو مغلق فور تشغيل خادم الإشعارات.'],
+      off: ['warn', 'التنبيهات غير مفعّلة بعد.'],
+      denied: ['bad', 'الإشعارات ممنوعة لهذا الموقع من إعدادات الجوال أو المتصفح. فعّلها من الإعدادات ثم ارجع/ي هنا.'],
+      unsupported: ['bad', ios && !MNApp.standalone ? 'على الآيفون: ثبّت/ي التطبيق على الشاشة الرئيسية أولًا (زر المشاركة ثم «إضافة إلى الشاشة الرئيسية»)، ثم افتحه منها وفعّل/ي التنبيهات.' : 'هذا المتصفح لا يدعم الإشعارات.']
+    }[st];
+    box.innerHTML = `<div class="state ${S[0]}">${S[1].replace(/ارجع\/ي/g, G('ارجع', 'ارجعي')).replace(/ثبّت\/ي/g, G('ثبّت', 'ثبّتي')).replace(/فعّل\/ي/g, G('فعّل', 'فعّلي'))}</div>`;
+    btns.innerHTML = '';
+    if (st === 'off' || st === 'local') btns.innerHTML += `<button class="btn" id="nOn">${st === 'local' ? 'إعادة المحاولة' : '🔔 ' + G('فعّل', 'فعّلي') + ' التنبيهات'}</button>`;
+    if (st === 'push' || st === 'local') btns.innerHTML += `<button class="btn ghost" id="nTest">جرّب/ي إشعارًا الآن</button>`.replace('جرّب/ي', G('جرّب', 'جرّبي'));
+    const on = $('nOn'); if (on) on.onclick = async () => { on.disabled = true; on.textContent = 'جارٍ التفعيل…'; await MNApp.enableNotifications(); P = MNApp.profile(); renderNotif(); };
+    const ts = $('nTest'); if (ts) ts.onclick = async () => { ts.disabled = true; const r = await MNApp.testNotification(); ts.disabled = false; $('nMsg').textContent = { sent: 'أُرسل الإشعار، يصلك خلال ثوانٍ.', local: 'ظهر الإشعار.', wait: 'انتظر/ي دقيقة ثم جرّب/ي مرة أخرى.', no_keys: 'خادم الإشعارات لم يُشغَّل بعد.', no_device: 'لم يُسجَّل جهازك بعد، أعد/أعيدي التفعيل.', fail: 'تعذّر الإرسال الآن، حاول/ي بعد قليل.' }[r] || ''; };
+    const n = P.notify = Object.assign({ prayer: true, wird: true, classes: true }, P.notify || {});
+    $('nPrayer').checked = n.prayer !== false; $('nWird').checked = n.wird !== false; $('nDaily').checked = n.daily !== false; $('nClasses').checked = n.classes !== false;
+  }
+  ['nPrayer', 'nWird', 'nDaily', 'nClasses'].forEach((id) => $(id).onchange = () => { const k = { nPrayer: 'prayer', nWird: 'wird', nDaily: 'daily', nClasses: 'classes' }[id]; P.notify[k] = $(id).checked; save(); });
+
+  function renderMethod() {
+    $('pMethod').innerHTML = Object.entries(MNPrayer.METHODS).map(([k, m]) => `<option value="${k}">${m.name}</option>`).join('');
+    $('pMethod').value = P.prayer.method || 'mwl'; $('pAsr').value = P.prayer.asr || 'shafii';
+  }
+  $('pMethod').onchange = () => { P.prayer.method = $('pMethod').value; save(); renderPrayers(); };
+  $('pAsr').onchange = () => { P.prayer.asr = $('pAsr').value; save(); renderPrayers(); };
+
+  function renderMe() {
+    const kv = (k, v) => v ? `<span>${k}</span><b>${esc(v)}</b>` : '';
+    $('me').innerHTML = kv('الاسم', P.name) + kv('الإقامة', [P.city, P.country].filter(Boolean).join('، ')) + kv('التخصص الدراسي', P.study) + kv('التخصص المهني', P.job) + kv('الحفظ', P.hifz) + kv('التجويد', P.tajweed);
+  }
+
+  function boot() {
+    P = MNApp.profile();
+    if (!P || !P.done) { $('noProfile').style.display = 'block'; $('app').style.display = 'none'; return; }
+    P.prayer = P.prayer || { method: 'mwl', asr: 'shafii', on: {} };
+    $('noProfile').style.display = 'none'; $('app').style.display = 'block';
+    greet(); renderPrayers(); renderWird(); renderNotif(); renderMethod(); renderMe();
+    if (location.hash) setTimeout(() => { const el = document.querySelector(location.hash); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 200);
+  }
+  document.addEventListener('mn-profile', () => { P = MNApp.profile(); greet(); renderMe(); renderPrayers(); });
+  setInterval(tickCd, 1000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && P && P.done) { greet(); renderPrayers(); renderWird(); } });
+  boot();
+</script>
+</body>
+</html>
