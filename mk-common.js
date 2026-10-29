@@ -99,6 +99,30 @@
     '.mk-hflag .fl{width:36px;height:36px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid #F3D37A;background:rgba(255,255,255,.12);flex:0 0 auto}.mk-hflag .fl img{width:36px;height:36px;object-fit:cover;display:block}' +
         'footer{padding-bottom:92px!important}body:not(:has(footer)){padding-bottom:88px}';
   (function () { var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st); })();
+  // ===== تجربة خلفية الرخام (تظهر فقط لمن فتح الرابط ?try=marble، وتُلغى بـ ?try=off) =====
+  (function () {
+    var K = 'mk_marble_try', q = location.search;
+    try {
+      if (/[?&]try=marble/.test(q)) localStorage.setItem(K, '1');
+      if (/[?&]try=off/.test(q)) localStorage.removeItem(K);
+      if (localStorage.getItem(K) !== '1') return;
+    } catch (e) { if (!/[?&]try=marble/.test(q)) return; }
+    var M = 'html.mk-marble body{background:#F8F9FA url("assets/marble.jpg") 0 0/1400px auto repeat!important}' +
+      'html.mk-marble .about-makeen-card,html.mk-marble .feature-card,html.mk-marble .teacher-card,html.mk-marble .mk-ad{background-color:rgba(255,255,255,.86)!important}' +
+      'html.mk-marble .value-box-features{background:rgba(248,250,252,.8)!important}' +
+      'html.mk-marble .mk-drawer{background:#F8F9FA url("assets/marble.jpg") 0 0/900px auto repeat!important}' +
+      '.mk-mtog{position:fixed;bottom:16px;right:16px;z-index:1950;display:flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:2px solid #F3D37A;background:#12355B;color:#F3D37A;font:800 13.5px Cairo,Tahoma,sans-serif;box-shadow:0 8px 22px rgba(18,53,91,.35);cursor:pointer;direction:rtl}' +
+      '.mk-mtog i{font-style:normal;background:#F3D37A;color:#12355B;border-radius:999px;padding:1px 8px;font-size:12px}';
+    var st = document.createElement('style'); st.textContent = M; (document.head || document.documentElement).appendChild(st);
+    var on = true; try { on = localStorage.getItem(K + '_off') !== '1'; } catch (e) {}
+    document.documentElement.classList.toggle('mk-marble', on);
+    document.addEventListener('DOMContentLoaded', function () {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'mk-mtog';
+      var paint = function () { b.innerHTML = 'الخلفية: <i>' + (on ? 'رخام' : 'أبيض') + '</i> ⇄'; };
+      b.onclick = function () { on = !on; document.documentElement.classList.toggle('mk-marble', on); try { localStorage.setItem(K + '_off', on ? '0' : '1'); } catch (e) {} paint(); };
+      paint(); document.body.appendChild(b);
+    });
+  })();
   function ensureDrawer() {
     if (document.getElementById('mkDrawer') || !document.body) return;
     var here = location.pathname.split('/').pop() || 'index.html';
