@@ -1,6 +1,6 @@
 // تطبيق MakeenEducation: الصفحات من الشبكة أولًا، والصور والملفات من الذاكرة
-const V = 'mk-202610291556';
-const SHELL = ['./', 'index.html', 'programs.html', 'manifest.webmanifest', 'icons/icon-192.png', 'assets/makeen-logo.jpeg'];
+const V = 'mk-202610291618';
+const SHELL = ['./', 'index.html', 'programs.html', 'teachers.html', 'mk.css', 'mk-common.js', 'manifest.webmanifest', 'icons/icon-192.png', 'assets/makeen-logo.jpeg'];
 self.addEventListener('install', (e) => { self.skipWaiting(); e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', (e) => e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', (e) => {

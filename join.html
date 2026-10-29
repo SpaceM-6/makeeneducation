@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script> if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#12355B">
+<title>انضم/ي إلى كادر مكين | شركة مكين للاستشارات والتدريب والتعليم</title>
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
+<meta name="description" content="نموذج انضمام المعلمين والمعلمات إلى كادر شركة مكين.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mk.css">
+<script src="mk-common.js"></script>
+</head>
+<body data-app-bar>
+<script>document.write(MK.header('join.html'))</script>
+<main class="mk-wrap" style="max-width:780px">
+  <h1 class="mk-h1">انضم/ي إلى كادر مكين</h1>
+  <p class="mk-sub">أرسل/ي بياناتك كاملة، وتختار إدارة مكين منها ما يُعرض في صفحتك التعريفية بعد المراجعة.</p>
+  <div class="mk-note" style="margin-bottom:14px">🔒 بيانات التواصل (الاسم الكامل والهاتف والبريد) خاصة بإدارة مكين وحدها، ولا تظهر لأي زائر أو طالب. ويظهر للطلاب اسمك الأول فقط.</div>
+  <form class="mk-box mk-form" id="f" novalidate>
+    <h2>البيانات الخاصة (للإدارة فقط)</h2>
+    <div class="mk-row2">
+      <div><label for="full_name">الاسم الكامل *</label><input id="full_name" required maxlength="120" autocomplete="name"></div>
+      <div><label for="first_name">الاسم الأول (يظهر للطلاب) *</label><input id="first_name" required maxlength="40"></div>
+      <div><label for="gender">النوع *</label><select id="gender" required><option value="">اختر/ي</option><option value="f">معلمة</option><option value="m">معلم</option></select></div>
+      <div><label for="country">الدولة</label><input id="country" maxlength="60" autocomplete="country-name"></div>
+      <div><label for="phone">رقم الهاتف (واتساب) *</label><input id="phone" required maxlength="30" inputmode="tel" autocomplete="tel" dir="ltr"></div>
+      <div><label for="email">البريد الإلكتروني *</label><input id="email" type="email" required maxlength="120" autocomplete="email" dir="ltr"></div>
+    </div>
+    <h2 style="margin-top:20px">البيانات العلمية (تختار الإدارة منها ما يُعرض)</h2>
+    <label for="photo">صورة شخصية أو شعار <span class="hint">(اختياري، ويمكن للمعلمات وضع شعار بدل الصورة)</span></label>
+    <input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
+    <label for="headline">تعريف مختصر في سطر <span class="hint">(مثال: مجازة في رواية حفص ومعلمة تجويد)</span></label>
+    <input id="headline" maxlength="160">
+    <label for="quals">المؤهلات العلمية</label><textarea id="quals" maxlength="3000" placeholder="الشهادات والجامعة والتخصص وسنة التخرج"></textarea>
+    <label for="ijazat">الإجازات والأسانيد</label><textarea id="ijazat" maxlength="3000" placeholder="الرواية أو القراءة، ومن أجازك، وسند الإجازة إن أمكن"></textarea>
+    <label for="experience">الخبرة في التدريس</label><textarea id="experience" maxlength="3000"></textarea>
+    <label for="bio">نبذة تعريفية</label><textarea id="bio" maxlength="3000"></textarea>
+    <label>البرامج التي يمكنك تدريسها *</label>
+    <div class="mk-checks" id="progs"></div>
+    <h2 style="margin-top:20px">التعهدات</h2>
+    <div class="mk-checks" style="grid-template-columns:1fr">
+      <label><input type="checkbox" id="c1"> أقرّ بأن البيانات التي أرسلتها صحيحة.</label>
+      <label><input type="checkbox" id="c2"> ألتزم بألا أشارك أي طالب أو طالبة بيانات تواصل شخصية (الاسم الكامل أو رقم الهاتف أو الحسابات)، وأن يكون التواصل عبر مكين وحدها.</label>
+      <label><input type="checkbox" id="c3"> أعلم وأوافق على أن الحصص تُسجَّل ويُفرَّغ نصها وتراجعه مكين آليًا للجودة والأمان ولمتابعة الطلاب، وأن مخالفة التعهد السابق توجب إنهاء التعاقد فورًا.</label>
+    </div>
+    <p class="mk-err" id="err" role="alert" hidden></p>
+    <div style="margin-top:16px;text-align:center"><button class="mk-btn" id="send" type="submit">إرسال البيانات للمراجعة</button></div>
+  </form>
+  <div class="mk-ok" id="done" hidden><h2 style="margin:0 0 6px">وصلت بياناتك، جزاك الله خيرًا 🌿</h2><p style="margin:0">تراجعها إدارة مكين، ونتواصل معك على الواتساب بإذن الله.</p></div>
+</main>
+<footer class="mk-foot">© شركة مكين للاستشارات والتدريب والتعليم</footer>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  $('progs').innerHTML = MK.PROGRAMS.map(function (p, i) { return '<label><input type="checkbox" value="' + MK.esc(p) + '" id="p' + i + '"> ' + MK.esc(p) + '</label>'; }).join('');
+  function shrink(file) {
+    return new Promise(function (res, rej) {
+      if (!file) return res(null);
+      if (file.size > 15 * 1024 * 1024) return rej(new Error('big'));
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function () {
+        var m = 800, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, m / Math.max(w, h));
+        var c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+        c.toBlob(function (b) { b ? res(b) : rej(new Error('img')); }, 'image/jpeg', 0.86);
+      };
+      img.onerror = function () { rej(new Error('img')); }; img.src = url;
+    });
+  }
+  function uid() { return (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); }
+  $('f').onsubmit = function (e) {
+    e.preventDefault();
+    var err = $('err'); err.hidden = true;
+    var v = function (id) { return $(id).value.trim(); };
+    var progs = [].slice.call(document.querySelectorAll('#progs input:checked')).map(function (x) { return x.value; });
+    var bad = !v('full_name') ? 'اكتب/ي الاسم الكامل.' : !v('first_name') ? 'اكتب/ي الاسم الأول.' : !v('gender') ? 'اختر/ي النوع.' :
+      v('phone').replace(/\D/g, '').length < 7 ? 'اكتب/ي رقم هاتف صحيحًا.' : !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')) ? 'اكتب/ي بريدًا إلكترونيًا صحيحًا.' :
+      !progs.length ? 'اختر/ي برنامجًا واحدًا على الأقل.' : !($('c1').checked && $('c2').checked && $('c3').checked) ? 'يلزم الموافقة على التعهدات الثلاثة.' : '';
+    if (bad) { err.textContent = bad; err.hidden = false; return; }
+    var btn = $('send'); btn.disabled = true; btn.textContent = 'جارٍ الإرسال…';
+    shrink($('photo').files[0]).then(function (blob) {
+      return blob ? MK.upload('mk-apps', 'apply/' + uid() + '.jpg', blob) : null;
+    }).then(function (path) {
+      return MK.rpc('mk_apply', { p: { full_name: v('full_name'), first_name: v('first_name'), gender: v('gender'), country: v('country'), phone: v('phone'), email: v('email'),
+        headline: v('headline'), quals: v('quals'), ijazat: v('ijazat'), experience: v('experience'), bio: v('bio'), programs: progs, photo_path: path || '' } });
+    }).then(function () {
+      $('f').hidden = true; $('done').hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' });
+    }).catch(function (x) {
+      btn.disabled = false; btn.textContent = 'إرسال البيانات للمراجعة';
+      err.textContent = /big/.test(x.message) ? 'حجم الصورة كبير جدًا، اختر/ي صورة أصغر.' : /img/.test(x.message) ? 'تعذّر قراءة الصورة، جرّب/ي صورة أخرى.' : /busy/.test(x.message) ? 'ضغط كبير الآن، حاول/ي بعد دقائق.' : 'تعذّر الإرسال، تأكد/ي من الاتصال ثم حاول/ي مرة أخرى.';
+      err.hidden = false;
+    });
+  };
+})();
+</script>
+</body>
+</html>

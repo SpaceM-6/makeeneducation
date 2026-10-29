@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script> if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#12355B">
+<title>معلمو ومعلمات مكين | شركة مكين للاستشارات والتدريب والتعليم</title>
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
+<meta name="description" content="تعرّف/ي على كادر المعلمين والمعلمات في شركة مكين: مؤهلاتهم وإجازاتهم وبرامجهم وتقييمات طلابهم.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mk.css">
+<script src="mk-common.js"></script>
+</head>
+<body data-app-bar>
+<script>document.write(MK.header('teachers.html'))</script>
+<main class="mk-wrap">
+  <h1 class="mk-h1">كادر المعلمين والمعلمات</h1>
+  <p class="mk-sub">نخبة من المجازين والمتخصصين، على رأسهم أ/ ميمونة. التقييمات من طلاب درسوا فعلًا، وتُراجع قبل نشرها.</p>
+  <div class="mk-chips" id="filters" role="group" aria-label="تصفية">
+    <button type="button" class="mk-chip on" data-g="">الكل</button>
+    <button type="button" class="mk-chip" data-g="f">المعلمات</button>
+    <button type="button" class="mk-chip" data-g="m">المعلمون</button>
+  </div>
+  <div style="max-width:420px;margin:0 auto 18px"><select id="prog" class="mk-chip" style="width:100%;padding:8px 14px" aria-label="البرنامج"><option value="">كل البرامج</option></select></div>
+  <div class="mk-grid" id="grid"><p class="mk-msg">جارٍ التحميل…</p></div>
+  <div class="mk-box" style="margin-top:26px;text-align:center">
+    <h2>هل أنت معلم/ة مجاز/ة أو متخصص/ة؟</h2>
+    <p style="margin:0 0 10px">أرسل/ي بياناتك للانضمام إلى كادر مكين، وتراجعها الإدارة.</p>
+    <a class="mk-btn" href="join.html">انضم/ي إلى كادر مكين</a>
+  </div>
+</main>
+<footer class="mk-foot">© شركة مكين للاستشارات والتدريب والتعليم</footer>
+<script>
+(function () {
+  var all = [], stats = {}, g = '', prog = '';
+  var sel = document.getElementById('prog');
+  MK.PROGRAMS.forEach(function (p) { var o = document.createElement('option'); o.value = o.textContent = p; sel.appendChild(o); });
+  sel.onchange = function () { prog = sel.value; draw(); };
+  document.getElementById('filters').onclick = function (e) {
+    var b = e.target.closest('[data-g]'); if (!b) return;
+    g = b.getAttribute('data-g');
+    this.querySelectorAll('.mk-chip').forEach(function (x) { x.classList.toggle('on', x === b); });
+    draw();
+  };
+  function draw() {
+    var list = all.filter(function (t) { return (!g || t.gender === g) && (!prog || (t.programs || []).indexOf(prog) >= 0); });
+    var grid = document.getElementById('grid');
+    if (!list.length) { grid.innerHTML = '<p class="mk-msg">' + (all.length ? 'لا يوجد من يطابق هذا الاختيار حاليًا.' : 'تُضاف صفحات المعلمين والمعلمات قريبًا بإذن الله.') + '</p>'; return; }
+    grid.innerHTML = list.map(function (t) {
+      var s = stats[t.id] || {};
+      return '<article class="mk-card' + (t.is_head ? ' head' : '') + '">' +
+        (t.is_head ? '<span class="mk-badge">على رأس الكادر التعليمي</span>' : '') +
+        MK.avatar(t, 104) + '<h3>' + MK.esc(MK.title(t)) + '</h3>' +
+        (t.headline ? '<p class="mk-head">' + MK.esc(t.headline) + '</p>' : '') +
+        '<div>' + MK.stars(s.avg_stars, s.n || 0) + '</div>' +
+        '<div class="mk-tags">' + (t.programs || []).slice(0, 4).map(function (p) { return '<span class="mk-tag">' + MK.esc(p.replace(/^برنامج /, '')) + '</span>'; }).join('') + '</div>' +
+        '<a class="mk-btn" style="margin-top:6px" href="teacher.html?id=' + encodeURIComponent(t.id) + '">الصفحة التعريفية</a></article>';
+    }).join('');
+  }
+  Promise.all([
+    MK.get('mk_teachers?select=id,first_name,gender,photo_url,headline,programs,is_head,sort&published=eq.true&order=is_head.desc,sort.asc,created_at.asc'),
+    MK.get('mk_teacher_stats?select=*').catch(function () { return []; })
+  ]).then(function (r) {
+    all = r[0] || []; (r[1] || []).forEach(function (s) { stats[s.teacher_id] = s; }); draw();
+  }).catch(function () { document.getElementById('grid').innerHTML = '<p class="mk-msg">تعذّر التحميل، حاول/ي مرة أخرى.</p>'; });
+})();
+</script>
+</body>
+</html>
