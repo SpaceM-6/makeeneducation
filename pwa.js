@@ -63,9 +63,10 @@
   document.addEventListener('DOMContentLoaded', function () { show(!standalone); bar(); });
 })();
 
-// تجربة لون البني الفاتح (لصفحات موقع ميمونة فقط، لا لصفحات مكين)
+// هوية موقع ميمونة: البني الفاتح (لا يُطبَّق على صفحات مكين)
 (function () {
   if (/^\/(makeen\/|makeen-admin|student\.html|teacher-panel|research|room)/.test(location.pathname)) return;
-  try { if (!/[?&]try=(brown|off)/.test(location.search) && localStorage.getItem('mn_tone_try') !== '1') return; } catch (e) { return; }
-  var s = document.createElement('script'); s.src = '/js/tone-try.js'; (document.head || document.documentElement).appendChild(s);
+  if (/[?&]from=makeen/.test(location.search)) return;
+  try { localStorage.removeItem('mn_tone_try'); localStorage.removeItem('mn_tone_try_on'); } catch (e) {}
+  var s = document.createElement('script'); s.src = '/js/tone.js?v=1'; (document.head || document.documentElement).appendChild(s);
 })();
