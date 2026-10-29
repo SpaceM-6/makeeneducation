@@ -69,6 +69,6 @@
   if (/[?&]from=makeen/.test(location.search)) return;
   try { localStorage.removeItem('mn_tone_try'); localStorage.removeItem('mn_tone_try_on'); } catch (e) {}
   var s = document.createElement('script'); s.src = '/js/tone.js?v=1'; (document.head || document.documentElement).appendChild(s);
-  try { if (/[?&]try=(cloud|off)/.test(location.search) || localStorage.getItem('mn_cloud_try') === '1') { var k = document.createElement('script'); k.src = '/js/cloud-try.js?v=2'; (document.head || document.documentElement).appendChild(k); } } catch (e) {}
+  try { localStorage.removeItem('mn_cloud_try'); localStorage.removeItem('mn_cloud_try_on'); } catch (e) {}
   try { localStorage.removeItem('mn_sky_try'); localStorage.removeItem('mn_sky_try_on'); } catch (e) {}
 })();
