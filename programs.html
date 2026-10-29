@@ -592,7 +592,7 @@
 </style>
 <script src="https://maimoonah.com/js/classes.js" defer></script>
 <script src="https://maimoonah.com/js/promos.js" defer></script>
-<script src="mk-common.js?v=6b27a887"></script>
+<script src="mk-common.js?v=42b3915e"></script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
@@ -717,6 +717,12 @@
         <div class="form-group">
           <label for="p_country">بلد الإقامة والمدينة:</label>
           <input type="text" id="p_country" required placeholder="مثال: مصر - القاهرة">
+        </div>
+
+        <div class="form-group" id="healthGroup">
+          <label for="p_health">ظروف صحية خاصة (إن وُجدت):</label>
+          <textarea id="p_health" rows="2" maxlength="600" placeholder="اكتب/ي فقط الظرف الصحي الذي قد يعيق الدراسة عن بعد لتنظر فيه الإدارة، أو اتركها فارغة"></textarea>
+          <p class="slot-hint" style="margin-top:4px">لا يُقبل من الظروف الخاصة إلا الظرف الصحي المعيق للدراسة عن بعد. وتطّلع عليه الإدارة ومعلمك المباشر فقط.</p>
         </div>
 
         <div class="form-group" id="daysSelectionGroup" style="display:none;">
@@ -872,6 +878,7 @@
       selectedProgramIDGlobal = id;
       { const c = document.getElementById('p_confirm'); if (c) c.checked = false; document.getElementById('programBookingForm').classList.remove('confirmed'); }
       const currentProgram = programsData.find(p => p.id === id);
+      { const hg = document.getElementById('healthGroup'); if (hg) hg.style.display = currentProgram && currentProgram.type === 'research' ? 'none' : ''; }
       document.getElementById('modalTitle').textContent = currentProgram.title;
       document.getElementById('modalDesc').textContent = currentProgram.desc;
       document.getElementById('modalValue').textContent = currentProgram.value;
@@ -1199,6 +1206,7 @@
       const details = {
         'التخصص العلمي': v('p_specialty'), 'المهنة': v('p_job'), 'الفترة المفضلة': slotsVisible() ? '' : timeSlot,
         'مواعيد الحصص': slotsVisible() ? slotsSummary(true) : '',
+        'ظروف صحية خاصة': v('p_health'),
         'طريقة الدفع': PRICES_HIDDEN ? '' : payment
       };
       if (selectedProgramIDGlobal <= 4) { details['مقدار الحفظ'] = v('p_quran_memorized'); details['مستوى التجويد'] = v('p_tajweed_level'); }
@@ -1256,6 +1264,7 @@
         m += `• الاسم: ${pName} (${pAge} سنة)\n• الهاتف: ${pPhone}\n• البريد: ${pEmail}\n• التخصص العلمي: ${pSpecialty}\n• المهنة: ${pJob}\n`;
         if (quranTextInfo !== "") m += quranTextInfo;
         m += `• الجنسية: ${pNat}\n• بلد الإقامة: ${pCountry}\n`;
+        if (document.getElementById('p_health').value.trim()) m += `• ظروف صحية خاصة: ${document.getElementById('p_health').value.trim()}\n`;
         if (days) m += `• الأيام المفضلة: ${days}\n`;
         m += slotsVisible() ? `• مواعيد الحصص: ${timeSlot}` : `• الفترة المفضلة: ${timeSlot}`;
         window.open(`https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(m)}`, '_blank');
