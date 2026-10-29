@@ -38,7 +38,7 @@
       <label for="full_name">الاسم الكامل (ثلاثي على الأقل) *</label><input id="full_name" maxlength="120" autocomplete="name">
       <div class="mk-prev" id="namePrev" hidden>يظهر للطلاب هكذا: <b id="nameShow"></b></div>
       <div class="mk-row2">
-        <div><label>النوع *</label><div class="mk-pills" id="gender" role="radiogroup"><button type="button" class="mk-pill" data-v="f" aria-pressed="false">امرأة (معلمة)</button><button type="button" class="mk-pill" data-v="m" aria-pressed="false">رجل (معلم)</button></div></div>
+        <div><label>أنا *</label><div class="mk-pills" id="gender" role="radiogroup"><button type="button" class="mk-pill" data-v="f" aria-pressed="false">معلمة</button><button type="button" class="mk-pill" data-v="m" aria-pressed="false">معلم</button></div></div>
         <div><label for="age">العمر *</label><input id="age" type="number" min="16" max="100" inputmode="numeric"></div>
         <div><label for="country">الدولة *</label><input id="country" maxlength="60" autocomplete="country-name"></div>
         <div><label for="profession">المهنة الحالية</label><input id="profession" maxlength="160" placeholder="مثال: معلمة لغة عربية"></div>
@@ -173,7 +173,7 @@
     var box = function (title, i, html) { return '<div class="mk-prev" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center"><b>' + title + '</b><button type="button" class="mk-pill" data-edit="' + i + '">تعديل</button></div>' + html + '</div>'; };
     var progs = [].slice.call(document.querySelectorAll('#progs input:checked')).map(function (x) { return x.value; });
     $('review').innerHTML =
-      box('البيانات الشخصية', 0, row('الاسم الكامل', v('full_name')) + row('يظهر للطلاب', 'أ/ ' + MK.displayName(v('full_name'))) + row('النوع', gender === 'f' ? 'امرأة (معلمة)' : 'رجل (معلم)') + row('العمر', v('age')) + row('الدولة', v('country')) + row('المهنة', v('profession')) + row('واتساب', v('phone')) + row('البريد', v('email')) + row('الصورة', $('photo').files[0] ? $('photo').files[0].name : 'لا توجد')) +
+      box('البيانات الشخصية', 0, row('الاسم الكامل', v('full_name')) + row('يظهر للطلاب', 'أ/ ' + MK.displayName(v('full_name'))) + row('أنا', gender === 'f' ? 'معلمة' : 'معلم') + row('العمر', v('age')) + row('الدولة', v('country')) + row('المهنة', v('profession')) + row('واتساب', v('phone')) + row('البريد', v('email')) + row('الصورة', $('photo').files[0] ? $('photo').files[0].name : 'لا توجد')) +
       box('المؤهلات', 1, row('المستوى العلمي', v('level')) + row('التخصص', v('specialty')) + row('التعريف', v('headline')) + row('الشهادات', v('quals')) + row('الإجازات', v('ijazat')) + row('الخبرة', v('experience')) + row('النبذة', v('bio'))) +
       box('البرامج (' + progs.length + ')', 2, '<div style="margin-top:4px">' + MK.progStarsHtml(progs.length) + '</div>' + row('البرامج', progs.join('، '))) +
       box('الأوقات المتاحة', 3, row('الأيام', days.length === 7 ? 'كل الأيام' : days.slice().sort().map(function (d) { return MK.DAYS[d]; }).join('، ')) + row('الساعات', hours.slice().sort(function (a, b) { return a - b; }).map(MK.hourLabel).join('، ')) + row('التوقيت', TZ) + row('ملاحظة', v('availNote'))) +
