@@ -110,8 +110,8 @@
   MK.MENU_ICON = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
   // الرأس الموحد لصفحات مكين الجديدة: زر القائمة، والشعار
   MK.header = function () {
-    return '<header class="mk-top"><button type="button" class="mk-menu-btn" onclick="mkOpenDrawer()" aria-label="القائمة">' + MK.MENU_ICON + '</button>' +
-      '<a class="mk-brand" href="index.html"><span>شركة مكين</span><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"></a></header>';
+    return '<header class="mk-top"><a class="mk-brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>شركة مكين</span></a>' +
+      '<button type="button" class="mk-menu-btn" onclick="mkOpenDrawer()" aria-label="القائمة">' + MK.MENU_ICON + '</button></header>';
   };
   document.addEventListener('DOMContentLoaded', ensureDrawer);
 })();
