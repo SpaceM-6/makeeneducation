@@ -18,10 +18,12 @@
 <script>document.write(MK.header('join.html'))</script>
 <main class="mk-wrap" style="max-width:800px">
   <h1 class="mk-h1">انضم/ي إلى كادر مكين</h1>
-  <p class="mk-sub">خمس خطوات قصيرة. تراجع إدارة مكين بياناتك، وتختار منها ما يظهر في صفحتك التعريفية.</p>
+  <p class="mk-sub">خطوات قصيرة، ثم تراجع/ين بياناتك وتتقدّم/ين للمقابلة.</p>
+  <div class="mk-box" style="padding:12px 16px"><b style="color:var(--navy)">مراحل الانضمام:</b><ol style="margin:4px 0 0;padding-right:20px;line-height:2">
+    <li>إرسال بياناتك ووثائقك من هذه الصفحة.</li><li>تتواصل معك إدارة مكين على الواتساب الذي تكتبه/ينه.</li><li>مقابلة عبر رابط مرئي في موعد يُتفق عليه.</li><li>اعتمادك معلمًا/معلمةً في مكين، ونشر صفحتك التعريفية.</li></ol></div>
   <div class="mk-note" style="margin-bottom:14px">🔒 الاسم الكامل والهاتف والبريد والوثائق خاصة بإدارة مكين وحدها. ويظهر للطلاب اسمك الأول وأول حرف من اسمك الثاني فقط، مثل: «أ/ فاطمة أ.».</div>
   <form class="mk-box mk-form" id="f" novalidate>
-    <ol class="mk-steps" id="steps"><li>البيانات الشخصية</li><li>المؤهلات</li><li>البرامج</li><li>الأوقات المتاحة</li><li>الوثائق والتعهدات</li></ol>
+    <ol class="mk-steps" id="steps"><li>البيانات الشخصية</li><li>المؤهلات</li><li>البرامج</li><li>الأوقات المتاحة</li><li>الوثائق والتعهدات</li><li>المراجعة</li></ol>
 
     <section class="mk-step" data-step="0">
       <h2>١. البيانات الشخصية</h2>
@@ -79,16 +81,22 @@
       </div>
     </section>
 
+    <section class="mk-step" data-step="5" hidden>
+      <h2>٦. مراجعة بياناتك قبل التقدم للمقابلة</h2>
+      <p class="hint" style="margin:0 0 8px">راجع/ي بياناتك جيدًا. يمكنك تعديل أي قسم بالضغط على «تعديل».</p>
+      <div id="review"></div>
+    </section>
+
     <p class="mk-err" id="err" role="alert" hidden></p>
     <div class="mk-nav"><button type="button" class="mk-btn ghost" id="back" hidden>→ السابق</button><span></span><button type="button" class="mk-btn" id="next">التالي ←</button></div>
   </form>
-  <div class="mk-ok" id="done" hidden><h2 style="margin:0 0 6px">وصلت بياناتك، جزاك الله خيرًا 🌿</h2><p style="margin:0">تراجعها إدارة مكين، ونتواصل معك على الواتساب بإذن الله.</p></div>
+  <div class="mk-ok" id="done" hidden><h2 style="margin:0 0 6px">تم تقديمك للمقابلة، جزاك الله خيرًا 🌿</h2><p style="margin:0 0 6px">وصلت بياناتك ووثائقك إلى إدارة مكين. الخطوات القادمة:</p><ol style="text-align:right;display:inline-block;margin:0;line-height:2"><li>نراجع بياناتك.</li><li>نتواصل معك على الواتساب الذي كتبته/يه.</li><li>نرسل لك رابط المقابلة وموعدها.</li><li>بعد المقابلة يتم اعتمادك ونشر صفحتك بإذن الله.</li></ol></div>
 </main>
 <footer class="mk-foot">© شركة مكين للاستشارات والتدريب والتعليم</footer>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); }, E = MK.esc;
-  var step = 0, N = 5, gender = '', days = [], hours = [], docs = [];
+  var step = 0, N = 6, gender = '', days = [], hours = [], docs = [];
   var TZ = (Intl.DateTimeFormat().resolvedOptions().timeZone) || 'UTC';
   $('tzShow').textContent = TZ;
   MK.LEVELS.forEach(function (l) { var o = document.createElement('option'); o.value = o.textContent = l; $('level').appendChild(o); });
@@ -147,9 +155,23 @@
   function show() {
     document.querySelectorAll('.mk-step').forEach(function (x) { x.hidden = +x.dataset.step !== step; });
     document.querySelectorAll('#steps li').forEach(function (li, i) { li.className = i === step ? 'on' : i < step ? 'done' : ''; });
-    $('back').hidden = step === 0; $('next').textContent = step === N - 1 ? 'إرسال البيانات للمراجعة' : 'التالي ←';
+    $('back').hidden = step === 0;
+    $('next').textContent = step === N - 1 ? 'تأكيد وإرسال بياناتي للتقدم للمقابلة ✓' : step === N - 2 ? 'المراجعة والتقدم للمقابلة' : 'التالي ←';
+    if (step === N - 1) review();
     say(''); $('f').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+  function review() {
+    var row = function (k, val) { return val ? '<div style="display:flex;gap:8px;border-bottom:1px dashed var(--line);padding:4px 0"><b style="min-width:120px;color:var(--navy)">' + k + '</b><span style="white-space:pre-wrap;flex:1">' + E(val) + '</span></div>' : ''; };
+    var box = function (title, i, html) { return '<div class="mk-prev" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center"><b>' + title + '</b><button type="button" class="mk-pill" data-edit="' + i + '">تعديل</button></div>' + html + '</div>'; };
+    var progs = [].slice.call(document.querySelectorAll('#progs input:checked')).map(function (x) { return x.value; });
+    $('review').innerHTML =
+      box('البيانات الشخصية', 0, row('الاسم الكامل', v('full_name')) + row('يظهر للطلاب', 'أ/ ' + MK.displayName(v('full_name'))) + row('النوع', gender === 'f' ? 'امرأة (معلمة)' : 'رجل (معلم)') + row('العمر', v('age')) + row('الدولة', v('country')) + row('المهنة', v('profession')) + row('واتساب', v('phone')) + row('البريد', v('email')) + row('الصورة', $('photo').files[0] ? $('photo').files[0].name : 'لا توجد')) +
+      box('المؤهلات', 1, row('المستوى العلمي', v('level')) + row('التخصص', v('specialty')) + row('التعريف', v('headline')) + row('الشهادات', v('quals')) + row('الإجازات', v('ijazat')) + row('الخبرة', v('experience')) + row('النبذة', v('bio'))) +
+      box('البرامج (' + progs.length + ')', 2, '<div style="margin-top:4px">' + MK.progStarsHtml(progs.length) + '</div>' + row('البرامج', progs.join('، '))) +
+      box('الأوقات المتاحة', 3, row('الأيام', days.length === 7 ? 'كل الأيام' : days.slice().sort().map(function (d) { return MK.DAYS[d]; }).join('، ')) + row('الساعات', hours.slice().sort(function (a, b) { return a - b; }).map(MK.hourLabel).join('، ')) + row('التوقيت', TZ) + row('ملاحظة', v('availNote'))) +
+      box('الوثائق', 4, row('الملفات', docs.length ? docs.map(function (f) { return f.name; }).join('، ') : 'لا توجد'));
+  }
+  $('review').onclick = function (e) { var b = e.target.closest('[data-edit]'); if (b) { step = +b.dataset.edit; show(); } };
   $('back').onclick = function () { if (step > 0) { step--; show(); } };
   $('next').onclick = function () { var bad = check(step); if (bad) return say(bad); if (step < N - 1) { step++; show(); } else send(); };
   function shrink(file) {
@@ -178,7 +200,7 @@
         availability: { tz: TZ, days: days.slice().sort(), hours: hours.slice().sort(function (a, b) { return a - b; }), note: v('availNote') }, photo_path: photo || '', docs: up } });
     }).then(function () { $('f').hidden = true; $('done').hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' }); })
     .catch(function (x) {
-      btn.disabled = false; btn.textContent = 'إرسال البيانات للمراجعة';
+      btn.disabled = false; btn.textContent = 'تأكيد وإرسال بياناتي للتقدم للمقابلة ✓';
       say(/big/.test(x.message) ? 'حجم الصورة كبير جدًا، اختر/ي صورة أصغر.' : /img/.test(x.message) ? 'تعذّر قراءة الصورة الشخصية، جرّب/ي صورة أخرى.' : /busy/.test(x.message) ? 'ضغط كبير الآن، حاول/ي بعد دقائق.' : 'تعذّر الإرسال، تأكد/ي من الاتصال ثم حاول/ي مرة أخرى.');
     });
   }

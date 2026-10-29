@@ -36,7 +36,7 @@
     var she = t.gender === 'f';
     main.innerHTML =
       '<section class="mk-box"><div class="mk-prof">' + MK.avatar(t, 120) + '<div style="flex:1;min-width:200px">' +
-        (t.is_head ? '<span class="mk-badge">على رأس الكادر التعليمي</span>' : '') +
+        (t.badge || t.is_head ? '<span class="mk-badge">' + E(t.badge || 'على رأس الكادر التعليمي') + '</span>' : '') +
         '<h1>' + E(MK.title(t)) + '</h1>' + (t.headline ? '<p class="mk-head" style="font-size:15.5px">' + E(t.headline) + '</p>' : '') +
         (t.level || t.specialty ? '<p class="mk-head">' + E([t.level, t.specialty].filter(Boolean).join(' · ')) + '</p>' : '') +
         '<div>' + MK.progStarsHtml((t.programs || []).length) + '</div>' + (s.n ? '<div>' + MK.stars(s.avg_stars, s.n) + ' <small>من آراء الطلاب</small></div>' : '') + '</div></div>' +

@@ -18,7 +18,7 @@
 <script>document.write(MK.header('teachers.html'))</script>
 <main class="mk-wrap">
   <h1 class="mk-h1">كادر المعلمين والمعلمات</h1>
-  <p class="mk-sub">نخبة من المجازين والمتخصصين، على رأسهم أ/ ميمونة. نجوم مكين بحسب عدد برامج مكين التي يقدّمها المعلم/ة، وآراء الطلاب من طلاب درسوا فعلًا.</p>
+  <p class="mk-sub">نخبة من المجازين والمتخصصين، وأ/ ميمونة المشرفة التعليمية لقسم الفتيات في مكين. نجوم مكين بحسب عدد برامج مكين التي يقدّمها المعلم/ة، وآراء الطلاب من طلاب درسوا فعلًا.</p>
   <div class="mk-chips" id="filters" role="group" aria-label="تصفية">
     <button type="button" class="mk-chip on" data-g="">الكل</button>
     <button type="button" class="mk-chip" data-g="f">المعلمات</button>
@@ -52,7 +52,7 @@
     grid.innerHTML = list.map(function (t) {
       var s = stats[t.id] || {};
       return '<article class="mk-card' + (t.is_head ? ' head' : '') + '">' +
-        (t.is_head ? '<span class="mk-badge">على رأس الكادر التعليمي</span>' : '') +
+        (t.badge || t.is_head ? '<span class="mk-badge">' + MK.esc(t.badge || 'على رأس الكادر التعليمي') + '</span>' : '') +
         MK.avatar(t, 104) + '<h3>' + MK.esc(MK.title(t)) + '</h3>' +
         (t.headline ? '<p class="mk-head">' + MK.esc(t.headline) + '</p>' : '') +
         (t.specialty || t.level ? '<p class="mk-head" style="font-size:13px">' + MK.esc([t.level, t.specialty].filter(Boolean).join(' · ')) + '</p>' : '') +
@@ -62,7 +62,7 @@
     }).join('');
   }
   Promise.all([
-    MK.get('mk_teachers?select=id,first_name,gender,photo_url,headline,programs,is_head,sort,level,specialty&published=eq.true&order=is_head.desc,sort.asc,created_at.asc'),
+    MK.get('mk_teachers?select=id,first_name,gender,photo_url,headline,programs,is_head,sort,level,specialty,badge&published=eq.true&order=is_head.desc,sort.asc,created_at.asc'),
     MK.get('mk_teacher_stats?select=*').catch(function () { return []; })
   ]).then(function (r) {
     all = r[0] || []; (r[1] || []).forEach(function (s) { stats[s.teacher_id] = s; }); draw();
