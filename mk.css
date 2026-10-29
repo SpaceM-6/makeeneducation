@@ -72,3 +72,8 @@ footer.mk-foot{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 
 .mk-share{display:inline-flex;align-items:center;gap:6px;font:800 14px Cairo,Tahoma,sans-serif;background:#fff;color:var(--navy);border:1.5px solid var(--navy);border-radius:999px;padding:6px 16px;cursor:pointer}
 .mk-card .mn-acts{justify-content:center;margin-top:4px}
+
+.mk-books{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.mk-book{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--navy,#12355B);text-align:center;-webkit-tap-highlight-color:transparent}
+.mk-book img{width:100%;aspect-ratio:600/894;object-fit:cover;border-radius:8px;box-shadow:0 6px 16px rgba(0,0,0,.18);border:1px solid #E8DCC0}
+.mk-book b{font-size:13.5px;line-height:1.6}.mk-book small{font-size:12px;color:#8A6A1F}

@@ -11,7 +11,7 @@
 <meta property="og:type" content="website"><meta property="og:site_name" content="شركة مكين"><meta property="og:locale" content="ar_AR"><meta property="og:title" content="الصفحة التعريفية للمعلم/ة | شركة مكين"><meta property="og:description" content="شركة مكين للاستشارات والتدريب والتعليم: برامج القرآن الكريم وعلومه والعلوم الشرعية واللغة العربية عن بُعد."><meta property="og:image" content="https://spacem-6.github.io/makeeneducation/icons/icon-512.png"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta name="twitter:card" content="summary">
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="mk.css?v=a9c078e1">
+<link rel="stylesheet" href="mk.css?v=69909a9b">
 <script src="mk-common.js?v=9ba994f6"></script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
@@ -25,6 +25,19 @@
 <main class="mk-wrap" id="main"><p class="mk-msg">جارٍ التحميل…</p></main>
 <footer class="mk-foot">© شركة مكين للاستشارات والتدريب والتعليم</footer>
 <script>
+
+var BOOKS_HTML = (function () {
+  var M = 'https://maimoonah.com/', L = [
+    ['ihya', 'إحياء العقل السليم بكلام الخلاق العليم', 'book-cover.jpg?v=2', 'صدر · ورقي ورقمي وصوتي'],
+    ['tadabbur', 'تدبر التنزيل لأهل العصر والتأويل', 'img/cover-tadabbur.jpg', 'تفسير · يصدر مطبوعًا قريبًا'],
+    ['ghina', 'الغنى والفقر تحت المجهر', 'img/cover-ghina.jpg', 'يصدر قريبًا'],
+    ['kalima', 'الكلمة: من اللحظة إلى المصير', 'img/cover-kalima-tree2.jpg', 'يصدر قريبًا'],
+    ['ihya-en', 'إحياء العقل السليم — النسخة الإنجليزية', 'img/cover-ihya-en-front.jpg?v=2', 'يصدر قريبًا']
+  ];
+  return '<section class="mk-box" id="books"><h2>كتب ومؤلفات</h2><div class="mk-books">' + L.map(function (b) {
+    return '<a class="mk-book" href="' + M + '#book-' + b[0] + '"><img src="' + M + b[2] + '" alt="غلاف ' + b[1] + '" loading="lazy"><b>' + b[1] + '</b><small>' + b[3] + '</small></a>';
+  }).join('') + '</div></section>';
+})();
 (function () {
   var id = new URLSearchParams(location.search).get('id') || '';
   var main = document.getElementById('main'), E = MK.esc;
@@ -48,7 +61,7 @@
         (t.level || t.specialty ? '<p class="mk-head">' + E([t.level, t.specialty].filter(Boolean).join(' · ')) + '</p>' : '') +
         '<div>' + MK.progStarsHtml((t.programs || []).length) + '</div>' + (s.n ? '<div>' + MK.stars(s.avg_stars, s.n) + ' <small>من آراء الطلاب</small></div>' : '') + '</div></div>' +
         '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><a class="mk-btn" href="programs.html">احجز/ي مع ' + E(MK.title(t)) + '</a><a class="mk-btn ghost" href="teachers.html">كل المعلمين والمعلمات</a></div></section>' +
-      sec(she ? 'نبذة عنها' : 'نبذة عنه', t.bio) + sec('المؤهلات العلمية', t.quals) + sec('الإجازات والأسانيد', t.ijazat) + sec('الخبرة', t.experience) +
+      sec(she ? 'نبذة عنها' : 'نبذة عنه', t.bio) + (t.is_head ? BOOKS_HTML : '') + sec('المؤهلات العلمية', t.quals) + sec('الإجازات والأسانيد', t.ijazat) + sec('الخبرة', t.experience) +
       ((t.programs || []).length ? '<section class="mk-box"><h2>البرامج التي ' + (she ? 'تدرّسها' : 'يدرّسها') + '</h2><div class="mk-tags" style="justify-content:flex-start">' + t.programs.map(function (p) { return '<a class="mk-tag" style="text-decoration:none;font-size:13.5px" href="programs.html">' + E(p) + '</a>'; }).join('') + '</div></section>' : '') +
       '<section class="mk-box"><h2>آراء الطلاب والطالبات</h2>' +
         (revs.length ? revs.map(function (v) {
@@ -57,6 +70,7 @@
         }).join('') : '<p class="mk-nostars" style="margin:0">لا تقييمات منشورة بعد.</p>') +
         '<p class="hint" style="font-size:12.5px;color:var(--muted);margin:10px 0 0">التقييمات من طلاب درسوا فعلًا مع ' + (she ? 'المعلمة' : 'المعلم') + '، ويكتبونها من لوحة الطالب، وتراجعها إدارة مكين قبل نشرها.</p></section>';
     if (window.MNItems) MNItems.mount(main);
+    if (location.hash === '#books') { var bk = document.getElementById('books'); if (bk) setTimeout(function () { bk.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 200); }
   }).catch(function () { main.innerHTML = '<p class="mk-msg">تعذّر التحميل، حاول/ي مرة أخرى.</p>'; });
 })();
 </script>
