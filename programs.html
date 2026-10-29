@@ -559,6 +559,10 @@
     .slot-row label { font-size:14px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; margin:0; flex:1; }
     .slot-row input[type=time] { width:130px; padding:6px 8px; border:1px solid #CBD5E1; border-radius:6px; font:inherit; direction:ltr; }
     .slot-row input[type=time]:disabled { opacity:.35; }
+    .rs-opts { display:grid; grid-template-columns:1fr 1fr; gap:6px 10px; background:#fff; border:1px solid #CBD5E1; border-radius:8px; padding:10px; }
+    .rs-opts label { display:flex; gap:6px; align-items:center; font-weight:700; font-size:14px; margin:0; cursor:pointer; }
+    .rs-opts input { width:18px; height:18px; accent-color:var(--navy-dark); }
+    @media (max-width:420px){ .rs-opts { grid-template-columns:1fr; } }
     .mode-btns { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .mode-btn { display:flex; flex-direction:column; align-items:center; gap:2px; padding:14px 8px; border:2px solid #E2E8F0; border-radius:14px; background:#fff; cursor:pointer; font-family:inherit; font-size:22px; }
     .mode-btn b { font-size:16px; color:var(--navy-dark); } .mode-btn small { font-size:12.5px; color:var(--text-muted); }
@@ -755,6 +759,16 @@
           <div class="slot-err" id="slotErr"></div>
         </div>
 
+        <div class="form-group" id="researchGroup" style="display:none;">
+          <label for="r_title">اسم البحث أو الرسالة (إن وُجد):</label>
+          <input type="text" id="r_title" maxlength="200" placeholder="اكتب/ي العنوان المقترح أو اتركه فارغًا إن أردت أن نضعه لك">
+          <label style="margin-top:10px">حدّد/ي ما تريده من الخدمة:</label>
+          <div class="rs-opts"><label><input type="checkbox" name="r_need" value="اسم البحث (العنوان)"> اسم البحث (العنوان)</label><label><input type="checkbox" name="r_need" value="المقدمة"> المقدمة</label><label><input type="checkbox" name="r_need" value="التمهيد"> التمهيد</label><label><input type="checkbox" name="r_need" value="الفصول والمباحث"> الفصول والمباحث</label><label><input type="checkbox" name="r_need" value="الخاتمة"> الخاتمة</label><label><input type="checkbox" name="r_need" value="الفهرسة"> الفهرسة</label><label><input type="checkbox" name="r_need" value="التحقيق الشرعي أو العلمي"> التحقيق الشرعي أو العلمي</label><label><input type="checkbox" name="r_need" value="التدقيق اللغوي"> التدقيق اللغوي</label></div>
+          <label for="r_note" style="margin-top:10px">تفاصيل إضافية (التخصص، الجامعة، عدد الصفحات، الموعد المطلوب…):</label>
+          <textarea id="r_note" rows="3" maxlength="1500"></textarea>
+          <div class="slot-err" id="rErr"></div>
+        </div>
+
         <div class="form-group">
           <label for="timeSlotSelect">فترة الموعد المفضلة للحصص:</label>
           <select id="timeSlotSelect" required>
@@ -894,6 +908,11 @@
       { const c = document.getElementById('p_confirm'); if (c) c.checked = false; document.getElementById('programBookingForm').classList.remove('confirmed'); }
       const currentProgram = programsData.find(p => p.id === id);
       { const hg = document.getElementById('healthGroup'); if (hg) hg.style.display = currentProgram && currentProgram.type === 'research' ? 'none' : ''; }
+      { const isR = currentProgram && currentProgram.type === 'research';
+        document.getElementById('researchGroup').style.display = isR ? '' : 'none';
+        const ts = document.getElementById('timeSlotSelect'); if (ts) { ts.closest('.form-group').hidden = isR; ts.required = !isR; }
+        const cb = document.querySelector('.confirm-box span'); if (cb) cb.textContent = isR ? 'أؤكد صحة بياناتي وطلبي المكتوب أعلاه، وأوافق على حفظه لأتابعه في لوحة الطالب.' : 'أؤكد صحة بياناتي ومواعيد حلقتي المكتوبة أعلاه، وأوافق على حفظها لتظهر لي كاملة في لوحة الطالب.';
+        if (!isSponsorModeLabel()) document.getElementById('studentHeaderTitle').textContent = isR ? 'بيانات الباحث / الباحثة:' : 'بيانات الطالب / الطالبة:'; }
       document.getElementById('modalTitle').textContent = currentProgram.title;
       document.getElementById('modalDesc').textContent = currentProgram.desc;
       document.getElementById('modalValue').textContent = currentProgram.value;
@@ -969,6 +988,7 @@
       document.getElementById('programModal').style.display = 'flex';
     }
 
+    function isSponsorModeLabel() { const x = document.getElementById('isSponsorshipSelect'); return x && x.value === 'sponsor'; }
     // ===== الحلقات الجماعية: برامج يختار فيها الطالب أولًا جماعي أو فردي =====
     const GROUP_PROGS = [2, 3, 6, 7, 8, 12, 13, 14, 15, 16, 17, 18];
     let STUDY_MODE = 'single', GROUP = null;
@@ -1284,6 +1304,7 @@
         'التخصص العلمي': v('p_specialty'), 'المهنة': v('p_job'), 'الفترة المفضلة': slotsVisible() ? '' : timeSlot,
         'مواعيد الحصص': slotsVisible() ? slotsSummary(true) : '',
         'ظروف صحية خاصة': v('p_health'),
+        'اسم البحث': v('r_title'), 'المطلوب من الخدمة': [...document.querySelectorAll('input[name="r_need"]:checked')].map((c) => c.value).join('، '), 'تفاصيل البحث': v('r_note'),
         'طريقة الدفع': PRICES_HIDDEN ? '' : payment
       };
       if (selectedProgramIDGlobal <= 4) { details['مقدار الحفظ'] = v('p_quran_memorized'); details['مستوى التجويد'] = v('p_tajweed_level'); }
@@ -1308,6 +1329,7 @@
         const er = !sl.length ? 'اختر/ي يومًا واحدًا على الأقل للحصص.' : sl.some((x) => !x.time) ? 'حدد/ي الساعة لكل يوم اخترته.' : '';
         if (er) { const el = document.getElementById('slotErr'); el.textContent = er; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
       }
+      if (document.getElementById('researchGroup').style.display !== 'none' && !document.querySelector('input[name="r_need"]:checked')) { const el = document.getElementById('rErr'); el.textContent = 'حدّد/ي ما تريده من الخدمة (خيارًا واحدًا على الأقل).'; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
       const isSponsor = document.getElementById('isSponsorshipSelect').value === 'sponsor';
       
       const pName = document.getElementById('p_name').value;
@@ -1317,7 +1339,8 @@
       const pJob = document.getElementById('p_job').value;
       const pCountry = document.getElementById('p_country').value;
       const pNat = document.getElementById('p_nationality').value;
-      const timeSlot = slotsVisible() ? slotsSummary(true) : document.getElementById('timeSlotSelect').value;
+      const isResearch = document.getElementById('researchGroup').style.display !== 'none';
+      const timeSlot = isResearch ? '' : slotsVisible() ? slotsSummary(true) : document.getElementById('timeSlotSelect').value;
       const payment = document.getElementById('programPaymentMethod').value === 'rajhi' ? 'بنك الراجحي' : 'باي موب (Paymob)';
 
       let quranTextInfo = "";
@@ -1346,7 +1369,8 @@
         m += `• الجنسية: ${pNat}\n• بلد الإقامة: ${pCountry}\n`;
         if (document.getElementById('p_health').value.trim()) m += `• ظروف صحية خاصة: ${document.getElementById('p_health').value.trim()}\n`;
         if (days) m += `• الأيام المفضلة: ${days}\n`;
-        m += slotsVisible() ? `• مواعيد الحصص: ${timeSlot}` : `• الفترة المفضلة: ${timeSlot}`;
+        if (isResearch) { const need = [...document.querySelectorAll('input[name="r_need"]:checked')].map((c) => c.value).join('، '); m += `• المطلوب من الخدمة: ${need}`; if (document.getElementById('r_title').value.trim()) m += `\n• اسم البحث: ${document.getElementById('r_title').value.trim()}`; if (document.getElementById('r_note').value.trim()) m += `\n• تفاصيل: ${document.getElementById('r_note').value.trim()}`; }
+        else m += slotsVisible() ? `• مواعيد الحصص: ${timeSlot}` : `• الفترة المفضلة: ${timeSlot}`;
         if (STUDY_MODE === 'group') m += GROUP ? `\n• نوع الدراسة: حلقة جماعية «${GROUP.title}» (${grpTimes(GROUP)})` : `\n• نوع الدراسة: حلقة جماعية (قائمة الانتظار)`;
         window.open(`https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(m)}`, '_blank');
         closeModal();
