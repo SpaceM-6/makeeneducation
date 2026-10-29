@@ -18,7 +18,7 @@
 <script>document.write(MK.header('teachers.html'))</script>
 <main class="mk-wrap">
   <h1 class="mk-h1">كادر المعلمين والمعلمات</h1>
-  <p class="mk-sub">نخبة من المجازين والمتخصصين، على رأسهم أ/ ميمونة. التقييمات من طلاب درسوا فعلًا، وتُراجع قبل نشرها.</p>
+  <p class="mk-sub">نخبة من المجازين والمتخصصين، على رأسهم أ/ ميمونة. نجوم مكين بحسب عدد برامج مكين التي يقدّمها المعلم/ة، وآراء الطلاب من طلاب درسوا فعلًا.</p>
   <div class="mk-chips" id="filters" role="group" aria-label="تصفية">
     <button type="button" class="mk-chip on" data-g="">الكل</button>
     <button type="button" class="mk-chip" data-g="f">المعلمات</button>
@@ -55,13 +55,14 @@
         (t.is_head ? '<span class="mk-badge">على رأس الكادر التعليمي</span>' : '') +
         MK.avatar(t, 104) + '<h3>' + MK.esc(MK.title(t)) + '</h3>' +
         (t.headline ? '<p class="mk-head">' + MK.esc(t.headline) + '</p>' : '') +
-        '<div>' + MK.stars(s.avg_stars, s.n || 0) + '</div>' +
+        (t.specialty || t.level ? '<p class="mk-head" style="font-size:13px">' + MK.esc([t.level, t.specialty].filter(Boolean).join(' · ')) + '</p>' : '') +
+        '<div>' + MK.progStarsHtml((t.programs || []).length) + '</div>' + (s.n ? '<small style="color:var(--muted)">' + s.n + ' من آراء الطلاب</small>' : '') +
         '<div class="mk-tags">' + (t.programs || []).slice(0, 4).map(function (p) { return '<span class="mk-tag">' + MK.esc(p.replace(/^برنامج /, '')) + '</span>'; }).join('') + '</div>' +
         '<a class="mk-btn" style="margin-top:6px" href="teacher.html?id=' + encodeURIComponent(t.id) + '">الصفحة التعريفية</a></article>';
     }).join('');
   }
   Promise.all([
-    MK.get('mk_teachers?select=id,first_name,gender,photo_url,headline,programs,is_head,sort&published=eq.true&order=is_head.desc,sort.asc,created_at.asc'),
+    MK.get('mk_teachers?select=id,first_name,gender,photo_url,headline,programs,is_head,sort,level,specialty&published=eq.true&order=is_head.desc,sort.asc,created_at.asc'),
     MK.get('mk_teacher_stats?select=*').catch(function () { return []; })
   ]).then(function (r) {
     all = r[0] || []; (r[1] || []).forEach(function (s) { stats[s.teacher_id] = s; }); draw();

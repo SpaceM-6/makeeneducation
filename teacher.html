@@ -38,7 +38,8 @@
       '<section class="mk-box"><div class="mk-prof">' + MK.avatar(t, 120) + '<div style="flex:1;min-width:200px">' +
         (t.is_head ? '<span class="mk-badge">على رأس الكادر التعليمي</span>' : '') +
         '<h1>' + E(MK.title(t)) + '</h1>' + (t.headline ? '<p class="mk-head" style="font-size:15.5px">' + E(t.headline) + '</p>' : '') +
-        '<div>' + MK.stars(s.avg_stars, s.n || 0) + '</div></div></div>' +
+        (t.level || t.specialty ? '<p class="mk-head">' + E([t.level, t.specialty].filter(Boolean).join(' · ')) + '</p>' : '') +
+        '<div>' + MK.progStarsHtml((t.programs || []).length) + '</div>' + (s.n ? '<div>' + MK.stars(s.avg_stars, s.n) + ' <small>من آراء الطلاب</small></div>' : '') + '</div></div>' +
         '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><a class="mk-btn" href="programs.html">احجز/ي مع ' + E(MK.title(t)) + '</a><a class="mk-btn ghost" href="teachers.html">كل المعلمين والمعلمات</a></div></section>' +
       sec(she ? 'نبذة عنها' : 'نبذة عنه', t.bio) + sec('المؤهلات العلمية', t.quals) + sec('الإجازات والأسانيد', t.ijazat) + sec('الخبرة', t.experience) +
       ((t.programs || []).length ? '<section class="mk-box"><h2>البرامج التي ' + (she ? 'تدرّسها' : 'يدرّسها') + '</h2><div class="mk-tags" style="justify-content:flex-start">' + t.programs.map(function (p) { return '<a class="mk-tag" style="text-decoration:none;font-size:13.5px" href="programs.html">' + E(p) + '</a>'; }).join('') + '</div></section>' : '') +

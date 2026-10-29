@@ -16,85 +16,173 @@
 </head>
 <body data-app-bar>
 <script>document.write(MK.header('join.html'))</script>
-<main class="mk-wrap" style="max-width:780px">
+<main class="mk-wrap" style="max-width:800px">
   <h1 class="mk-h1">انضم/ي إلى كادر مكين</h1>
-  <p class="mk-sub">أرسل/ي بياناتك كاملة، وتختار إدارة مكين منها ما يُعرض في صفحتك التعريفية بعد المراجعة.</p>
-  <div class="mk-note" style="margin-bottom:14px">🔒 بيانات التواصل (الاسم الكامل والهاتف والبريد) خاصة بإدارة مكين وحدها، ولا تظهر لأي زائر أو طالب. ويظهر للطلاب اسمك الأول فقط.</div>
+  <p class="mk-sub">خمس خطوات قصيرة. تراجع إدارة مكين بياناتك، وتختار منها ما يظهر في صفحتك التعريفية.</p>
+  <div class="mk-note" style="margin-bottom:14px">🔒 الاسم الكامل والهاتف والبريد والوثائق خاصة بإدارة مكين وحدها. ويظهر للطلاب اسمك الأول وأول حرف من اسمك الثاني فقط، مثل: «أ/ فاطمة أ.».</div>
   <form class="mk-box mk-form" id="f" novalidate>
-    <h2>البيانات الخاصة (للإدارة فقط)</h2>
-    <div class="mk-row2">
-      <div><label for="full_name">الاسم الكامل *</label><input id="full_name" required maxlength="120" autocomplete="name"></div>
-      <div><label for="first_name">الاسم الأول (يظهر للطلاب) *</label><input id="first_name" required maxlength="40"></div>
-      <div><label for="gender">النوع *</label><select id="gender" required><option value="">اختر/ي</option><option value="f">معلمة</option><option value="m">معلم</option></select></div>
-      <div><label for="country">الدولة</label><input id="country" maxlength="60" autocomplete="country-name"></div>
-      <div><label for="phone">رقم الهاتف (واتساب) *</label><input id="phone" required maxlength="30" inputmode="tel" autocomplete="tel" dir="ltr"></div>
-      <div><label for="email">البريد الإلكتروني *</label><input id="email" type="email" required maxlength="120" autocomplete="email" dir="ltr"></div>
-    </div>
-    <h2 style="margin-top:20px">البيانات العلمية (تختار الإدارة منها ما يُعرض)</h2>
-    <label for="photo">صورة شخصية أو شعار <span class="hint">(اختياري، ويمكن للمعلمات وضع شعار بدل الصورة)</span></label>
-    <input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
-    <label for="headline">تعريف مختصر في سطر <span class="hint">(مثال: مجازة في رواية حفص ومعلمة تجويد)</span></label>
-    <input id="headline" maxlength="160">
-    <label for="quals">المؤهلات العلمية</label><textarea id="quals" maxlength="3000" placeholder="الشهادات والجامعة والتخصص وسنة التخرج"></textarea>
-    <label for="ijazat">الإجازات والأسانيد</label><textarea id="ijazat" maxlength="3000" placeholder="الرواية أو القراءة، ومن أجازك، وسند الإجازة إن أمكن"></textarea>
-    <label for="experience">الخبرة في التدريس</label><textarea id="experience" maxlength="3000"></textarea>
-    <label for="bio">نبذة تعريفية</label><textarea id="bio" maxlength="3000"></textarea>
-    <label>البرامج التي يمكنك تدريسها *</label>
-    <div class="mk-checks" id="progs"></div>
-    <h2 style="margin-top:20px">التعهدات</h2>
-    <div class="mk-checks" style="grid-template-columns:1fr">
-      <label><input type="checkbox" id="c1"> أقرّ بأن البيانات التي أرسلتها صحيحة.</label>
-      <label><input type="checkbox" id="c2"> ألتزم بألا أشارك أي طالب أو طالبة بيانات تواصل شخصية (الاسم الكامل أو رقم الهاتف أو الحسابات)، وأن يكون التواصل عبر مكين وحدها.</label>
-      <label><input type="checkbox" id="c3"> أعلم وأوافق على أن الحصص تُسجَّل ويُفرَّغ نصها وتراجعه مكين آليًا للجودة والأمان ولمتابعة الطلاب، وأن مخالفة التعهد السابق توجب إنهاء التعاقد فورًا.</label>
-    </div>
+    <ol class="mk-steps" id="steps"><li>البيانات الشخصية</li><li>المؤهلات</li><li>البرامج</li><li>الأوقات المتاحة</li><li>الوثائق والتعهدات</li></ol>
+
+    <section class="mk-step" data-step="0">
+      <h2>١. البيانات الشخصية</h2>
+      <label for="full_name">الاسم الكامل (ثلاثي على الأقل) *</label><input id="full_name" maxlength="120" autocomplete="name">
+      <div class="mk-prev" id="namePrev" hidden>يظهر للطلاب هكذا: <b id="nameShow"></b></div>
+      <div class="mk-row2">
+        <div><label>النوع *</label><div class="mk-pills" id="gender" role="radiogroup"><button type="button" class="mk-pill" data-v="f" aria-pressed="false">امرأة (معلمة)</button><button type="button" class="mk-pill" data-v="m" aria-pressed="false">رجل (معلم)</button></div></div>
+        <div><label for="age">العمر *</label><input id="age" type="number" min="16" max="100" inputmode="numeric"></div>
+        <div><label for="country">الدولة *</label><input id="country" maxlength="60" autocomplete="country-name"></div>
+        <div><label for="profession">المهنة الحالية</label><input id="profession" maxlength="160" placeholder="مثال: معلمة لغة عربية"></div>
+        <div><label for="phone">رقم الهاتف (واتساب) *</label><input id="phone" maxlength="30" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="+20 1xx xxx xxxx"></div>
+        <div><label for="email">البريد الإلكتروني *</label><input id="email" type="email" maxlength="120" autocomplete="email" dir="ltr"></div>
+      </div>
+      <label for="photo">صورة شخصية أو شعار <span class="hint">(اختياري، ويمكن للمعلمات وضع شعار بدل الصورة)</span></label>
+      <input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
+    </section>
+
+    <section class="mk-step" data-step="1" hidden>
+      <h2>٢. المؤهلات العلمية</h2>
+      <div class="mk-row2">
+        <div><label for="level">المستوى العلمي *</label><select id="level"><option value="">اختر/ي</option></select></div>
+        <div><label for="specialty">التخصص العلمي *</label><input id="specialty" maxlength="160" placeholder="مثال: الشريعة الإسلامية، اللغة العربية"></div>
+      </div>
+      <label for="headline">تعريف مختصر في سطر <span class="hint">(مثال: مجازة برواية حفص ومعلمة تجويد)</span></label><input id="headline" maxlength="160">
+      <label for="quals">الشهادات والمؤهلات</label><textarea id="quals" maxlength="3000" placeholder="الشهادة، والجامعة أو الجهة، وسنة التخرج"></textarea>
+      <label for="ijazat">الإجازات القرآنية والأسانيد</label><textarea id="ijazat" maxlength="3000" placeholder="الرواية أو القراءة، ومن أجازك"></textarea>
+      <label for="experience">الخبرة في التدريس</label><textarea id="experience" maxlength="3000" placeholder="عدد السنوات، والجهات، والفئات التي درّستها"></textarea>
+      <label for="bio">نبذة تعريفية</label><textarea id="bio" maxlength="3000"></textarea>
+    </section>
+
+    <section class="mk-step" data-step="2" hidden>
+      <h2>٣. البرامج التي تستطيع/ين تقديمها</h2>
+      <p class="hint" style="margin:0 0 6px">ضع/ي علامة ✓ على كل برنامج من برامج مكين تستطيع/ين تدريسه بإتقان. وتُحسب نجومك في مكين بعدد البرامج التي تعتمدها الإدارة لك.</p>
+      <div class="mk-checks" id="progs"></div>
+      <div class="mk-count" id="progCount"></div>
+    </section>
+
+    <section class="mk-step" data-step="3" hidden>
+      <h2>٤. الأوقات المتاحة للتدريس</h2>
+      <p class="hint" style="margin:0 0 6px">اختر/ي الأيام والساعات التي تكون فيها متاحًا/ة، لنرشّحك للطلاب الذين تناسبهم هذه الأوقات. الساعات بتوقيت: <b id="tzShow"></b></p>
+      <label>الأيام *</label><div class="mk-pills" id="days"></div>
+      <label>الساعات *</label><div id="hours"></div>
+      <label for="availNote">ملاحظة على الأوقات (اختياري)</label><input id="availNote" maxlength="300" placeholder="مثال: الجمعة بعد العصر فقط">
+    </section>
+
+    <section class="mk-step" data-step="4" hidden>
+      <h2>٥. الوثائق والتعهدات</h2>
+      <p class="hint" style="margin:0 0 6px">ارفع/ي صور أو ملفات PDF لوثيقة التخرج الجامعي إن وجدت، والإجازات القرآنية، والشهادات الأخرى. حتى ١٠ ملفات، كل ملف حتى ١٠ ميجابايت.</p>
+      <label class="mk-drop" for="docs">📎 اضغط/ي لاختيار الوثائق<input id="docs" type="file" multiple accept="image/jpeg,image/png,image/webp,application/pdf"></label>
+      <ul class="mk-files" id="docList"></ul>
+      <div class="mk-checks" style="grid-template-columns:1fr;margin-top:14px">
+        <label><input type="checkbox" id="c1"> أقرّ بأن البيانات والوثائق التي أرسلتها صحيحة.</label>
+        <label><input type="checkbox" id="c2"> ألتزم بألا أشارك أي طالب أو طالبة بيانات تواصل شخصية (الاسم الكامل أو رقم الهاتف أو الحسابات)، وأن يكون التواصل عبر مكين وحدها.</label>
+        <label><input type="checkbox" id="c3"> أعلم وأوافق على أن الحصص تُسجَّل ويُفرَّغ نصها وتراجعه مكين آليًا للجودة والأمان ولمتابعة الطلاب، وأن مخالفة التعهد السابق توجب إنهاء التعاقد فورًا.</label>
+      </div>
+    </section>
+
     <p class="mk-err" id="err" role="alert" hidden></p>
-    <div style="margin-top:16px;text-align:center"><button class="mk-btn" id="send" type="submit">إرسال البيانات للمراجعة</button></div>
+    <div class="mk-nav"><button type="button" class="mk-btn ghost" id="back" hidden>→ السابق</button><span></span><button type="button" class="mk-btn" id="next">التالي ←</button></div>
   </form>
   <div class="mk-ok" id="done" hidden><h2 style="margin:0 0 6px">وصلت بياناتك، جزاك الله خيرًا 🌿</h2><p style="margin:0">تراجعها إدارة مكين، ونتواصل معك على الواتساب بإذن الله.</p></div>
 </main>
 <footer class="mk-foot">© شركة مكين للاستشارات والتدريب والتعليم</footer>
 <script>
 (function () {
-  var $ = function (id) { return document.getElementById(id); };
-  $('progs').innerHTML = MK.PROGRAMS.map(function (p, i) { return '<label><input type="checkbox" value="' + MK.esc(p) + '" id="p' + i + '"> ' + MK.esc(p) + '</label>'; }).join('');
+  var $ = function (id) { return document.getElementById(id); }, E = MK.esc;
+  var step = 0, N = 5, gender = '', days = [], hours = [], docs = [];
+  var TZ = (Intl.DateTimeFormat().resolvedOptions().timeZone) || 'UTC';
+  $('tzShow').textContent = TZ;
+  MK.LEVELS.forEach(function (l) { var o = document.createElement('option'); o.value = o.textContent = l; $('level').appendChild(o); });
+  $('progs').innerHTML = MK.PROGRAMS.map(function (p, i) { return '<label><input type="checkbox" value="' + E(p) + '" id="p' + i + '"> ' + E(p) + '</label>'; }).join('');
+  function progCount() { var n = document.querySelectorAll('#progs input:checked').length; $('progCount').innerHTML = n ? 'اخترت ' + n + ' برنامجًا · ' + MK.progStarsHtml(n) : ''; }
+  $('progs').onchange = progCount;
+  $('full_name').oninput = function () { var d = MK.displayName(this.value); $('namePrev').hidden = !d; $('nameShow').textContent = 'أ/ ' + d; };
+  $('gender').onclick = function (e) { var b = e.target.closest('[data-v]'); if (!b) return; gender = b.dataset.v; this.querySelectorAll('.mk-pill').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); };
+  $('days').innerHTML = MK.DAYS.map(function (d, i) { return '<button type="button" class="mk-pill" data-d="' + i + '" aria-pressed="false">' + d + '</button>'; }).join('') + '<button type="button" class="mk-pill" data-d="all">كل الأيام</button>';
+  $('days').onclick = function (e) {
+    var b = e.target.closest('[data-d]'); if (!b) return;
+    if (b.dataset.d === 'all') days = days.length === 7 ? [] : [0, 1, 2, 3, 4, 5, 6];
+    else { var d = +b.dataset.d; days = days.indexOf(d) >= 0 ? days.filter(function (x) { return x !== d; }) : days.concat(d); }
+    this.querySelectorAll('[data-d]').forEach(function (x) { if (x.dataset.d !== 'all') x.setAttribute('aria-pressed', days.indexOf(+x.dataset.d) >= 0); });
+  };
+  var GROUPS = [['بعد منتصف الليل والفجر', 0, 6], ['الصباح', 6, 12], ['الظهر والعصر', 12, 17], ['المساء', 17, 21], ['الليل', 21, 24]];
+  $('hours').innerHTML = GROUPS.map(function (g) {
+    var h = '';
+    for (var i = g[1]; i < g[2]; i++) h += '<button type="button" class="mk-pill" data-h="' + i + '" aria-pressed="false">' + MK.hourLabel(i) + '</button>';
+    return '<div class="mk-hgroup"><b>' + g[0] + ' <button type="button" class="mk-pill" style="font-size:11px;padding:1px 8px;min-width:0" data-g="' + g[1] + '-' + g[2] + '">الكل</button></b><div class="mk-pills">' + h + '</div></div>';
+  }).join('');
+  $('hours').onclick = function (e) {
+    var b = e.target.closest('[data-h],[data-g]'); if (!b) return;
+    if (b.dataset.g) { var r = b.dataset.g.split('-').map(Number), all = true, i; for (i = r[0]; i < r[1]; i++) if (hours.indexOf(i) < 0) all = false; for (i = r[0]; i < r[1]; i++) { hours = hours.filter(function (x) { return x !== i; }); if (!all) hours.push(i); } }
+    else { var h = +b.dataset.h; hours = hours.indexOf(h) >= 0 ? hours.filter(function (x) { return x !== h; }) : hours.concat(h); }
+    this.querySelectorAll('[data-h]').forEach(function (x) { x.setAttribute('aria-pressed', hours.indexOf(+x.dataset.h) >= 0); });
+  };
+  $('docs').onchange = function () {
+    [].slice.call(this.files).forEach(function (f) {
+      if (docs.length >= 10) return;
+      if (!/^(image\/(jpeg|png|webp)|application\/pdf)$/.test(f.type)) return say('نقبل الصور وملفات PDF فقط: ' + f.name);
+      if (f.size > 10 * 1024 * 1024) return say('الملف أكبر من ١٠ ميجابايت: ' + f.name);
+      docs.push(f);
+    });
+    this.value = ''; drawDocs();
+  };
+  function drawDocs() { $('docList').innerHTML = docs.map(function (f, i) { return '<li><span>' + (f.type === 'application/pdf' ? '📄 ' : '🖼️ ') + E(f.name) + '</span><small>' + Math.max(1, Math.round(f.size / 1024)) + ' ك.ب</small><button type="button" data-x="' + i + '" aria-label="حذف">✕</button></li>'; }).join(''); }
+  $('docList').onclick = function (e) { var b = e.target.closest('[data-x]'); if (b) { docs.splice(+b.dataset.x, 1); drawDocs(); } };
+  function say(t) { var er = $('err'); er.textContent = t; er.hidden = !t; }
+  var v = function (id) { return $(id).value.trim(); };
+  function check(s) {
+    if (s === 0) {
+      if (v('full_name').split(/\s+/).length < 3) return 'اكتب/ي الاسم الكامل ثلاثيًا على الأقل.';
+      if (!gender) return 'اختر/ي النوع.';
+      var a = +v('age'); if (!(a >= 16 && a <= 100)) return 'اكتب/ي العمر بالأرقام.';
+      if (!v('country')) return 'اكتب/ي الدولة.';
+      if (v('phone').replace(/\D/g, '').length < 7) return 'اكتب/ي رقم هاتف صحيحًا.';
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email'))) return 'اكتب/ي بريدًا إلكترونيًا صحيحًا.';
+    }
+    if (s === 1) { if (!v('level')) return 'اختر/ي المستوى العلمي.'; if (!v('specialty')) return 'اكتب/ي التخصص العلمي.'; }
+    if (s === 2 && !document.querySelectorAll('#progs input:checked').length) return 'اختر/ي برنامجًا واحدًا على الأقل.';
+    if (s === 3) { if (!days.length) return 'اختر/ي يومًا واحدًا على الأقل.'; if (!hours.length) return 'اختر/ي ساعة واحدة على الأقل.'; }
+    if (s === 4 && !($('c1').checked && $('c2').checked && $('c3').checked)) return 'يلزم الموافقة على التعهدات الثلاثة.';
+    return '';
+  }
+  function show() {
+    document.querySelectorAll('.mk-step').forEach(function (x) { x.hidden = +x.dataset.step !== step; });
+    document.querySelectorAll('#steps li').forEach(function (li, i) { li.className = i === step ? 'on' : i < step ? 'done' : ''; });
+    $('back').hidden = step === 0; $('next').textContent = step === N - 1 ? 'إرسال البيانات للمراجعة' : 'التالي ←';
+    say(''); $('f').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  $('back').onclick = function () { if (step > 0) { step--; show(); } };
+  $('next').onclick = function () { var bad = check(step); if (bad) return say(bad); if (step < N - 1) { step++; show(); } else send(); };
   function shrink(file) {
     return new Promise(function (res, rej) {
       if (!file) return res(null);
       if (file.size > 15 * 1024 * 1024) return rej(new Error('big'));
       var img = new Image(), url = URL.createObjectURL(file);
-      img.onload = function () {
-        var m = 800, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, m / Math.max(w, h));
-        var c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k);
-        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
-        c.toBlob(function (b) { b ? res(b) : rej(new Error('img')); }, 'image/jpeg', 0.86);
-      };
+      img.onload = function () { var k = Math.min(1, 800 / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement('canvas'); c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); c.toBlob(function (b) { b ? res(b) : rej(new Error('img')); }, 'image/jpeg', 0.86); };
       img.onerror = function () { rej(new Error('img')); }; img.src = url;
     });
   }
-  function uid() { return (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); }
-  $('f').onsubmit = function (e) {
-    e.preventDefault();
-    var err = $('err'); err.hidden = true;
-    var v = function (id) { return $(id).value.trim(); };
-    var progs = [].slice.call(document.querySelectorAll('#progs input:checked')).map(function (x) { return x.value; });
-    var bad = !v('full_name') ? 'اكتب/ي الاسم الكامل.' : !v('first_name') ? 'اكتب/ي الاسم الأول.' : !v('gender') ? 'اختر/ي النوع.' :
-      v('phone').replace(/\D/g, '').length < 7 ? 'اكتب/ي رقم هاتف صحيحًا.' : !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')) ? 'اكتب/ي بريدًا إلكترونيًا صحيحًا.' :
-      !progs.length ? 'اختر/ي برنامجًا واحدًا على الأقل.' : !($('c1').checked && $('c2').checked && $('c3').checked) ? 'يلزم الموافقة على التعهدات الثلاثة.' : '';
-    if (bad) { err.textContent = bad; err.hidden = false; return; }
-    var btn = $('send'); btn.disabled = true; btn.textContent = 'جارٍ الإرسال…';
-    shrink($('photo').files[0]).then(function (blob) {
-      return blob ? MK.upload('mk-apps', 'apply/' + uid() + '.jpg', blob) : null;
-    }).then(function (path) {
-      return MK.rpc('mk_apply', { p: { full_name: v('full_name'), first_name: v('first_name'), gender: v('gender'), country: v('country'), phone: v('phone'), email: v('email'),
-        headline: v('headline'), quals: v('quals'), ijazat: v('ijazat'), experience: v('experience'), bio: v('bio'), programs: progs, photo_path: path || '' } });
-    }).then(function () {
-      $('f').hidden = true; $('done').hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' });
-    }).catch(function (x) {
+  function uid() { return crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); }
+  function send() {
+    var btn = $('next'); btn.disabled = true; btn.textContent = 'جارٍ رفع الوثائق…';
+    var folder = 'apply/' + uid() + '/', up = [];
+    shrink($('photo').files[0]).then(function (blob) { return blob ? MK.upload('mk-apps', folder + 'photo.jpg', blob) : null; })
+    .then(function (photo) {
+      return docs.reduce(function (pr, f, i) {
+        return pr.then(function () { btn.textContent = 'رفع الوثيقة ' + (i + 1) + ' من ' + docs.length + '…'; var ext = f.type === 'application/pdf' ? 'pdf' : f.type.split('/')[1].replace('jpeg', 'jpg'); return MK.upload('mk-apps', folder + 'doc-' + (i + 1) + '.' + ext, f).then(function (p) { up.push(p); }); });
+      }, Promise.resolve()).then(function () { return photo; });
+    }).then(function (photo) {
+      btn.textContent = 'جارٍ الإرسال…';
+      return MK.rpc('mk_apply', { p: { full_name: v('full_name'), first_name: MK.displayName(v('full_name')), gender: gender, age: v('age'), country: v('country'), profession: v('profession'),
+        phone: v('phone'), email: v('email'), level: v('level'), specialty: v('specialty'), headline: v('headline'), quals: v('quals'), ijazat: v('ijazat'), experience: v('experience'), bio: v('bio'),
+        programs: [].slice.call(document.querySelectorAll('#progs input:checked')).map(function (x) { return x.value; }),
+        availability: { tz: TZ, days: days.slice().sort(), hours: hours.slice().sort(function (a, b) { return a - b; }), note: v('availNote') }, photo_path: photo || '', docs: up } });
+    }).then(function () { $('f').hidden = true; $('done').hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' }); })
+    .catch(function (x) {
       btn.disabled = false; btn.textContent = 'إرسال البيانات للمراجعة';
-      err.textContent = /big/.test(x.message) ? 'حجم الصورة كبير جدًا، اختر/ي صورة أصغر.' : /img/.test(x.message) ? 'تعذّر قراءة الصورة، جرّب/ي صورة أخرى.' : /busy/.test(x.message) ? 'ضغط كبير الآن، حاول/ي بعد دقائق.' : 'تعذّر الإرسال، تأكد/ي من الاتصال ثم حاول/ي مرة أخرى.';
-      err.hidden = false;
+      say(/big/.test(x.message) ? 'حجم الصورة كبير جدًا، اختر/ي صورة أصغر.' : /img/.test(x.message) ? 'تعذّر قراءة الصورة الشخصية، جرّب/ي صورة أخرى.' : /busy/.test(x.message) ? 'ضغط كبير الآن، حاول/ي بعد دقائق.' : 'تعذّر الإرسال، تأكد/ي من الاتصال ثم حاول/ي مرة أخرى.');
     });
-  };
+  }
+  show(); window.scrollTo(0, 0);
 })();
 </script>
 </body>

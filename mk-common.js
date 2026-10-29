@@ -37,6 +37,26 @@
       return '<span class="mk-av mk-av-l" style="width:' + size + 'px;height:' + size + 'px;font-size:' + Math.round(size * 0.42) + 'px">' + MK.esc((t.first_name || '؟').charAt(0)) + '</span>';
     }
   };
+  // الاسم المعروض: الاسم الأول (مع «عبد/أبو/أم» وما بعدها) وأول حرف من الاسم الثاني
+  MK.displayName = function (full) {
+    var w = String(full || '').trim().split(/\s+/).filter(Boolean);
+    if (!w.length) return '';
+    var first = w.shift();
+    if (/^(عبد|عبدال|أبو|ابو|أم|ام)$/.test(first) && w.length) first += ' ' + w.shift();
+    while (w.length && /^(بن|بنت|ابن)$/.test(w[0])) w.shift();
+    return w.length ? first + ' ' + w[0].replace(/^ال/, '').charAt(0) + '.' : first;
+  };
+  // نجوم مكين: بحسب عدد برامج مكين التي يقدّمها المعلم/ة
+  MK.progStars = function (n) { return n >= 15 ? 5 : n >= 10 ? 4 : n >= 6 ? 3 : n >= 3 ? 2 : n >= 1 ? 1 : 0; };
+  MK.progStarsHtml = function (n) {
+    var k = MK.progStars(n), s = '';
+    for (var i = 1; i <= 5; i++) s += '<span class="' + (i <= k ? 'on' : '') + '">★</span>';
+    var ar = function (x) { return String(x).replace(/[0-9]/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'[d]; }); };
+    return '<span class="mk-stars" title="نجوم مكين بحسب عدد البرامج التي يقدّمها">' + s + '</span> <small>' + ar(n) + ' من ' + ar(MK.PROGRAMS.length) + ' برنامجًا</small>';
+  };
+  MK.LEVELS = ['ثانوي أو ما يعادله', 'دبلوم', 'بكالوريوس / ليسانس', 'دبلوم دراسات عليا', 'ماجستير', 'دكتوراه', 'دراسة شرعية حرة (مشايخ وإجازات)'];
+  MK.DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  MK.hourLabel = function (h) { var p = h < 12 ? 'ص' : 'م', x = h % 12 || 12; return String(x).replace(/[0-9]/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'[d]; }) + ' ' + p; };
   // الرأس الموحد لصفحات مكين الجديدة
   MK.header = function (active) {
     var links = [['index.html', 'الرئيسية'], ['programs.html', 'البرامج'], ['teachers.html', 'المعلمون والمعلمات'], ['join.html', 'انضم/ي إلى الكادر']];

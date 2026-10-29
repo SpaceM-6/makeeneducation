@@ -51,3 +51,21 @@ a{color:inherit}
 .mk-prof{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .mk-prof h1{margin:0;color:var(--navy);font-size:26px}
 footer.mk-foot{text-align:center;color:var(--muted);font-size:13px;padding:20px}
+.mk-steps{display:flex;gap:4px;margin:0 0 14px;padding:0;list-style:none;counter-reset:st}
+.mk-steps li{flex:1;text-align:center;font-size:12px;color:var(--muted);position:relative;padding-top:34px;counter-increment:st;line-height:1.4}
+.mk-steps li::before{content:counter(st);position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid var(--line);color:var(--muted);font-weight:800;line-height:24px;font-size:14px}
+.mk-steps li.on{color:var(--navy);font-weight:800}.mk-steps li.on::before{background:var(--navy);border-color:var(--navy);color:var(--gold)}
+.mk-steps li.done::before{content:'✓';background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.mk-step h2{display:flex;align-items:center;gap:8px}
+.mk-nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.mk-pills{display:flex;flex-wrap:wrap;gap:6px}
+.mk-pill{font:700 13px Cairo,Tahoma,sans-serif;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:4px 11px;cursor:pointer;min-width:44px}
+.mk-pill[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--gold)}
+.mk-hgroup{margin:8px 0}.mk-hgroup b{display:block;font-size:13px;color:#6B5320;margin-bottom:4px}
+.mk-files{list-style:none;margin:8px 0 0;padding:0}.mk-files li{display:flex;align-items:center;gap:8px;background:#FBF6EA;border:1px solid var(--line);border-radius:10px;padding:5px 10px;margin-bottom:5px;font-size:13.5px}
+.mk-files li span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mk-files button{border:0;background:none;color:#B91C1C;font-weight:800;cursor:pointer}
+.mk-drop{display:block;border:2px dashed var(--gold2);border-radius:14px;padding:14px;text-align:center;background:#FFFDF6;cursor:pointer;font-weight:700;color:var(--navy)}
+.mk-drop input{display:none}
+.mk-prev{background:#FBF6EA;border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-top:6px}
+.mk-count{font-size:13px;color:var(--muted);margin-top:6px}
