@@ -206,10 +206,11 @@
   }
   // روابط سياسة الخصوصية والشروط في كل صفحات مكين (تُخدم من موقع ميمونة)
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('a[href="privacy.html"],a[href="terms.html"],a[href="refund.html"]').forEach(function (a) { a.href = MK.MAIN + '/' + a.getAttribute('href'); });
+    document.querySelectorAll('a[href="terms.html"]').forEach(function (a) { a.href = 'study-terms.html'; });
+    document.querySelectorAll('a[href="privacy.html"],a[href="refund.html"]').forEach(function (a) { a.href = MK.MAIN + '/' + a.getAttribute('href'); });
     var f = document.querySelector('footer'); if (!f || f.querySelector('a[href$="privacy.html"]')) return;
     var p = document.createElement('p'); p.style.cssText = 'margin:6px 0 0;font-size:13.5px';
-    p.innerHTML = '<a href="' + MK.MAIN + '/privacy.html" style="color:inherit">سياسة الخصوصية</a> · <a href="' + MK.MAIN + '/terms.html" style="color:inherit">الشروط والأحكام</a>';
+    p.innerHTML = '<a href="' + MK.MAIN + '/privacy.html" style="color:inherit">سياسة الخصوصية</a> · <a href="join-terms.html" style="color:inherit">شروط الالتحاق بكادر مكين</a> · <a href="study-terms.html" style="color:inherit">شروط الدراسة للطلاب</a>';
     f.appendChild(p);
   });
   document.addEventListener('DOMContentLoaded', ensureFab);
