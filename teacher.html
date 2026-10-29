@@ -12,7 +12,7 @@
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="mk.css?v=fce989d7">
-<script src="mk-common.js?v=12169bc5"></script>
+<script src="mk-common.js?v=69a43c9c"></script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
@@ -28,11 +28,11 @@
 
 var BOOKS_HTML = (function () {
   var M = 'https://maimoonah.com/', L = [
-    ['ihya', 'إحياء العقل السليم بكلام الخلاق العليم', 'book-cover.jpg?v=2', 'صدر · ورقي ورقمي وصوتي'],
-    ['tadabbur', 'تدبر التنزيل لأهل العصر والتأويل', 'img/cover-tadabbur.jpg', 'تفسير · يصدر مطبوعًا وصوتيًا قريبًا'],
-    ['ghina', 'الغنى والفقر تحت المجهر', 'img/cover-ghina.jpg', 'يصدر قريبًا'],
-    ['kalima', 'الكلمة: من اللحظة إلى المصير', 'img/cover-kalima-tree2.jpg', 'يصدر قريبًا'],
-    ['ihya-en', 'إحياء العقل السليم — النسخة الإنجليزية', 'img/cover-ihya-en-front.jpg?v=2', 'يصدر قريبًا']
+    ['ihya', 'إحياء العقل السليم بكلام الخلاق العليم', 'book-cover.jpg?v=2', 'صدر مطبوعًا ورقميًا · ويصدر صوتيًا قريبًا'],
+    ['tadabbur', 'تدبر التنزيل لأهل العصر والتأويل', 'img/cover-tadabbur.jpg', 'يصدر مطبوعًا ورقميًا وصوتيًا قريبًا'],
+    ['ghina', 'الغنى والفقر تحت المجهر', 'img/cover-ghina.jpg', 'يصدر مطبوعًا ورقميًا وصوتيًا قريبًا'],
+    ['kalima', 'الكلمة: من اللحظة إلى المصير', 'img/cover-kalima-tree2.jpg', 'يصدر مطبوعًا ورقميًا وصوتيًا قريبًا'],
+    ['ihya-en', 'إحياء العقل السليم — النسخة الإنجليزية', 'img/cover-ihya-en-front.jpg?v=2', 'يصدر مطبوعًا ورقميًا وصوتيًا قريبًا']
   ];
   return '<section class="mk-box" id="books"><h2>كتب ومؤلفات</h2><div class="mk-books">' + L.map(function (b) {
     return '<a class="mk-book" href="' + M + '#book-' + b[0] + '"><img src="' + M + b[2] + '" alt="غلاف ' + b[1] + '" loading="lazy"><b>' + b[1] + '</b><small>' + b[3] + '</small></a>';

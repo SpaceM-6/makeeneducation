@@ -33,6 +33,7 @@
     },
     avatar: function (t, size) {
       size = size || 96;
+      if (!t.photo_url && t.is_head) return '<img class="mk-av" style="width:' + size + 'px;height:' + size + 'px;object-fit:cover;background:#fff" src="assets/maimouna-logo-square.jpg" alt="شعار أ/ ميمونة" loading="lazy">';
       if (t.photo_url) return '<img class="mk-av" style="width:' + size + 'px;height:' + size + 'px" src="' + MK.esc(t.photo_url) + '" alt="' + MK.esc(MK.title(t)) + '" loading="lazy">';
       return '<span class="mk-av mk-av-l" style="width:' + size + 'px;height:' + size + 'px;font-size:' + Math.round(size * 0.42) + 'px">' + MK.esc((t.first_name || '؟').charAt(0)) + '</span>';
     }
@@ -90,10 +91,9 @@
     'header .brand-logo-text .mk-two{display:inline-block;line-height:1.45;text-align:center;white-space:nowrap}' +
     '@media (max-width:520px){header .brand-logo-text .mk-two{font-size:15.5px!important}}' +
     '.mk-hact{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto}' +
-    '.mk-hflag{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 10px 0 8px;border-radius:10px;border:1.5px solid #F3D37A;color:#F3D37A;text-decoration:none;font:800 14px Cairo,Tahoma,sans-serif;white-space:nowrap;-webkit-tap-highlight-color:transparent}' +
-    '.mk-hflag .fl{width:26px;height:26px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);flex:0 0 auto}.mk-hflag .fl img{width:26px;height:26px;object-fit:cover;display:block}' +
-    '@media (max-width:380px){.mk-hflag b{display:none}.mk-hflag{padding:0 8px}}' +
-    'footer{padding-bottom:92px!important}body:not(:has(footer)){padding-bottom:88px}';
+    '.mk-hflag{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;width:44px;padding:0;border-radius:10px;border:1.5px solid #F3D37A;color:#F3D37A;text-decoration:none;font:800 14px Cairo,Tahoma,sans-serif;white-space:nowrap;-webkit-tap-highlight-color:transparent}' +
+    '.mk-hflag .fl{width:30px;height:30px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);flex:0 0 auto}.mk-hflag .fl img{width:30px;height:30px;object-fit:cover;display:block}' +
+        'footer{padding-bottom:92px!important}body:not(:has(footer)){padding-bottom:88px}';
   (function () { var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st); })();
   function ensureDrawer() {
     if (document.getElementById('mkDrawer') || !document.body) return;
@@ -129,7 +129,7 @@
   // علم الدولة و«يومي» في الشريط العلوي بجانب زر القائمة
   function headerFlag() {
     var p = window.MNApp && MNApp.profile && MNApp.profile();
-    var fl = p && p.done && MNApp.flagHtml ? MNApp.flagHtml(p.cc, 26) : '🌍';
+    var fl = p && p.done && MNApp.flagHtml ? MNApp.flagHtml(p.cc, 30) : '🌍';
     var title = p && p.done ? 'يومي: مواقيت الصلاة والورد · ' + (p.city || '') + (p.country && p.country !== 'دولة أخرى' ? '، ' + p.country : '') : 'يومي: مواقيت الصلاة والورد';
     document.querySelectorAll('.mk-menu-btn').forEach(function (btn) {
       var a = btn.parentNode.classList.contains('mk-hact') ? btn.parentNode.querySelector('.mk-hflag') : null;
@@ -138,7 +138,7 @@
         a = document.createElement('a'); a.className = 'mk-hflag'; a.href = 'today.html';
         btn.parentNode.insertBefore(w, btn); w.appendChild(a); w.appendChild(btn);
       }
-      a.innerHTML = '<span class="fl">' + fl + '</span><b>يومي</b>'; a.title = title; a.setAttribute('aria-label', title);
+      a.innerHTML = '<span class="fl">' + fl + '</span>'; a.title = title; a.setAttribute('aria-label', title);
     });
   }
   document.addEventListener('mn-profile', headerFlag);

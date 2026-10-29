@@ -13,7 +13,7 @@
 <meta name="description" content="تعرّف/ي على كادر المعلمين والمعلمات في شركة مكين: مؤهلاتهم وإجازاتهم وبرامجهم وتقييمات طلابهم.">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="mk.css?v=fce989d7">
-<script src="mk-common.js?v=12169bc5"></script>
+<script src="mk-common.js?v=69a43c9c"></script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
@@ -64,7 +64,7 @@
         MK.avatar(t, 104) + '<h3>' + MK.esc(MK.title(t)) + '</h3>' +
         (t.headline ? '<p class="mk-head">' + MK.esc(t.headline) + '</p>' : '') +
         (t.specialty || t.level ? '<p class="mk-head" style="font-size:13px">' + MK.esc([t.level, t.specialty].filter(Boolean).join(' · ')) + '</p>' : '') +
-        '<div>' + MK.progStarsHtml((t.programs || []).length) + '</div>' + (s.n ? '<small style="color:var(--muted)">' + s.n + ' من آراء الطلاب</small>' : '') +
+        '<div>' + MK.progStarsHtml((t.programs || []).length) + '</div>' + (s.n ? '<div>' + MK.stars(s.avg_stars, s.n) + ' <small style="color:var(--muted)">من آراء الطلاب</small></div>' : '') +
         '<div class="mk-tags">' + (t.programs || []).slice(0, 4).map(function (p) { return '<span class="mk-tag">' + MK.esc(p.replace(/^برنامج /, '')) + '</span>'; }).join('') + '</div>' +
         '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:6px"><a class="mk-btn" href="teacher.html?id=' + encodeURIComponent(t.id) + '">الصفحة التعريفية</a>' + (t.is_head ? '<a class="mk-btn ghost" href="teacher.html?id=' + encodeURIComponent(t.id) + '#books">كتب ومؤلفات</a>' : '') + '</div></article>';
     }).join('');
