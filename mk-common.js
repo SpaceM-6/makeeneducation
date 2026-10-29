@@ -86,7 +86,8 @@
     '.mk-drawer a:hover,.mk-drawer a.cur{background:rgba(243,211,122,.25)}.mk-drawer a svg{flex:0 0 auto;color:#A8822F}' +
     '.mk-drawer a.gold{background:linear-gradient(90deg,#F3D37A,#E5C158);color:#12355B;font-weight:900;border-radius:12px;border:0;margin:6px 0}.mk-drawer a.gold svg{color:#12355B}' +
     '.mk-drawer a.inst{color:#A8822F;font-weight:800}.mk-drawer a[hidden]{display:none}' +
-    '@media (max-width:768px){.mk-drawer a{font-size:14px;padding:11px 4px}}';
+    '@media (max-width:768px){.mk-drawer a{font-size:14px;padding:11px 4px}}' +
+    '@media (hover:none){.service-card:hover{transform:none;border-color:#E2E8F0}}';
   (function () { var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st); })();
   function ensureDrawer() {
     if (document.getElementById('mkDrawer') || !document.body) return;
@@ -128,5 +129,35 @@
     return '<header class="mk-top"><a class="mk-brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>شركة مكين</span></a>' +
       '<button type="button" class="mk-menu-btn" onclick="mkOpenDrawer()" aria-label="القائمة">' + MK.MENU_ICON + '</button></header>';
   };
+  // ===== زر التواصل العائم (بلا شات مباشر) =====
+  var FAB_CSS = '.mc-fab{position:fixed;bottom:16px;left:16px;z-index:1900;width:56px;height:56px;border-radius:50%;border:2px solid #F3D37A;background:#12355B;color:#F3D37A;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 22px rgba(18,53,91,.35);-webkit-tap-highlight-color:transparent}' +
+    '.mc-panel{position:fixed;bottom:84px;left:16px;z-index:1900;width:290px;max-width:calc(100vw - 32px);background:#FFFDF8;border:1.5px solid #DCC79A;border-radius:16px;box-shadow:0 14px 34px rgba(74,56,24,.25);padding:16px;font-family:Cairo,Tahoma,sans-serif;direction:rtl;display:none}' +
+    '.mc-panel.open{display:block;animation:mcIn .2s ease-out}@keyframes mcIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}' +
+    '.mc-panel h3{margin:0 0 12px;font-size:18px;color:#12355B;font-weight:800;display:flex;justify-content:space-between;align-items:center}' +
+    '.mc-x{background:none;border:none;font-size:20px;color:#4A3818;cursor:pointer;line-height:1;padding:2px 6px}' +
+    '.mc-row{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;text-decoration:none;color:#4A3818;background:#F6EEE2;margin-top:8px;font-weight:700;font-size:14.5px}' +
+    '.mc-row:hover{background:#EFE2CB}.mc-row svg{flex:0 0 auto;color:#A8822F}.mc-row small{display:block;font-weight:600;color:#6B5320;font-size:13px;unicode-bidi:isolate;text-align:right}' +
+    '.mc-row.gold{background:linear-gradient(90deg,#F3D37A,#E5C158);color:#12355B}.mc-row.gold svg{color:#12355B}';
+  var SV = function (d) { return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
+  function ensureFab() {
+    if (document.getElementById('mcFab') || !document.body) return;
+    var st = document.createElement('style'); st.textContent = FAB_CSS; document.head.appendChild(st);
+    var wa = 'https://wa.me/201013356935?text=' + encodeURIComponent('السلام عليكم ورحمة الله وبركاته، لديّ استفسار عن برامج شركة مكين');
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'mc-fab'; b.id = 'mcFab'; b.setAttribute('aria-label', 'تواصل معنا'); b.setAttribute('aria-expanded', 'false');
+    b.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>';
+    var p = document.createElement('div'); p.className = 'mc-panel'; p.id = 'mcPanel'; p.setAttribute('role', 'dialog'); p.setAttribute('aria-label', 'تواصل معنا');
+    p.innerHTML = '<h3>تواصل مع مكين <button type="button" class="mc-x" aria-label="إغلاق">✕</button></h3>' +
+      '<a class="mc-row" href="' + wa + '" target="_blank" rel="noopener">' + SV('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 9.5c.3 2.2 2.3 4.2 4.5 4.5l1-1.2 1.6.8"/>') + '<span>واتساب مكين<small dir="ltr">+20 101 335 6935</small></span></a>' +
+      '<a class="mc-row" href="mailto:info@maimoonah.com">' + SV('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>') + '<span>البريد الإلكتروني<small dir="ltr">info@maimoonah.com</small></span></a>' +
+      '<a class="mc-row" href="programs.html">' + SV('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/>') + '<span>البرامج والتسجيل<small>اختر/ي برنامجك وسجّل/ي</small></span></a>' +
+      '<a class="mc-row gold" href="join.html">' + SV('<circle cx="10" cy="8" r="4"/><path d="M3 21c0-4 3-6.5 7-6.5"/><path d="M18 14v6M15 17h6"/>') + '<span>انضم/ي إلى كادر مكين<small style="color:#12355B">للمعلمين والمعلمات</small></span></a>' +
+      '<a class="mc-row" href="' + MK.MAIN + '/complaints.html">' + SV('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4.5"/><path d="M12 15.5h.01"/>') + '<span>الشكاوى والبلاغات<small>رسالة مباشرة إلى الإدارة</small></span></a>';
+    var tog = function (on) { on = on == null ? !p.classList.contains('open') : on; p.classList.toggle('open', on); b.setAttribute('aria-expanded', on); };
+    b.onclick = function () { tog(); };
+    p.querySelector('.mc-x').onclick = function () { tog(false); };
+    document.addEventListener('click', function (e) { if (p.classList.contains('open') && !p.contains(e.target) && !b.contains(e.target)) tog(false); });
+    document.body.appendChild(b); document.body.appendChild(p);
+  }
+  document.addEventListener('DOMContentLoaded', ensureFab);
   document.addEventListener('DOMContentLoaded', ensureDrawer);
 })();
