@@ -830,6 +830,7 @@
 
 <script>
     const TARGET_WHATSAPP = "201013356935";
+    const MAKEEN_WHATSAPP = "201013356935";   // حجوزات برامج مكين تذهب إلى واتساب مكين دائمًا
     let PRICES_HIDDEN = true;
 
     const ADMIN_H = '381c0ba669528286e3bac53cb3d11c7225148774a884e21ce492abf1868d6029';
@@ -1373,7 +1374,7 @@
         if (isResearch) { const need = [...document.querySelectorAll('input[name="r_need"]:checked')].map((c) => c.value).join('، '); m += `• المطلوب من الخدمة: ${need}`; if (document.getElementById('r_title').value.trim()) m += `\n• اسم البحث: ${document.getElementById('r_title').value.trim()}`; if (document.getElementById('r_note').value.trim()) m += `\n• تفاصيل: ${document.getElementById('r_note').value.trim()}`; }
         else m += slotsVisible() ? `• مواعيد الحصص: ${timeSlot}` : `• الفترة المفضلة: ${timeSlot}`;
         if (STUDY_MODE === 'group') m += GROUP ? `\n• نوع الدراسة: حلقة جماعية «${GROUP.title}» (${grpTimes(GROUP)})` : `\n• نوع الدراسة: حلقة جماعية (قائمة الانتظار)`;
-        window.open(`https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(m)}`, '_blank');
+        window.open(`https://wa.me/${MAKEEN_WHATSAPP}?text=${encodeURIComponent(m)}`, '_blank');
         closeModal();
         return;
       }
@@ -1409,7 +1410,7 @@
         if (priceCountry) adminMsg += `• التسعير حسب: الجنسية ${priceNationality} / الإقامة ${priceCountry}\n`;
         adminMsg += `• ${document.getElementById('programPriceDisplay').textContent}`;
 
-        window.open(`https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(adminMsg)}`, '_blank');
+        window.open(`https://wa.me/${MAKEEN_WHATSAPP}?text=${encodeURIComponent(adminMsg)}`, '_blank');
 
         let cleanStudentPhone = pPhone.replace(/[^0-9]/g, '');
         
@@ -1435,7 +1436,7 @@
         if (quranTextInfo !== "") msg += quranTextInfo;
         msg += `• الجنسية: ${pNat}\n• بلد الإقامة: ${pCountry}\n• ${slotsVisible() ? 'مواعيد الحصص' : 'الفترة المفضلة'}: ${timeSlot}\n• طريقة الدفع: ${payment}\n• ${document.getElementById('programPriceDisplay').textContent}`;
         
-        window.open(`https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+        window.open(`https://wa.me/${MAKEEN_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
       }
 
       closeModal();
