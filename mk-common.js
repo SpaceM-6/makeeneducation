@@ -221,6 +221,22 @@
     p.innerHTML = '<a href="privacy.html" style="color:inherit">سياسة الخصوصية</a> · <a href="join-terms.html" style="color:inherit">شروط الالتحاق بكادر مكين</a> · <a href="study-terms.html" style="color:inherit">شروط الدراسة للطلاب</a>';
     f.appendChild(p);
   });
+  // عدّاد زوار مكين ومستخدمي تطبيقه (لا يظهر قبل ١٠٠٠)
+  document.addEventListener('DOMContentLoaded', function () {
+    function rpc(f, b) { return fetch(SB_URL + '/rest/v1/rpc/' + f, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON }, body: JSON.stringify(b) }); }
+    var vid = null, done = false;
+    try { vid = localStorage.getItem('mk_vid'); done = localStorage.getItem('mk_vid_ok') === '1';
+      if (!vid) { vid = (crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); })); localStorage.setItem('mk_vid', vid); } } catch (e) {}
+    if (vid && !done) rpc('track_visit', { p_vid: vid, p_site: 'makeen' }).then(function (r) { if (r.ok) try { localStorage.setItem('mk_vid_ok', '1'); } catch (e) {} }).catch(function () {});
+    var f = document.querySelector('footer'); if (!f || !/\/(index\.html)?$/.test(location.pathname)) return;
+    rpc('public_counters', { p_site: 'makeen' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      var row = d && d[0]; if (!row) return; var parts = [];
+      if (row.visitors) parts.push('عدد زوار الموقع: ' + Number(row.visitors).toLocaleString('ar-EG'));
+      if (row.app_users) parts.push('عدد مستخدمي التطبيق: ' + Number(row.app_users).toLocaleString('ar-EG'));
+      if (!parts.length) return; var p = document.createElement('p'); p.style.cssText = 'margin:8px 0 0;font-size:13px;opacity:.85';
+      p.textContent = parts.join(' | '); f.appendChild(p);
+    }).catch(function () {});
+  });
   document.addEventListener('DOMContentLoaded', ensureFab);
   document.addEventListener('DOMContentLoaded', ensureDrawer);
 })();
