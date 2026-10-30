@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<script> if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = "none"; } }</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://cdn.jsdelivr.net https://8x8.vc https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://maimoonah.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: blob: https://cdn.jsdelivr.net https://8x8.vc https://maimoonah.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://8x8.vc wss://8x8.vc https://maimoonah.com; frame-src 'self' https://8x8.vc; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; upgrade-insecure-requests">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>الغرفة الدراسية | مكين</title>
+<meta property="og:type" content="website"><meta property="og:site_name" content="شركة مكين"><meta property="og:locale" content="ar_AR"><meta property="og:title" content="الغرفة الدراسية | مكين"><meta property="og:description" content="شركة مكين للاستشارات والتدريب والتعليم: برامج القرآن الكريم وعلومه والعلوم الشرعية واللغة العربية عن بُعد."><meta property="og:image" content="https://spacem-6.github.io/makeeneducation/icons/icon-512.png"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta name="twitter:card" content="summary">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#12355B">
+<style>
+  :root { --navy:#12355B; --gold:#F3D37A; --line:#DCC79A; }
+  * { box-sizing:border-box; } [hidden] { display:none !important; }
+  html, body { height:100%; margin:0; }
+  body { background:#0B1E33; color:#fff; font-family:Cairo, Tahoma, sans-serif; display:flex; flex-direction:column; }
+  header { background:var(--navy); border-bottom:3px solid var(--gold); padding:6px 12px; display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+  header a { color:var(--gold); text-decoration:none; font-weight:800; }
+  header .t { flex:1; min-width:0; text-align:center; line-height:1.3; } header .t b { color:var(--gold); display:block; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } header .t small { color:#CBD5E1; font-size:12px; }
+  header button { background:none; border:1px solid rgba(243,211,122,.6); color:var(--gold); border-radius:10px; padding:5px 10px; font:800 13px Cairo, Tahoma, sans-serif; cursor:pointer; white-space:nowrap; }
+  header button.on { background:var(--gold); color:var(--navy); }
+  .wrap { flex:1; min-height:0; display:flex; }
+  #meet { flex:1; min-width:0; background:#000; }
+  #meet iframe { width:100%; height:100%; border:0; }
+  #side { flex:0 0 46%; min-width:0; border-inline-start:2px solid var(--gold); background:#FFFBF1; }
+  #side iframe { width:100%; height:100%; border:0; }
+  @media (max-width:760px) { .wrap { flex-direction:column; } #side { flex:0 0 52%; border-inline-start:0; border-top:2px solid var(--gold); } }
+  .box { margin:auto; max-width:440px; background:#FFFDF8; color:#2B2416; border-radius:18px; padding:22px; text-align:center; border:1.5px solid var(--gold); }
+  .box h1 { color:var(--navy); font-size:20px; margin:0 0 8px; } .box p { line-height:1.9; margin:0 0 12px; }
+  .box .btns { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .box p a { color:var(--navy); font-weight:800; }
+  .box button:disabled { opacity:.5; cursor:default; }
+  .box .btns a, .box .btns button { background:var(--navy); color:var(--gold); border:0; border-radius:999px; padding:11px 18px; font:800 15px Cairo, Tahoma, sans-serif; text-decoration:none; cursor:pointer; flex:1 1 150px; }
+  .box .alt { background:#fff; color:var(--navy); border:1.5px solid var(--navy); }
+  .spin { display:inline-block; width:26px; height:26px; border:3px solid rgba(18,53,91,.2); border-top-color:var(--navy); border-radius:50%; animation:sp .8s linear infinite; } @keyframes sp { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+<header>
+  <a href="student.html" id="backA">→</a>
+  <div class="t"><b id="title">الغرفة الدراسية</b><small id="sub">شركة مكين للاستشارات والتدريب والتعليم</small></div>
+  <button type="button" id="btnQ" hidden>📖 المصحف</button>
+</header>
+<div class="wrap">
+  <div id="meet"><div class="box" style="margin-top:12vh" id="stateBox"><span class="spin"></span><p style="margin-top:10px">جارٍ تجهيز الغرفة…</p></div></div>
+  <div id="side" hidden></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://maimoonah.com/js/sb.js"></script>
+<script src="https://maimoonah.com/js/mfa.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const qs = new URLSearchParams(location.search), SUB = qs.get('sub') || '', MODE = qs.get('mode') === 'audio' ? 'audio' : 'video';
+  let API = null, ADMIN = false;
+  function state(h) { $('meet').innerHTML = `<div class="box" style="margin-top:10vh">${h}</div>`; }
+  async function start() {
+    if (!window.supabase) return state('<h1>تعذّر الاتصال</h1><p>تأكد/ي من الاتصال بالإنترنت ثم حدّث/ي الصفحة.</p>');
+    const sb = MN.sb();
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return state('<h1>سجّل/ي الدخول أولًا</h1><p>ادخل/ي إلى لوحة الطالب ببريدك، ثم افتح/ي الغرفة من هناك.</p><div class="btns"><a href="student.html">لوحة الطالب</a></div>');
+    ADMIN = (session.user.email || '').toLowerCase() === MN.ADMIN_EMAIL;
+    if (ADMIN) { await MNMfa.ensure(sb); const fresh = await sb.auth.getSession(); if (fresh.data.session) session.access_token = fresh.data.session.access_token; }
+    if (ADMIN) $('backA').href = 'https://maimoonah.com/makeen-admin.html#s-students';
+    let r;
+    let httpStatus = 0;
+    try {
+      r = await fetch(MN.SB_URL + '/functions/v1/room-token', { method: 'POST', headers: { apikey: MN.SB_ANON, Authorization: 'Bearer ' + session.access_token, 'Content-Type': 'application/json' }, body: JSON.stringify({ sub: SUB }) }).then(async (x) => { httpStatus = x.status; const t = await x.text(); try { return JSON.parse(t); } catch (e) { return { error: x.status === 404 ? 'not_deployed' : 'server_error' }; } });
+      if (r && !r.jwt && !r.error) r = { error: httpStatus === 404 ? 'not_deployed' : 'server_error' };
+    } catch (e) { r = { error: 'network' }; }
+    const ERR = {
+      not_configured: '<h1>الغرف الدراسية قيد التجهيز</h1><p>تُفعَّل قريبًا بإذن الله. وإلى ذلك الحين ادخل/ي الحلقة من رابطها في لوحتك.</p>',
+      expired: '<h1>انتهى الاشتراك</h1><p>جدّد/ي اشتراكك من لوحة الطالب ليعود دخول الغرفة.</p>',
+      not_yours: '<h1>هذه الغرفة لاشتراك آخر</h1><p>ادخل/ي بالبريد المسجّل في الاشتراك.</p>',
+      not_signed_in: '<h1>انتهت جلسة الدخول</h1><p>ادخل/ي من جديد من لوحة الطالب.</p>',
+      network: '<h1>تعذّر الاتصال</h1><p>تأكد/ي من الإنترنت ثم أعد/أعيدي المحاولة.</p>',
+      not_deployed: '<h1>الغرف الدراسية قيد التجهيز</h1><p>خدمة الغرف لم تُنشر بعد على الخادم.</p>',
+      key_error: '<h1>تعذّر فتح الغرفة</h1><p>مفتاح خدمة الغرف غير مقروء. تحتاج الإدارة مراجعة المفتاح الخاص في إعدادات الخادم.</p>',
+      server_error: '<h1>تعذّر فتح الغرفة</h1><p>حدث خطأ في الخادم، أعد/أعيدي المحاولة بعد قليل.</p>',
+      not_found: '<h1>الاشتراك غير موجود</h1><p>افتح/ي الغرفة من لوحة الطالب.</p>',
+      jaas_script: '<h1>تعذّر تحميل الغرفة</h1><p>لم تُحمَّل خدمة الغرف. تأكد/ي من الإنترنت، أو جرّب/ي متصفحًا آخر.</p>'
+    };
+    if (!r || !r.jwt) return state((ERR[r && r.error] || ERR.network) + (ADMIN ? '<p style="font-size:12.5px;color:#8A7A55" dir="ltr">code: ' + String((r && r.error) || 'network') + ' · ' + httpStatus + ' · ' + String((r && r.fn) || 'v1') + (r && r.detail ? ' · ' + String(r.detail) : '') + '</p>' : '') + '<div class="btns"><a href="student.html">لوحة الطالب</a><button class="alt" onclick="location.reload()">إعادة المحاولة</button></div>');
+    if (r.teacher) { $('backA').href = 'teacher-panel.html'; ADMIN = false; window.IS_T = true; }
+    $('title').textContent = r.title || 'الغرفة الدراسية'; $('sub').textContent = (MODE === 'audio' ? 'حلقة صوتية' : 'حلقة بالفيديو') + (ADMIN ? ' · أنتِ مشرفة الغرفة' : r.teacher ? ' · أنت/ِ معلم/ة الحلقة' : '');
+    await new Promise((ok, bad) => { const s = document.createElement('script'); s.src = 'https://8x8.vc/' + r.appId + '/external_api.js'; s.onload = ok; s.onerror = bad; document.head.appendChild(s); }).catch(() => null);
+    if (!window.JitsiMeetExternalAPI) return state(ERR.jaas_script + (ADMIN ? '<p style="font-size:12.5px;color:#8A7A55" dir="ltr">code: jaas_script · ' + String(r.appId || '').slice(0, 24) + '</p>' : '') + '<div class="btns"><button onclick="location.reload()">إعادة المحاولة</button></div>');
+    $('meet').innerHTML = '';
+    API = new JitsiMeetExternalAPI('8x8.vc', {
+      roomName: r.room, jwt: r.jwt, parentNode: $('meet'), lang: 'ar',
+      configOverwrite: { startWithVideoMuted: MODE === 'audio', startAudioOnly: MODE === 'audio', disableDeepLinking: true, prejoinConfig: { enabled: true }, defaultLanguage: 'ar', disableInviteFunctions: true, enableWelcomePage: false, hideConferenceSubject: false, subject: r.title || '' },
+      interfaceConfigOverwrite: { SHOW_PROMOTIONAL_CLOSE_PAGE: false, MOBILE_APP_PROMO: false }
+    });
+    API.addListener('readyToClose', () => { location.href = ADMIN ? 'https://maimoonah.com/makeen-admin.html#s-students' : r.teacher ? 'teacher-panel.html' : 'student.html'; });
+    $('btnQ').hidden = false;
+  }
+  $('btnQ').onclick = () => {
+    const s = $('side'), on = s.hidden;
+    if (on && !s.firstChild) { const f = document.createElement('iframe'); f.title = 'المصحف'; f.src = 'mushaf.html?sub=' + encodeURIComponent(SUB) + (ADMIN || window.IS_T ? '&lesson' : ''); s.appendChild(f); }
+    s.hidden = !on; $('btnQ').classList.toggle('on', on);
+  };
+  // الموافقة الصريحة قبل أول دخول للغرفة (الطالب والمعلم)
+  const CONSENT_KEY = 'mn_room_consent_v1';
+  function hasConsent() { try { return localStorage.getItem(CONSENT_KEY) === '1'; } catch (e) { return false; } }
+  if (hasConsent()) start();
+  else {
+    state(`<h1>قبل دخول الغرفة الدراسية</h1>
+      <p style="text-align:right">تُعقد الحلقة عبر خدمة غرف خارجية موثوقة، وقد تُسجَّل الحصة وتُفرَّغ وتُحلَّل آليًا لمراقبة جودة العملية التعليمية، وحفظ حق الطالب/ة والمعلم/ة، ومنع تبادل وسائل التواصل الشخصية. ولا يطّلع عليها إلا الطالب/ة وإدارة مكين، وتُحذف بعد مدة محددة. التفاصيل في <a href="privacy.html" target="_blank" rel="noopener">سياسة الخصوصية</a>.</p>
+      <label style="display:flex;gap:10px;align-items:flex-start;text-align:right;background:#F0FDF4;border:1.5px solid #10B981;border-radius:10px;padding:10px;font-weight:700;color:#12355B;cursor:pointer"><input type="checkbox" id="rcOk" style="width:22px;height:22px;flex:0 0 auto;margin-top:3px;accent-color:#10B981">قرأتُ ذلك وأوافق على دخول الغرفة وفق سياسة الخصوصية.</label>
+      <div class="btns" style="margin-top:12px"><button id="rcGo" disabled>دخول الغرفة</button><a class="alt" href="student.html">رجوع</a></div>`);
+    $('rcOk').onchange = () => { $('rcGo').disabled = !$('rcOk').checked; };
+    $('rcGo').onclick = () => { try { localStorage.setItem(CONSENT_KEY, '1'); } catch (e) {} $('meet').innerHTML = '<div class="box" style="margin-top:12vh"><span class="spin"></span><p style="margin-top:10px">جارٍ تجهيز الغرفة…</p></div>'; start(); };
+  }
+</script>
+</body>
+</html>

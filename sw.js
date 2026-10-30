@@ -1,5 +1,5 @@
 // تطبيق MakeenEducation: الصفحات من الشبكة أولًا، والصور والملفات من الذاكرة
-const V = 'mk-202610301032';
+const V = 'mk-202610301036';
 const SHELL = ['./', 'index.html', 'programs.html', 'teachers.html', 'today.html', 'mk.css', 'mk-common.js', 'manifest.webmanifest', 'icons/icon-192.png', 'assets/makeen-logo.jpeg'];
 self.addEventListener('install', (e) => { self.skipWaiting(); e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', (e) => e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)))).then(() => self.clients.claim())));
@@ -27,7 +27,8 @@ self.addEventListener('notificationclick', (e) => {
   e.notification.close();
   if (e.action === 'close') return;
   let u = (e.notification.data && e.notification.data.url) || './';
-  if (/^\/(student|messages|mushaf|room)\.html/.test(u)) u = 'https://maimoonah.com' + u;
+  // صفحات خدمات مكين صارت داخل تطبيق مكين؛ المصحف ومراسلة أ/ ميمونة على موقع ميمونة
+  if (/^\/(mushaf\.html|messages\.html(?!\?site=makeen))/.test(u)) u = 'https://maimoonah.com' + u;
   const url = /^https?:/.test(u) ? u : at(u);
   e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
     for (const c of list) { if (c.url === url && 'focus' in c) return c.focus(); }

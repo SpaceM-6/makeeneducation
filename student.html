@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://maimoonah.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: blob: https://images.unsplash.com https://*.supabase.co https://cdn.jsdelivr.net https://maimoonah.com; media-src 'self' blob: https://raw.githubusercontent.com https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://open.er-api.com https://formsubmit.co https://cdnjs.cloudflare.com https://maimoonah.com; worker-src 'self' blob: https://cdnjs.cloudflare.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script> if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>لوحة الطالب | شركة مكين</title>
+<meta property="og:type" content="website"><meta property="og:site_name" content="شركة مكين"><meta property="og:locale" content="ar_AR"><meta property="og:title" content="لوحة الطالب | شركة مكين"><meta property="og:description" content="شركة مكين للاستشارات والتدريب والتعليم: برامج القرآن الكريم وعلومه والعلوم الشرعية واللغة العربية عن بُعد."><meta property="og:image" content="https://spacem-6.github.io/makeeneducation/icons/icon-512.png"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#12355B; --gold:#F3D37A; --ink:#1F2937; --brown:#4B5563; --line:#E2E8F0; }
+  * { box-sizing: border-box; }
+  html, body { overflow-x: clip; max-width: 100%; }
+  body { margin:0; background:#F8F9FA url('assets/marble.jpg') 0 0/1400px auto repeat; color:var(--ink); font-family: Cairo, Tahoma, sans-serif; line-height:1.9; }
+  header { background:var(--navy); border-bottom:3px solid var(--gold); padding:8px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  header a.home { color:var(--gold); text-decoration:none; font-weight:800; }
+  header img { width:44px; height:44px; border-radius:50%; border:2px solid var(--gold); display:block; }
+  main { max-width:860px; margin:18px auto; padding:0 14px 40px; }
+  .card { background:rgba(255,255,255,.95); border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:14px; }
+  h1 { color:var(--navy); font-size:22px; margin:0 0 6px; }
+  h2 { color:var(--navy); font-size:19px; margin:0; line-height:1.5; }
+  h3 { color:var(--navy); font-size:16px; margin:16px 0 6px; border-bottom:2px solid var(--gold); display:inline-block; }
+  .note { background:#EEF4FB; border:1px solid #BFD3EA; color:var(--navy); border-radius:10px; padding:10px 12px; font-size:14px; }
+  input[type=email] { width:100%; padding:11px; border:1px solid #CBD5E1; border-radius:8px; font:inherit; direction:ltr; }
+  button, .btn { font:inherit; cursor:pointer; }
+  .btn { display:inline-block; text-decoration:none; text-align:center; background:var(--navy); color:var(--gold); border:none; border-radius:10px; padding:10px 18px; font-weight:800; }
+  .btn.ghost { background:#fff; color:var(--navy); border:1.5px solid var(--navy); }
+  .btn.gold { background:var(--gold); color:var(--navy); }
+  .btn.big { display:block; width:100%; font-size:17px; padding:13px; }
+  .btn:disabled { opacity:.5; cursor:default; }
+  .msg { margin-top:8px; font-size:14px; }
+  .hello { background:var(--navy); color:#fff; border-radius:14px; padding:16px 18px; margin-bottom:14px; border:1px solid var(--gold); }
+  .hello h1 { color:var(--gold); margin:0; }
+  .hello p { margin:2px 0 0; color:#E2E8F0; font-size:14px; }
+  .sub-head { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap; }
+  .badge { display:inline-block; border-radius:999px; padding:2px 12px; font-size:13px; font-weight:800; white-space:nowrap; }
+  .b-active { background:#DCFCE7; color:#166534; } .b-pending { background:#FEF3C7; color:#92400E; }
+  .b-expired, .b-stopped { background:#FEE2E2; color:#991B1B; }
+  .facts { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; margin-top:10px; }
+  .fact { background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:8px 10px; }
+  .fact small { display:block; color:var(--brown); font-size:12.5px; } .fact b { color:var(--navy); }
+  .alert { background:#FFF7E6; border:1px solid #F3D37A; border-radius:10px; padding:10px 12px; margin-top:10px; font-weight:700; color:#7A5A12; }
+  .alert.red { background:#FEF2F2; border-color:#FCA5A5; color:#991B1B; }
+  .meet { margin-top:12px; }
+  .sched { white-space:pre-wrap; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+  .notes { list-style:none; margin:0; padding:0; }
+  .notes li { background:#fff; border:1px solid var(--line); border-right:4px solid var(--gold); border-radius:10px; padding:8px 12px; margin-top:8px; white-space:pre-wrap; }
+  .notes small { display:block; color:var(--brown); font-size:12.5px; }
+  .renew { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; } .renew .btn { flex:1 1 140px; }
+  .row-btns { display:flex; gap:8px; flex-wrap:wrap; } .row-btns .btn { flex:1 1 180px; }
+  .spin { display:inline-block; width:20px; height:20px; border:3px solid rgba(18,53,91,.2); border-top-color:var(--navy); border-radius:50%; animation:spin .8s linear infinite; vertical-align:middle; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .stats4 { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-top:12px; }
+  @media (max-width:420px) { .stats4 { grid-template-columns:repeat(2, 1fr); } }
+  .st { background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:8px 6px; text-align:center; }
+  .st b { display:block; font-size:21px; color:var(--navy); line-height:1.3; } .st small { color:var(--brown); font-size:12.5px; }
+  .st.lvl b { font-size:15px; line-height:1.6; }
+  .nextc { margin-top:12px; background:var(--navy); color:#fff; border-radius:14px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center; gap:10px; border:1px solid var(--gold); }
+  .nextc small { color:#CBD5E1; display:block; font-size:12.5px; } .nextc b { color:var(--gold); font-size:16px; }
+  .nextc .cdn { font-weight:800; font-size:15px; white-space:nowrap; }
+  .cal { margin-top:12px; border:1px solid var(--line); border-radius:14px; background:#fff; padding:10px; }
+  .cal-h { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+  .cal-h b { color:var(--navy); font-size:16px; }
+  .cal-h button { background:#F8FAFC; border:1px solid var(--line); border-radius:10px; width:38px; height:34px; font-size:18px; color:var(--navy); cursor:pointer; }
+  .cal-g { display:grid; grid-template-columns:repeat(7, 1fr); gap:3px; text-align:center; }
+  .cal-g .wd { font-size:11.5px; color:var(--brown); font-weight:700; padding:2px 0; }
+  .cal-g .d { position:relative; aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:50%; font-size:14px; font-weight:700; color:#5B4A28; border:0; background:none; padding:0; font-family:inherit; cursor:default; }
+  .cal-g .d.in { background:#FFF8E6; border-radius:8px; }
+  .cal-g .d.cls { cursor:pointer; border-radius:50%; }
+  .cal-g .d.cls.upcoming { background:#12355B; color:#F3D37A; }
+  .cal-g .d.cls.done { background:#DCFCE7; color:#166534; box-shadow:inset 0 0 0 2px #22C55E; }
+  .cal-g .d.cls.absent { background:#FEE2E2; color:#991B1B; box-shadow:inset 0 0 0 2px #F87171; }
+  .cal-g .d.cls.cancelled { background:#F1F5F9; color:#94A3B8; text-decoration:line-through; }
+  .cal-g .d.today { outline:2.5px solid var(--gold); outline-offset:1px; }
+  .cal-g .d small { font-size:9.5px; font-weight:600; line-height:1; margin-top:1px; opacity:.9; }
+  .cal-g .d.end::after { content:'🏁'; position:absolute; top:-6px; left:-2px; font-size:11px; }
+  .legend { display:flex; flex-wrap:wrap; gap:6px 12px; font-size:12px; color:var(--brown); margin-top:8px; }
+  .legend i { display:inline-block; width:12px; height:12px; border-radius:50%; vertical-align:-1px; margin-left:4px; }
+  .dayinfo { margin-top:8px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:8px 12px; font-size:14px; display:none; }
+  .remind { margin-top:12px; background:#FFF7E6; border:1px solid #F3D37A; border-radius:12px; padding:10px 12px; display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; font-size:14px; font-weight:700; color:#7A5A12; }
+
+</style>
+<meta name="theme-color" content="#12355B">
+<script src="https://maimoonah.com/js/classes.js"></script>
+
+<script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/app.js"></script>
+
+</head>
+<body data-app-bar>
+<header>
+  <a data-back class="home" href="index.html">→ موقع مكين</a>
+  <button class="btn ghost" id="logoutBtn" style="display:none; padding:6px 12px;" onclick="logout()">خروج</button>
+  <a href="index.html" aria-label="موقع مكين"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"></a>
+</header>
+<main>
+  <section class="card" id="loginBox" style="display:none;">
+    <h1>لوحة الطالب</h1>
+    <p>اكتب/ي البريد الإلكتروني الذي سجّلت به في البرنامج، فيصلك على بريدك رابط دخول.</p>
+    <input type="email" id="email" placeholder="name@example.com" autocomplete="email">
+    <div style="margin-top:10px;"><button class="btn" id="sendBtn" onclick="sendLink()">أرسل رابط الدخول</button></div>
+    <div class="msg" id="loginMsg"></div>
+    <p class="note" style="margin-top:12px;">في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.</p>
+  </section>
+
+  <div id="dash" style="display:none;">
+    <div class="hello"><h1 id="helloName">أهلًا بك</h1><p id="who"></p></div>
+    <section class="card" data-book-alerts-list hidden></section>
+    <div id="subs"><div class="card"><span class="spin"></span> جارٍ تحميل اشتراكاتك…</div></div>
+    <section class="card" id="settings">
+      <h2>إعدادات الحساب</h2>
+      <div class="facts" style="margin-top:10px">
+        <div class="fact"><small>البريد الذي تدخل به</small><b dir="ltr" id="setEmail">—</b></div>
+        <div class="fact"><small>رقم العضوية</small><b dir="ltr" id="setMember">—</b></div>
+      </div>
+      <p style="margin:12px 0 6px;font-size:14px;color:var(--brown)">لتعديل اسمك أو رقم الواتساب أو البريد المسجّل في اشتراكك، أرسل/ي طلب التعديل، ويُعدَّل بعد مراجعته.</p>
+      <div class="row-btns">
+        <a class="btn ghost" id="editReq" target="_blank" rel="noopener" href="https://wa.me/201013356935">طلب تعديل بياناتي</a>
+        <button type="button" class="btn ghost" onclick="logout()">تسجيل الخروج من هذا الجهاز</button>
+      </div>
+    </section>
+    <section class="card">
+      <h2>روابط سريعة</h2>
+      <div class="row-btns" style="margin-top:10px;">
+        <a class="btn" href="messages.html?site=makeen">مراسلة إدارة مكين</a>
+        <a class="btn ghost" href="https://maimoonah.com/mushaf.html">المصحف</a>
+        <a class="btn ghost" href="https://maimoonah.com/library.html">مكتبتي (الكتب والتفسير)</a>
+        <a class="btn ghost" id="waLink" target="_blank" rel="noopener" href="https://wa.me/201013356935">التواصل عبر الواتساب</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://maimoonah.com/js/sb.js"></script>
+<script>
+  if (!window.supabase) { document.querySelector('main').innerHTML = '<div class="card" style="text-align:center;padding:24px;">تعذّر الاتصال بالخادم. تأكد/ي من اتصالك بالإنترنت، ثم حدّث الصفحة.</div>'; throw new Error('supabase not loaded'); }
+  const sb = MN.sb();
+  const WA = '201013356935';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const MONTHS = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  const arDate = (d) => { if (!d) return '—'; const [y, m, day] = String(d).slice(0, 10).split('-').map(Number); return `${day} ${MONTHS[m - 1]} ${y}م`; };
+  const PERIOD = { monthly: 'شهري', yearly: 'سنوي' };
+  const daysLeft = (end) => { if (!end) return null; const t = new Date(); t.setHours(0, 0, 0, 0); return Math.round((new Date(end + 'T00:00:00') - t) / 86400000); };
+  const waHref = (txt) => `https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
+  let SUBS = [];
+
+
+  // ===== متابعة الدراسة: التقويم الشهري والحصص =====
+  const VTZ = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'Africa/Cairo'; } catch (e) { return 'Africa/Cairo'; } })();
+  const AR = (n) => String(n).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d]);
+  const ymdV = (d) => d.toLocaleDateString('en-CA', { timeZone: VTZ });
+  const tV = (d) => d.toLocaleTimeString('ar-EG-u-nu-latn', { timeZone: VTZ, hour: 'numeric', minute: '2-digit' });
+  const dayLong = (d) => d.toLocaleDateString('ar-EG', { timeZone: VTZ, weekday: 'long', day: 'numeric', month: 'long' });
+  const CAL = {};
+  const ST_AR = { upcoming: 'حصة قادمة', done: 'تمت', absent: 'غياب', cancelled: 'أُلغيت' };
+  function sessionsOf(s) { return window.MNClasses ? MNClasses.sessions(s, s.marks || {}) : []; }
+  function trackHtml(s) {
+    if (!Array.isArray(s.slots) || !s.slots.length) return `<p class="note" style="margin-top:12px;">تُضاف أيام حصصك وساعاتها إلى تقويمك هنا بعد تأكيدها.</p>`;
+    const list = sessionsOf(s), st = MNClasses.stats(list);
+    let h = `<div class="stats4">
+      <div class="st lvl"><b>${esc(s.level || 'يُحدَّد قريبًا')}</b><small>مستواك</small></div>
+      <div class="st"><b>${AR(st.done)}</b><small>حصة منجزة</small></div>
+      <div class="st"><b>${AR(st.remaining)}</b><small>حصة متبقية</small></div>
+      <div class="st"><b>${AR(st.total)}</b><small>إجمالي الحصص</small></div></div>`;
+    if (st.absent) h += `<p style="margin:6px 0 0;font-size:13.5px;color:#991B1B">غياب: ${AR(st.absent)} ${st.absent === 1 ? 'حصة' : 'حصص'}</p>`;
+    if (st.next && s.status === 'active') h += `<div class="nextc"><div><small>حصتك القادمة</small><b>${dayLong(st.next.at)} — ${tV(st.next.at)}</b></div><span class="cdn" data-cd="${st.next.at.getTime()}"></span></div>`;
+    h += `<div class="cal" id="cal-${s.id}"></div><div class="dayinfo" id="di-${s.id}"></div>
+      <div class="legend"><span><i style="background:#12355B"></i>حصة قادمة</span><span><i style="background:#DCFCE7;box-shadow:inset 0 0 0 2px #22C55E"></i>تمت</span><span><i style="background:#FEE2E2;box-shadow:inset 0 0 0 2px #F87171"></i>غياب</span><span><i style="background:#F1F5F9"></i>أُلغيت</span><span><i style="background:#FFF8E6;border-radius:3px"></i>مدة الاشتراك</span><span>🏁 نهاية الاشتراك</span></div>
+      <div class="row-btns" style="margin-top:10px"><button class="btn ghost" data-ics="${s.id}">📅 أضف الحصص إلى تقويم جوالك</button></div>`;
+    return h;
+  }
+  function drawCal(s) {
+    const box = document.getElementById('cal-' + s.id); if (!box) return;
+    const list = sessionsOf(s), byDay = {};
+    list.forEach((c) => { (byDay[ymdV(c.at)] = byDay[ymdV(c.at)] || []).push(c); });
+    if (!CAL[s.id]) { const st = MNClasses.stats(list); const ref = st.next ? st.next.at : new Date(); const k = ymdV(ref); CAL[s.id] = { y: +k.slice(0, 4), m: +k.slice(5, 7) }; }
+    const { y, m } = CAL[s.id];
+    const first = new Date(Date.UTC(y, m - 1, 1)), days = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    const lead = (first.getUTCDay() + 1) % 7; // الأسبوع يبدأ بالسبت
+    const today = ymdV(new Date());
+    let h = `<div class="cal-h"><button data-nav="-1" aria-label="الشهر السابق">›</button><b>${MONTHS[m - 1]} ${AR(y)}</b><button data-nav="1" aria-label="الشهر التالي">‹</button></div><div class="cal-g">`;
+    h += ['سبت', 'أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة'].map((w) => `<span class="wd">${w}</span>`).join('');
+    for (let k = 0; k < lead; k++) h += '<span></span>';
+    for (let d = 1; d <= days; d++) {
+      const key = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const cs = byDay[key] || [];
+      const inRange = s.starts_on && s.ends_on && key >= s.starts_on && key <= s.ends_on;
+      let cls = 'd' + (inRange ? ' in' : '') + (key === today ? ' today' : '') + (key === s.ends_on ? ' end' : '');
+      if (cs.length) cls += ' cls ' + cs[0].status;
+      h += cs.length ? `<button class="${cls}" data-day="${key}" aria-label="${d} ${MONTHS[m - 1]}: ${ST_AR[cs[0].status]} ${tV(cs[0].at)}">${AR(d)}<small>${tV(cs[0].at).replace(/\s?[صم]$/, '')}</small></button>` : `<span class="${cls}">${AR(d)}</span>`;
+    }
+    box.innerHTML = h + '</div>';
+    box.querySelectorAll('[data-nav]').forEach((b) => b.onclick = () => { let mm = m + Number(b.dataset.nav), yy = y; if (mm < 1) { mm = 12; yy--; } if (mm > 12) { mm = 1; yy++; } CAL[s.id] = { y: yy, m: mm }; drawCal(s); });
+    box.querySelectorAll('[data-day]').forEach((b) => b.onclick = () => {
+      const di = document.getElementById('di-' + s.id);
+      di.style.display = 'block';
+      const les = (s.lessons || []).find((l) => l.day === b.dataset.day);
+      di.innerHTML = byDay[b.dataset.day].map((c) => `<b>${dayLong(c.at)}</b> — الساعة ${tV(c.at)} · ${ST_AR[c.status]}`).join('<br>') +
+        (les ? `<br>${les.taken_from ? 'أخذنا ' + rng(les.taken_from, les.taken_to) : ''}${les.hw_from ? ' · الواجب: ' + rng(les.hw_from, les.hw_to) : ''}${les.stop_at ? ' · توقفنا عند ' + posLabel(les.stop_at) : ''}` : '');
+    });
+  }
+  function icsFor(s) {
+    const z = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const now = new Date();
+    const ev = sessionsOf(s).filter((c) => c.status === 'upcoming').map((c, i) => [
+      'BEGIN:VEVENT', `UID:${s.id}-${c.day}@maimoonah.com`, `DTSTAMP:${z(now)}`, `DTSTART:${z(c.at)}`, `DTEND:${z(new Date(c.at.getTime() + MNClasses.CLASS_MIN * 60000))}`,
+      `SUMMARY:حصة ${s.program}`, 'URL:https://maimoonah.com/student.html', 'DESCRIPTION:رابط الحلقة في لوحة الطالب: https://maimoonah.com/student.html',
+      'BEGIN:VALARM', 'TRIGGER:-PT15M', 'ACTION:DISPLAY', 'DESCRIPTION:بعد ربع ساعة تبدأ حصتك', 'END:VALARM', 'END:VEVENT'].join('\r\n'));
+    const txt = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//maimoonah.com//classes//AR', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', ...ev, 'END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'text/calendar;charset=utf-8' })); a.download = 'حصصي-maimoonah.ics'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+  }
+  function tickCds() {
+    document.querySelectorAll('[data-cd]').forEach((el) => {
+      let s = Math.round((Number(el.dataset.cd) - Date.now()) / 1000);
+      if (s <= 0) { el.textContent = s > -MNClasses.CLASS_MIN * 60 ? 'الآن' : ''; return; }
+      const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60);
+      el.textContent = d ? (d === 1 ? 'بعد يوم' : d === 2 ? 'بعد يومين' : `بعد ${AR(d)} ${d <= 10 ? 'أيام' : 'يومًا'}`) + (h ? ' و' + AR(h) + ' س' : '') : h ? `بعد ${AR(h)} س ${AR(m)} د` : `بعد ${AR(m)} دقيقة`;
+    });
+  }
+  setInterval(tickCds, 30000);
+  function remindHtml() {
+    if (!window.MNApp) return '';
+    const st = MNApp.notifyState();
+    if (st === 'push') return '';
+    if (st === 'denied' || st === 'unsupported') return '';
+    return `<div class="remind"><span>🔔 فعّل/ي التنبيهات ليصلك تذكير بكل حصة، وقبل انتهاء اشتراكك.</span><button class="btn" id="remindBtn">تفعيل التذكير</button></div>`;
+  }
+
+
+  // ===== سجل الحلقات من المصحف =====
+  let QMETA = null;
+  fetch('https://maimoonah.com/data/quran-meta.json').then((r) => r.json()).then((m) => { QMETA = m; if (SUBS.length) render(); }).catch(() => {});
+  const posLabel = (p) => { if (!p || !QMETA) return p || '—'; const [s, a] = p.split(':').map(Number); return (QMETA.ch[s - 1] || [''])[0] + ' ' + AR(a); };
+  const rng = (f, t) => { if (!f) return '—'; if (!t || t === f) return posLabel(f); const [s1] = f.split(':'), [s2, a2] = t.split(':'); return s1 === s2 ? posLabel(f) + '–' + AR(a2) : posLabel(f) + ' إلى ' + posLabel(t); };
+  function lessonsHtml(s) {
+    const L = s.lessons || [];
+    let h = `<h3 id="lessons">الحلقة والمصحف</h3><div class="row-btns" style="margin:6px 0"><a class="btn gold" href="https://maimoonah.com/mushaf.html?sub=${s.id}${L[0] && L[0].stop_at ? '&at=' + L[0].stop_at : ''}">📖 افتح المصحف للحلقة</a></div>`;
+    if (!L.length) return h + `<p style="margin:4px 0;color:var(--brown)">بعد أول حصة يظهر هنا ما أخذته، وواجبك، وأين توقفتما.</p>`;
+    const x = L[0];
+    h += `<div class="facts">
+      <div class="fact"><small>آخر حصة</small><b>${arDate(x.day)}</b></div>
+      ${x.taken_from ? `<div class="fact"><small>ما أخذناه</small><b>${rng(x.taken_from, x.taken_to)}</b></div>` : ''}
+      ${x.stop_at ? `<div class="fact"><small>توقفنا عند</small><b><a href="https://maimoonah.com/mushaf.html?sub=${s.id}&at=${x.stop_at}" style="color:inherit">${posLabel(x.stop_at)}</a></b></div>` : ''}
+      ${x.hw_from ? `<div class="fact" style="background:#FFF7E0;border-color:#F3D37A"><small>الواجب (${esc(x.hw_kind || '')})</small><b><a href="https://maimoonah.com/mushaf.html?sub=${s.id}&at=${x.hw_from}" style="color:inherit">${rng(x.hw_from, x.hw_to)}</a></b></div>` : ''}
+      ${x.grade ? `<div class="fact"><small>التقدير</small><b>${esc(x.grade)}</b></div>` : ''}</div>`;
+    if (x.summary) h += `<div class="fact" style="margin-top:8px"><small>ملخص الدرس</small><b style="white-space:pre-wrap;font-weight:600">${esc(x.summary)}</b></div>`;
+    if (x.question) h += `<div class="fact" style="margin-top:8px;background:#EEF2FF;border-color:#A5B4FC"><small>سؤال مطلوب منك الإجابة عليه</small><b>${esc(x.question)}</b></div>`;
+    if (x.notes) h += `<p class="note" style="margin-top:8px;white-space:pre-wrap">${esc(x.notes)}</p>`;
+    if (L.length > 1) h += `<details style="margin-top:8px"><summary style="cursor:pointer;color:var(--brown);font-weight:700">الحصص السابقة (${AR(L.length - 1)})</summary><ul class="notes">${L.slice(1).map((l) => `<li><small>${arDate(l.day)}${l.grade ? ' · ' + esc(l.grade) : ''}</small>${l.taken_from ? 'أخذنا ' + rng(l.taken_from, l.taken_to) : ''}${l.hw_from ? ' · الواجب: ' + rng(l.hw_from, l.hw_to) : ''}${l.stop_at ? ' · توقفنا عند ' + posLabel(l.stop_at) : ''}${l.summary ? '\nملخص الدرس: ' + esc(l.summary) : ''}${l.question ? '\nالسؤال: ' + esc(l.question) : ''}${l.notes ? '\n' + esc(l.notes) : ''}</li>`).join('')}</ul></details>`;
+    return h;
+  }
+
+  async function sendLink() {
+    const email = $('email').value.trim().toLowerCase();
+    if (!/^\S+@\S+\.\S+$/.test(email)) { $('loginMsg').textContent = 'اكتب/ي بريدًا صحيحًا.'; return; }
+    $('sendBtn').disabled = true; $('loginMsg').textContent = 'جارٍ الإرسال…';
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname } });
+    $('sendBtn').disabled = false;
+    $('loginMsg').textContent = error ? 'تعذّر الإرسال، حاول/ي بعد دقيقة.' : 'أرسلنا رابط الدخول إلى بريدك. افتحه من هذا الجهاز.';
+  }
+  async function logout() { await sb.auth.signOut(); location.reload(); }
+
+  const DOW_AR = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  function t12(t) { if (!t) return ''; let [h, m] = String(t).split(':').map(Number); const sf = h < 12 ? 'ص' : 'م'; h = h % 12 || 12; return h + ':' + String(m).padStart(2, '0') + ' ' + sf; }
+  // بياناتي وحلقتي: تظهر كاملة للطالب منذ إرسال الطلب
+  function infoHtml(s) {
+    const row = (k, v) => v ? `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>` : '';
+    const slots = Array.isArray(s.slots) && s.slots.length ? s.slots.slice().sort((a, b) => ((a.dow + 1) % 7) - ((b.dow + 1) % 7)).map((x) => `${DOW_AR[x.dow]} ${t12(x.time)}`).join('، ') : '';
+    const t = s.teacher;
+    const CURN = { SAR: 'ريال سعودي', AED: 'درهم إماراتي', KWD: 'دينار كويتي', QAR: 'ريال قطري', BHD: 'دينار بحريني', OMR: 'ريال عماني', EGP: 'جنيه مصري', USD: 'دولار أمريكي', EUR: 'يورو', GBP: 'جنيه إسترليني', JOD: 'دينار أردني', MAD: 'درهم مغربي', DZD: 'دينار جزائري', TND: 'دينار تونسي', LYD: 'دينار ليبي', IQD: 'دينار عراقي', SDG: 'جنيه سوداني', TRY: 'ليرة تركية', MYR: 'رينغيت ماليزي', IDR: 'روبية إندونيسية', PKR: 'روبية باكستانية', CAD: 'دولار كندي', AUD: 'دولار أسترالي' };
+    const money = s.price != null && s.price !== '' ? Number(s.price).toLocaleString('en-US') + ' ' + (CURN[s.currency] || s.currency || '') : '';
+    const RS = !!(s.details && s.details['المطلوب من الخدمة']);
+    let h = `<h3>${RS ? 'طلبي البحثي' : 'حلقتي'}</h3><div class="facts">${row('البرنامج', s.program)}${RS ? row('اسم البحث', s.details['اسم البحث']) + `<div class="fact" style="grid-column:1/-1"><small>المطلوب من الخدمة</small><b>${esc(s.details['المطلوب من الخدمة'])}</b></div>` + (s.details['تفاصيل البحث'] ? `<div class="fact" style="grid-column:1/-1"><small>تفاصيل</small><b style="font-weight:600">${esc(s.details['تفاصيل البحث'])}</b></div>` : '') : ''}${row('الخطة', s.plan)}${row('نوع الاشتراك', s.period === 'yearly' ? 'سنوي' : s.period === 'monthly' ? 'شهري' : '')}${row('قيمة الاشتراك (وقيمة التجديد)', money)}
+      <div class="fact"><small>${RS ? 'الباحث/ة المتابع/ة' : 'المعلم/ة المباشر/ة'}</small><b>${t ? (t.published ? `<a href="teacher.html?id=${encodeURIComponent(t.id)}" style="color:inherit">${esc(t.name)}</a>` : esc(t.name)) : '<span style="color:var(--brown);font-weight:600">يُحدَّد بعد مراجعة طلبك</span>'}</b></div>
+      ${slots ? `<div class="fact" style="grid-column:1/-1"><small>مواعيد حلقتي${s.slots_tz ? ' (بتوقيتك)' : ''}</small><b>${esc(slots)}</b></div>` : ''}${s.details && s.details['الفترة المفضلة'] ? row('الفترة المفضلة', s.details['الفترة المفضلة']) : ''}</div>`;
+    const d = Object.assign({}, s.details || {}); delete d['مواعيد الحصص']; delete d['الفترة المفضلة']; delete d['طريقة الدفع']; delete d['اسم البحث']; delete d['المطلوب من الخدمة']; delete d['تفاصيل البحث'];
+    h += `<h3>بياناتي</h3><div class="facts">${row('الاسم', s.name)}${row('العمر', s.age ? String(s.age) : '')}${row('الجنسية', s.nationality)}${row('الإقامة', s.country)}${row('الواتساب', s.phone)}${Object.entries(d).filter(([k]) => !/الداعم/.test(k)).map(([k, v]) => row(esc(k), v)).join('')}</div>`;
+    return h;
+  }
+  function subCard(s) {
+    const left = daysLeft(s.ends_on);
+    const badge = { active: ['b-active', 'فعّال'], pending: ['b-pending', 'بانتظار التفعيل'], expired: ['b-expired', 'منتهٍ'], stopped: ['b-stopped', 'موقوف'] }[s.status] || ['b-pending', s.status];
+    let h = `<section class="card"><div class="sub-head"><div><h2>${esc(s.program)}</h2>${s.plan ? `<small style="color:var(--brown)">${esc(s.plan)}</small>` : ''}</div><span class="badge ${badge[0]}">${badge[1]}</span></div>`;
+    if (s.status === 'pending') {
+      return h + `<p class="alert" style="font-weight:600">وصل طلب اشتراكك (رقم الطلب <bdi dir="ltr" style="white-space:nowrap">${esc(s.req_no)}</bdi>) وهو قيد المراجعة. ويصلك بريد فور تفعيله بإذن الله.</p>
+        ${infoHtml(s)}
+        ${s.details && s.details['المطلوب من الخدمة'] ? `<a class="btn" style="margin-top:10px" href="research.html?sub=${s.id}">💬 لوحة المتابعة البحثية</a>` : ''}
+        <a class="btn ghost" style="margin-top:10px" target="_blank" rel="noopener" href="${waHref(`السلام عليكم، أستفسر عن طلب اشتراكي رقم ${s.req_no} في ${s.program}`)}">الاستفسار عن الطلب عبر الواتساب</a></section>`;
+    }
+    h += `<div class="facts">
+      <div class="fact"><small>رقم العضوية</small><b dir="ltr">${esc(s.member_no || '—')}</b></div>
+      <div class="fact"><small>نوع الاشتراك</small><b>${PERIOD[s.period] || '—'}</b></div>
+      <div class="fact"><small>بداية الاشتراك</small><b>${arDate(s.starts_on)}</b></div>
+      <div class="fact"><small>نهاية الاشتراك</small><b>${arDate(s.ends_on)}</b></div></div>`;
+    h += infoHtml(s);
+    if (s.status === 'active' && left != null && left <= 7) h += `<p class="alert">${left === 0 ? 'ينتهي اشتراكك اليوم' : left === 1 ? 'بقي يوم واحد على انتهاء اشتراكك' : left === 2 ? 'بقي يومان على انتهاء اشتراكك' : `بقي ${left} ${left <= 10 ? 'أيام' : 'يومًا'} على انتهاء اشتراكك`}، فجدّده من الأسفل حتى لا تنقطع حلقتك.</p>`;
+    if (s.status === 'expired') h += `<p class="alert red">انتهى اشتراكك في ${arDate(s.ends_on)}. جدّده من الأسفل ليعود رابط الحلقة إلى لوحتك.</p>`;
+    if (s.status === 'stopped') h += `<p class="alert red">الاشتراك موقوف حاليًا. للاستفسار تواصل معنا عبر الواتساب.</p>`;
+    if (s.status === 'active') {
+      h += `<div class="meet row-btns"><a class="btn gold" href="room.html?sub=${s.id}&mode=video">🎥 الغرفة الدراسية (فيديو)</a><a class="btn ghost" href="room.html?sub=${s.id}&mode=audio">🎧 حلقة صوتية</a></div>`;
+      if (s.meet_url && /^https:\/\//.test(s.meet_url)) h += `<p style="margin:6px 0 0;font-size:13.5px"><a href="${esc(s.meet_url)}" target="_blank" rel="noopener" style="color:var(--brown)">أو ادخل/ي من رابط Google Meet ↗</a></p>`;
+      if (s.schedule) h += `<h3>مواعيد الحلقات</h3><div class="sched">${esc(s.schedule)}</div>`;
+    }
+    if (!(s.details && s.details['المطلوب من الخدمة'])) { h += trackHtml(s); h += lessonsHtml(s); }
+    else h += `<div class="row-btns" style="margin-top:10px"><a class="btn gold" href="research.html?sub=${s.id}">💬 لوحة المتابعة البحثية</a></div><p style="font-size:13.5px;color:var(--brown);margin:4px 0 0">شات مع الباحث/ة المتابع/ة، وتبادل الملفات، واتصال صوتي، ومراحل كل بند.</p>`;
+    h += `<h3>ملاحظات المعلم/ة لك</h3>`;
+    h += s.notes && s.notes.length ? `<ul class="notes">${s.notes.map((n) => `<li><small>${arDate(n.at)}</small>${esc(n.body)}</li>`).join('')}</ul>` : `<p style="margin:4px 0;color:var(--brown)">لا توجد ملاحظات بعد.</p>`;
+    h += `<h3>تجديد الاشتراك</h3>`;
+    if (s.renew_requested_at) {
+      h += `<p class="alert" style="font-weight:600">وصل طلب التجديد (${PERIOD[s.renew_period] || ''})، ويُفعَّل بعد تأكيد الدفع. لإتمام الدفع تواصل معنا:</p>
+        <a class="btn" target="_blank" rel="noopener" href="${waHref(`السلام عليكم، أرغب في تجديد اشتراكي (${PERIOD[s.renew_period] || ''}) في ${s.program}، رقم العضوية ${s.member_no}`)}">إتمام التجديد عبر الواتساب</a>`;
+    } else {
+      h += `<p style="margin:4px 0">اختر/ي مدة التجديد:</p><div class="renew"><button class="btn" data-renew="${s.id}" data-p="monthly">تجديد شهري</button><button class="btn ghost" data-renew="${s.id}" data-p="yearly">تجديد سنوي</button></div><div class="msg" id="rmsg-${s.id}"></div>`;
+    }
+    return h + '</section>';
+  }
+
+  function render() {
+    if (!SUBS.length) {
+      $('subs').innerHTML = `<section class="card"><h2>لا يوجد اشتراك مسجّل بهذا البريد</h2><p>إن كنت مشتركًا ببريد آخر فاخرج وادخل به. وإن لم تشترك بعد فاختر برنامجك من برامج شركة مكين.</p>
+        <div class="row-btns"><a class="btn" href="programs.html">اختيار البرنامج والاشتراك</a><a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/${WA}">التواصل عبر الواتساب</a></div></section>`;
+      return;
+    }
+    const nm = (SUBS.find((s) => s.name) || {}).name;
+    if (nm) $('helloName').textContent = 'أهلًا بك ' + nm;
+    $('subs').innerHTML = (SUBS.some((x) => x.status === 'active') ? remindHtml() : '') + SUBS.map(subCard).join('');
+    document.querySelectorAll('[data-renew]').forEach((b) => b.onclick = () => renew(b.dataset.renew, b.dataset.p, b));
+    SUBS.forEach((x) => { if (x.status !== 'pending') drawCal(x); });
+    document.querySelectorAll('[data-ics]').forEach((b) => b.onclick = () => icsFor(SUBS.find((x) => x.id === b.dataset.ics)));
+    tickCds();
+    const rb = $('remindBtn'); if (rb) rb.onclick = async () => {
+      const go = async () => { rb.disabled = true; rb.textContent = 'جارٍ التفعيل…'; await MNApp.enableNotifications(); const { data: { session } } = await sb.auth.getSession(); if (session) await MNApp.linkStudent(session.access_token); render(); };
+      const p = MNApp.profile();
+      if (!p || !p.done) MNApp.onboard({ onDone: go }); else go();
+    };
+  }
+
+  async function renew(id, period, btn) {
+    btn.disabled = true;
+    const { error } = await sb.rpc('request_renewal', { p_id: id, p_period: period });
+    if (error) { btn.disabled = false; $('rmsg-' + id).textContent = 'تعذّر إرسال الطلب الآن، حاول/ي بعد قليل.'; return; }
+    const s = SUBS.find((x) => x.id === id); s.renew_requested_at = new Date().toISOString(); s.renew_period = period; render();
+  }
+
+  async function boot() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) {
+      $('loginBox').style.display = 'block';
+      const hp = new URLSearchParams((location.hash || '').slice(1) + '&' + location.search.slice(1));
+      if (hp.get('error_code') || hp.get('error')) {
+        $('loginMsg').innerHTML = '<b>هذا الرابط استُعمل من قبل أو انتهت مدته.</b> لا تقلق، نسختك محفوظة لك دائمًا: اكتب/ي بريدك واضغط/ي «أرسل رابط الدخول» فيصلك رابط جديد فورًا.';
+        try { history.replaceState(null, '', location.pathname); } catch (e) {}
+        setTimeout(() => $('email').focus(), 50);
+      }
+      return;
+    }
+    $('logoutBtn').style.display = ''; $('dash').style.display = 'block';
+    $('who').textContent = 'أنت داخل ببريد: ' + session.user.email;
+    const { data, error } = await sb.rpc('my_subscriptions');
+    if (error) { $('subs').innerHTML = '<section class="card">تعذّر تحميل اشتراكاتك الآن، حدّث الصفحة بعد قليل.</section>'; return; }
+    SUBS = Array.isArray(data) ? data : []; render();
+    if (window.MNApp) MNApp.linkStudent(session.access_token);
+    else window.addEventListener('load', () => window.MNApp && MNApp.linkStudent(session.access_token));
+    const m = SUBS.find((x) => x.member_no) || SUBS[0] || {};
+    $('setEmail').textContent = session.user.email; $('setMember').textContent = m.member_no || '—';
+    $('editReq').href = waHref(`السلام عليكم، أرغب في تعديل بيانات حسابي في لوحة الطالب.\nرقم العضوية: ${m.member_no || '—'}\nالبريد الحالي: ${session.user.email}\nالتعديل المطلوب: `);
+    if (location.hash === '#settings') setTimeout(() => $('settings').scrollIntoView({ behavior: 'smooth' }), 150);
+  }
+  sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_IN' && $('loginBox').style.display === 'block') location.reload(); });
+  boot();
+</script>
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-back]');
+    if (!a) return;
+    try { if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1) { e.preventDefault(); history.back(); } } catch (x) {}
+  });
+</script>
+</body>
+</html>

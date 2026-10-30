@@ -62,8 +62,8 @@
   var IC = function (d) { return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
   MK.MENU = [
     ['#install', 'تثبيت تطبيق MakeenEducation', IC('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/>'), 'install'],
-    [MK.MAIN + '/student.html', 'لوحة الطالب', IC('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h3v3H8z"/>'), 'top'],
-    [MK.MAIN + '/teacher-panel.html', 'لوحة المعلم', IC('<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M8 9h8M8 12h5"/>')],
+    ['student.html', 'لوحة الطالب', IC('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h3v3H8z"/>'), 'top'],
+    ['teacher-panel.html', 'لوحة المعلم', IC('<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M8 9h8M8 12h5"/>')],
     ['my.html', 'المفضلة والمحفوظات', IC('<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'), 'top'],
     ['index.html', 'الرئيسية', IC('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],
     ['index.html#about-makeen-section', 'من نحن وعن شركة مكين', IC('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>')],
@@ -72,7 +72,7 @@
     ['join.html', 'انضم/ي إلى كادر مكين', IC('<circle cx="10" cy="8" r="4"/><path d="M3 21c0-4 3-6.5 7-6.5"/><path d="M18 14v6M15 17h6"/>'), 'gold'],
     ['join-terms.html', 'شروط الالتحاق بكادر مكين التعليمي', IC('<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13l2 2 3-3"/>')],
     ['study-terms.html', 'شروط الدراسة في مكين', IC('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/><path d="M15 10l1.5 1.5L19 9"/>')],
-    [MK.MAIN + '/messages.html?site=makeen', 'مراسلة إدارة مكين', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>')],
+    ['messages.html', 'مراسلة إدارة مكين', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>')],
     ['https://wa.me/201013356935', 'تواصل معنا عبر الواتساب', IC('<path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.4z"/><path d="M9.5 9.5c.3 1.7 1.8 3.4 3.6 3.9l1-1 1.6.8"/>'), 'ext'],
     [MK.MAIN + '/', 'موقع أ/ ميمونة', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>')],
     ['privacy.html', 'سياسة الخصوصية', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')]

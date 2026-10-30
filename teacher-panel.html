@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://maimoonah.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: blob: https://images.unsplash.com https://*.supabase.co https://cdn.jsdelivr.net https://maimoonah.com; media-src 'self' blob: https://raw.githubusercontent.com https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://open.er-api.com https://formsubmit.co https://cdnjs.cloudflare.com https://maimoonah.com; worker-src 'self' blob: https://cdnjs.cloudflare.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script> if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>لوحة المعلم | شركة مكين</title>
+<meta property="og:type" content="website"><meta property="og:site_name" content="شركة مكين"><meta property="og:locale" content="ar_AR"><meta property="og:title" content="لوحة المعلم | شركة مكين"><meta property="og:description" content="شركة مكين للاستشارات والتدريب والتعليم: برامج القرآن الكريم وعلومه والعلوم الشرعية واللغة العربية عن بُعد."><meta property="og:image" content="https://spacem-6.github.io/makeeneducation/icons/icon-512.png"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#12355B; --gold:#F3D37A; --ink:#1F2937; --brown:#4B5563; --line:#E2E8F0; }
+  * { box-sizing:border-box; } [hidden] { display:none !important; }
+  html, body { overflow-x:clip; max-width:100%; }
+  body { margin:0; background:#F8F9FA url('assets/marble.jpg') 0 0/1400px auto repeat; color:var(--ink); font-family:Cairo, Tahoma, sans-serif; line-height:1.9; }
+  header { background:var(--navy); border-bottom:3px solid var(--gold); padding:8px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  header .brand { display:flex; align-items:center; gap:10px; color:var(--gold); font-weight:800; text-decoration:none; }
+  header img { width:44px; height:44px; border-radius:50%; border:2px solid var(--gold); }
+  header button { background:none; border:1px solid rgba(243,211,122,.6); color:var(--gold); border-radius:10px; padding:5px 12px; font:800 13px Cairo, sans-serif; cursor:pointer; }
+  main { max-width:900px; margin:18px auto; padding:0 14px 60px; }
+  .card { background:rgba(255,255,255,.96); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:14px; }
+  h1 { color:var(--navy); font-size:22px; margin:0 0 4px; } h2 { color:var(--navy); font-size:18px; margin:0; }
+  h3 { color:var(--navy); font-size:15.5px; margin:14px 0 6px; border-bottom:2px solid var(--gold); display:inline-block; }
+  .muted { color:var(--brown); font-size:14px; margin:0; }
+  input[type=email] { width:100%; padding:11px; border:1px solid #CBD5E1; border-radius:8px; font:inherit; direction:ltr; }
+  .btn { display:inline-block; text-decoration:none; text-align:center; background:var(--navy); color:var(--gold); border:none; border-radius:10px; padding:9px 16px; font:800 14px Cairo, sans-serif; cursor:pointer; }
+  .btn.ghost { background:#fff; color:var(--navy); border:1.5px solid var(--navy); } .btn.green { background:#166534; color:#fff; } .btn.red { background:#fff; color:#B91C1C; border:1.5px solid #B91C1C; }
+  .btn.sm { padding:5px 10px; font-size:13px; border-radius:8px; }
+  .row-btns { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .facts { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; margin-top:8px; }
+  .fact { background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:7px 10px; }
+  .fact small { display:block; color:var(--brown); font-size:12.5px; } .fact b { color:var(--navy); }
+  .stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
+  .stat { background:var(--navy); color:#fff; border-radius:12px; padding:10px; text-align:center; } .stat b { display:block; color:var(--gold); font-size:24px; line-height:1.3; } .stat small { font-size:13px; }
+  .stu { border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:12px; background:#FFFFFF; }
+  .stu-top { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; align-items:center; }
+  .badge { border-radius:999px; padding:1px 10px; font-size:12.5px; font-weight:800; } .b-active { background:#DCFCE7; color:#166534; } .b-pending { background:#FEF3C7; color:#92400E; } .b-expired { background:#FEE2E2; color:#991B1B; }
+  .health { background:#FEF2F2; border:1px solid #FCA5A5; color:#991B1B; border-radius:8px; padding:6px 10px; margin:8px 0 0; font-weight:700; font-size:14px; }
+  .slot { display:inline-block; border-radius:8px; padding:2px 8px; margin:2px; font-size:13.5px; font-weight:700; } .slot.ok { background:#DCFCE7; color:#166534; } .slot.no { background:#FEF3C7; color:#92400E; }
+  .sess { display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap; border-bottom:1px dashed #E2E8F0; padding:5px 0; font-size:14px; }
+  .up { display:flex; justify-content:space-between; gap:8px; border-bottom:1px dashed #E2E8F0; padding:6px 0; }
+  .note { background:#EEF4FB; border:1px solid #BFD3EA; color:var(--navy); border-radius:10px; padding:10px 12px; font-size:14px; }
+</style>
+<script src="https://maimoonah.com/js/classes.js"></script>
+</head>
+<body data-app-bar>
+<header><a class="brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>لوحة المعلم</span></a><button type="button" id="logoutBtn" hidden>خروج</button></header>
+<main>
+  <section class="card" id="loginBox" hidden>
+    <h1>لوحة المعلم في مكين</h1>
+    <p class="muted">اكتب/ي بريدك الذي سجّلت به في طلب الانضمام إلى كادر مكين، فيصلك رابط الدخول.</p>
+    <input type="email" id="email" placeholder="name@example.com" autocomplete="email" style="margin-top:10px">
+    <div class="row-btns"><button class="btn" id="sendBtn">أرسل رابط الدخول</button></div>
+    <p id="loginMsg" class="muted" style="margin-top:8px"></p>
+  </section>
+  <div id="dash" hidden></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://maimoonah.com/js/sb.js"></script>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  if (!window.supabase) { document.querySelector('main').innerHTML = '<div class="card">تعذّر الاتصال بالخادم. تأكد/ي من الإنترنت ثم حدّث/ي الصفحة.</div>'; throw new Error('no supabase'); }
+  const sb = MN.sb();
+  const C = window.MNClasses;
+  const TZ = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'Africa/Cairo'; } catch (e) { return 'Africa/Cairo'; } })();
+  const DAYS = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  const MONTHS = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  const arDate = (d) => { if (!d) return '—'; const [y, m, day] = String(d).slice(0, 10).split('-').map(Number); return `${day} ${MONTHS[m - 1]} ${y}م`; };
+  const hour12 = (h) => { const p = h < 12 ? 'ص' : 'م'; return (h % 12 || 12) + ' ' + p; };
+  const PER = { monthly: 'شهري', yearly: 'سنوي' };
+  const ST = { active: ['b-active', 'فعّال'], pending: ['b-pending', 'بانتظار التفعيل'], expired: ['b-expired', 'منتهٍ'] };
+  const MARK = { done: 'حضر', absent: 'غياب', cancelled: 'أُلغيت', upcoming: 'قادمة' };
+  let D = null;
+
+  // الوقت في منطقة المعلم/ة
+  const inTz = (date, tz) => { const p = new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', weekday: 'short', hour: 'numeric', minute: '2-digit' }).formatToParts(date); const g = (t) => (p.find((x) => x.type === t) || {}).value; return { dow: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(g('weekday')), h: Number(g('hour')) % 24 }; };
+  function slotsHtml(s, av) {
+    if (!Array.isArray(s.slots) || !s.slots.length) return '<span class="muted">لم يحدد مواعيد بعد</span>';
+    const today = new Date().toISOString().slice(0, 10), ref = C.addDays(today, -C.dow(today));
+    const atz = (av && av.tz) || TZ;
+    return s.slots.slice().sort((a, b) => ((a.dow + 1) % 7) - ((b.dow + 1) % 7)).map((x) => {
+      const at = C.zoned(C.addDays(ref, x.dow), x.time, s.slots_tz || 'Africa/Cairo');
+      const mine = inTz(at, TZ), t = inTz(at, atz);
+      const ok = av && Array.isArray(av.days) && Array.isArray(av.hours) ? av.days.includes(t.dow) && av.hours.includes(t.h) : null;
+      return `<span class="slot ${ok === false ? 'no' : 'ok'}" title="${ok === false ? 'خارج أوقاتك المتاحة' : 'ضمن أوقاتك المتاحة'}">${DAYS[mine.dow]} ${esc(C.fmtTime(at, TZ))}${ok === false ? ' ⚠' : ' ✓'}</span>`;
+    }).join('');
+  }
+  function lastLessonHtml(s) {
+    const x = (s.lessons || [])[0]; if (!x) return '<p class="muted">لم تُسجَّل حصص بعد.</p>';
+    const f = (k, v) => v ? `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>` : '';
+    return `<div class="facts">${f('آخر حصة', arDate(x.day))}${f('ملخص الدرس', x.summary)}${f('توقفنا عند', /^\d+:\d+$/.test(x.stop_at || '') ? 'سورة رقم ' + x.stop_at.split(':')[0] + ' · آية ' + x.stop_at.split(':')[1] : x.stop_at)}${f('الواجب', x.hw_from ? (x.hw_kind || '') + ' ' + x.hw_from + (x.hw_to ? ' – ' + x.hw_to : '') : '')}${f('السؤال المطلوب', x.question)}${f('التقدير', x.grade)}</div>`;
+  }
+  function stuHtml(s, av) {
+    const b = ST[s.status] || ST.pending;
+    const f = (k, v) => v ? `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>` : '';
+    let h = `<div class="stu" id="s-${s.sub_id}"><div class="stu-top"><h2>${esc(s.first_name)}${s.age ? ` <small class="muted">(${esc(s.age)} سنة)</small>` : ''}</h2><span class="badge ${b[0]}">${b[1]}</span></div>`;
+    if (s.health) h += `<div class="health">⚕ ظروف صحية خاصة: ${esc(s.health)}</div>`;
+    h += `<div class="facts">${f('البرنامج', s.program)}${f('الخطة', s.plan)}${f('نوع الاشتراك', PER[s.period])}${f('المستوى', s.level)}${f('التخصص العلمي', s.specialty)}${f('المهنة', s.job)}${f('مقدار الحفظ', s.hifz)}${f('مستوى التجويد', s.tajweed)}${s.ends_on ? f('ينتهي الاشتراك', arDate(s.ends_on)) : ''}</div>`;
+    h += `<h3>مواعيده (بتوقيتك)</h3><div>${slotsHtml(s, av)}</div>`;
+    if (s.status === 'active') {
+      const list = C.sessions(s, s.marks || {}), stt = C.stats(list);
+      h += `<h3>الحصص والحضور</h3><div class="facts">${f('منجزة', String(stt.done))}${f('متبقية', String(stt.remaining))}${f('غياب', String(stt.absent))}${f('الإجمالي', String(stt.total))}</div>`;
+      const past = list.filter((x) => x.at.getTime() < Date.now() + 3600000).slice(-3).reverse();
+      if (past.length) h += past.map((x) => `<div class="sess"><span>${DAYS[inTz(x.at, TZ).dow]} ${arDate(x.day)} · ${esc(C.fmtTime(x.at, TZ))} — <b>${MARK[x.status] || ''}</b></span><span><button class="btn sm green" data-mark="done" data-sub="${s.sub_id}" data-day="${x.day}">حضر</button> <button class="btn sm red" data-mark="absent" data-sub="${s.sub_id}" data-day="${x.day}">غاب</button> <button class="btn sm ghost" data-mark="cancelled" data-sub="${s.sub_id}" data-day="${x.day}">أُلغيت</button></span></div>`).join('');
+      h += `<h3>آخر حصة</h3>${lastLessonHtml(s)}`;
+      if (/البحوث/.test(s.program || '')) h += `<div class="row-btns"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>`; else
+      h += `<div class="row-btns"><a class="btn" href="room.html?sub=${s.sub_id}&mode=video">🎥 دخول الغرفة</a><a class="btn ghost" href="room.html?sub=${s.sub_id}&mode=audio">🎧 حلقة صوتية</a><a class="btn ghost" href="https://maimoonah.com/mushaf.html?sub=${s.sub_id}&lesson">📝 تسجيل الحصة والملخص والواجب</a></div>`;
+    } else h += /البحوث/.test(s.program || '') ? `<div class="row-btns"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>` : `<p class="note" style="margin-top:10px">بانتظار تفعيل الإدارة لاشتراكه، ثم تظهر هنا الغرفة وتسجيل الحصص.</p>`;
+    return h + '</div>';
+  }
+  function upcomingHtml(students) {
+    const now = Date.now(), wk = now + 7 * 86400000, all = [];
+    students.filter((s) => s.status === 'active').forEach((s) => C.sessions(s, s.marks || {}).forEach((x) => { if (x.at.getTime() > now - 3600000 && x.at.getTime() < wk && x.status === 'upcoming') all.push({ s, x }); }));
+    all.sort((a, b) => a.x.at - b.x.at);
+    return { n: all.length, html: all.length ? all.slice(0, 20).map(({ s, x }) => `<div class="up"><span><b>${esc(s.first_name)}</b> · ${esc(s.program)}</span><span>${DAYS[inTz(x.at, TZ).dow]} ${esc(C.fmtTime(x.at, TZ))}</span></div>`).join('') : '<p class="muted">لا حصص في الأيام السبعة القادمة.</p>' };
+  }
+  function render() {
+    const t = D.teacher || {}, av = t.availability || null, S = D.students || [];
+    const act = S.filter((s) => s.status === 'active'), up = upcomingHtml(S);
+    const avTxt = av && Array.isArray(av.days) ? (av.days.length === 7 ? 'كل الأيام' : av.days.slice().sort().map((d) => DAYS[d]).join('، ')) + ' · ' + (av.hours || []).slice().sort((a, b) => a - b).map(hour12).join('، ') + (av.tz ? ` (${av.tz})` : '') : 'لم تُسجَّل';
+    $('dash').innerHTML = `<section class="card"><h1>أهلًا ${esc(t.name || '')}</h1>${t.headline ? `<p class="muted">${esc(t.headline)}</p>` : ''}
+      <div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}<div class="fact" style="grid-column:1/-1"><small>أوقاتك المتاحة</small><b>${esc(avTxt)}</b></div>${(t.programs || []).length ? `<div class="fact" style="grid-column:1/-1"><small>برامجك</small><b>${esc(t.programs.join('، '))}</b></div>` : ''}</div>
+      ${t.id ? `<div class="row-btns"><a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}">صفحتي التعريفية</a></div>` : ''}</section>
+      <section class="card"><div class="stats"><div class="stat"><b>${act.length}</b><small>طالب/ة مشترك/ة</small></div><div class="stat"><b>${up.n}</b><small>حصة في ٧ أيام</small></div><div class="stat"><b>${S.length - act.length}</b><small>بانتظار التفعيل</small></div></div>
+      <h3>حصصك القادمة</h3>${up.html}</section>
+      <section class="card"><h2>طلابي</h2><p class="muted">تظهر لك بيانات الدراسة فقط. ويُمنع تبادل أرقام الهواتف أو الحسابات الشخصية مع الطلاب، وكل التواصل عبر مكين. المواعيد بعلامة ⚠ خارج أوقاتك المتاحة؛ راجع/ي الإدارة فيها.</p>
+      ${S.length ? S.map((s) => stuHtml(s, av)).join('') : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}</section>`;
+    document.querySelectorAll('[data-mark]').forEach((b) => b.onclick = async () => {
+      b.disabled = true;
+      const { error } = await sb.rpc('teacher_mark', { p_sub: b.dataset.sub, p_day: b.dataset.day, p_status: b.dataset.mark });
+      if (error) { b.disabled = false; alert('تعذّر الحفظ، حاول/ي مرة أخرى.'); return; }
+      load();
+    });
+  }
+  async function load() {
+    const { data, error } = await sb.rpc('teacher_dashboard');
+    if (error) { $('dash').innerHTML = '<section class="card">تعذّر تحميل لوحتك الآن، حدّث/ي الصفحة بعد قليل.</section>'; return; }
+    if (!data || data.error) { $('dash').innerHTML = `<section class="card"><h1>هذا البريد غير مسجّل في كادر مكين</h1><p class="muted">ادخل/ي بالبريد الذي كتبته في طلب الانضمام، أو تواصل/ي مع الإدارة.</p><div class="row-btns"><a class="btn ghost" href="join.html">طلب الانضمام إلى كادر مكين</a></div></section>`; return; }
+    D = data; render();
+  }
+  async function boot() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { $('loginBox').hidden = false; return; }
+    $('logoutBtn').hidden = false; $('dash').hidden = false;
+    $('dash').innerHTML = '<section class="card">جارٍ التحميل…</section>';
+    load();
+  }
+  $('sendBtn').onclick = async () => {
+    const email = $('email').value.trim().toLowerCase();
+    if (!/^\S+@\S+\.\S+$/.test(email)) { $('loginMsg').textContent = 'اكتب/ي بريدًا صحيحًا.'; return; }
+    $('sendBtn').disabled = true; $('loginMsg').textContent = 'جارٍ الإرسال…';
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname } });
+    $('sendBtn').disabled = false;
+    $('loginMsg').textContent = error ? 'تعذّر الإرسال، حاول/ي بعد دقيقة.' : 'أرسلنا رابط الدخول إلى بريدك. افتحه من هذا الجهاز.';
+  };
+  $('logoutBtn').onclick = async () => { await sb.auth.signOut(); location.reload(); };
+  sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_IN' && !$('loginBox').hidden) location.reload(); });
+  boot();
+</script>
+</body>
+</html>
