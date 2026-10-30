@@ -66,7 +66,7 @@
 // هوية موقع ميمونة: البني الفاتح (لا يُطبَّق على صفحات مكين)
 (function () {
   if (/^\/(makeen\/|makeen-admin|student\.html|teacher-panel|research|room)/.test(location.pathname)) return;
-  if (/[?&]from=makeen/.test(location.search)) return;
+  if (/[?&](from|site)=makeen/.test(location.search)) return;
   try { localStorage.removeItem('mn_tone_try'); localStorage.removeItem('mn_tone_try_on'); } catch (e) {}
   var s = document.createElement('script'); s.src = '/js/tone.js?v=1'; (document.head || document.documentElement).appendChild(s);
   try { localStorage.removeItem('mn_cloud_try'); localStorage.removeItem('mn_cloud_try_on'); } catch (e) {}
