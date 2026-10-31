@@ -198,9 +198,11 @@
       .floating-support-btn { bottom: 15px; right: 15px; font-size: 12.5px; padding: 10px 16px; }
     }
 
-    .page-section { display: none; animation: fadeIn 0.4s ease-in-out; flex: 1; }
-    .page-section.active-page { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .page-section { display: none; flex: 1; }
+    .page-section.active-page { display: block; animation: pageIn .32s cubic-bezier(.2,.7,.2,1) both; }
+    @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .page-section.active-page { animation: none; } }
 
     
     .hero-section {
