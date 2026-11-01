@@ -92,6 +92,8 @@
 
     <section id="daily"><div id="dailyBox" hidden></div></section>
 
+    <section id="islamicDay"></section>
+
     <section class="card" id="prayers">
       <h2>🕌 مواقيت الصلاة اليوم</h2>
       <ul class="pt" id="pt"></ul>
@@ -128,6 +130,11 @@
       <div class="switch"><span>تذكير الورد القرآني</span><label class="tg"><input type="checkbox" id="nWird"><span></span></label></div>
       <div class="switch"><span>زادك اليومي (٣ مرات في اليوم)</span><label class="tg"><input type="checkbox" id="nDaily"><span></span></label></div>
       <div class="switch"><span>تذكير الحصص وانتهاء الاشتراك</span><label class="tg"><input type="checkbox" id="nClasses"><span></span></label></div>
+      <div class="switch"><span>📿 أذكار الصباح والمساء والنوم</span><label class="tg"><input type="checkbox" id="nAdhkar"><span></span></label></div>
+      <div class="row" id="sleepRow" style="margin:2px 0 4px"><div><label class="f" for="nSleep">وقت تذكير أذكار النوم</label><input type="time" id="nSleep" value="22:30"></div></div>
+      <div class="switch"><span>الأذكار بعد كل صلاة</span><label class="tg"><input type="checkbox" id="nAfter"><span></span></label></div>
+      <div class="switch"><span>🌙 تذكير الصيام المسنون (ليلة الاثنين والخميس والأيام البيض وعرفة وعاشوراء)</span><label class="tg"><input type="checkbox" id="nFast"><span></span></label></div>
+      <div class="switch"><span>📅 المناسبات الإسلامية وأحداث السيرة في أيامها</span><label class="tg"><input type="checkbox" id="nOcc"><span></span></label></div>
       <p class="muted" style="margin:6px 0 0">تذكير الحصص يصل بعد الدخول إلى <a href="https://maimoonah.com/student.html" style="color:var(--gold2)">لوحة الطالب</a> من هذا الجهاز مرة واحدة.</p>
       <div class="msg" id="nMsg"></div>
     </section>
@@ -153,6 +160,8 @@
 
 <script src="https://maimoonah.com/js/prayer.js"></script>
 <script src="https://maimoonah.com/js/places.js"></script>
+<script src="https://maimoonah.com/js/islamic.js?v=1"></script>
+<script src="https://maimoonah.com/js/islamic-card.js?v=1"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const ar = (n) => String(n).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d]);
@@ -260,9 +269,10 @@
     const on = $('nOn'); if (on) on.onclick = async () => { on.disabled = true; on.textContent = 'جارٍ التفعيل…'; await MNApp.enableNotifications(); P = MNApp.profile(); renderNotif(); };
     const ts = $('nTest'); if (ts) ts.onclick = async () => { ts.disabled = true; const r = await MNApp.testNotification(); ts.disabled = false; $('nMsg').textContent = { sent: 'أُرسل الإشعار، يصلك خلال ثوانٍ.', local: 'ظهر الإشعار.', wait: 'انتظر/ي دقيقة ثم جرّب/ي مرة أخرى.', no_keys: 'خادم الإشعارات لم يُشغَّل بعد.', no_device: 'لم يُسجَّل جهازك بعد، أعد/أعيدي التفعيل.', fail: 'تعذّر الإرسال الآن، حاول/ي بعد قليل.' }[r] || ''; };
     const n = P.notify = Object.assign({ prayer: true, wird: true, classes: true }, P.notify || {});
-    $('nPrayer').checked = n.prayer !== false; $('nWird').checked = n.wird !== false; $('nDaily').checked = n.daily !== false; $('nClasses').checked = n.classes !== false;
+    $('nPrayer').checked = n.prayer !== false; $('nWird').checked = n.wird !== false; $('nDaily').checked = n.daily !== false; $('nClasses').checked = n.classes !== false; $('nAdhkar').checked = n.adhkar !== false; $('nAfter').checked = n.afterPrayer === true; $('nFast').checked = n.fast !== false; $('nOcc').checked = n.occasions !== false; $('nSleep').value = /^\d{2}:\d{2}$/.test(n.sleep || '') ? n.sleep : '22:30'; $('sleepRow').style.display = n.adhkar !== false ? '' : 'none';
   }
-  ['nPrayer', 'nWird', 'nDaily', 'nClasses'].forEach((id) => $(id).onchange = () => { const k = { nPrayer: 'prayer', nWird: 'wird', nDaily: 'daily', nClasses: 'classes' }[id]; P.notify[k] = $(id).checked; save(); });
+  ['nPrayer', 'nWird', 'nDaily', 'nClasses', 'nAdhkar', 'nAfter', 'nFast', 'nOcc'].forEach((id) => $(id).onchange = () => { const k = { nPrayer: 'prayer', nWird: 'wird', nDaily: 'daily', nClasses: 'classes', nAdhkar: 'adhkar', nAfter: 'afterPrayer', nFast: 'fast', nOcc: 'occasions' }[id]; P.notify[k] = $(id).checked; if (id === 'nAdhkar') $('sleepRow').style.display = $(id).checked ? '' : 'none'; save(); });
+  $('nSleep').onchange = () => { if (/^\d{2}:\d{2}$/.test($('nSleep').value)) { P.notify.sleep = $('nSleep').value; save(); } };
 
   function renderMethod() {
     $('pMethod').innerHTML = Object.entries(MNPrayer.METHODS).map(([k, m]) => `<option value="${k}">${m.name}</option>`).join('');
