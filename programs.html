@@ -970,7 +970,7 @@
     function _loadSB() {
       if (_sb) return Promise.resolve(_sb);
       return new Promise((res, rej) => { const sc = document.createElement('script');
-        sc.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+        sc.src = 'https://maimoonah.com/js/vendor/supabase-2.45.4.js'; sc.integrity = 'sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o'; sc.crossOrigin = 'anonymous';
         sc.onload = () => { _sb = window.supabase.createClient(SB_URL, SB_ANON); res(_sb); }; sc.onerror = rej; document.head.appendChild(sc); });
     }
     // تظهر الأسعار للإدارة فقط
@@ -1578,7 +1578,7 @@
     }
     openDeepLink(); window.addEventListener('hashchange', openDeepLink);
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" defer></script>
+<script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous" defer></script>
 <script>
   document.querySelectorAll('.modal-content').forEach(function (box) {
     var top = box.querySelector('.close-modal'); if (!top) return;

@@ -9,6 +9,27 @@
     if (bad) { document.documentElement.style.display = 'none'; window.top.location = location.href; }
   } catch (e) {}
 })();
+// حماية نصوص الموقع من النسخ (مثل قسم «مدخل إلى التفوق»): لا تحديد ولا نسخ ولا قائمة ولا سحب ولا طباعة،
+// مع بقاء الكتابة في الحقول والنسخ من أزرار «نسخ الرابط». لوحات الإدارة والمعلمين والطلاب مستثناة.
+(function () {
+  if (/(admin|teacher-panel|messages|student|room|mushaf)[^/]*\.html$/i.test(location.pathname)) return;
+  var editable = function (t) { t = t && (t.nodeType === 1 ? t : t.parentNode); return !!(t && t.closest && t.closest('input, textarea, select, [contenteditable="true"], [data-allow-copy]')); };
+  var st = document.createElement('style');
+  st.textContent = 'body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,textarea,select,[contenteditable="true"],[data-allow-copy],[data-allow-copy] *{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}img{-webkit-user-drag:none}@media print{body{display:none!important}}';
+  (document.head || document.documentElement).appendChild(st);
+  ['copy', 'cut', 'contextmenu', 'selectstart', 'dragstart'].forEach(function (ev) {
+    document.addEventListener(ev, function (e) {
+      if (editable(e.target) || (ev === 'copy' && editable(document.activeElement))) return;
+      e.preventDefault();
+      if (ev === 'copy' && e.clipboardData) { try { e.clipboardData.setData('text/plain', ''); } catch (x) {} }
+    }, true);
+  });
+  document.addEventListener('keydown', function (e) {
+    var k = (e.key || '').toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && ['c', 'x', 'a'].indexOf(k) >= 0 && !editable(document.activeElement)) e.preventDefault();
+    if ((e.ctrlKey || e.metaKey) && ['p', 's', 'u'].indexOf(k) >= 0) e.preventDefault();
+  }, true);
+})();
 // تثبيت الموقع تطبيقًا على الجوال
 (function () {
   if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
