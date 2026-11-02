@@ -1,3 +1,14 @@
+// حماية من وضع الموقع داخل إطار موقع آخر (انتحال الصفحة أو خداع النقر): يُسمح فقط بإطارات من موقعي ميمونة ومكين
+(function () {
+  try {
+    if (window.top === window.self) return;
+    var ok = /(^|\.)maimoonah\.com$|^spacem-6\.github\.io$|^localhost$|^127\.0\.0\.1$/;
+    var anc = location.ancestorOrigins;
+    var bad = anc && anc.length ? [].some.call(anc, function (o) { try { return !ok.test(new URL(o).hostname); } catch (e) { return true; } }) : false;
+    if (!anc) { try { void window.top.location.hostname; } catch (e) { bad = true; } }
+    if (bad) { document.documentElement.style.display = 'none'; window.top.location = location.href; }
+  } catch (e) {}
+})();
 // تثبيت الموقع تطبيقًا على الجوال
 (function () {
   if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
