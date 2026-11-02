@@ -89,11 +89,35 @@
     };
     document.body.appendChild(d);
   }
+  // نافذة تثبيت مباشرة: زر «ثبّت/ي الآن» يطلب التثبيت من المتصفح، مع التنبيه إلى التثبيت من Chrome
+  function installDialog(title) {
+    ensureCss();
+    var old = document.querySelector('.app-howto'); if (old) old.remove();
+    var d = document.createElement('div'); d.className = 'app-howto';
+    d.innerHTML = '<div><h3>' + title + '</h3><p style="margin:0 0 10px;line-height:1.9">ليُثبَّت التطبيق بشكل صحيح ثبّته/يه من متصفح <b>Google Chrome</b>.</p>' +
+      '<button type="button" data-go>ثبّت/ي الآن</button>' +
+      '<button type="button" data-close style="margin-top:8px;background:none;color:#6B5320;font-weight:700">لاحقًا</button>' +
+      '<p data-msg style="margin:8px 0 0;font-size:13px;line-height:1.8;color:#6B5320"></p></div>';
+    var msg = d.querySelector('[data-msg]');
+    d.onclick = function (e) {
+      var t = e.target;
+      if (t === d || (t.hasAttribute && t.hasAttribute('data-close'))) { d.remove(); return; }
+      if (t.hasAttribute && t.hasAttribute('data-go')) {
+        if (deferred) { var p = deferred; p.prompt(); p.userChoice.finally(function () { deferred = null; d.remove(); }); return; }
+        msg.textContent = 'التطبيق مثبّت على جوالك بالفعل، أو أن المتصفح لم يُجهّز التثبيت بعد. انتظر/ي ثواني ثم اضغط/ي «ثبّت/ي الآن» مرة أخرى.';
+      }
+    };
+    document.body.appendChild(d);
+  }
   window.mnInstallApp = function () {
+    
     if (android && !chrome) { howto(); return; }
+    if (ios) { howto(); return; }
     if (deferred) { deferred.prompt(); deferred.userChoice.finally(function () { deferred = null; }); return; }
-    howto();
+    installDialog('تثبيت تطبيق MakeenEducation');
   };
+  // فتح الصفحة برابط ?install=1 يعرض نافذة التثبيت مباشرة
+  if (/[?&]install=1/.test(location.search) && !standalone) document.addEventListener('DOMContentLoaded', function () { setTimeout(function () { window.mnInstallApp(); }, 400); });
   window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; show(true); });
   window.addEventListener('appinstalled', function () { deferred = null; show(false); try { localStorage.setItem('mk_app_bar', '1'); } catch (e) {} });
   document.addEventListener('DOMContentLoaded', function () { show(!standalone); bar(); });
