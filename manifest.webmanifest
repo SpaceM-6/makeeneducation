@@ -4,7 +4,7 @@
  "description": "شركة مكين للاستشارات والتدريب والتعليم",
  "lang": "ar",
  "dir": "rtl",
- "start_url": "./?source=app",
+ "start_url": "./index.html?source=mkapp",
  "scope": "./",
  "display": "standalone",
  "background_color": "#12355B",
