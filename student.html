@@ -95,7 +95,7 @@
 <body data-app-bar>
 <header>
   <a data-back class="home" href="index.html">→ موقع مكين</a>
-  <button class="btn ghost" id="logoutBtn" style="display:none; padding:6px 12px;" onclick="logout()">خروج</button>
+  <button class="btn ghost" id="logoutBtn" style="display:none; padding:6px 12px;" onclick="logout()">خروج</button><button class="btn ghost" id="pwHdr" style="display:none; padding:6px 12px;" onclick="MN.pwChange(sb)" aria-label="تغيير كلمة المرور">🔑</button>
   <a href="index.html" aria-label="موقع مكين"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"></a>
 </header>
 <main>
@@ -138,7 +138,7 @@
 
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
-<script src="https://maimoonah.com/js/pwlogin.js?v=1"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=2"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script>
   if (!window.supabase) { document.querySelector('main').innerHTML = '<div class="card" style="text-align:center;padding:24px;">تعذّر الاتصال بالخادم. تأكد/ي من اتصالك بالإنترنت، ثم حدّث الصفحة.</div>'; throw new Error('supabase not loaded'); }
@@ -365,9 +365,9 @@
       return;
     }
     await MN.pwGate(sb, session);
-    $('logoutBtn').style.display = ''; $('dash').style.display = 'block';
+    $('logoutBtn').style.display = ''; $('pwHdr').style.display = ''; $('dash').style.display = 'block';
     $('who').textContent = 'أنت داخل ببريد: ' + session.user.email;
-    if (!$('pwChange')) { const b = document.createElement('button'); b.type = 'button'; b.id = 'pwChange'; b.className = 'btn ghost'; b.textContent = 'تغيير كلمة المرور'; b.onclick = () => { try { localStorage.setItem('mn_setpw', '1'); } catch (e) {} MN.pwGate(sb, { user: Object.assign({}, session.user, { user_metadata: {} }), access_token: '' }); }; const rb = document.querySelector('#settings .row-btns'); if (rb) rb.appendChild(b); }
+    if (!$('pwChange')) { const b = document.createElement('button'); b.type = 'button'; b.id = 'pwChange'; b.className = 'btn ghost'; b.textContent = '🔑 تغيير كلمة المرور'; b.onclick = () => MN.pwChange(sb); const rb = document.querySelector('#settings .row-btns'); if (rb) rb.appendChild(b); }
     const { data, error } = await sb.rpc('my_subscriptions');
     if (error) { $('subs').innerHTML = '<section class="card">تعذّر تحميل اشتراكاتك الآن، حدّث الصفحة بعد قليل.</section>'; return; }
     SUBS = Array.isArray(data) ? data : []; render();

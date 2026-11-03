@@ -52,7 +52,7 @@
 <script src="https://maimoonah.com/js/classes.js"></script>
 </head>
 <body data-app-bar>
-<header><a class="brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>لوحة المعلم</span></a><button type="button" id="logoutBtn" hidden>خروج</button></header>
+<header><a class="brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>لوحة المعلم</span></a><span style="display:flex;gap:6px"><button type="button" id="pwBtn" hidden onclick="MN.pwChange(sb)">🔑 كلمة المرور</button><button type="button" id="logoutBtn" hidden>خروج</button></span></header>
 <main>
   <section class="card" id="loginBox" hidden>
     <h1>لوحة المعلم في مكين</h1>
@@ -68,7 +68,7 @@
 <script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
-<script src="https://maimoonah.com/js/pwlogin.js?v=1"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=2"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script>
   const $ = (id) => document.getElementById(id);
@@ -187,7 +187,7 @@
     const { data: { session } } = await sb.auth.getSession();
     if (!session) { $('loginBox').hidden = false; MN.pwMount($('loginBox'), sb, { title: 'لوحة المعلم في مكين', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في طلب الانضمام إلى كادر مكين، وكلمة المرور.' }); return; }
     await MN.pwGate(sb, session);
-    $('logoutBtn').hidden = false; $('dash').hidden = false;
+    $('logoutBtn').hidden = false; $('pwBtn').hidden = false; $('dash').hidden = false;
     $('dash').innerHTML = '<section class="card">جارٍ التحميل…</section>';
     load();
   }
