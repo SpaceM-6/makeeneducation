@@ -17,13 +17,14 @@
   var COPYABLE = 'input, textarea, select, [contenteditable="true"], [data-allow-copy], a[href^="mailto:"], a[href^="tel:"], [dir="ltr"], bdi, code';
   var editable = function (t) { t = t && (t.nodeType === 1 ? t : t.parentNode); return !!(t && t.closest && t.closest(COPYABLE)); };
   var st = document.createElement('style');
-  st.textContent = 'body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,textarea,select,[contenteditable="true"],[data-allow-copy],[data-allow-copy] *,a[href^="mailto:"],a[href^="tel:"],[dir="ltr"],[dir="ltr"] *,bdi,code{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}a[href]{-webkit-touch-callout:default}img{-webkit-user-drag:none}@media print{body{display:none!important}}';
+  st.textContent = 'body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}input,textarea,select,[contenteditable="true"],[data-allow-copy],[data-allow-copy] *,a[href^="mailto:"],a[href^="tel:"],[dir="ltr"],[dir="ltr"] *,bdi,code{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}a[href]{-webkit-touch-callout:default}img[src*="cover"]:not([src*="docs/"]),img[data-allow-save]{-webkit-touch-callout:default;-webkit-user-drag:auto}img{-webkit-user-drag:none}@media print{body{display:none!important}}';
   (document.head || document.documentElement).appendChild(st);
   ['copy', 'cut', 'contextmenu', 'selectstart', 'dragstart'].forEach(function (ev) {
     document.addEventListener(ev, function (e) {
+      if (ev === 'dragstart' && e.target && e.target.matches && e.target.matches('img[src*="cover"]:not([src*="docs/"]), img[data-allow-save]')) return;
       if (editable(e.target) || ((ev === 'copy' || ev === 'cut') && editable(document.activeElement))) return;
       if (ev === 'copy') { var sel = window.getSelection && window.getSelection(); if (sel && sel.rangeCount && editable(sel.anchorNode) && editable(sel.focusNode)) return; }
-      if (ev === 'contextmenu') { var t = e.target && (e.target.nodeType === 1 ? e.target : e.target.parentNode); if (t && t.closest && t.closest('a[href]') && !t.closest('img, picture, svg')) return; }
+      if (ev === 'contextmenu') { var t = e.target && (e.target.nodeType === 1 ? e.target : e.target.parentNode); if (t && t.closest && t.closest('a[href]') && !t.closest('img, picture, svg')) return; if (t && t.matches && t.matches('img[src*="cover"]:not([src*="docs/"]), img[data-allow-save]')) return; }
       e.preventDefault();
       if (ev === 'copy' && e.clipboardData) { try { e.clipboardData.setData('text/plain', ''); } catch (x) {} }
     }, true);
