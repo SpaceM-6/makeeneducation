@@ -61,6 +61,7 @@
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
 <script src="https://maimoonah.com/js/pwlogin.js?v=1"></script>
+<script src="https://maimoonah.com/js/call.js?v=1"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -109,6 +110,7 @@
       if (past.length) h += past.map((x) => `<div class="sess"><span>${DAYS[inTz(x.at, TZ).dow]} ${arDate(x.day)} · ${esc(C.fmtTime(x.at, TZ))} — <b>${MARK[x.status] || ''}</b></span><span><button class="btn sm green" data-mark="done" data-sub="${s.sub_id}" data-day="${x.day}">حضر</button> <button class="btn sm red" data-mark="absent" data-sub="${s.sub_id}" data-day="${x.day}">غاب</button> <button class="btn sm ghost" data-mark="cancelled" data-sub="${s.sub_id}" data-day="${x.day}">أُلغيت</button></span></div>`).join('');
       h += `<h3>آخر حصة</h3>${lastLessonHtml(s)}`;
       if (/البحوث/.test(s.program || '')) h += `<div class="row-btns"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>`; else
+      h += `<div data-callslot="${s.sub_id}"></div>`;
       h += `<div class="row-btns"><a class="btn" href="room.html?sub=${s.sub_id}&mode=video">🎥 دخول الغرفة</a><a class="btn ghost" href="room.html?sub=${s.sub_id}&mode=audio">🎧 حلقة صوتية</a><a class="btn ghost" href="https://maimoonah.com/mushaf.html?sub=${s.sub_id}&lesson">📝 تسجيل الحصة والملخص والواجب</a></div>`;
     } else h += /البحوث/.test(s.program || '') ? `<div class="row-btns"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>` : `<p class="note" style="margin-top:10px">بانتظار تفعيل الإدارة لاشتراكه، ثم تظهر هنا الغرفة وتسجيل الحصص.</p>`;
     return h + '</div>';
@@ -142,6 +144,11 @@
     if (error) { $('dash').innerHTML = '<section class="card">تعذّر تحميل لوحتك الآن، حدّث/ي الصفحة بعد قليل.</section>'; return; }
     if (!data || data.error) { $('dash').innerHTML = `<section class="card"><h1>هذا البريد غير مسجّل في كادر مكين</h1><p class="muted">ادخل/ي بالبريد الذي كتبته في طلب الانضمام، أو تواصل/ي مع الإدارة.</p><div class="row-btns"><a class="btn ghost" href="join.html">طلب الانضمام إلى كادر مكين</a></div></section>`; return; }
     D = data; render();
+    // الاتصال الصوتي بالطالب/ة في وقت الحلقة
+    const act = (D.students || []).filter((x) => x.status === 'active');
+    MN.callSetup(sb, { role: 'teacher', myName: 'أ/ ' + ((D.teacher && D.teacher.name) || ''), subs: act.map((x) => ({ id: x.sub_id })) });
+    const paintCall = () => act.forEach((x) => { const el = document.querySelector(`[data-callslot="${x.sub_id}"]`); if (el) el.innerHTML = MN.callButton(x, x.sub_id, x.first_name, x.program); });
+    paintCall(); if (!window._mkCallT) window._mkCallT = setInterval(paintCall, 60000);
   }
   async function boot() {
     const { data: { session } } = await sb.auth.getSession();

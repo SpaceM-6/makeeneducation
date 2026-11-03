@@ -50,6 +50,7 @@
 </div>
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
+<script src="https://maimoonah.com/js/classes.js?v=2"></script>
 <script src="https://maimoonah.com/js/mfa.js"></script>
 <script>
   const $ = (id) => document.getElementById(id);
@@ -98,8 +99,8 @@
         ck(kid.startsWith(app + '/') && /^[^\s/]+\/[0-9A-Za-z]{3,40}$/.test(kid), 'JAAS_KID يبدأ بالـ AppID نفسه ثم / ثم معرّف المفتاح') +
         ck(pl.sub === app, 'sub في التذكرة = AppID') + ck(pl.aud === 'jitsi' && pl.iss === 'chat', 'aud و iss صحيحان') +
         ck(pl.exp * 1000 > Date.now() && pl.nbf * 1000 <= Date.now() + 60000, 'وقت التذكرة صالح') + ck(String(r.room).split('/')[1] === pl.room, 'اسم الغرفة مطابق');
-      const box = document.createElement('details'); box.style.cssText = 'position:fixed;bottom:8px;left:8px;right:8px;z-index:50;background:#fff;border:1.5px solid #C9A04A;border-radius:12px;padding:8px 12px;font:13px/1.8 Cairo,Tahoma,sans-serif;color:#12355B;max-height:45vh;overflow:auto';
-      box.innerHTML = '<summary style="cursor:pointer;font-weight:800">🔧 تشخيص الغرفة (يظهر لكِ فقط)</summary><ul style="margin:6px 0;padding-inline-start:18px">' + list + '</ul><div dir="ltr" style="font-size:12px;word-break:break-all">AppID: ' + esc2(app) + '<br>kid: ' + esc2(kid) + '<br>room: ' + esc2(pl.room) + '</div><p style="margin:6px 0 0">إن كانت كل العلامات ✓ والدخول مرفوض، فالمفتاح الخاص المحفوظ في Supabase ليس شريك المفتاح العام المرفوع في JaaS بهذا الـ kid: احذفي المفتاح من JaaS وأنشئي مفتاحًا جديدًا (Add API key ← Generate)، ثم ضعي ملفه الخاص كاملًا ومعرّفه الجديد في الأسرار.</p>';
+      const box = document.createElement('details'); const hh = (document.querySelector('header') || { offsetHeight: 60 }).offsetHeight; box.style.cssText = 'position:fixed;top:' + (hh + 6) + 'px;left:8px;max-width:min(92vw,460px);z-index:50;opacity:.95;background:#fff;border:1.5px solid #C9A04A;border-radius:12px;padding:8px 12px;font:13px/1.8 Cairo,Tahoma,sans-serif;color:#12355B;max-height:45vh;overflow:auto';
+      box.innerHTML = '<summary style="cursor:pointer;font-weight:800;font-size:12.5px">🔧 التشخيص</summary><ul style="margin:6px 0;padding-inline-start:18px">' + list + '</ul><div dir="ltr" style="font-size:12px;word-break:break-all">AppID: ' + esc2(app) + '<br>kid: ' + esc2(kid) + '<br>room: ' + esc2(pl.room) + '</div><p style="margin:6px 0 0">إن كانت كل العلامات ✓ والدخول مرفوض، فالمفتاح الخاص المحفوظ في Supabase ليس شريك المفتاح العام المرفوع في JaaS بهذا الـ kid: احذفي المفتاح من JaaS وأنشئي مفتاحًا جديدًا (Add API key ← Generate)، ثم ضعي ملفه الخاص كاملًا ومعرّفه الجديد في الأسرار.</p>';
       document.body.appendChild(box);
     } catch (e) {} }
     API = new JitsiMeetExternalAPI('8x8.vc', {
@@ -114,6 +115,18 @@
       let info = ''; try { const p = JSON.parse(atob(r.jwt.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))); const hd = JSON.parse(atob(r.jwt.split('.')[0].replace(/-/g, '+').replace(/_/g, '/'))); info = 'kid: ' + hd.kid + ' · sub: ' + p.sub + ' · room: ' + p.room + ' · mod: ' + (p.context && p.context.user && p.context.user.moderator) + ' · err: ' + nm; } catch (x) {}
       try { API.dispose(); } catch (x) {}
       state('<h1>تعذّر دخول الغرفة</h1><p>رفضت خدمة الغرف تذكرة الدخول. أبلغ/ي الإدارة، أو أعد/أعيدي المحاولة بعد قليل.</p>' + (ADMIN ? '<p style="font-size:12.5px;color:#8A7A55" dir="ltr">' + info.replace(/</g, '&lt;') + '</p><p style="font-size:13px">راجعي في لوحة JaaS أن المفتاح العام (Public key) المرفوع يطابق المفتاح الخاص في أسرار Supabase، وأن JAAS_KID هو معرّف هذا المفتاح نفسه.</p>' : '') + '<div class="btns"><button onclick="location.reload()">إعادة المحاولة</button></div>');
+    });
+    // الحضور: دخول الطالب الغرفة يسجّل حضوره في حصة اليوم تلقائيًا (ومن لم يدخل تُحسب له غيابًا)
+    API.addListener('videoConferenceJoined', async () => {
+      if (ADMIN || r.teacher) return;
+      try {
+        const { data } = await MN.sb().rpc('my_subscriptions'); const x = (data || []).find((s) => s.id === SUB); if (!x || !window.MNClasses) return;
+        const now = Date.now(), win = (c) => now >= c.at.getTime() - 60 * 60000 && now <= c.at.getTime() + (MNClasses.CLASS_MIN + 90) * 60000;
+        const c = MNClasses.sessions(x, {}).find(win); if (!c) return;
+        const k = 'mn_att_' + SUB + '_' + c.day; try { if (localStorage.getItem(k)) return; } catch (e) {}
+        const res = await MN.sb().rpc('mark_room_attendance', { p_sub: SUB, p_day: c.day });
+        if (!res.error && res.data === 'ok') { try { localStorage.setItem(k, '1'); } catch (e) {} }
+      } catch (e) {}
     });
     API.addListener('readyToClose', () => { location.href = ADMIN ? 'https://maimoonah.com/makeen-admin.html#s-students' : r.teacher ? 'teacher-panel.html' : 'student.html'; });
     $('btnQ').hidden = false;
