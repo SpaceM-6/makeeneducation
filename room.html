@@ -54,6 +54,7 @@
 <script src="https://maimoonah.com/js/mfa.js"></script>
 <script>
   const $ = (id) => document.getElementById(id);
+  const AUDIO_TB = ['microphone', 'hangup', 'chat', 'raisehand', 'participants-pane', 'settings', 'fullscreen'];
   const qs = new URLSearchParams(location.search), SUB = qs.get('sub') || '', MODE = qs.get('mode') === 'audio' ? 'audio' : 'video';
   let API = null, ADMIN = false;
   const esc2 = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -105,9 +106,15 @@
     } catch (e) {} }
     API = new JitsiMeetExternalAPI('8x8.vc', {
       roomName: r.room, jwt: r.jwt, parentNode: $('meet'), lang: 'ar',
-      configOverwrite: { gravatar: { disabled: true }, disableThirdPartyRequests: true, startWithVideoMuted: MODE === 'audio', startAudioOnly: MODE === 'audio', disableDeepLinking: true, prejoinConfig: { enabled: true }, defaultLanguage: 'ar', disableInviteFunctions: true, enableWelcomePage: false, hideConferenceSubject: false, subject: r.title || '' },
+      configOverwrite: { gravatar: { disabled: true }, disableThirdPartyRequests: true, startWithVideoMuted: MODE === 'audio', startAudioOnly: MODE === 'audio', disableDeepLinking: true, prejoinConfig: { enabled: MODE !== 'audio' }, ...(MODE === 'audio' ? { toolbarButtons: AUDIO_TB, disableSelfView: true, disableTileView: true, startVideoMuted: 0 } : {}), defaultLanguage: 'ar', disableInviteFunctions: true, enableWelcomePage: false, hideConferenceSubject: false, subject: r.title || '' },
       interfaceConfigOverwrite: { SHOW_PROMOTIONAL_CLOSE_PAGE: false, MOBILE_APP_PROMO: false }
     });
+    // الحلقة/المكالمة الصوتية: الكاميرا مطفأة دائمًا ولا زرّ لها (حتى لو حفظ المتصفح إعدادًا سابقًا بتشغيلها)
+    if (MODE === 'audio') {
+      const camOff = () => { try { API.isVideoMuted().then((m) => { if (!m) API.executeCommand('toggleVideo'); }); } catch (e) {} };
+      API.addListener('videoConferenceJoined', () => { camOff(); setTimeout(camOff, 1500); });
+      API.addListener('videoMuteStatusChanged', (e) => { if (e && e.muted === false) camOff(); });
+    }
     // رفض خدمة الغرف للتذكرة: رسالة واضحة، وللإدارة تفاصيل التشخيص
     API.addListener('errorOccurred', (e) => {
       const er = (e && e.error) || {}; const nm = String(er.name || er.message || '');
