@@ -786,6 +786,7 @@
 <script src="https://maimoonah.com/js/promos.js" defer></script>
 <script src="mk-common.js?v=8e790e59"></script>
 <style>.mk-intro{max-width:760px;margin:-4px auto 22px;text-align:center;background:rgba(255,255,255,.9);border:1px solid #E2E8F0;border-top:4px solid #F3D37A;border-radius:14px;padding:14px 16px;box-shadow:0 6px 18px rgba(0,0,0,.05)}.mk-intro p{margin:0;font-size:15.5px;line-height:1.95;color:#12355B;font-weight:700}</style>
+<script>document.addEventListener("DOMContentLoaded",function(){var f=/[?&]from=maimouna/.test(location.search);try{if(f)sessionStorage.setItem("mk_from_mn","1");f=f||sessionStorage.getItem("mk_from_mn")==="1"}catch(e){}var i=document.getElementById("mkIntro");if(i&&f)i.hidden=false;});</script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
@@ -802,7 +803,7 @@
     <div id="services-page" class="page-section active-page">
     <section class="container">
       <h2 class="section-title">برامج وخدمات شركة مكين التعليمية</h2>
-      <div class="mk-intro"><p>برامج تعليمية تدرّسها الشيخة ميمونة عبدالعزيز ندا <b>أونلاين</b>، وتقدّمها <b>حصريًا مع شركة مكين للاستشارات والتدريب والتعليم</b>.</p></div>
+      <div class="mk-intro" id="mkIntro" hidden><p>برامج تعليمية تدرّسها الشيخة ميمونة عبدالعزيز ندا <b>أونلاين</b>، وتقدّمها <b>حصريًا مع شركة مكين للاستشارات والتدريب والتعليم</b>.</p></div>
       
       <div class="program-tabs-container">
         <button class="tab-btn active" id="tabAdultsBtn" onclick="switchProgramTab('adults')">برامج الكبار والبالغين</button>
