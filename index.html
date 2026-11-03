@@ -203,7 +203,7 @@
       line-height: 1.9;
     }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 40px 15px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 15px; min-width: 0; width: 100%; }
 
     .section-header { text-align: center; margin-bottom: 35px; }
     .section-title { font-size: 24px; color: var(--navy-dark); font-weight: 900; position: relative; display: inline-block; }
@@ -283,7 +283,7 @@
       color: var(--navy-dark);
       padding: 3px 16px;
       border-radius: 20px;
-      font-size: 11.5px;
+      font-size: 13px;
       font-weight: 900;
     }
 
@@ -358,7 +358,7 @@
       color: var(--gold-18k);
       padding: 5px 14px;
       border-radius: 20px;
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 700;
     }
 
@@ -459,14 +459,15 @@
 </style>
 <meta name="theme-color" content="#12355B">
 <script src="https://maimoonah.com/js/promos.js" defer></script>
-<script src="https://maimoonah.com/js/board.js?v=20261102d" defer></script>
-<script src="mk-common.js?v=02340766"></script>
+<script src="https://maimoonah.com/js/board.js?v=20261103a" defer></script>
+<script src="mk-common.js?v=8e790e59"></script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/dailypick.js"></script>
 <script src="https://maimoonah.com/js/daily.js?v=20261101e" defer></script>
 <script src="https://maimoonah.com/js/bookalerts.js" defer></script>
+<script src="https://maimoonah.com/js/protect.js?v=2" defer></script>
 </head>
 <body oncontextmenu="return false;" data-daily-popup data-app-bar>
 
@@ -551,7 +552,7 @@
           <div class="head-badge">المشرفة التعليمية لقسم الفتيات في مكين</div>
           
           <!-- استبدال حرف الميم باللوجو الشريف للمجازين بالقراءات العشر (شيخة ميمونة ندا) متضمناً ميزة التكبير والتحميل -->
-          <img src="assets/maimouna-logo-square.jpg" alt="شعار أ/ ميمونة" class="teacher-avatar-img" onclick="openImageModal('assets/maimouna-logo-square.jpg', 'شعار_ميمونة.jpg')">
+          <img src="assets/maimouna-logo-square.jpg" alt="شعار أ/ ميمونة" class="teacher-avatar-img" loading="lazy" decoding="async" onclick="openImageModal('assets/maimouna-logo-square.jpg', 'شعار_ميمونة.jpg')">
           
           <h3>
             <a href="https://maimoonah.com/">الشيخة المُقرئة ميمونة بنت عبدالعزيز ندا</a>
@@ -565,7 +566,7 @@
 
         <div class="teacher-card">
           <!-- استخدام اللوجو الشريف لكادر المقرئين المجازين أيضاً -->
-          <img src="assets/sheikha-logo.jpeg" alt="لوجو القراءات العشر" class="teacher-avatar-img" onclick="openImageModal('assets/sheikha-logo.jpeg', 'شعار_مقرئي_القراءات_العشر.jpg')">
+          <img src="assets/sheikha-logo.jpeg" alt="لوجو القراءات العشر" class="teacher-avatar-img" loading="lazy" decoding="async" onclick="openImageModal('assets/sheikha-logo.jpeg', 'شعار_مقرئي_القراءات_العشر.jpg')">
           <h3>نخبة مقرئي القراءات العشر</h3>
           <div class="teacher-title">مجيزون ومجيزات بالسند العالي المتصل</div>
           <p class="teacher-bio">
@@ -575,7 +576,7 @@
         </div>
 
         <div class="teacher-card">
-          <img src="assets/sheikha-logo.jpeg" alt="شعار مكين" class="teacher-avatar-img" onclick="openImageModal('assets/sheikha-logo.jpeg', 'شعار_مكين.jpg')">
+          <img src="assets/sheikha-logo.jpeg" alt="شعار مكين" class="teacher-avatar-img" loading="lazy" decoding="async" onclick="openImageModal('assets/sheikha-logo.jpeg', 'شعار_مكين.jpg')">
           <h3>أساتذة الحديث واللغة العربية</h3>
           <div class="teacher-title">متخصصون في النحو والبلاغة وعلوم الحديث</div>
           <p class="teacher-bio">
@@ -597,12 +598,12 @@
         <p class="section-subtitle">كتب وتفسير وبودكاست، على موقعها الرسمي maimoonah.com</p>
       </div>
       <div class="mk-ads">
-        <a class="mk-ad" href="https://maimoonah.com/#book-ihya"><img src="assets/book-cover.jpg?v=2" alt="غلاف كتاب إحياء العقل السليم"><div><b>كتاب «إحياء العقل السليم بكلام الخلاق العليم»</b><span>دراسة في الاستشفاء القرآني المعرفي، صدر مطبوعًا ورقميًا، ويصدر صوتيًا قريبًا.</span><em>تفاصيل الكتاب ‹</em></div></a>
-        <a class="mk-ad" href="https://maimoonah.com/#tafsir"><img src="assets/cover-tadabbur.jpg?v=1" alt="غلاف تفسير تدبر التنزيل لأهل العصر والتأويل"><div><b>تفسير «تدبر التنزيل لأهل العصر والتأويل»</b><span>غريب الألفاظ، وفرائد الفوائد، وأوجه التفسير المترتبة على اختلاف القراءات، والتدبر المعاصر. يصدر مطبوعًا ورقميًا وصوتيًا قريبًا.</span><em>تصفّح السور ‹</em></div></a>
+        <a class="mk-ad" href="https://maimoonah.com/#book-ihya"><img loading="lazy" decoding="async" src="assets/book-cover.jpg?v=2" alt="غلاف كتاب إحياء العقل السليم"><div><b>كتاب «إحياء العقل السليم بكلام الخلاق العليم»</b><span>دراسة في الاستشفاء القرآني المعرفي، صدر مطبوعًا ورقميًا، ويصدر صوتيًا قريبًا.</span><em>تفاصيل الكتاب ‹</em></div></a>
+        <a class="mk-ad" href="https://maimoonah.com/#tafsir"><img loading="lazy" decoding="async" src="assets/cover-tadabbur.jpg?v=2" alt="غلاف تفسير تدبر التنزيل لأهل العصر والتأويل"><div><b>تفسير «تدبر التنزيل لأهل العصر والتأويل»</b><span>غريب الألفاظ، وفرائد الفوائد، وأوجه التفسير المترتبة على اختلاف القراءات، والتدبر المعاصر. يصدر مطبوعًا ورقميًا وصوتيًا قريبًا.</span><em>تصفّح السور ‹</em></div></a>
         <a class="mk-ad" href="https://maimoonah.com/#podcast"><span class="ic">🎙</span><div><b>بودكاست ميمونة</b><span>دروس صوتية في التفسير والتجويد وعلوم القرآن.</span><em>استمع/ي الآن ‹</em></div></a>
         <a class="mk-ad" href="https://maimoonah.com/adhkar.html"><span class="ic">📿</span><div><b>الأذكار والرقية<span class="mn-new" data-new-since="2026-11-01" style="display:inline-block;background:#B0124A;color:#fff;font-size:11px;font-weight:900;border-radius:999px;padding:0 8px;line-height:1.75;margin-inline-start:6px;box-shadow:0 2px 6px rgba(176,18,74,.35);vertical-align:middle;font-family:Cairo,sans-serif">جديد</span></b><span>أذكار الصباح والمساء وبعد الصلاة والنوم، والرقية الشرعية، بعدّاد ومصادر موثقة.</span><em>ابدأ/ي الذكر ‹</em></div></a>
-        <a class="mk-ad" href="https://maimoonah.com/calendar.html"><span class="ic">📅</span><div><b>التقويم الإسلامي<span class="mn-new" data-new-since="2026-11-01" style="display:inline-block;background:#B0124A;color:#fff;font-size:11px;font-weight:900;border-radius:999px;padding:0 8px;line-height:1.75;margin-inline-start:6px;box-shadow:0 2px 6px rgba(176,18,74,.35);vertical-align:middle;font-family:Cairo,sans-serif">جديد</span></b><span>الأيام المسنون صيامها، والأعياد والمناسبات، وأحداث السيرة والخلافة الراشدة بتواريخها.</span><em>افتح التقويم ‹</em></div></a>
-        <a class="mk-ad" href="https://maimoonah.com/today.html"><img src="assets/maimouna-logo-square.jpg" alt="تطبيق ميمونة"><div><b>تطبيق ميمونة</b><span>مواقيت الصلاة، والورد القرآني، والمصحف، ومتابعة حلقتك.</span><em>افتح التطبيق ‹</em></div></a>
+        <a class="mk-ad" href="https://maimoonah.com/calendar.html"><span class="ic">📅</span><div><b>التقويم الإسلامي<span class="mn-new" data-new-since="2026-11-01" style="display:inline-block;background:#B0124A;color:#fff;font-size:11px;font-weight:900;border-radius:999px;padding:0 8px;line-height:1.75;margin-inline-start:6px;box-shadow:0 2px 6px rgba(176,18,74,.35);vertical-align:middle;font-family:Cairo,sans-serif">جديد</span></b><span>الأيام المسنون صيامها، والأعياد والمناسبات، وأحداث السيرة والخلافة الراشدة بتواريخها.</span><em>افتح التقويم ‹</em></div></a><script>(function(){var n=Date.now();document.querySelectorAll("[data-new-since]").forEach(function(e){if(n-Date.parse(e.getAttribute("data-new-since"))>30*864e5)e.remove();});})();</script>
+        <a class="mk-ad" href="https://maimoonah.com/today.html"><img loading="lazy" decoding="async" src="assets/maimouna-logo-square.jpg" alt="تطبيق ميمونة"><div><b>تطبيق ميمونة</b><span>مواقيت الصلاة، والورد القرآني، والمصحف، ومتابعة حلقتك.</span><em>افتح التطبيق ‹</em></div></a>
       </div>
     </section>
     <style>
@@ -672,6 +673,5 @@
       overlay.classList.remove('show');
     }
   </script>
-<script>(function(){var n=Date.now();document.querySelectorAll("[data-new-since]").forEach(function(e){if(n-Date.parse(e.getAttribute("data-new-since"))>30*864e5)e.remove();});})();</script>
 </body>
 </html>

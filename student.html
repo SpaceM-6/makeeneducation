@@ -136,8 +136,9 @@
   </div>
 </main>
 
-<script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
+<script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=1"></script>
 <script>
   if (!window.supabase) { document.querySelector('main').innerHTML = '<div class="card" style="text-align:center;padding:24px;">تعذّر الاتصال بالخادم. تأكد/ي من اتصالك بالإنترنت، ثم حدّث الصفحة.</div>'; throw new Error('supabase not loaded'); }
   const sb = MN.sb();
@@ -353,16 +354,18 @@
     const { data: { session } } = await sb.auth.getSession();
     if (!session) {
       $('loginBox').style.display = 'block';
+      MN.pwMount($('loginBox'), sb, { title: 'لوحة الطالب', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في البرنامج، وكلمة المرور.', note: 'في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.' });
       const hp = new URLSearchParams((location.hash || '').slice(1) + '&' + location.search.slice(1));
       if (hp.get('error_code') || hp.get('error')) {
-        $('loginMsg').innerHTML = '<b>هذا الرابط استُعمل من قبل أو انتهت مدته.</b> لا تقلق، نسختك محفوظة لك دائمًا: اكتب/ي بريدك واضغط/ي «أرسل رابط الدخول» فيصلك رابط جديد فورًا.';
+        $('pwlMsg').innerHTML = '<b>هذا الرابط استُعمل من قبل أو انتهت مدته.</b> اكتب/ي بريدك واضغط/ي «أول مرة أو نسيت كلمة المرور؟» فيصلك رابط جديد فورًا.';
         try { history.replaceState(null, '', location.pathname); } catch (e) {}
-        setTimeout(() => $('email').focus(), 50);
       }
       return;
     }
+    await MN.pwGate(sb, session);
     $('logoutBtn').style.display = ''; $('dash').style.display = 'block';
     $('who').textContent = 'أنت داخل ببريد: ' + session.user.email;
+    if (!$('pwChange')) { const b = document.createElement('button'); b.type = 'button'; b.id = 'pwChange'; b.className = 'btn ghost'; b.textContent = 'تغيير كلمة المرور'; b.onclick = () => { try { localStorage.setItem('mn_setpw', '1'); } catch (e) {} MN.pwGate(sb, { user: Object.assign({}, session.user, { user_metadata: {} }), access_token: '' }); }; const rb = document.querySelector('#settings .row-btns'); if (rb) rb.appendChild(b); }
     const { data, error } = await sb.rpc('my_subscriptions');
     if (error) { $('subs').innerHTML = '<section class="card">تعذّر تحميل اشتراكاتك الآن، حدّث الصفحة بعد قليل.</section>'; return; }
     SUBS = Array.isArray(data) ? data : []; render();

@@ -18,13 +18,13 @@ a{color:inherit}
 .mk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
 .mk-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;text-align:center;box-shadow:0 6px 18px rgba(18,53,91,.07);display:flex;flex-direction:column;align-items:center;gap:6px}
 .mk-card.head{border:2px solid var(--gold);box-shadow:0 8px 24px rgba(243,211,122,.35)}
-.mk-badge{background:var(--gold);color:var(--navy);font-weight:800;font-size:12px;border-radius:999px;padding:2px 12px}
+.mk-badge{background:var(--gold);color:var(--navy);font-weight:800;font-size:13px;border-radius:999px;padding:2px 12px}
 .mk-av{border-radius:50%;object-fit:cover;border:3px solid var(--gold);background:#fff;display:inline-flex;align-items:center;justify-content:center}
 .mk-av-l{background:linear-gradient(135deg,var(--navy),var(--navy2));color:var(--gold);font-weight:900}
 .mk-card h3{margin:4px 0 0;color:var(--navy);font-size:20px}
 .mk-head{color:var(--muted);font-size:14px;margin:0}
 .mk-tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
-.mk-tag{font-size:12px;background:#FBF6EA;border:1px solid var(--line);color:#6B5320;border-radius:999px;padding:1px 10px}
+.mk-tag{font-size:13px;background:#FBF6EA;border:1px solid var(--line);color:#6B5320;border-radius:999px;padding:1px 10px}
 .mk-stars span{color:#D6D3CB;font-size:17px}.mk-stars span.on{color:#E0A800}
 .mk-nostars{color:var(--muted);font-size:13px}
 .mk-btn{display:inline-block;text-decoration:none;text-align:center;border:0;cursor:pointer;font:800 15px Cairo,Tahoma,sans-serif;background:var(--navy);color:var(--gold);border-radius:999px;padding:9px 20px}
@@ -39,7 +39,7 @@ a{color:inherit}
 .mk-form label{display:block;font-weight:700;color:var(--navy);margin:12px 0 4px}
 .mk-form input,.mk-form textarea,.mk-form select{width:100%;font:15px Cairo,Tahoma,sans-serif;border:1.5px solid var(--line);border-radius:12px;padding:9px 12px;background:#fff}
 .mk-form textarea{min-height:96px;resize:vertical}
-.mk-form .hint{font-size:12.5px;color:var(--muted);font-weight:400}
+.mk-form .hint{font-size:13px;color:var(--muted);font-weight:400}
 .mk-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 12px}
 .mk-checks label{font-weight:400;color:var(--ink);margin:0;display:flex;gap:6px;align-items:flex-start}
 .mk-checks input{width:auto;margin-top:7px}
@@ -52,7 +52,7 @@ a{color:inherit}
 .mk-prof h1{margin:0;color:var(--navy);font-size:26px}
 footer.mk-foot{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 .mk-steps{display:flex;gap:4px;margin:0 0 14px;padding:0;list-style:none;counter-reset:st}
-.mk-steps li{flex:1;text-align:center;font-size:12px;color:var(--muted);position:relative;padding-top:34px;counter-increment:st;line-height:1.4}
+.mk-steps li{flex:1;text-align:center;font-size:13px;color:var(--muted);position:relative;padding-top:34px;counter-increment:st;line-height:1.4}
 .mk-steps li::before{content:counter(st);position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid var(--line);color:var(--muted);font-weight:800;line-height:24px;font-size:14px}
 .mk-steps li.on{color:var(--navy);font-weight:800}.mk-steps li.on::before{background:var(--navy);border-color:var(--navy);color:var(--gold)}
 .mk-steps li.done::before{content:'✓';background:var(--gold);border-color:var(--gold);color:var(--navy)}
@@ -76,7 +76,7 @@ footer.mk-foot{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 .mk-books{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
 .mk-book{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--navy,#12355B);text-align:center;-webkit-tap-highlight-color:transparent}
 .mk-book img{width:100%;aspect-ratio:600/894;object-fit:cover;border-radius:8px;box-shadow:0 6px 16px rgba(0,0,0,.18);border:1px solid #E8DCC0}
-.mk-book b{font-size:13.5px;line-height:1.6}.mk-book small{font-size:12px;color:#8A6A1F}
+.mk-book b{font-size:13.5px;line-height:1.6}.mk-book small{font-size:13px;color:#8A6A1F}
 
 .mk-box[data-item] > .mn-acts{margin-top:16px}
 

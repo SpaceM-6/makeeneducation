@@ -48,13 +48,14 @@
   <div id="meet"><div class="box" style="margin-top:12vh" id="stateBox"><span class="spin"></span><p style="margin-top:10px">جارٍ تجهيز الغرفة…</p></div></div>
   <div id="side" hidden></div>
 </div>
-<script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
+<script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
 <script src="https://maimoonah.com/js/mfa.js"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const qs = new URLSearchParams(location.search), SUB = qs.get('sub') || '', MODE = qs.get('mode') === 'audio' ? 'audio' : 'video';
   let API = null, ADMIN = false;
+  const esc2 = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   function state(h) { $('meet').innerHTML = `<div class="box" style="margin-top:10vh">${h}</div>`; }
   async function start() {
     if (!window.supabase) return state('<h1>تعذّر الاتصال</h1><p>تأكد/ي من الاتصال بالإنترنت ثم حدّث/ي الصفحة.</p>');
@@ -88,10 +89,31 @@
     await new Promise((ok, bad) => { const s = document.createElement('script'); s.src = 'https://8x8.vc/' + r.appId + '/external_api.js'; s.onload = ok; s.onerror = bad; document.head.appendChild(s); }).catch(() => null);
     if (!window.JitsiMeetExternalAPI) return state(ERR.jaas_script + (ADMIN ? '<p style="font-size:12.5px;color:#8A7A55" dir="ltr">code: jaas_script · ' + String(r.appId || '').slice(0, 24) + '</p>' : '') + '<div class="btns"><button onclick="location.reload()">إعادة المحاولة</button></div>');
     $('meet').innerHTML = '';
+    // تشخيص للإدارة فقط: هل بيانات التذكرة بالشكل الذي تطلبه خدمة 8x8؟
+    if (ADMIN) { try {
+      const dec = (x) => JSON.parse(decodeURIComponent(escape(atob(x.replace(/-/g, '+').replace(/_/g, '/')))));
+      const [hd, pl] = r.jwt.split('.').slice(0, 2).map(dec), app = String(r.appId || ''), kid = String(hd.kid || '');
+      const ck = (ok, t) => `<li style="color:${ok ? '#166534' : '#B91C1C'}">${ok ? '✓' : '✗'} ${t}</li>`;
+      const list = ck(/^vpaas-magic-cookie-[0-9a-f]{20,40}$/.test(app), 'JAAS_APP_ID بالشكل الصحيح (vpaas-magic-cookie- دون مسافات أو أسطر)') +
+        ck(kid.startsWith(app + '/') && /^[^\s/]+\/[0-9A-Za-z]{3,40}$/.test(kid), 'JAAS_KID يبدأ بالـ AppID نفسه ثم / ثم معرّف المفتاح') +
+        ck(pl.sub === app, 'sub في التذكرة = AppID') + ck(pl.aud === 'jitsi' && pl.iss === 'chat', 'aud و iss صحيحان') +
+        ck(pl.exp * 1000 > Date.now() && pl.nbf * 1000 <= Date.now() + 60000, 'وقت التذكرة صالح') + ck(String(r.room).split('/')[1] === pl.room, 'اسم الغرفة مطابق');
+      const box = document.createElement('details'); box.style.cssText = 'position:fixed;bottom:8px;left:8px;right:8px;z-index:50;background:#fff;border:1.5px solid #C9A04A;border-radius:12px;padding:8px 12px;font:13px/1.8 Cairo,Tahoma,sans-serif;color:#12355B;max-height:45vh;overflow:auto';
+      box.innerHTML = '<summary style="cursor:pointer;font-weight:800">🔧 تشخيص الغرفة (يظهر لكِ فقط)</summary><ul style="margin:6px 0;padding-inline-start:18px">' + list + '</ul><div dir="ltr" style="font-size:12px;word-break:break-all">AppID: ' + esc2(app) + '<br>kid: ' + esc2(kid) + '<br>room: ' + esc2(pl.room) + '</div><p style="margin:6px 0 0">إن كانت كل العلامات ✓ والدخول مرفوض، فالمفتاح الخاص المحفوظ في Supabase ليس شريك المفتاح العام المرفوع في JaaS بهذا الـ kid: احذفي المفتاح من JaaS وأنشئي مفتاحًا جديدًا (Add API key ← Generate)، ثم ضعي ملفه الخاص كاملًا ومعرّفه الجديد في الأسرار.</p>';
+      document.body.appendChild(box);
+    } catch (e) {} }
     API = new JitsiMeetExternalAPI('8x8.vc', {
       roomName: r.room, jwt: r.jwt, parentNode: $('meet'), lang: 'ar',
-      configOverwrite: { startWithVideoMuted: MODE === 'audio', startAudioOnly: MODE === 'audio', disableDeepLinking: true, prejoinConfig: { enabled: true }, defaultLanguage: 'ar', disableInviteFunctions: true, enableWelcomePage: false, hideConferenceSubject: false, subject: r.title || '' },
+      configOverwrite: { gravatar: { disabled: true }, disableThirdPartyRequests: true, startWithVideoMuted: MODE === 'audio', startAudioOnly: MODE === 'audio', disableDeepLinking: true, prejoinConfig: { enabled: true }, defaultLanguage: 'ar', disableInviteFunctions: true, enableWelcomePage: false, hideConferenceSubject: false, subject: r.title || '' },
       interfaceConfigOverwrite: { SHOW_PROMOTIONAL_CLOSE_PAGE: false, MOBILE_APP_PROMO: false }
+    });
+    // رفض خدمة الغرف للتذكرة: رسالة واضحة، وللإدارة تفاصيل التشخيص
+    API.addListener('errorOccurred', (e) => {
+      const er = (e && e.error) || {}; const nm = String(er.name || er.message || '');
+      if (!/auth|notAllowed|not-allowed|password|token|jwt/i.test(nm + ' ' + (er.type || ''))) return;
+      let info = ''; try { const p = JSON.parse(atob(r.jwt.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))); const hd = JSON.parse(atob(r.jwt.split('.')[0].replace(/-/g, '+').replace(/_/g, '/'))); info = 'kid: ' + hd.kid + ' · sub: ' + p.sub + ' · room: ' + p.room + ' · mod: ' + (p.context && p.context.user && p.context.user.moderator) + ' · err: ' + nm; } catch (x) {}
+      try { API.dispose(); } catch (x) {}
+      state('<h1>تعذّر دخول الغرفة</h1><p>رفضت خدمة الغرف تذكرة الدخول. أبلغ/ي الإدارة، أو أعد/أعيدي المحاولة بعد قليل.</p>' + (ADMIN ? '<p style="font-size:12.5px;color:#8A7A55" dir="ltr">' + info.replace(/</g, '&lt;') + '</p><p style="font-size:13px">راجعي في لوحة JaaS أن المفتاح العام (Public key) المرفوع يطابق المفتاح الخاص في أسرار Supabase، وأن JAAS_KID هو معرّف هذا المفتاح نفسه.</p>' : '') + '<div class="btns"><button onclick="location.reload()">إعادة المحاولة</button></div>');
     });
     API.addListener('readyToClose', () => { location.href = ADMIN ? 'https://maimoonah.com/makeen-admin.html#s-students' : r.teacher ? 'teacher-panel.html' : 'student.html'; });
     $('btnQ').hidden = false;

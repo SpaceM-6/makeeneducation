@@ -58,8 +58,9 @@
   </section>
   <div id="dash" hidden></div>
 </main>
-<script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js" integrity="sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o" crossorigin="anonymous"></script>
+<script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=1"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -144,19 +145,12 @@
   }
   async function boot() {
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) { $('loginBox').hidden = false; return; }
+    if (!session) { $('loginBox').hidden = false; MN.pwMount($('loginBox'), sb, { title: 'لوحة المعلم في مكين', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في طلب الانضمام إلى كادر مكين، وكلمة المرور.' }); return; }
+    await MN.pwGate(sb, session);
     $('logoutBtn').hidden = false; $('dash').hidden = false;
     $('dash').innerHTML = '<section class="card">جارٍ التحميل…</section>';
     load();
   }
-  $('sendBtn').onclick = async () => {
-    const email = $('email').value.trim().toLowerCase();
-    if (!/^\S+@\S+\.\S+$/.test(email)) { $('loginMsg').textContent = 'اكتب/ي بريدًا صحيحًا.'; return; }
-    $('sendBtn').disabled = true; $('loginMsg').textContent = 'جارٍ الإرسال…';
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname } });
-    $('sendBtn').disabled = false;
-    $('loginMsg').textContent = error ? 'تعذّر الإرسال، حاول/ي بعد دقيقة.' : 'أرسلنا رابط الدخول إلى بريدك. افتحه من هذا الجهاز.';
-  };
   $('logoutBtn').onclick = async () => { await sb.auth.signOut(); location.reload(); };
   sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_IN' && !$('loginBox').hidden) location.reload(); });
   boot();

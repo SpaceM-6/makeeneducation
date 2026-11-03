@@ -110,7 +110,8 @@
     document.body.appendChild(d);
   }
   window.mnInstallApp = function () {
-    
+    // صفحات مكين على موقع ميمونة: تطبيق مكين يُثبَّت من موقع مكين المستقل (تطبيق ميمونة يشمل نطاق الموقع كله)
+    if (/^\/makeen(\/|$)/.test(location.pathname)) { var mk = (window.MN && MN.mkDomainLive && MN.mkDomainLive()) ? 'https://makeeneducation.com/' : 'https://spacem-6.github.io/makeeneducation/'; location.href = mk + '?install=1'; return; }
     if (android && !chrome) { howto(); return; }
     if (ios) { howto(); return; }
     if (deferred) { deferred.prompt(); deferred.userChoice.finally(function () { deferred = null; }); return; }
