@@ -45,7 +45,10 @@
   .badge { border-radius:999px; padding:1px 10px; font-size:12.5px; font-weight:800; } .b-active { background:#DCFCE7; color:#166534; } .b-pending { background:#FEF3C7; color:#92400E; } .b-expired { background:#FEE2E2; color:#991B1B; }
   .health { background:#FEF2F2; border:1px solid #FCA5A5; color:#991B1B; border-radius:8px; padding:6px 10px; margin:8px 0 0; font-weight:700; font-size:14px; }
   .slot { display:inline-block; border-radius:8px; padding:2px 8px; margin:2px; font-size:13.5px; font-weight:700; } .slot.ok { background:#DCFCE7; color:#166534; } .slot.no { background:#FEF3C7; color:#92400E; }
-  .btn.sm.on { box-shadow:0 0 0 3px rgba(243,211,122,.9); } .btn.red.on { background:#B91C1C; color:#fff; } .btn.ghost.on { background:#12355B; color:#F3D37A; }
+  .sess .btn.sm { background:#fff; border:1.5px solid; min-width:64px; transition:background .15s, color .15s; }
+  .sess .btn.sm[data-mark=done] { color:#166534; border-color:#166534; } .sess .btn.sm[data-mark=absent] { color:#B91C1C; border-color:#B91C1C; } .sess .btn.sm[data-mark=cancelled] { color:#1D4ED8; border-color:#1D4ED8; }
+  .sess .btn.sm[data-mark=done].on { background:#166534; color:#fff; } .sess .btn.sm[data-mark=absent].on { background:#B91C1C; color:#fff; } .sess .btn.sm[data-mark=cancelled].on { background:#1D4ED8; color:#fff; }
+  .sess b[data-st=done] { color:#166534; } .sess b[data-st=absent] { color:#B91C1C; } .sess b[data-st=cancelled] { color:#1D4ED8; }
   .all-sess { margin-top:8px; } .all-sess summary { cursor:pointer; color:var(--navy); font-weight:800; font-size:14px; padding:6px 0; }
   .sess { display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap; border-bottom:1px dashed #E2E8F0; padding:5px 0; font-size:14px; }
   .up-day { margin-top:10px; } .up-h { font-weight:800; color:var(--navy); font-size:14.5px; background:#F8FAFC; border-radius:8px; padding:4px 10px; } .up-h small { color:var(--brown); font-weight:600; }
@@ -124,11 +127,12 @@
     h += `<h3>مواعيده (بتوقيتك)</h3><div>${slotsHtml(s, av)}</div>`;
     if (s.status === 'active') {
       const list = C.sessions(s, s.marks || {}), stt = C.stats(list);
-      h += `<h3>الحصص والحضور</h3><div class="facts">${f('منجزة', String(stt.done))}${f('متبقية', String(stt.remaining))}${f('غياب', String(stt.absent))}${f('الإجمالي', String(stt.total))}</div>`;
+      const fs = (k, v, n) => `<div class="fact"><small>${k}</small><b data-stat="${n}">${v}</b></div>`;
+      h += `<h3>الحصص والحضور</h3><div class="facts" data-stats="${s.sub_id}">${fs('منجزة', stt.done, 'done')}${fs('متبقية', stt.remaining, 'remaining')}${fs('غياب', stt.absent, 'absent')}${fs('الإجمالي', stt.total, 'total')}</div>`;
       // حالة كل حصة يغيّرها المعلم/ة: حضر، غاب، أُلغيت (الحالية مظللة)
       const row = (x) => { const st = (s.marks || {})[x.day] || x.status, fut = x.at.getTime() > Date.now() + 3600000;
         const btn = (k, t, c) => `<button class="btn sm ${c}${st === k ? ' on' : ''}" data-mark="${k}" data-sub="${s.sub_id}" data-day="${x.day}" aria-pressed="${st === k}">${st === k ? '✓ ' : ''}${t}</button>`;
-        return `<div class="sess"><span>${DAYS[inTz(x.at, TZ).dow]} ${arDate(x.day)} · ${esc(C.fmtTime(x.at, TZ))} — <b>${MARK[st] || ''}</b></span><span>${fut ? '' : btn('done', 'حضر', 'green') + ' ' + btn('absent', 'غاب', 'red') + ' '}${btn('cancelled', 'أُلغيت', 'ghost')}</span></div>`; };
+        return `<div class="sess"><span>${DAYS[inTz(x.at, TZ).dow]} ${arDate(x.day)} · ${esc(C.fmtTime(x.at, TZ))} — <b data-st="${st}">${MARK[st] || ''}</b></span><span>${fut ? '' : btn('done', 'حضر', 'green') + ' ' + btn('absent', 'غاب', 'red') + ' '}${btn('cancelled', 'أُلغيت', 'ghost')}</span></div>`; };
       const now = Date.now(), past = list.filter((x) => x.at.getTime() < now + 3600000).reverse(), next = list.filter((x) => x.at.getTime() >= now + 3600000);
       h += past.slice(0, 3).map(row).join('') + (next[0] ? row(next[0]) : '');
       if (past.length > 3 || next.length > 1) h += `<details class="all-sess"><summary>كل الحصص (${list.length}) — لتعديل أي حصة سابقة أو إلغاء حصة قادمة</summary>${past.slice(3).map(row).join('')}${next.slice(1).map(row).join('')}</details>`;
@@ -195,11 +199,16 @@
     }); }
     document.querySelectorAll('[data-mark]').forEach((b) => b.onclick = async () => {
       if (b.classList.contains('on')) return;
-      b.disabled = true; const o = b.textContent; b.textContent = '…';
-      const { error } = await sb.rpc('teacher_mark', { p_sub: b.dataset.sub, p_day: b.dataset.day, p_status: b.dataset.mark });
-      if (error) { b.disabled = false; b.textContent = o; alert('تعذّر الحفظ، حاول/ي مرة أخرى.'); return; }
-      const st = D.students.find((x) => String(x.sub_id) === b.dataset.sub); if (st) { st.marks = Object.assign({}, st.marks || {}, { [b.dataset.day]: b.dataset.mark }); }
-      const op = [...document.querySelectorAll('details.all-sess')].map((d) => d.open); render(); document.querySelectorAll('details.all-sess').forEach((d, i) => { if (op[i]) d.open = true; }); if (window._mkPaintCall) window._mkPaintCall();
+      const row = b.closest('.sess'), sub = b.dataset.sub, day = b.dataset.day, k = b.dataset.mark;
+      // يتغيّر اللون فورًا في مكانه، ثم يُحفظ (ويرجع إن تعذّر الحفظ)
+      const prev = row.querySelector('[data-mark].on');
+      const paint = (on) => { row.querySelectorAll('[data-mark]').forEach((x) => { const a = x === on; x.classList.toggle('on', a); x.setAttribute('aria-pressed', a); x.textContent = (a ? '✓ ' : '') + x.textContent.replace(/^✓ /, ''); }); const lb = row.querySelector('b[data-st]'); if (lb) { const kk = on ? on.dataset.mark : 'upcoming'; lb.dataset.st = kk; lb.textContent = MARK[kk] || ''; } };
+      paint(b);
+      const { error } = await sb.rpc('teacher_mark', { p_sub: sub, p_day: day, p_status: k });
+      if (error) { paint(prev); alert('تعذّر الحفظ، حاول/ي مرة أخرى.'); return; }
+      const st = D.students.find((x) => String(x.sub_id) === sub); if (!st) return;
+      st.marks = Object.assign({}, st.marks || {}, { [day]: k });
+      const box = document.querySelector(`[data-stats="${sub}"]`); if (box) { const t = C.stats(C.sessions(st, st.marks)); ['done', 'remaining', 'absent', 'total'].forEach((n) => { const e = box.querySelector(`[data-stat="${n}"]`); if (e) e.textContent = t[n]; }); }
     });
   }
   window.addEventListener('hashchange', () => { if (D) { render(); if (window._mkPaintCall) window._mkPaintCall(); } });

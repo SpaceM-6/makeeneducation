@@ -75,7 +75,7 @@
   .cal-g .d.cls.upcoming { background:#12355B; color:#F3D37A; }
   .cal-g .d.cls.done { background:#DCFCE7; color:#166534; box-shadow:inset 0 0 0 2px #22C55E; }
   .cal-g .d.cls.absent { background:#FEE2E2; color:#991B1B; box-shadow:inset 0 0 0 2px #F87171; }
-  .cal-g .d.cls.cancelled { background:#F1F5F9; color:#94A3B8; text-decoration:line-through; }
+  .cal-g .d.cls.cancelled { background:#DBEAFE; color:#1D4ED8; text-decoration:line-through; box-shadow:inset 0 0 0 2px #93C5FD; }
   .cal-g .d.today { outline:2.5px solid var(--gold); outline-offset:1px; }
   .cal-g .d small { font-size:9.5px; font-weight:600; line-height:1; margin-top:1px; opacity:.9; }
   .cal-g .d.end::after { content:'🏁'; position:absolute; top:-6px; left:-2px; font-size:11px; }
@@ -174,7 +174,7 @@
     if (st.absent) h += `<p style="margin:6px 0 0;font-size:13.5px;color:#991B1B">غياب: ${AR(st.absent)} ${st.absent === 1 ? 'حصة' : 'حصص'}</p>`;
     if (st.next && s.status === 'active') h += `<div class="nextc"><div><small>حصتك القادمة</small><b>${dayLong(st.next.at)} — ${tV(st.next.at)}</b></div><span class="cdn" data-cd="${st.next.at.getTime()}"></span></div>`;
     h += `<div class="cal" id="cal-${s.id}"></div><div class="dayinfo" id="di-${s.id}"></div>
-      <div class="legend"><span><i style="background:#12355B"></i>حصة قادمة</span><span><i style="background:#DCFCE7;box-shadow:inset 0 0 0 2px #22C55E"></i>تمت</span><span><i style="background:#FEE2E2;box-shadow:inset 0 0 0 2px #F87171"></i>غياب</span><span><i style="background:#F1F5F9"></i>أُلغيت</span><span><i style="background:#FFF8E6;border-radius:3px"></i>مدة الاشتراك</span><span>🏁 نهاية الاشتراك</span></div>
+      <div class="legend"><span><i style="background:#12355B"></i>حصة قادمة</span><span><i style="background:#DCFCE7;box-shadow:inset 0 0 0 2px #22C55E"></i>تمت</span><span><i style="background:#FEE2E2;box-shadow:inset 0 0 0 2px #F87171"></i>غياب</span><span><i style="background:#DBEAFE;box-shadow:inset 0 0 0 2px #93C5FD"></i>أُلغيت</span><span><i style="background:#FFF8E6;border-radius:3px"></i>مدة الاشتراك</span><span>🏁 نهاية الاشتراك</span></div>
       <div class="row-btns" style="margin-top:10px"><button class="btn ghost" data-ics="${s.id}">📅 أضف الحصص إلى تقويم جوالك</button></div>`;
     return h;
   }
