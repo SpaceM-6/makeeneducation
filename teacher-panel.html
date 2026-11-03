@@ -48,7 +48,14 @@
   .btn.sm.on { box-shadow:0 0 0 3px rgba(243,211,122,.9); } .btn.red.on { background:#B91C1C; color:#fff; } .btn.ghost.on { background:#12355B; color:#F3D37A; }
   .all-sess { margin-top:8px; } .all-sess summary { cursor:pointer; color:var(--navy); font-weight:800; font-size:14px; padding:6px 0; }
   .sess { display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap; border-bottom:1px dashed #E2E8F0; padding:5px 0; font-size:14px; }
-  .up { display:flex; justify-content:space-between; gap:8px; border-bottom:1px dashed #E2E8F0; padding:6px 0; }
+  .up-day { margin-top:10px; } .up-h { font-weight:800; color:var(--navy); font-size:14.5px; background:#F8FAFC; border-radius:8px; padding:4px 10px; } .up-h small { color:var(--brown); font-weight:600; }
+  .up-day.today .up-h { background:#FEF3C7; }
+  .up { display:flex; gap:12px; align-items:center; border-bottom:1px dashed #E2E8F0; padding:7px 4px; text-decoration:none; color:inherit; }
+  .up .up-t { flex:0 0 74px; font-weight:800; color:var(--navy); } .up small { color:var(--brown); }
+  .up-more summary, .progs summary { cursor:pointer; color:var(--navy); font-weight:800; margin-top:10px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; } .chip { background:#EEF2F7; color:var(--navy); border-radius:999px; padding:3px 12px; font-size:13.5px; font-weight:700; }
+  .av-sum { display:grid; gap:10px; } .av-sum small { display:block; color:var(--brown); font-size:13px; } .av-sum b { color:var(--navy); }
+  .hello-t .stats { margin-top:10px; }
   .note { background:#EEF4FB; border:1px solid #BFD3EA; color:var(--navy); border-radius:10px; padding:10px 12px; font-size:14px; }
 </style>
 <script src="https://maimoonah.com/js/classes.js"></script>
@@ -138,21 +145,42 @@
   }
   function upcomingHtml(students) {
     const now = Date.now(), wk = now + 7 * 86400000, all = [];
-    students.filter((s) => s.status === 'active').forEach((s) => C.sessions(s, s.marks || {}).forEach((x) => { if (x.at.getTime() > now - 3600000 && x.at.getTime() < wk && x.status === 'upcoming') all.push({ s, x }); }));
+    students.filter((s) => s.status === 'active').forEach((s) => C.sessions(s, s.marks || {}).forEach((x) => { if (x.at.getTime() + C.CLASS_MIN * 60000 > now && x.at.getTime() < wk && x.status === 'upcoming') all.push({ s, x }); }));
     all.sort((a, b) => a.x.at - b.x.at);
-    return { n: all.length, html: all.length ? all.slice(0, 20).map(({ s, x }) => `<div class="up"><span><b>${esc(s.first_name)}</b> · ${esc(s.program)}</span><span>${DAYS[inTz(x.at, TZ).dow]} ${esc(C.fmtTime(x.at, TZ))}</span></div>`).join('') : '<p class="muted">لا حصص في الأيام السبعة القادمة.</p>' };
+    if (!all.length) return { n: 0, today: 0, html: '<p class="muted">لا حصص في الأيام السبعة القادمة.</p>' };
+    const dkey = (d) => d.toLocaleDateString('en-CA', { timeZone: TZ });
+    const today = dkey(new Date()), tmr = dkey(new Date(now + 86400000));
+    const groups = []; all.forEach((e) => { const k = dkey(e.x.at); let g = groups.find((y) => y.k === k); if (!g) groups.push(g = { k, at: e.x.at, items: [] }); g.items.push(e); });
+    const label = (g) => (g.k === today ? 'اليوم · ' : g.k === tmr ? 'غدًا · ' : '') + g.at.toLocaleDateString('ar-EG', { timeZone: TZ, weekday: 'long', day: 'numeric', month: 'long' });
+    const block = (g) => `<div class="up-day${g.k === today ? ' today' : ''}"><div class="up-h">${esc(label(g))} <small>(${g.items.length})</small></div>${g.items.map(({ s, x }) => `<a class="up" href="#stu-${esc(s.sub_id)}"><span class="up-t">${esc(C.fmtTime(x.at, TZ))}</span><span><b>${esc(s.first_name)}</b> <small>· ${esc(s.program)}</small></span></a>`).join('')}</div>`;
+    const first = groups.slice(0, 2), rest = groups.slice(2);
+    return { n: all.length, today: (groups[0] && groups[0].k === today) ? groups[0].items.length : 0,
+      html: first.map(block).join('') + (rest.length ? `<details class="up-more"><summary>بقية الأسبوع (${rest.reduce((a, g) => a + g.items.length, 0)} حصة)</summary>${rest.map(block).join('')}</details>` : '') };
+  }
+  // الساعات المتتالية تُعرض نطاقًا: «9 ص – 7 م»
+  function hoursRanges(hs) {
+    const h = (hs || []).slice().sort((a, b) => a - b), out = [], lb = (x) => (x % 12 || 12) + ' ' + (x < 12 ? 'ص' : 'م');
+    for (let i = 0; i < h.length; i++) { let j = i; while (j + 1 < h.length && h[j + 1] === h[j] + 1) j++; out.push(i === j ? lb(h[i]) : lb(h[i]) + ' – ' + lb(h[j])); i = j; }
+    return out;
   }
   function render() {
     const t = D.teacher || {}, av = t.availability || null, S = D.students || [];
     const act = S.filter((s) => s.status === 'active'), up = upcomingHtml(S);
     const avTxt = window.MN && MN.availText ? MN.availText(av) : 'لم تُسجَّل';
-    $('dash').innerHTML = `<section class="card"><h1>أهلًا ${esc(t.name || '')}</h1>${t.headline ? `<p class="muted">${esc(t.headline)}</p>` : ''}
-      <div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}<div class="fact" style="grid-column:1/-1"><small>أوقاتك المتاحة</small><b>${esc(avTxt)}</b><div><button type="button" class="btn sm ghost" id="avEdit" style="margin-top:6px">✏️ تعديل أوقاتي</button></div></div>${(t.programs || []).length ? `<div class="fact" style="grid-column:1/-1"><small>برامجك</small><b>${esc(t.programs.join('، '))}</b></div>` : ''}</div>
-      ${t.id ? `<div class="row-btns"><a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}">صفحتي التعريفية</a></div>` : ''}</section>
-      <section class="card"><div class="stats"><div class="stat"><b>${act.length}</b><small>طالب/ة مشترك/ة</small></div><div class="stat"><b>${up.n}</b><small>حصة في ٧ أيام</small></div><div class="stat"><b>${S.length - act.length}</b><small>بانتظار التفعيل</small></div></div>
-      <h3>حصصك القادمة</h3>${up.html}</section>
-      <section class="card"><h2>طلابي</h2><p class="muted">تظهر لك بيانات الدراسة فقط. ويُمنع تبادل أرقام الهواتف أو الحسابات الشخصية مع الطلاب، وكل التواصل عبر مكين. المواعيد بعلامة ⚠ خارج أوقاتك المتاحة؛ راجع/ي الإدارة فيها.</p>
-      ${S.length ? '<div class="stu-cards">' + S.map(stuCard).join('') + '</div>' : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}</section>`;
+    const days = av && av.days && av.days.length ? (av.days.length === 7 ? 'كل الأيام' : av.days.slice().sort().map((d) => DAYS[d]).join('، ')) : '';
+    const TZN = { 'Africa/Cairo': 'مصر', 'Asia/Riyadh': 'السعودية', 'Asia/Dubai': 'الإمارات', 'Asia/Kuwait': 'الكويت', 'Asia/Qatar': 'قطر' };
+    const avHtml = days ? `<div class="av-sum"><div><small>الأيام</small><b>${esc(days)}</b></div><div><small>الساعات${av.tz ? ' (بتوقيت ' + esc(TZN[av.tz] || av.tz) + ')' : ''}</small><span class="chips">${hoursRanges(av.hours).map((r) => `<span class="chip">${esc(r)}</span>`).join('')}</span></div></div>` : '<p class="muted">لم تُسجَّل بعد.</p>';
+    const progs = t.programs || [];
+    $('dash').innerHTML = `<section class="card hello-t"><h1>أهلًا ${esc(t.name || '')}</h1>${t.headline ? `<p class="muted">${esc(t.headline)}</p>` : ''}
+      <div class="stats"><div class="stat"><b>${up.today}</b><small>حصة اليوم</small></div><div class="stat"><b>${up.n}</b><small>حصة في ٧ أيام</small></div><div class="stat"><b>${act.length}</b><small>طالب/ة مشترك/ة</small></div></div></section>
+      <section class="card"><h2>📅 حصصك القادمة</h2>${up.html}</section>
+      <section class="card"><h2>👥 طلابي <small class="muted">(${S.length}${S.length - act.length ? ' · ' + (S.length - act.length) + ' بانتظار التفعيل' : ''})</small></h2>
+      ${S.length ? '<div class="stu-cards">' + S.map(stuCard).join('') + '</div>' : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}
+      <p class="muted" style="margin-top:10px;font-size:13px">تظهر لك بيانات الدراسة فقط، ويُمنع تبادل أرقام الهواتف أو الحسابات الشخصية مع الطلاب. المواعيد بعلامة ⚠ خارج أوقاتك المتاحة؛ راجع/ي الإدارة فيها.</p></section>
+      <section class="card"><h2>🕒 أوقاتي المتاحة</h2>${avHtml}<div class="row-btns"><button type="button" class="btn sm ghost" id="avEdit">✏️ تعديل أوقاتي</button></div></section>
+      <section class="card"><h2>🎓 ملفي</h2><div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}</div>
+      ${progs.length ? `<details class="progs"><summary>برامجي (${progs.length})</summary><div class="chips">${progs.map((p) => `<span class="chip">${esc(String(p).replace(/^برنامج\s+/, ''))}</span>`).join('')}</div></details>` : ''}
+      ${t.id ? `<div class="row-btns"><a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}">صفحتي التعريفية</a></div>` : ''}</section>`;
     // صفحة بيانات الطالب: تُفتح من بطاقته (#stu-…) ولها زر رجوع
     const sid = (location.hash.match(/^#stu-(.+)$/) || [])[1], cur = sid && S.find((x) => String(x.sub_id) === sid);
     if (cur) {
