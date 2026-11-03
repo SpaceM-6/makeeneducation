@@ -35,6 +35,11 @@
   .fact small { display:block; color:var(--brown); font-size:12.5px; } .fact b { color:var(--navy); }
   .stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
   .stat { background:var(--navy); color:#fff; border-radius:12px; padding:10px; text-align:center; } .stat b { display:block; color:var(--gold); font-size:24px; line-height:1.3; } .stat small { font-size:13px; }
+  .stu-cards { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:10px; margin-top:10px; }
+  .stu-card { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px 12px; box-shadow:0 4px 12px rgba(0,0,0,.04); }
+  .stu-card:hover { border-color:var(--gold); }
+  .stu-card .sc-av { flex:0 0 44px; height:44px; border-radius:50%; background:var(--navy); color:var(--gold); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:20px; }
+  .stu-card .sc-t { flex:1; min-width:0; } .stu-card .sc-t b { display:block; color:var(--navy); } .stu-card .sc-t small { display:block; color:var(--brown); font-size:13px; line-height:1.6; }
   .stu { border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:12px; background:#FFFFFF; }
   .stu-top { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; align-items:center; }
   .badge { border-radius:999px; padding:1px 10px; font-size:12.5px; font-weight:800; } .b-active { background:#DCFCE7; color:#166534; } .b-pending { background:#FEF3C7; color:#92400E; } .b-expired { background:#FEE2E2; color:#991B1B; }
@@ -61,7 +66,7 @@
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
 <script src="https://maimoonah.com/js/pwlogin.js?v=1"></script>
-<script src="https://maimoonah.com/js/call.js?v=1"></script>
+<script src="https://maimoonah.com/js/call.js?v=2"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -100,6 +105,7 @@
     const b = ST[s.status] || ST.pending;
     const f = (k, v) => v ? `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>` : '';
     let h = `<div class="stu" id="s-${s.sub_id}"><div class="stu-top"><h2>${esc(s.first_name)}${s.age ? ` <small class="muted">(${esc(s.age)} سنة)</small>` : ''}</h2><span class="badge ${b[0]}">${b[1]}</span></div>`;
+    if (s.status === 'active' && !/البحوث/.test(s.program || '')) h += `<div data-callslot="${s.sub_id}"></div>`;
     if (s.health) h += `<div class="health">⚕ ظروف صحية خاصة: ${esc(s.health)}</div>`;
     h += `<div class="facts">${f('البرنامج', s.program)}${f('الخطة', s.plan)}${f('نوع الاشتراك', PER[s.period])}${f('المستوى', s.level)}${f('التخصص العلمي', s.specialty)}${f('المهنة', s.job)}${f('مقدار الحفظ', s.hifz)}${f('مستوى التجويد', s.tajweed)}${s.ends_on ? f('ينتهي الاشتراك', arDate(s.ends_on)) : ''}</div>`;
     h += `<h3>مواعيده (بتوقيتك)</h3><div>${slotsHtml(s, av)}</div>`;
@@ -110,10 +116,14 @@
       if (past.length) h += past.map((x) => `<div class="sess"><span>${DAYS[inTz(x.at, TZ).dow]} ${arDate(x.day)} · ${esc(C.fmtTime(x.at, TZ))} — <b>${MARK[x.status] || ''}</b></span><span><button class="btn sm green" data-mark="done" data-sub="${s.sub_id}" data-day="${x.day}">حضر</button> <button class="btn sm red" data-mark="absent" data-sub="${s.sub_id}" data-day="${x.day}">غاب</button> <button class="btn sm ghost" data-mark="cancelled" data-sub="${s.sub_id}" data-day="${x.day}">أُلغيت</button></span></div>`).join('');
       h += `<h3>آخر حصة</h3>${lastLessonHtml(s)}`;
       if (/البحوث/.test(s.program || '')) h += `<div class="row-btns"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>`; else
-      h += `<div data-callslot="${s.sub_id}"></div>`;
       h += `<div class="row-btns"><a class="btn" href="room.html?sub=${s.sub_id}&mode=video">🎥 دخول الغرفة</a><a class="btn ghost" href="room.html?sub=${s.sub_id}&mode=audio">🎧 حلقة صوتية</a><a class="btn ghost" href="https://maimoonah.com/mushaf.html?sub=${s.sub_id}&lesson">📝 تسجيل الحصة والملخص والواجب</a></div>`;
     } else h += /البحوث/.test(s.program || '') ? `<div class="row-btns"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>` : `<p class="note" style="margin-top:10px">بانتظار تفعيل الإدارة لاشتراكه، ثم تظهر هنا الغرفة وتسجيل الحصص.</p>`;
     return h + '</div>';
+  }
+  function stuCard(s) {
+    const b = ST[s.status] || ST.pending;
+    let nx = ''; if (s.status === 'active') { const c = C.sessions(s, s.marks || {}).find((x) => x.at.getTime() + C.CLASS_MIN * 60000 > Date.now()); if (c) nx = DAYS[inTz(c.at, TZ).dow] + ' ' + C.fmtTime(c.at, TZ); }
+    return `<a class="stu-card" href="#stu-${esc(s.sub_id)}"><span class="sc-av">${esc((s.first_name || '؟').trim().charAt(0))}</span><span class="sc-t"><b>${esc(s.first_name)}</b><small>${esc(s.program || '')}</small>${nx ? `<small>🕒 الحصة القادمة: ${esc(nx)}</small>` : ''}</span><span class="badge ${b[0]}">${b[1]}</span></a>`;
   }
   function upcomingHtml(students) {
     const now = Date.now(), wk = now + 7 * 86400000, all = [];
@@ -131,7 +141,13 @@
       <section class="card"><div class="stats"><div class="stat"><b>${act.length}</b><small>طالب/ة مشترك/ة</small></div><div class="stat"><b>${up.n}</b><small>حصة في ٧ أيام</small></div><div class="stat"><b>${S.length - act.length}</b><small>بانتظار التفعيل</small></div></div>
       <h3>حصصك القادمة</h3>${up.html}</section>
       <section class="card"><h2>طلابي</h2><p class="muted">تظهر لك بيانات الدراسة فقط. ويُمنع تبادل أرقام الهواتف أو الحسابات الشخصية مع الطلاب، وكل التواصل عبر مكين. المواعيد بعلامة ⚠ خارج أوقاتك المتاحة؛ راجع/ي الإدارة فيها.</p>
-      ${S.length ? S.map((s) => stuHtml(s, av)).join('') : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}</section>`;
+      ${S.length ? '<div class="stu-cards">' + S.map(stuCard).join('') + '</div>' : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}</section>`;
+    // صفحة بيانات الطالب: تُفتح من بطاقته (#stu-…) ولها زر رجوع
+    const sid = (location.hash.match(/^#stu-(.+)$/) || [])[1], cur = sid && S.find((x) => String(x.sub_id) === sid);
+    if (cur) {
+      $('dash').innerHTML = `<div class="row-btns" style="margin:0 0 10px"><a class="btn ghost" href="#">→ طلابي</a></div>` + stuHtml(cur, av);
+      window.scrollTo(0, 0);
+    }
     document.querySelectorAll('[data-mark]').forEach((b) => b.onclick = async () => {
       b.disabled = true;
       const { error } = await sb.rpc('teacher_mark', { p_sub: b.dataset.sub, p_day: b.dataset.day, p_status: b.dataset.mark });
@@ -139,6 +155,7 @@
       load();
     });
   }
+  window.addEventListener('hashchange', () => { if (D) { render(); if (window._mkPaintCall) window._mkPaintCall(); } });
   async function load() {
     const { data, error } = await sb.rpc('teacher_dashboard');
     if (error) { $('dash').innerHTML = '<section class="card">تعذّر تحميل لوحتك الآن، حدّث/ي الصفحة بعد قليل.</section>'; return; }
@@ -147,8 +164,8 @@
     // الاتصال الصوتي بالطالب/ة في وقت الحلقة
     const act = (D.students || []).filter((x) => x.status === 'active');
     MN.callSetup(sb, { role: 'teacher', myName: 'أ/ ' + ((D.teacher && D.teacher.name) || ''), subs: act.map((x) => ({ id: x.sub_id })) });
-    const paintCall = () => act.forEach((x) => { const el = document.querySelector(`[data-callslot="${x.sub_id}"]`); if (el) el.innerHTML = MN.callButton(x, x.sub_id, x.first_name, x.program); });
-    paintCall(); if (!window._mkCallT) window._mkCallT = setInterval(paintCall, 60000);
+    const paintCall = () => act.forEach((x) => { const el = document.querySelector(`[data-callslot="${x.sub_id}"]`); if (el) el.innerHTML = `<div class="mk-trow"><span><small>الاتصال الصوتي بالطالب/ة</small><b>${esc(x.first_name)}</b></span>${MN.callButton(x, x.sub_id, x.first_name, x.program)}</div>`; });
+    window._mkPaintCall = paintCall; paintCall(); if (!window._mkCallT) window._mkCallT = setInterval(() => window._mkPaintCall(), 60000);
   }
   async function boot() {
     const { data: { session } } = await sb.auth.getSession();

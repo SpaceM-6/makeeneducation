@@ -128,6 +128,8 @@
         if (!res.error && res.data === 'ok') { try { localStorage.setItem(k, '1'); } catch (e) {} }
       } catch (e) {}
     });
+    // المعلم/ة داخل الغرفة: يُعلَن ذلك لطلابه الآخرين («في حلقة أخرى الآن»)
+    if (r.teacher || ADMIN) (async () => { try { const { data } = await MN.sb().rpc('teacher_dashboard'); const tid = data && data.teacher && data.teacher.id; if (!tid) return; const ch = MN.sb().channel('mkteacher-' + tid); ch.subscribe((st) => { if (st === 'SUBSCRIBED') ch.track({ sub: SUB, at: Date.now() }); }); } catch (e) {} })();
     API.addListener('readyToClose', () => { location.href = ADMIN ? 'https://maimoonah.com/makeen-admin.html#s-students' : r.teacher ? 'teacher-panel.html' : 'student.html'; });
     $('btnQ').hidden = false;
   }

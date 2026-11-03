@@ -139,7 +139,7 @@
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
 <script src="https://maimoonah.com/js/pwlogin.js?v=1"></script>
-<script src="https://maimoonah.com/js/call.js?v=1"></script>
+<script src="https://maimoonah.com/js/call.js?v=2"></script>
 <script>
   if (!window.supabase) { document.querySelector('main').innerHTML = '<div class="card" style="text-align:center;padding:24px;">تعذّر الاتصال بالخادم. تأكد/ي من اتصالك بالإنترنت، ثم حدّث الصفحة.</div>'; throw new Error('supabase not loaded'); }
   const sb = MN.sb();
@@ -371,10 +371,17 @@
     const { data, error } = await sb.rpc('my_subscriptions');
     if (error) { $('subs').innerHTML = '<section class="card">تعذّر تحميل اشتراكاتك الآن، حدّث الصفحة بعد قليل.</section>'; return; }
     SUBS = Array.isArray(data) ? data : []; render();
-    // الاتصال الصوتي بالمعلم/ة في وقت الحلقة
+    // المعلم/ة المباشر/ة مع زر اتصال دائم، وتنبيه إن كان/ت في حلقة أخرى الآن، وموعد الحصة بالضبط
     const act = SUBS.filter((x) => x.status === 'active');
     MN.callSetup(sb, { role: 'student', myName: (act[0] && act[0].name) || 'الطالب/ة', subs: act.map((x) => ({ id: x.id })) });
-    const paintCall = () => act.forEach((x) => { const el = document.querySelector(`[data-callslot="${x.id}"]`); if (el) el.innerHTML = MN.callButton(x, x.id, x.teacher ? 'أ/ ' + x.teacher.name : 'المعلم/ة', x.program); });
+    const BUSY = {};
+    const paintCall = () => act.forEach((x) => {
+      const el = document.querySelector(`[data-callslot="${x.id}"]`); if (!el) return;
+      const t = x.teacher, nm = t ? 'أ/ ' + t.name : '', nx = MN.nextClassText(x);
+      el.innerHTML = t ? `<div class="mk-trow"><span><small>المعلم/ة المباشر/ة</small><b>${esc(nm)}</b></span>${MN.callButton(x, x.id, nm, x.program, BUSY[x.id])}${BUSY[x.id] ? `<p class="mk-busy">⏳ ${esc(nm)} في حلقة أخرى الآن، حاول/ي الاتصال بعد قليل.</p>` : ''}${nx ? `<p class="mk-next">🕒 ${esc(nx)}</p>` : ''}</div>`
+        : `<div class="mk-trow"><span><small>المعلم/ة المباشر/ة</small><b style="font-size:14px">يُحدَّد بعد مراجعة طلبك</b></span>${nx ? `<p class="mk-next">🕒 ${esc(nx)}</p>` : ''}</div>`;
+    });
+    act.forEach((x) => { if (x.teacher && x.teacher.id) MN.callWatchTeacher(sb, x.teacher.id, x.id, (b) => { BUSY[x.id] = b; paintCall(); }); });
     paintCall(); setInterval(paintCall, 60000);
     if (window.MNApp) MNApp.linkStudent(session.access_token);
     else window.addEventListener('load', () => window.MNApp && MNApp.linkStudent(session.access_token));
