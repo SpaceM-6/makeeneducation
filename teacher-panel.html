@@ -64,9 +64,12 @@
   <div id="dash" hidden></div>
 </main>
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
+
+<script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
 <script src="https://maimoonah.com/js/pwlogin.js?v=1"></script>
-<script src="https://maimoonah.com/js/call.js?v=2"></script>
+<script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -163,7 +166,20 @@
     D = data; render();
     // الاتصال الصوتي بالطالب/ة في وقت الحلقة
     const act = (D.students || []).filter((x) => x.status === 'active');
-    MN.callSetup(sb, { role: 'teacher', myName: 'أ/ ' + ((D.teacher && D.teacher.name) || ''), subs: act.map((x) => ({ id: x.sub_id })) });
+    MN.callSetup(sb, { role: 'teacher', myName: 'أ/ ' + ((D.teacher && D.teacher.name) || ''), subs: act.map((x) => ({ id: x.sub_id, peer: x.first_name, title: x.program })) });
+    // رنين المكالمات على هذا الجهاز ولو كان التطبيق مغلقًا: ربط الجهاز ببريد المعلم/ة وتفعيل الإشعارات
+    (async () => { try {
+      if (!window.MNApp) return;
+      const p = MNApp.profile() || {}; if (!p.done) MNApp.saveProfile(Object.assign(p, { done: true, name: (D.teacher && D.teacher.name) || '', gender: D.teacher && D.teacher.gender === 'f' ? 'f' : 'm', role: D.teacher && D.teacher.gender === 'f' ? 'tf' : 'tm' }));
+      const { data: { session } } = await sb.auth.getSession(); if (!session) return;
+      const link = () => MNApp.linkStudent(session.access_token);
+      if ('Notification' in window && Notification.permission === 'granted') { link(); return; }
+      if (document.getElementById('ringBox')) return;
+      const box = document.createElement('section'); box.className = 'card'; box.id = 'ringBox';
+      box.innerHTML = '<b>🔔 فعّل/ي رنين المكالمات على هذا الجهاز</b><p class="muted">حتى يرنّ جوالك حين يتصل بك طالب، ولو كان التطبيق مغلقًا.</p><div class="row-btns"><button class="btn green" type="button">تفعيل الرنين</button></div>';
+      box.querySelector('button').onclick = async () => { const r = await MNApp.enableNotifications(); await link(); box.innerHTML = r === 'push' || r === 'local' ? '<b>✓ فُعّل رنين المكالمات على هذا الجهاز.</b>' : '<b>لم يُسمح بالإشعارات.</b><p class="muted">اسمح/ي بالإشعارات لهذا الموقع من إعدادات المتصفح ثم أعد/أعيدي المحاولة.</p>'; };
+      $('dash').prepend(box);
+    } catch (e) {} })();
     const paintCall = () => act.forEach((x) => { const el = document.querySelector(`[data-callslot="${x.sub_id}"]`); if (el) el.innerHTML = `<div class="mk-trow"><span><small>الاتصال الصوتي بالطالب/ة</small><b>${esc(x.first_name)}</b></span>${MN.callButton(x, x.sub_id, x.first_name, x.program)}</div>`; });
     window._mkPaintCall = paintCall; paintCall(); if (!window._mkCallT) window._mkCallT = setInterval(() => window._mkPaintCall(), 60000);
   }
