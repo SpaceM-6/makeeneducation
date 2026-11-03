@@ -82,6 +82,10 @@
   .legend { display:flex; flex-wrap:wrap; gap:6px 12px; font-size:12px; color:var(--brown); margin-top:8px; }
   .legend i { display:inline-block; width:12px; height:12px; border-radius:50%; vertical-align:-1px; margin-left:4px; }
   .dayinfo { margin-top:8px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:8px 12px; font-size:14px; display:none; }
+  .nosub .steps { margin:4px 0 0; padding-right:22px; } .nosub .steps li { margin:3px 0; }
+  .plist { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:6px; margin-top:6px; }
+  .plist a { display:flex; justify-content:space-between; align-items:center; gap:8px; background:#F8FAFC; border:1px solid var(--line); border-right:4px solid var(--gold); border-radius:10px; padding:8px 12px; color:var(--navy); font-weight:700; text-decoration:none; font-size:14.5px; line-height:1.6; }
+  .plist a:hover { background:#FFF8E6; }
   .remind { margin-top:12px; background:#FFF7E6; border:1px solid #F3D37A; border-radius:12px; padding:10px 12px; display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; font-size:14px; font-weight:700; color:#7A5A12; }
 
 </style>
@@ -138,7 +142,8 @@
 
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
-<script src="https://maimoonah.com/js/pwlogin.js?v=2"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=3"></script>
+<script src="https://maimoonah.com/js/catalog.js"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script>
   if (!window.supabase) { document.querySelector('main').innerHTML = '<div class="card" style="text-align:center;padding:24px;">تعذّر الاتصال بالخادم. تأكد/ي من اتصالك بالإنترنت، ثم حدّث الصفحة.</div>'; throw new Error('supabase not loaded'); }
@@ -151,7 +156,8 @@
   const PERIOD = { monthly: 'شهري', yearly: 'سنوي' };
   const daysLeft = (end) => { if (!end) return null; const t = new Date(); t.setHours(0, 0, 0, 0); return Math.round((new Date(end + 'T00:00:00') - t) / 86400000); };
   const waHref = (txt) => `https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
-  let SUBS = [];
+  let SUBS = [], MYEMAIL = '';
+  const MKP = 'programs.html';
 
 
   // ===== متابعة الدراسة: التقويم الشهري والحصص =====
@@ -327,8 +333,25 @@
 
   function render() {
     if (!SUBS.length) {
-      $('subs').innerHTML = `<section class="card"><h2>لا يوجد اشتراك مسجّل بهذا البريد</h2><p>إن كنت مشتركًا ببريد آخر فاخرج وادخل به. وإن لم تشترك بعد فاختر برنامجك من برامج شركة مكين.</p>
-        <div class="row-btns"><a class="btn" href="programs.html">اختيار البرنامج والاشتراك</a><a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/${WA}">التواصل عبر الواتساب</a></div></section>`;
+      // حساب بلا اشتراك: البرامج التعليمية وخطوات الاشتراك، وتُفتح اللوحة كاملة بعد تفعيل الاشتراك
+      const progs = (MN.catalog ? MN.catalog() : []).filter((x) => x.type === 'program');
+      const em = esc(MYEMAIL);
+      $('subs').innerHTML = `<section class="card nosub">
+        <h2>أنت غير مسجّل في أي برنامج</h2>
+        <p style="margin:6px 0 0">اشترك/ي في برنامج تعليمي لتُفتح لك لوحة الطالب: رابط الحلقة والغرفة الدراسية، ومواعيد حصصك وتقويمها، ومتابعة ما أخذته وواجباتك، وملاحظات معلمك/معلمتك.</p>
+        <h3>خطوات الاشتراك</h3>
+        <ol class="steps">
+          <li>اختر/ي البرنامج المناسب من البرامج التعليمية بالأسفل.</li>
+          <li>اختر/ي نوع الحجز (بالساعة أو شهري أو سنوي)، وأيام حصصك ومواعيدها، أو اطلب/ي التقييم والاستفسار أولًا.</li>
+          <li>اكتب/ي بياناتك في نموذج الحجز${em ? ` ببريد حسابك نفسه <bdi dir="ltr">${em}</bdi>` : ''}، ثم أرسل/ي الطلب.</li>
+          <li>أتمم/ي الدفع عبر واتساب مكين.</li>
+          <li>بعد مراجعة طلبك وتفعيله تُفتح لك لوحة الطالب هنا، ويصلك بريد برقم عضويتك.</li>
+        </ol>
+        <h3>البرامج التعليمية</h3>
+        <div class="plist">${progs.map((x) => `<a href="${MKP}#${x.key.replace(':', '-')}">${esc(x.title)}<span aria-hidden="true">‹</span></a>`).join('')}</div>
+        <div class="row-btns" style="margin-top:12px"><a class="btn" href="${MKP}">تصفّح البرامج والاشتراك</a><a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/${WA}">الاستفسار عبر الواتساب</a></div>
+        <p class="note" style="margin-top:12px">وحسابك هذا يفتح لك الآن <a href="https://maimoonah.com/library.html">«مكتبتي»</a> لقراءة الكتب والتفسير. وإن كنت مشتركًا ببريد آخر فاخرج/ي وادخل/ي به.</p>
+      </section>`;
       return;
     }
     const nm = (SUBS.find((s) => s.name) || {}).name;
@@ -356,7 +379,7 @@
     const { data: { session } } = await sb.auth.getSession();
     if (!session) {
       $('loginBox').style.display = 'block';
-      MN.pwMount($('loginBox'), sb, { title: 'لوحة الطالب', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في البرنامج، وكلمة المرور.', note: 'في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.' });
+      MN.pwMount($('loginBox'), sb, { signup: true, title: 'لوحة الطالب', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في البرنامج، وكلمة المرور.', note: 'في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.' });
       const hp = new URLSearchParams((location.hash || '').slice(1) + '&' + location.search.slice(1));
       if (hp.get('error_code') || hp.get('error')) {
         $('pwlMsg').innerHTML = '<b>هذا الرابط استُعمل من قبل أو انتهت مدته.</b> اكتب/ي بريدك واضغط/ي «أول مرة أو نسيت كلمة المرور؟» فيصلك رابط جديد فورًا.';
@@ -366,6 +389,8 @@
     }
     await MN.pwGate(sb, session);
     $('logoutBtn').style.display = ''; $('pwHdr').style.display = ''; $('dash').style.display = 'block';
+    MYEMAIL = session.user.email || '';
+    { const fn = session.user.user_metadata && session.user.user_metadata.full_name; if (fn) $('helloName').textContent = 'أهلًا بك ' + fn; }
     $('who').textContent = 'أنت داخل ببريد: ' + session.user.email;
     if (!$('pwChange')) { const b = document.createElement('button'); b.type = 'button'; b.id = 'pwChange'; b.className = 'btn ghost'; b.textContent = '🔑 تغيير كلمة المرور'; b.onclick = () => MN.pwChange(sb); const rb = document.querySelector('#settings .row-btns'); if (rb) rb.appendChild(b); }
     const { data, error } = await sb.rpc('my_subscriptions');

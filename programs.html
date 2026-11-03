@@ -1390,8 +1390,10 @@
     }
     // يملأ النموذج من بيانات التطبيق إن كانت مسجلة (ويبقى قابلًا للتعديل)
     function prefillBooking() {
-      const p = window.MNApp && MNApp.profile(); if (!p || !p.done) return;
       const set = (id, v) => { const el = document.getElementById(id); if (el && v && !el.value) el.value = v; };
+      // الداخل بحسابه: بريده ورقمه واسمه في نموذج الحجز، فيُربط الاشتراك بحسابه وتُفتح له لوحة الطالب بعد التفعيل
+      (async () => { try { const sb = await _loadSB(); const { data: { session } } = await sb.auth.getSession(); const u = session && session.user; if (!u) return; const md = u.user_metadata || {}; set('p_email', u.email); set('p_phone', md.phone); set('p_name', md.full_name); } catch (e) {} })();
+      const p = window.MNApp && MNApp.profile(); if (!p || !p.done) return;
       set('p_name', p.name); set('p_specialty', p.study); set('p_job', p.job);
       set('p_country', [p.country, p.city].filter(Boolean).join(' - '));
       const sel = (id, v) => { const el = document.getElementById(id); if (el && v && [...el.options].some((o) => o.value === v) && !el.dataset.touched) el.value = v; };
