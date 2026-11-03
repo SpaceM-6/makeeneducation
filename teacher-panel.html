@@ -70,6 +70,7 @@
 <script src="https://maimoonah.com/js/sb.js"></script>
 <script src="https://maimoonah.com/js/pwlogin.js?v=2"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
+<script src="https://maimoonah.com/js/avail.js?v=1"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -137,9 +138,9 @@
   function render() {
     const t = D.teacher || {}, av = t.availability || null, S = D.students || [];
     const act = S.filter((s) => s.status === 'active'), up = upcomingHtml(S);
-    const avTxt = av && Array.isArray(av.days) ? (av.days.length === 7 ? 'كل الأيام' : av.days.slice().sort().map((d) => DAYS[d]).join('، ')) + ' · ' + (av.hours || []).slice().sort((a, b) => a - b).map(hour12).join('، ') + (av.tz ? ` (${av.tz})` : '') : 'لم تُسجَّل';
+    const avTxt = window.MN && MN.availText ? MN.availText(av) : 'لم تُسجَّل';
     $('dash').innerHTML = `<section class="card"><h1>أهلًا ${esc(t.name || '')}</h1>${t.headline ? `<p class="muted">${esc(t.headline)}</p>` : ''}
-      <div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}<div class="fact" style="grid-column:1/-1"><small>أوقاتك المتاحة</small><b>${esc(avTxt)}</b></div>${(t.programs || []).length ? `<div class="fact" style="grid-column:1/-1"><small>برامجك</small><b>${esc(t.programs.join('، '))}</b></div>` : ''}</div>
+      <div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}<div class="fact" style="grid-column:1/-1"><small>أوقاتك المتاحة</small><b>${esc(avTxt)}</b><div><button type="button" class="btn sm ghost" id="avEdit" style="margin-top:6px">✏️ تعديل أوقاتي</button></div></div>${(t.programs || []).length ? `<div class="fact" style="grid-column:1/-1"><small>برامجك</small><b>${esc(t.programs.join('، '))}</b></div>` : ''}</div>
       ${t.id ? `<div class="row-btns"><a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}">صفحتي التعريفية</a></div>` : ''}</section>
       <section class="card"><div class="stats"><div class="stat"><b>${act.length}</b><small>طالب/ة مشترك/ة</small></div><div class="stat"><b>${up.n}</b><small>حصة في ٧ أيام</small></div><div class="stat"><b>${S.length - act.length}</b><small>بانتظار التفعيل</small></div></div>
       <h3>حصصك القادمة</h3>${up.html}</section>
@@ -151,6 +152,12 @@
       $('dash').innerHTML = `<div class="row-btns" style="margin:0 0 10px"><a class="btn ghost" href="#">→ طلابي</a></div>` + stuHtml(cur, av);
       window.scrollTo(0, 0);
     }
+    { const ab = $('avEdit'); if (ab) ab.onclick = () => MN.availEdit(D.teacher.availability, async (nv) => {
+      const r = await sb.rpc('teacher_set_availability', { p: nv });
+      if (r.error) return /function|does not exist|schema cache/i.test(r.error.message || '') ? 'هذه الخاصية تُفعَّل بعد أن تشغّل الإدارة ملف التحديث.' : 'تعذّر الحفظ، حاول/ي مرة أخرى.';
+      if (r.data !== 'ok') return 'تعذّر الحفظ: هذا البريد غير مربوط بصفحة معلم/ة.';
+      D.teacher.availability = nv; render(); if (window._mkPaintCall) window._mkPaintCall(); return null;
+    }); }
     document.querySelectorAll('[data-mark]').forEach((b) => b.onclick = async () => {
       b.disabled = true;
       const { error } = await sb.rpc('teacher_mark', { p_sub: b.dataset.sub, p_day: b.dataset.day, p_status: b.dataset.mark });
@@ -163,7 +170,10 @@
     const { data, error } = await sb.rpc('teacher_dashboard');
     if (error) { $('dash').innerHTML = '<section class="card">تعذّر تحميل لوحتك الآن، حدّث/ي الصفحة بعد قليل.</section>'; return; }
     if (!data || data.error) { $('dash').innerHTML = `<section class="card"><h1>هذا البريد غير مسجّل في كادر مكين</h1><p class="muted">ادخل/ي بالبريد الذي كتبته في طلب الانضمام، أو تواصل/ي مع الإدارة.</p><div class="row-btns"><a class="btn ghost" href="join.html">طلب الانضمام إلى كادر مكين</a></div></section>`; return; }
-    D = data; render();
+    D = data;
+    // الأوقات المتاحة المحفوظة (يعدّلها المعلم/ة بنفسه/ا)
+    try { const av = await sb.rpc('teacher_availability'); if (!av.error && av.data && av.data.days) D.teacher.availability = av.data; } catch (e) {}
+    render();
     // الاتصال الصوتي بالطالب/ة في وقت الحلقة
     const act = (D.students || []).filter((x) => x.status === 'active');
     MN.callSetup(sb, { role: 'teacher', myName: 'أ/ ' + ((D.teacher && D.teacher.name) || ''), subs: act.map((x) => ({ id: x.sub_id, peer: x.first_name, title: x.program })) });
