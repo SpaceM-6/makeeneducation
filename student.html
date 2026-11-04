@@ -380,7 +380,7 @@
     const { data: { session } } = await sb.auth.getSession();
     if (!session) {
       $('loginBox').style.display = 'block';
-      MN.pwMount($('loginBox'), sb, { signup: true, title: 'لوحة الطالب', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في البرنامج، وكلمة المرور.', note: 'في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.' });
+      MN.pwMount($('loginBox'), sb, { signup: true, allow: (em) => sb.rpc('mk_is_student_email', { p_email: em }).then((r) => (r.error ? true : r.data !== false)), denyMsg: 'هذا البريد غير مسجّل في أي برنامج من برامج مكين. اكتب/ي البريد الذي سجّلت به في البرنامج، أو اشترك/ي أولًا من صفحة «البرامج والتسجيل»، أو تواصل/ي مع إدارة مكين عبر الواتساب.', title: 'لوحة الطالب', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في البرنامج، وكلمة المرور.', note: 'في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.' });
       const hp = new URLSearchParams((location.hash || '').slice(1) + '&' + location.search.slice(1));
       if (hp.get('error_code') || hp.get('error')) {
         $('pwlMsg').innerHTML = '<b>هذا الرابط استُعمل من قبل أو انتهت مدته.</b> ادخل/ي بكلمة المرور، أو اضغط/ي «نسيت كلمة المرور؟» فيصلك رابط لتعيين كلمة جديدة.';
