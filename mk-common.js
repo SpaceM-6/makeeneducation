@@ -1,3 +1,28 @@
+// ترحيب باسم صاحب الحساب في أول القائمة الجانبية: «مرحبًا بعودتك يا سلمى» / «مرحبًا بعودتك يا أ/ ميمونة»
+(function () {
+  var MN = window.MN = window.MN || {};
+  MN.helloText = function () {
+    var u = null, p = null;
+    try {
+      for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (/^sb-.*-auth-token$/.test(k)) { var v = JSON.parse(localStorage.getItem(k)); if (v && v.user) u = v.user; } }
+      p = JSON.parse(localStorage.getItem('mn_profile') || 'null');
+    } catch (e) {}
+    if (!u) return '';
+    var md = u.user_metadata || {}, em = String(u.email || '').toLowerCase();
+    var full = String(md.full_name || md.name || (p && p.name) || '').trim();
+    var name = full.split(/\s+/)[0] || '';
+    var teacher = em === 'info@maimoonah.com' || /^(tm|tf)$/.test((p && p.role) || '') || md.role === 'teacher';
+    if (!name && em === 'info@maimoonah.com') name = 'ميمونة';
+    if (!name) return '';
+    return 'مرحبًا بعودتك يا ' + (teacher ? 'أ/ ' : '') + name.replace(/^أ\/\s*/, '');
+  };
+  // يُكتب الترحيب في العنصر المعطى (ويختفي إن لم يكن هناك دخول)
+  MN.paintHello = function (el) {
+    if (!el) return; var t = MN.helloText();
+    el.hidden = !t; el.textContent = t ? '👋 ' + t : '';
+  };
+})();
+
 // أدوات مشتركة لصفحات مكين: الاتصال بقاعدة البيانات، والبرامج، والرأس والتذييل
 (function () {
   'use strict';
@@ -84,6 +109,7 @@
     '.mk-drawer a.flag{background:#12355B;color:#F3D37A;border-radius:12px;border:0;margin:4px 0}.mk-drawer a.flag small{display:block;color:#CBD5E1;font-weight:600;font-size:13px}.mk-drawer a.flag .fl{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid #F3D37A;display:inline-flex;align-items:center;justify-content:center;overflow:hidden}' +
     '.mk-drawer a.top{font-weight:900}' +
     '.mk-dhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #F3D37A;padding-bottom:10px;margin-bottom:8px}' +
+    '.mk-hello{background:#FFF8E6;border:1px solid #E8D29A;border-radius:12px;padding:10px 12px;margin:4px 0 8px;color:#12355B;font-weight:800;font-size:16px;line-height:1.7}.mk-hello[hidden]{display:none}' +
     '.mk-dhead strong{color:#12355B;font-size:17px;display:flex;align-items:center;gap:8px}.mk-dhead img{width:36px;height:36px;border-radius:50%;border:2px solid #F3D37A}' +
     '.mk-dx{background:#12355B;color:#fff;border:none;border-radius:8px;padding:4px 10px;font:700 14px Cairo,sans-serif;cursor:pointer}' +
     '.mk-drawer a{display:flex;align-items:center;gap:10px;padding:12px 8px;color:#12355B;text-decoration:none;font-weight:700;font-size:15px;border-bottom:1px solid #E2E8F0}' +
@@ -111,7 +137,7 @@
     if (document.getElementById('mkDrawer') || !document.body) return;
     var here = location.pathname.split('/').pop() || 'index.html';
     var ov = document.createElement('div'); ov.className = 'mk-dov'; ov.id = 'mkDrawer';
-    ov.innerHTML = '<nav class="mk-drawer" aria-label="القائمة"><div class="mk-dhead"><strong><img src="assets/makeen-logo.jpeg" alt="">القائمة</strong><button type="button" class="mk-dx">✕ إغلاق</button></div>' +
+    ov.innerHTML = '<nav class="mk-drawer" aria-label="القائمة"><div class="mk-dhead"><strong><img src="assets/makeen-logo.jpeg" alt="">القائمة</strong><button type="button" class="mk-dx">✕ إغلاق</button></div><div class="mk-hello" data-hello hidden></div>' +
       MK.MENU.map(function (m) {
         var cls = m[3] === 'gold' ? 'gold' : m[3] === 'install' ? 'inst' : m[3] === 'flag' ? 'flag' : m[3] === 'top' ? 'top' + (m[0] === here ? ' cur' : '') : (m[0] === here ? 'cur' : '');
         if (m[3] === 'flag') return '<a href="' + m[0] + '" class="flag" data-flag><span class="fl">' + m[2] + '</span><span><b>' + m[1] + '</b><small data-place></small></span></a>';
@@ -155,7 +181,7 @@
   }
   document.addEventListener('mn-profile', headerFlag);
   document.addEventListener('DOMContentLoaded', function () { headerFlag(); setTimeout(headerFlag, 800); });
-  MK.openDrawer = function () { ensureDrawer(); renderFlagItem(); document.getElementById('mkDrawer').classList.add('open'); };
+  MK.openDrawer = function () { ensureDrawer(); renderFlagItem(); if (window.MN && MN.paintHello) MN.paintHello(document.querySelector('#mkDrawer [data-hello]')); document.getElementById('mkDrawer').classList.add('open'); };
   MK.closeDrawer = function () { var d = document.getElementById('mkDrawer'); if (d) d.classList.remove('open'); };
   window.mkOpenDrawer = MK.openDrawer;
   // سحب القائمة باليد من الحافة اليسرى (القائمة تفتح من اليسار)
