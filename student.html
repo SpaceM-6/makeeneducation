@@ -143,7 +143,7 @@
 
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
-<script src="https://maimoonah.com/js/pwlogin.js?v=4"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=5"></script>
 <script src="https://maimoonah.com/js/catalog.js"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script>
@@ -383,7 +383,7 @@
       MN.pwMount($('loginBox'), sb, { signup: true, title: 'لوحة الطالب', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في البرنامج، وكلمة المرور.', note: 'في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.' });
       const hp = new URLSearchParams((location.hash || '').slice(1) + '&' + location.search.slice(1));
       if (hp.get('error_code') || hp.get('error')) {
-        $('pwlMsg').innerHTML = '<b>هذا الرابط استُعمل من قبل أو انتهت مدته.</b> اكتب/ي بريدك واضغط/ي «أول مرة أو نسيت كلمة المرور؟» فيصلك رابط جديد فورًا.';
+        $('pwlMsg').innerHTML = '<b>هذا الرابط استُعمل من قبل أو انتهت مدته.</b> ادخل/ي بكلمة المرور، أو اضغط/ي «نسيت كلمة المرور؟» فيصلك رابط لتعيين كلمة جديدة.';
         try { history.replaceState(null, '', location.pathname); } catch (e) {}
       }
       return;
