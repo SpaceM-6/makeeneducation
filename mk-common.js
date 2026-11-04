@@ -113,9 +113,9 @@
     '.mk-dhead strong{color:#12355B;font-size:17px;display:flex;align-items:center;gap:8px}.mk-dhead img{width:36px;height:36px;border-radius:50%;border:2px solid #F3D37A}' +
     '.mk-dx{background:#12355B;color:#fff;border:none;border-radius:8px;padding:4px 10px;font:700 14px Cairo,sans-serif;cursor:pointer}' +
     '.mk-drawer a{display:flex;align-items:center;gap:10px;padding:12px 8px;color:#12355B;text-decoration:none;font-weight:700;font-size:15px;border-bottom:1px solid #E2E8F0}' +
-    '.mk-drawer a:hover,.mk-drawer a.cur{background:rgba(243,211,122,.25)}.mk-drawer a svg{flex:0 0 auto;color:#A8822F}' +
+    '.mk-drawer a:hover,.mk-drawer a.cur{background:rgba(243,211,122,.25)}.mk-drawer a svg{flex:0 0 auto;color:#86661B}' +
     '.mk-drawer a.gold{background:linear-gradient(90deg,#F3D37A,#E5C158);color:#12355B;font-weight:900;border-radius:12px;border:0;margin:6px 0}.mk-drawer a.gold svg{color:#12355B}' +
-    '.mk-drawer a.inst{color:#A8822F;font-weight:800}.mk-drawer a[hidden]{display:none}' +
+    '.mk-drawer a.inst{color:#86661B;font-weight:800}.mk-drawer a[hidden]{display:none}' +
     '@media (max-width:768px){.mk-drawer a{font-size:14px;padding:11px 4px}}' +
     '@media (hover:none){.service-card:hover{transform:none;border-color:#E2E8F0}}' +
     'header .brand-logo-text .mk-two{display:inline-block;line-height:1.45;text-align:center;white-space:nowrap}' +
@@ -216,7 +216,7 @@
     '.mc-panel h3{margin:0 0 12px;font-size:18px;color:#12355B;font-weight:800;display:flex;justify-content:space-between;align-items:center}' +
     '.mc-x{background:none;border:none;font-size:20px;color:#4A3818;cursor:pointer;line-height:1;padding:2px 6px}' +
     '.mc-row{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;text-decoration:none;color:#4A3818;background:#F6EEE2;margin-top:8px;font-weight:700;font-size:14.5px}' +
-    '.mc-row:hover{background:#EFE2CB}.mc-row svg{flex:0 0 auto;color:#A8822F}.mc-row small{display:block;font-weight:600;color:#6B5320;font-size:13px;unicode-bidi:isolate;text-align:right}' +
+    '.mc-row:hover{background:#EFE2CB}.mc-row svg{flex:0 0 auto;color:#86661B}.mc-row small{display:block;font-weight:600;color:#6B5320;font-size:13px;unicode-bidi:isolate;text-align:right}' +
     '.mc-row.gold{background:linear-gradient(90deg,#F3D37A,#E5C158);color:#12355B}.mc-row.gold svg{color:#12355B}';
   var SV = function (d) { return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
   function ensureFab() {
@@ -265,4 +265,17 @@
   });
   document.addEventListener('DOMContentLoaded', ensureFab);
   document.addEventListener('DOMContentLoaded', ensureDrawer);
+})();
+
+// لمسات تجربة الاستخدام المشتركة: إحساس الضغط على الأزرار، وإطار التركيز للوحة المفاتيح، ولون التحديد، واحترام «تقليل الحركة»
+(function () {
+  if (document.getElementById('mn-ux-css')) return;
+  var s = document.createElement('style'); s.id = 'mn-ux-css';
+  s.textContent = '::selection{background:#F3D37A;color:#12355B}' +
+    'button,.btn,.btn-gold,a.btn,[role="button"],.tile,.mk-row,.mc-row{transition:scale .14s cubic-bezier(.2,.8,.2,1),background-color .18s ease,box-shadow .18s ease,border-color .18s ease;-webkit-tap-highlight-color:transparent}' +
+    'button:active:not(:disabled),.btn:active,.btn-gold:active,a.btn:active,[role="button"]:active,.tile:active{scale:.97}' +
+    ':focus-visible{outline:2.5px solid #C9A04A;outline-offset:2px}' +
+    'button:disabled,.btn[disabled]{cursor:not-allowed;opacity:.6}' +
+    '@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}';
+  (document.head || document.documentElement).appendChild(s);
 })();

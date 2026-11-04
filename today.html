@@ -36,7 +36,7 @@
   .pt li { display:flex; align-items:center; gap:10px; padding:9px 4px; border-bottom:1px dashed #E8DCC0; }
   .pt li:last-child { border-bottom:0; }
   .pt li .n { flex:1; font-weight:700; color:var(--navy); } .pt li .t { font-weight:800; font-size:17px; color:var(--ink); }
-  .pt li.now { background:#FFF7E0; border-radius:10px; } .pt li.now .n::after { content:' • التالية'; color:var(--gold2); font-size:13px; }
+  .pt li.now { background:#FFF7E0; border-radius:10px; } .pt li.now .n::after { content:' • التالية'; color:#86661B; font-size:13px; }
   .pt li.sun .n, .pt li.sun .t { color:#8A7A55; font-weight:600; }
   .bell { width:38px; height:34px; border-radius:10px; border:1.5px solid var(--line); background:#fff; cursor:pointer; font-size:16px; line-height:1; }
   .bell.on { background:var(--navy); border-color:var(--navy); }
@@ -62,7 +62,7 @@
   .state.ok { background:#DCFCE7; color:#166534; } .state.warn { background:#FFF7E6; color:#7A5A12; border:1px solid #F3D37A; } .state.bad { background:#FEF2F2; color:#991B1B; }
   .kv { display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:14.5px; } .kv span { color:var(--brown); } .kv b { color:var(--navy); }
   .msg { font-size:14px; margin-top:6px; color:var(--navy); min-height:1em; }
-  details summary { cursor:pointer; color:var(--gold2); font-weight:800; }
+  details summary { cursor:pointer; color:#86661B; font-weight:800; }
   .empty { text-align:center; padding:28px 16px; }
   .mk-brand { display:flex; align-items:center; gap:8px; color:var(--gold); text-decoration:none; font-weight:800; }
 </style>
@@ -73,7 +73,7 @@
 <script src="https://maimoonah.com/js/dailypick.js"></script>
 <script src="https://maimoonah.com/js/daily.js?v=20261101e" defer></script>
 <script src="https://maimoonah.com/js/bookalerts.js" defer></script>
-<script src="mk-common.js?v=e43b5934"></script>
+<script src="mk-common.js?v=31896173"></script>
 <script src="https://maimoonah.com/js/protect.js?v=3" defer></script>
 </head>
 <body data-daily-popup data-app-bar>
@@ -138,7 +138,7 @@
       <div class="switch"><span>الأذكار بعد كل صلاة</span><label class="tg"><input type="checkbox" id="nAfter"><span></span></label></div>
       <div class="switch"><span>🌙 تذكير الصيام المسنون (ليلة الاثنين والخميس والأيام البيض وعرفة وعاشوراء)</span><label class="tg"><input type="checkbox" id="nFast"><span></span></label></div>
       <div class="switch"><span>📅 المناسبات الإسلامية وأحداث السيرة في أيامها</span><label class="tg"><input type="checkbox" id="nOcc"><span></span></label></div>
-      <p class="muted" style="margin:6px 0 0">تذكير الحصص يصل بعد الدخول إلى <a href="https://maimoonah.com/student.html" style="color:var(--gold2)">لوحة الطالب</a> من هذا الجهاز مرة واحدة.</p>
+      <p class="muted" style="margin:6px 0 0">تذكير الحصص يصل بعد الدخول إلى <a href="https://maimoonah.com/student.html" style="color:#86661B">لوحة الطالب</a> من هذا الجهاز مرة واحدة.</p>
       <div class="msg" id="nMsg"></div>
     </section>
 
@@ -221,7 +221,7 @@
     const doneToday = w.last === todayStr();
     $('wirdRange').innerHTML = doneToday
       ? `<b>أحسنت${P.gender === 'f' ? 'ِ' : ''}، أتممت${P.gender === 'f' ? 'ِ' : ''} وردك اليوم ✓</b><span class="muted">وردك القادم: من صفحة ${ar(from)}${to > from ? ' إلى ' + ar(to) : ''}</span>`
-      : `<span class="muted">وردك اليوم</span><b>${to > from ? `من صفحة ${ar(from)} إلى صفحة ${ar(to)}` : `صفحة ${ar(from)}`}</b><a href="https://maimoonah.com/mushaf.html?p=${MNWirdPage(from)}" style="color:var(--gold2);font-weight:800;font-size:14px">افتح/ي المصحف على هذه الصفحة ‹</a>`.replace('افتح/ي', G('افتح', 'افتحي'));
+      : `<span class="muted">وردك اليوم</span><b>${to > from ? `من صفحة ${ar(from)} إلى صفحة ${ar(to)}` : `صفحة ${ar(from)}`}</b><a href="https://maimoonah.com/mushaf.html?p=${MNWirdPage(from)}" style="color:#86661B;font-weight:800;font-size:14px">افتح/ي المصحف على هذه الصفحة ‹</a>`.replace('افتح/ي', G('افتح', 'افتحي'));
     $('wirdDone').textContent = doneToday ? 'تراجع: لم أُتمّه بعد' : `قرأتُ وردي اليوم ✓`;
     $('wirdDone').className = doneToday ? 'btn ghost block' : 'btn block';
     // السلسلة تنقطع إن مضى يوم كامل دون قراءة
