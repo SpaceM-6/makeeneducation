@@ -79,16 +79,7 @@
 </header>
 <div id="main">
   <div class="tip" style="margin-top:8px" id="notifTip" hidden><span>🔔 فعّل/ي التنبيهات ليصلك الرد فورًا.</span><button type="button" id="notifBtn">تفعيل</button></div>
-  <section class="card" id="loginBox" hidden>
-    <h1>مراسلة المعلمة</h1>
-    <p>راسل/ي أ/ ميمونة مباشرة، ويصلك ردّها هنا وفي إشعار على جوالك. ادخل/ي ببريدك وكلمة المرور.</p>
-    <input type="email" id="email" placeholder="name@example.com" autocomplete="username">
-    <input type="password" id="pw" placeholder="كلمة المرور" autocomplete="current-password" style="margin-top:8px" onkeydown="if(event.key==='Enter')pwLogin()">
-    <div style="margin-top:10px"><button class="btn" id="loginBtn" onclick="pwLogin()">دخول</button></div>
-    <div class="msg" id="loginMsg"></div>
-    <div class="note" style="margin-top:14px"><b>أول مرة، أو نسيت/ي كلمة المرور؟</b> اكتب/ي بريدك أعلاه واضغط/ي الزر، فيصلك رابط دخول لمرة واحدة، ثم تختار/ين كلمة مرور من «مكتبتي».
-      <div style="margin-top:8px"><button class="btn ghost" id="sendBtn" onclick="sendLink()">أرسل رابط الدخول</button></div></div>
-  </section>
+  <section class="card" id="loginBox" hidden></section>
 
   <section class="chat" id="chat" hidden>
     <div class="chat-head"><button class="back" id="backBtn" hidden aria-label="رجوع إلى الرسائل">→</button><img src="/img/maimouna-logo-square.jpg" alt="" id="chatAv"><div><b id="chatName">أ/ ميمونة</b><small id="chatSub">تردّ في أقرب وقت بإذن الله</small></div></div>
@@ -116,8 +107,6 @@
     document.querySelector('header .home').textContent = '→ موقع مكين'; document.querySelector('header .home').href = 'index.html';
     document.querySelector('header a[aria-label]').href = 'index.html';
     document.querySelector('header img').src = 'assets/makeen-logo.jpeg'; document.querySelector('header img').alt = 'شعار شركة مكين';
-    document.querySelector('#loginBox h1').textContent = 'مراسلة إدارة مكين';
-    document.querySelector('#loginBox p').textContent = 'راسل/ي إدارة شركة مكين مباشرة، ويصلك الرد هنا وفي إشعار على جوالك. ادخل/ي ببريدك وكلمة المرور.';
     document.getElementById('chatAv').src = 'assets/makeen-logo.jpeg'; document.getElementById('chatName').textContent = 'إدارة مكين'; document.getElementById('chatSub').textContent = 'تردّ في أقرب وقت بإذن الله';
     const st = document.createElement('style'); st.textContent = ":root{--gold:#F3D37A!important}body{background:#F8F9FA url('assets/marble.jpg') 0 0/1400px auto repeat!important}.card,.chat-head,.composer,.th{background:rgba(255,255,255,.96)!important}";
     document.head.appendChild(st); document.documentElement.classList.add('mk-ready');
@@ -128,6 +117,7 @@
 <script src="https://maimoonah.com/js/mfa.js"></script>
 <script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/app.js"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=4"></script>
 <script>
   if (!window.supabase) { document.getElementById('main').innerHTML = '<div class="card" style="text-align:center">تعذّر الاتصال بالخادم. تأكد/ي من اتصالك بالإنترنت، ثم حدّث/ي الصفحة.</div>'; throw new Error('supabase not loaded'); }
   const sb = MN.sb();
@@ -145,25 +135,6 @@
   $('box').placeholder = G('اكتب', 'اكتبي') + ' رسالتك…';
 
   // ===== الدخول =====
-  async function pwLogin() {
-    const email = $('email').value.trim().toLowerCase(), password = $('pw').value;
-    if (!/^\S+@\S+\.\S+$/.test(email)) { $('loginMsg').textContent = G('اكتب', 'اكتبي') + ' بريدًا صحيحًا.'; return; }
-    if (!password) { $('loginMsg').textContent = G('اكتب', 'اكتبي') + ' كلمة المرور.'; return; }
-    $('loginBtn').disabled = true; $('loginMsg').textContent = 'جارٍ الدخول…';
-    const { error } = await sb.auth.signInWithPassword({ email, password });
-    $('loginBtn').disabled = false;
-    if (error) { $('loginMsg').textContent = error.message === 'Invalid login credentials' ? 'البريد أو كلمة المرور غير صحيحة. إن كانت أول مرة فاضغط/ي «أرسل رابط الدخول».' : 'تعذّر الدخول، حاول/ي بعد دقيقة.'; return; }
-    location.reload();
-  }
-  async function sendLink() {
-    const email = $('email').value.trim().toLowerCase();
-    if (!/^\S+@\S+\.\S+$/.test(email)) { $('loginMsg').textContent = G('اكتب', 'اكتبي') + ' بريدك أعلاه أولًا.'; return; }
-    $('sendBtn').disabled = true; $('loginMsg').textContent = 'جارٍ الإرسال…';
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + location.pathname + (MK ? '?site=makeen' : '') } });
-    $('sendBtn').disabled = false;
-    $('loginMsg').textContent = error ? 'تعذّر الإرسال، حاول/ي بعد دقيقة.' : 'أرسلنا رابط الدخول إلى بريدك. افتحه من هذا الجهاز.';
-  }
-
   // ===== عرض الرسائل =====
   function renderStream(keepPos) {
     const st = $('stream'), atBottom = st.scrollHeight - st.scrollTop - st.clientHeight < 80;
@@ -272,7 +243,14 @@
 
   async function boot() {
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) { $('loginBox').hidden = false; try { const last = localStorage.getItem('mn_lib_email'); if (last) $('email').value = last; } catch (e) {} return; }
+    if (!session) {
+      $('loginBox').hidden = false;
+      MN.pwMount($('loginBox'), sb, MK
+        ? { title: 'مراسلة إدارة مكين', intro: 'راسل/ي إدارة شركة مكين مباشرة، ويصلك الرد هنا وفي إشعار على جوالك. ادخل/ي بالبريد الإلكتروني أو رقم الجوال المسجّل، وكلمة المرور.' }
+        : { title: 'مراسلة المعلمة', intro: 'راسل/ي أ/ ميمونة مباشرة، ويصلك ردّها هنا وفي إشعار على جوالك. ادخل/ي بالبريد الإلكتروني أو رقم الجوال المسجّل، وكلمة المرور.' });
+      return;
+    }
+    await MN.pwGate(sb, session);
     ME = session.user; ADMIN = (ME.email || '').toLowerCase() === MN.ADMIN_EMAIL;
     if (ADMIN) await MNMfa.ensure(sb);
     if (window.MNApp) MNApp.linkStudent(session.access_token);
