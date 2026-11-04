@@ -81,7 +81,7 @@
 <script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/sb.js"></script>
-<script src="https://maimoonah.com/js/pwlogin.js?v=5"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=6"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script src="https://maimoonah.com/js/avail.js?v=1"></script>
 <script>
@@ -242,7 +242,7 @@
   }
   async function boot() {
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) { $('loginBox').hidden = false; MN.pwMount($('loginBox'), sb, { title: 'لوحة المعلم في مكين', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في طلب الانضمام إلى كادر مكين، وكلمة المرور.' }); return; }
+    if (!session) { $('loginBox').hidden = false; MN.pwMount($('loginBox'), sb, { allow: (em) => sb.rpc('mk_is_teacher_email', { p_email: em }).then((r) => (r.error ? true : r.data !== false)), denyMsg: 'هذا البريد غير مسجّل لدى كادر مكين. اكتب/ي البريد الذي سجّلت به في طلب الانضمام، أو تواصل/ي مع الإدارة. ولم تنضم/ي بعد؟ قدّم/ي طلب الانضمام من صفحة «انضم/ي إلى كادر مكين».', title: 'لوحة المعلم في مكين', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال الذي سجّلت به في طلب الانضمام إلى كادر مكين، وكلمة المرور.' }); return; }
     await MN.pwGate(sb, session);
     $('logoutBtn').hidden = false; $('pwBtn').hidden = false; $('dash').hidden = false;
     $('dash').innerHTML = '<section class="card">جارٍ التحميل…</section>';
