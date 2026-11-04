@@ -24,3 +24,5 @@ User-agent: *
 Disallow: /today.html
 Disallow: /my.html
 Allow: /
+
+Sitemap: https://makeeneducation.com/sitemap.xml
