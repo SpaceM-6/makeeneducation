@@ -276,6 +276,8 @@
     'button:active:not(:disabled),.btn:active,.btn-gold:active,a.btn:active,[role="button"]:active,.tile:active{scale:.97}' +
     ':focus-visible{outline:2.5px solid #C9A04A;outline-offset:2px}' +
     'button:disabled,.btn[disabled]{cursor:not-allowed;opacity:.6}' +
+    '.modal-overlay{animation:mnFade .18s ease-out}.modal-overlay:not(.drawer-overlay)>.modal-content{animation:mnPop .24s cubic-bezier(.2,.8,.2,1)}.drawer-overlay>.drawer{animation:mnDrIn .28s cubic-bezier(.2,.8,.2,1)}' +
+    '@keyframes mnFade{from{opacity:0}}@keyframes mnPop{from{opacity:0;transform:translateY(10px) scale(.98)}}@keyframes mnDrIn{from{transform:translateX(100%)}}' +
     '@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}';
   (document.head || document.documentElement).appendChild(s);
 })();

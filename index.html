@@ -150,7 +150,9 @@
     /* Hero Section */
     .company-hero {
       /* نصفان: طالب على اليمين وطالبة على اليسار، تحت تظليل كحلي */
-      background: linear-gradient(135deg, rgba(18, 53, 91, 0.86) 0%, rgba(30, 58, 138, 0.74) 100%),
+      /* تظليل أعمق في المنتصف حيث تلتقي الصورتان، فلا يظهر خط فاصل خلف العنوان */
+      background: linear-gradient(90deg, rgba(18, 53, 91, 0) 30%, rgba(18, 53, 91, 0.55) 50%, rgba(18, 53, 91, 0) 70%),
+                  linear-gradient(135deg, rgba(18, 53, 91, 0.86) 0%, rgba(30, 58, 138, 0.74) 100%),
                   url('assets/hero-boy.jpg') right 70% / 50% 100% no-repeat,
                   url('assets/hero-girl.jpg') left 70% / 50% 100% no-repeat,
                   #12355B;
@@ -165,7 +167,8 @@
 
     @media (max-width: 760px) {
       .company-hero {
-        background: linear-gradient(180deg, rgba(18, 53, 91, 0.84) 0%, rgba(30, 58, 138, 0.76) 100%),
+        background: linear-gradient(180deg, rgba(18, 53, 91, 0) 24%, rgba(18, 53, 91, 0.88) 50%, rgba(18, 53, 91, 0) 76%),
+                    linear-gradient(180deg, rgba(18, 53, 91, 0.84) 0%, rgba(30, 58, 138, 0.76) 100%),
                     url('assets/hero-boy.jpg') 78% top / auto 50% no-repeat,
                     url('assets/hero-girl.jpg') 78% bottom / auto 50% no-repeat,
                     #12355B;
@@ -221,7 +224,7 @@
       margin-bottom: 45px;
     }
 
-    .about-makeen-card h3 {
+    .about-makeen-card h3, .about-makeen-card h2.ab-h {
       color: var(--navy-dark);
       font-size: 20px;
       margin-bottom: 12px;
@@ -461,7 +464,7 @@
 <meta name="theme-color" content="#12355B">
 <script src="https://maimoonah.com/js/promos.js" defer></script>
 <script src="https://maimoonah.com/js/board.js?v=20261104a" defer></script>
-<script src="mk-common.js?v=31896173"></script>
+<script src="mk-common.js?v=f962990b"></script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
@@ -494,13 +497,13 @@
   <div class="container">
 
     <section id="about-makeen-section" class="about-makeen-card">
-      <h3>عن شركة مكين للاستشارات والتدريب والتعليم</h3>
+      <h2 class="ab-h">عن شركة مكين للاستشارات والتدريب والتعليم</h2>
       <p>
         <strong>شركة مكين للاستشارات والتدريب والتعليم</strong> هي مؤسسة تعليمية واستشارية رائدة، يقع مقرها الرئيسي في <strong>جمهورية مصر العربية</strong>، وتتميز بنطاق خدمات عالمي يصل للطالبات والطلاب في مختلف أنحاء العالم.
       </p>
 
       <div class="value-box-features">
-        <h4 style="color: var(--navy-dark); font-size: 15px; margin-bottom: 8px;">ما تمتاز وتختص به شركة مكين:</h4>
+        <h3 style="color: var(--navy-dark); font-size: 15px; margin-bottom: 8px;">ما تمتاز وتختص به شركة مكين:</h3>
         <ul>
           <li><strong>استقطاب أعلى الكفاءات:</strong> الحرص التام على استقطاب ونخبة أجود المعلمين والمعلمات والمقرئين والمقرئات المتقنين حول العالم ممن يحملون الأسانيد العالية والخبرات المرموقة.</li>
           <li><strong>بناء وتطوير الكفاءات:</strong> العمل المستمر على بناء ورفع الكفاءة العلمية والأدائية لدى الطلاب والمعلمين على حد سواء وفق أعلى المعايير.</li>

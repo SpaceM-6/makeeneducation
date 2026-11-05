@@ -143,7 +143,7 @@
       .tafsir-grid.list .tafsir-panel { grid-column: 1 / -1; } .tafsir-grid.list .tafsir-panel .row { margin-top: 0; }
       .tafsir-grid.list .btn-tafsir { padding: 7px 6px; }
     }
-    .surah-tafsir-card { background: var(--white); border: 1px solid #E2E8F0; border-top: 4px solid var(--gold-18k); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+    .surah-tafsir-card { background: var(--white); border: 1px solid #E2E8F0; box-shadow: inset 0 4px 0 var(--gold-18k); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
     .surah-tafsir-card h3 { color: var(--navy-dark); font-size: 20px; margin: 0; }
     .surah-tafsir-card .meta { color: var(--text-muted); font-size: 13px; }
     .tafsir-icons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -372,7 +372,7 @@
     .book-cover-wrapper { text-align: center; margin-bottom: 15px; }
     .book-cover-img { width: 100%; max-width: 280px; border-radius: 10px; box-shadow: 0 12px 30px rgba(18, 53, 91, 0.2); border: 2px solid var(--gold-18k); cursor: pointer; }
 
-    .value-box { background: #F1F5F9; border-right: 4px solid var(--gold-18k); padding: 15px; margin: 15px 0; border-radius: 6px; }
+    .value-box { background: #FBF6EA; border: 1px solid #E8DCC0; padding: 15px; margin: 15px 0; border-radius: 12px; }
 
     .ship-opt { display:flex; align-items:flex-start; gap:8px; font-weight:600; background:#FFFDF8; border:1px solid #DCC79A; border-radius:8px; padding:9px 10px; margin-top:8px; cursor:pointer; }
     .ship-opt input { width:auto; margin-top:6px; }
@@ -495,7 +495,7 @@
     .quran-grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 20px; }
     .quran-item-card { background: var(--white); border: 1px solid #E2E8F0; border-radius: 10px; padding: 18px; text-align: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
     .quran-item-card:hover { border-color: var(--gold-18k); transform: translateY(-3px); background: #FFFBEB; }
-    .quran-item-card h4 { color: var(--navy-dark); font-size: 16px; font-weight: 800; }
+    .quran-item-card h4, .quran-item-card h3 { color: var(--navy-dark); font-size: 16px; font-weight: 800; }
 
     .surah-audio-card { background: var(--white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 
@@ -659,7 +659,7 @@
     .nt-dl-note { font-size:13px; color:var(--text-muted); margin:10px 0 0; }
     .nt-note { text-align:center; color:var(--text-muted); font-size:13.5px; margin-top:18px; }
     .sc-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; }
-    .sc-dom { background:#fff; border:1.5px solid #E8DCC0; border-top:4px solid var(--navy-dark); border-radius:18px; padding:20px; }
+    .sc-dom { background:#fff; border:1.5px solid #E8DCC0; box-shadow: inset 0 4px 0 var(--navy-dark); border-radius:18px; padding:20px; }
     .sc-dom h3 { margin:0 0 8px; color:var(--navy-dark); font-size:19px; }
     .sc-dom ul { margin:0 0 12px; padding-inline-start:20px; line-height:2; color:#334155; font-size:14.5px; }
     .sc-types { display:flex; gap:8px; flex-wrap:wrap; }
@@ -801,7 +801,7 @@
 </style>
 <script src="https://maimoonah.com/js/classes.js" defer></script>
 <script src="https://maimoonah.com/js/promos.js" defer></script>
-<script src="mk-common.js?v=31896173"></script>
+<script src="mk-common.js?v=f962990b"></script>
 <style>.mk-intro{max-width:760px;margin:-4px auto 22px;text-align:center;background:rgba(255,255,255,.9);border:1px solid #E2E8F0;border-top:4px solid #F3D37A;border-radius:14px;padding:14px 16px;box-shadow:0 6px 18px rgba(0,0,0,.05)}.mk-intro p{margin:0;font-size:15.5px;line-height:1.95;color:#12355B;font-weight:700}.mk-nosub{max-width:760px;margin:-8px auto 22px;text-align:center;background:#FFF8E6;border:1px solid #F3D37A;border-radius:14px;padding:14px 16px}.mk-nosub p{margin:0 0 10px;font-size:16px;font-weight:800;color:#12355B}.mk-nosub .btn-gold{max-width:320px;margin:0 auto}</style>
 <script>document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("mkNoSub");if(!b||typeof _loadSB!=="function")return;_loadSB().then(function(sb){return sb.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(!s){b.hidden=false;return;}return sb.rpc("my_subscriptions").then(function(x){if(!x.error&&!(Array.isArray(x.data)&&x.data.length))b.hidden=false;});});}).catch(function(){b.hidden=false;});});</script>
 <script>document.addEventListener("DOMContentLoaded",function(){var f=/[?&]from=maimouna/.test(location.search);try{if(f)sessionStorage.setItem("mk_from_mn","1");f=f||sessionStorage.getItem("mk_from_mn")==="1"}catch(e){}var i=document.getElementById("mkIntro");if(i&&f)i.hidden=false;});</script>
@@ -850,7 +850,7 @@
       <p id="modalDesc" style="color: var(--text-muted); margin-bottom: 15px; font-size: 14px;"></p>
 
       <div class="value-box">
-        <h4>لماذا تختار هذا البرنامج وما الفائدة المرجوة؟</h4>
+        <h3 style="font-size:1em">لماذا تختار هذا البرنامج وما الفائدة المرجوة؟</h3>
         <p id="modalValue" style="font-size: 13.5px; color: #334155;"></p>
       </div>
 
@@ -1015,7 +1015,7 @@
       </p>
 
       <div class="value-box" style="margin: 15px 0;">
-        <h4 style="color: var(--navy-dark); font-size: 16px; margin-bottom: 10px;">ما تمتاز وتختص به شركة مكين:</h4>
+        <h3 style="color: var(--navy-dark); font-size: 16px; margin-bottom: 10px;">ما تمتاز وتختص به شركة مكين:</h3>
         <ul style="list-style-type: square; padding-right: 20px; font-size: 14px; color: #334155; line-height: 2;">
           <li style="margin-bottom: 8px;"><strong>استقطاب أعلى الكفاءات:</strong> الحرص التام على استقطاب ونخبة أجود المعلمين والمعلمات والمقرئين والمقرئات المتقنين حول العالم ممن يحملون الأسانيد العالية والخبرات المرموقة.</li>
           <li style="margin-bottom: 8px;"><strong>بناء وتطوير الكفاءات:</strong> العمل المستمر على بناء ورفع الكفاءة العلمية والأدائية لدى الطلاب والمعلمين على حد سواء وفق أعلى المعايير.</li>
