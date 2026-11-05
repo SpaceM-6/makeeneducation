@@ -43,8 +43,15 @@ var BOOKS_HTML = (function () {
   }).join('') + '</div></section>';
 })();
 (function () {
-  var id = new URLSearchParams(location.search).get('id') || '';
+  var qs = new URLSearchParams(location.search), id = qs.get('id') || '';
   var main = document.getElementById('main'), E = MK.esc;
+  // رابط ثابت لصفحة المشرفة التعليمية (من بطاقتها في الرئيسية): teacher.html?who=maimouna
+  if (!id && qs.get('who') === 'maimouna') {
+    MK.get('mk_teachers?select=id&published=eq.true&is_head=eq.true&first_name=like.' + encodeURIComponent('ميمونة*') + '&limit=1').then(function (r) {
+      if (r && r[0] && r[0].id) location.replace('teacher.html?id=' + r[0].id); else main.innerHTML = '<p class="mk-msg">هذه الصفحة غير متاحة حاليًا. <a href="teachers.html">عودة إلى المعلمين</a></p>';
+    }).catch(function () { main.innerHTML = '<p class="mk-msg">تعذّر التحميل، حدّث/ي الصفحة. <a href="teachers.html">عودة إلى المعلمين</a></p>'; });
+    return;
+  }
   if (!/^[0-9a-f-]{36}$/i.test(id)) { main.innerHTML = '<p class="mk-msg">الصفحة غير موجودة. <a href="teachers.html">عودة إلى المعلمين</a></p>'; return; }
   var q = 'id=eq.' + id;
   Promise.all([
