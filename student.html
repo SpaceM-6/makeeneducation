@@ -326,6 +326,8 @@
     if (s.renew_requested_at) {
       h += `<p class="alert" style="font-weight:600">وصل طلب التجديد (${PERIOD[s.renew_period] || ''})، ويُفعَّل بعد تأكيد الدفع. لإتمام الدفع تواصل معنا:</p>
         <a class="btn" target="_blank" rel="noopener" href="${waHref(`السلام عليكم، أرغب في تجديد اشتراكي (${PERIOD[s.renew_period] || ''}) في ${s.program}، رقم العضوية ${s.member_no}`)}">إتمام التجديد عبر الواتساب</a>`;
+    } else if (s.status !== 'expired' && left != null && left > 7) {
+      h += `<p style="margin:4px 0;color:var(--brown)">يظهر لك خيار التجديد قبل انتهاء اشتراكك بأسبوع، في ${arDate(new Date(new Date(s.ends_on + 'T00:00:00').getTime() - 7 * 864e5).toISOString().slice(0, 10))}.</p>`;
     } else {
       h += `<p style="margin:4px 0">اختر/ي مدة التجديد:</p><div class="renew"><button class="btn" data-renew="${s.id}" data-p="monthly">تجديد شهري</button><button class="btn ghost" data-renew="${s.id}" data-p="yearly">تجديد سنوي</button></div><div class="msg" id="rmsg-${s.id}"></div>`;
     }
