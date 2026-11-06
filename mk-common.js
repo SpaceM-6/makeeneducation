@@ -281,3 +281,27 @@
     '@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}';
   (document.head || document.documentElement).appendChild(s);
 })();
+
+// صفحة «كادر المعلمين» تُخفى حتى يبلغ عدد المعلمين المنشورين ٥ (بمن فيهم أ/ ميمونة)، ثم تظهر تلقائيًا.
+// يبقى التعريف بأ/ ميمونة وأنها المشرفة التعليمية ظاهرًا، ومن يفتح صفحة الكادر يُحوَّل إلى نبذتها.
+(function () {
+  var MIN = 5, KEY = 'mk_tcount', root = document.documentElement;
+  var st = document.createElement('style');
+  st.textContent = 'html.mk-few-teachers a[href$="teachers.html"],html.mk-few-teachers a[href*="teachers.html#"],html.mk-few-teachers a[href*="teachers.html?"],html.mk-few-teachers [data-hide-few]{display:none!important}';
+  (document.head || root).appendChild(st);
+  function apply(n) {
+    var few = !(n >= MIN);
+    root.classList.toggle('mk-few-teachers', few);
+    if (few && /\/teachers\.html$/.test(location.pathname)) location.replace('teacher.html?who=maimouna');
+  }
+  var c = null; try { c = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+  apply(c ? c.n : 0); // حتى يصل العدد: مخفية (لا تظهر ثم تختفي)
+  if (c && Date.now() - c.t < 10 * 60 * 1000) return;
+  try {
+    MK.get('mk_teachers?select=id&published=eq.true').then(function (r) {
+      var n = Array.isArray(r) ? r.length : 0;
+      try { localStorage.setItem(KEY, JSON.stringify({ n: n, t: Date.now() })); } catch (e) {}
+      apply(n);
+    }).catch(function () {});
+  } catch (e) {}
+})();
