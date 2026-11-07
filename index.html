@@ -497,6 +497,23 @@
 
   <div class="container">
 
+    <!-- تجربة: لوحة «الدراسة مع شركة مكين» (لا تظهر إلا مع ?layout=2) -->
+    <section id="mkStudyPanel" class="mk-study" hidden>
+      <span class="mk-study-tag">حلقات مباشرة</span>
+      <h2>الدراسة مع شركة مكين</h2>
+      <p>معلّم/ة يتابعك بنفسه، وخطة على قدر وقتك ومستواك، وحلقة مباشرة تمضي بك من أول حرف إلى الإتقان… مقعدك ينتظرك.</p>
+      <a href="programs.html" class="mk-study-btn">البرامج التعليمية لشركة مكين</a>
+    </section>
+    <style>
+      .mk-study[hidden]{display:none!important}
+      .mk-study{background:linear-gradient(160deg,#12355B,#1E4E7E 65%,#2C6496);color:#F4F8FC;border-radius:24px;padding:24px 20px;margin:0 0 26px;box-shadow:0 14px 34px rgba(18,53,91,.28);text-align:right}
+      .mk-study-tag{display:inline-block;background:#fff;color:#12355B;font-weight:800;font-size:13.5px;border-radius:999px;padding:4px 14px;margin-bottom:10px}
+      .mk-study h2{color:#fff;font-size:clamp(20px,4.6vw,26px);margin:0 0 8px}
+      .mk-study p{margin:0 0 16px;line-height:2;font-size:16px;color:#EEF3F9}
+      .mk-study-btn{display:flex;align-items:center;justify-content:center;max-width:420px;margin:0 auto;min-height:52px;border-radius:999px;background:#F3D37A;color:#12355B;font-weight:800;font-size:17px;text-decoration:none}
+    </style>
+    <script>if (/[?&]layout=2\b/.test(location.search)) document.getElementById('mkStudyPanel').hidden = false;</script>
+
     <section id="about-makeen-section" class="about-makeen-card">
       <h2 class="ab-h">عن شركة مكين للاستشارات والتدريب والتعليم</h2>
       <p>
