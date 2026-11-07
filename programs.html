@@ -803,7 +803,7 @@
 </style>
 <script src="https://maimoonah.com/js/classes.js" defer></script>
 <script src="https://maimoonah.com/js/promos.js" defer></script>
-<script src="mk-common.js?v=897dec63"></script>
+<script src="mk-common.js?v=d999a1f1"></script>
 <style>.mk-intro{max-width:760px;margin:-4px auto 22px;text-align:center;background:rgba(255,255,255,.9);border:1px solid #E2E8F0;box-shadow:inset 0 4px 0 #F3D37A;border-radius:14px;padding:14px 16px;box-shadow:0 6px 18px rgba(0,0,0,.05)}.mk-intro p{margin:0;font-size:15.5px;line-height:1.95;color:#12355B;font-weight:700}.mk-nosub{max-width:760px;margin:-8px auto 22px;text-align:center;background:#FFF8E6;border:1px solid #F3D37A;border-radius:14px;padding:14px 16px}.mk-nosub p{margin:0 0 10px;font-size:16px;font-weight:800;color:#12355B}.mk-nosub .btn-gold{max-width:320px;margin:0 auto}</style>
 <script>document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("mkNoSub");if(!b||typeof _loadSB!=="function")return;_loadSB().then(function(sb){return sb.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(!s){b.hidden=false;return;}return sb.rpc("my_subscriptions").then(function(x){if(!x.error&&!(Array.isArray(x.data)&&x.data.length))b.hidden=false;});});}).catch(function(){b.hidden=false;});});</script>
 <script>document.addEventListener("DOMContentLoaded",function(){var f=/[?&]from=maimouna/.test(location.search);try{if(f)sessionStorage.setItem("mk_from_mn","1");f=f||sessionStorage.getItem("mk_from_mn")==="1"}catch(e){}var i=document.getElementById("mkIntro");if(i&&f)i.hidden=false;});</script>
@@ -1024,7 +1024,7 @@
           <li style="margin-bottom: 8px;"><strong>بناء وتطوير الكفاءات:</strong> العمل المستمر على بناء ورفع الكفاءة العلمية والأدائية لدى الطلاب والمعلمين على حد سواء وفق أعلى المعايير.</li>
           <li style="margin-bottom: 8px;"><strong>المرونة وحسن الإدارة:</strong> توفير بيئة تعليمية وإدارية مرنة تتكيف بذكاء مع أوقات وجداول الطالبات والطلاب بمرونة عالية مع حسن المتابعة والتنسيق.</li>
           <li style="margin-bottom: 8px;"><strong>توفير التسهيلات:</strong> تقديم كافة التسهيلات والدعم لطلاب القرآن الكريم وحفظته وطالبي العلم الشرعي لتيسير طريق التعلم والتحصيل.</li>
-          <li style="margin-bottom: 8px;"><strong>تكامل البرامج العلمية:</strong> تقديم باقة متكاملة من البرامج القرآنية، الإجازات بالسند المتصل، علوم الحديث، الفقه، اللغة العربية، الرقية الشرعية الموثقة، وخدمات البحوث والرسائل العلمية.</li>
+          <li style="margin-bottom: 8px;"><strong>تكامل البرامج العلمية:</strong> تقديم باقة متكاملة من البرامج القرآنية، الإجازات بالسند المتصل، علوم الحديث، الفقه، اللغة العربية، وخدمات البحوث والرسائل العلمية.</li>
         </ul>
       </div>
 
@@ -1074,7 +1074,6 @@
       { id: 2, title: "برنامج التفسير الشامل", desc: "دراسة معاني كتاب الله ودلالات الآيات وتطبيقاتها المعرفية.", value: "الفهم العميق لكلام الله والاستبصار بالهدايات القرآنية لترميم الروح والفكر." },
       { id: 3, title: "برنامج تصحيح التلاوة المتقدم", desc: "دورة تخصصية لإتقان مخارج الحروف وصفاتها وتحسين الأداء الصوتي.", value: "التخلص من اللحن الجلي والخفي والتلاوة بكفاءة وإتقان كبار القراء." },
       { id: 4, title: "برنامج الإجازة في قراءة واحدة أو القراءات العشر", desc: "الإقراء وتمرير الإسناد العالي المتصل بالنبي ﷺ.", value: "الحصول على سند عالي متصل للنبي ﷺ برواية واحدة أو بالعشر الصغرى والكبرى.", type: "ijaza" },
-      { id: 5, title: "برنامج الرقية الشرعية", desc: "جلسات استشفاء وقاية وعلاج وضبط للرقية بالقرآن والسنة.", value: "جلسات مباشرة للاستشفاء القرآني الموثق والتخلص من الأمراض الروحية.", type: "ruqya" },
       { id: 6, title: "برنامج الإعجاز اللغوي والصوتي في القرآن", desc: "تأمل النظم القرآني وتناسق الأصوات ودلالات الألفاظ.", value: "تذوق بلاغة القرآن وإدراك العظمة الصوتية واللغوية للوحي الشريف." },
       { id: 7, title: "برنامج أسماء الله الحسنى وصفاته", desc: "شرح ومعايشة معاني الأسماء الحسنى وأثرها الإيماني.", value: "زيادة الإيمان وتعميق المعرفة بالله تعالى والدعاء بأسنائه الحسنى عن بصيرة." },
       { id: 8, title: "برنامج فقه الدعاء", desc: "دراسة آداب الدعاء، أوقات الإجابة، وشروط استجابة الأدعية.", value: "امتلاك مفاتيح إجابة الدعاء وتطهير القلب والتقرب بالدعاء المأثور." },
@@ -1093,10 +1092,10 @@
 
     const grid = document.getElementById('servicesGrid');
     if (grid) {
-      programsData.forEach(p => {
+      programsData.forEach((p, pi) => {
         grid.innerHTML += `
           <div class="service-card" onclick="openProgramModal(${p.id})" data-item="program:${p.id}" data-title="${p.title}" data-sub="من برامج شركة مكين للاستشارات والتدريب والتعليم" data-url="https://makeeneducation.com/programs.html#program-${p.id}">
-            <div class="service-number">${p.id}</div>
+            <div class="service-number">${pi + 1}</div>
             <div data-acts-slot>
               <h4 style="color: var(--navy-dark);">${p.title}</h4>
               <p style="font-size: 13px; color: var(--text-muted);">${p.desc}</p>
@@ -1109,10 +1108,38 @@
     let selectedPlanNameGlobal = "";
     let selectedProgramIDGlobal = 0;
 
+    // أسعار الإجازات وخدمات البحوث (بالريال السعودي): ما حُفظ في لوحة الإدارة يحل محل هذه القيم
+    const PROG_PRICES_DEF = {
+      ijaza: { one: 3000, one_part: 100, sughra: 30000, sughra_part: 300, kubra: 30000, kubra_part: 300 },
+      research: { full: 3800, title: 100, plan: 200, intro: 500, chapters: 2000, index: 1000, proof: 10 }
+    };
+    function progPrices() {
+      const set = (window.MN && MN.SET && MN.SET.prog_prices) || {}, out = {};
+      Object.keys(PROG_PRICES_DEF).forEach((g) => { out[g] = Object.assign({}, PROG_PRICES_DEF[g]); const v = set[g] || {}; Object.keys(out[g]).forEach((k) => { if (+v[k] > 0) out[g][k] = +v[k]; }); });
+      return out;
+    }
+    const sar = (n) => (+n).toLocaleString('en-US') + ' ر.س';
+    // «ارقيني»: الحجز بالجلسة الواحدة عبر واتساب مكين
+    function ruqPaint() {
+      const r = (window.MN && MN.SET && MN.SET.ruqya) || {}, el = document.getElementById('ruqPrice'); if (!el) return;
+      el.hidden = !(r.show && +r.price > 0);
+      if (!el.hidden) el.textContent = 'سعر الجلسة الواحدة: ' + (+r.price).toLocaleString('en-US') + ' ' + (r.currency || 'ر.س');
+    }
+    ruqPaint(); document.addEventListener('mn-settings', ruqPaint);
+    function ruqSend(e) {
+      e.preventDefault();
+      const v = (id) => document.getElementById(id).value.trim();
+      const msg = 'السلام عليكم، أرغب في حجز جلسة رقية شرعية (قسم «ارقيني» بمنصة ميمونة).\n• الاسم: ' + v('ruqName') + '\n• الجلسة لـ: ' + v('ruqFor') +
+        (v('ruqCountry') ? '\n• الدولة: ' + v('ruqCountry') : '') + (v('ruqTime') ? '\n• الوقت المناسب: ' + v('ruqTime') : '') + (v('ruqNote') ? '\n• وصف مختصر: ' + v('ruqNote') : '');
+      window.open('https://wa.me/201013356935?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    }
+    window.ruqSend = ruqSend;
+
     function openProgramModal(id) {
       selectedProgramIDGlobal = id;
       { const c = document.getElementById('p_confirm'); if (c) c.checked = false; document.getElementById('programBookingForm').classList.remove('confirmed'); }
       const currentProgram = programsData.find(p => p.id === id);
+      if (!currentProgram) { if (id === 5) { if (document.getElementById('ruqya-page')) switchPage('ruqya-page', document.getElementById('btn-ruqya')); else location.href = 'https://maimoonah.com/#ruqya'; } return; }
       { const hg = document.getElementById('healthGroup'); if (hg) hg.style.display = currentProgram && currentProgram.type === 'research' ? 'none' : ''; }
       { const isR = currentProgram && currentProgram.type === 'research';
         document.getElementById('researchGroup').style.display = isR ? '' : 'none';
@@ -1134,41 +1161,35 @@
       document.getElementById('programBookingForm').style.display = 'none';
       priceCountry = ''; priceNationality = ''; lastPricingType = ''; currentCurrency = { code:'SAR', name:'ريال سعودي', short:'ر.س', rate:1 };
 
+      const PP = progPrices();
       if (currentProgram.type === 'ijaza') {
+        const ij = PP.ijaza;
         container.innerHTML = `
           <table class="pricing-table">
             <tr><th>نوع الإجازة</th><th>المعدل</th><th>الرسوم</th><th>الحجز</th></tr>
-            <tr><td>عرض قراءة واحدة (فردية)</td><td>بمعدل 100 ر.س للجزء (مدة أقصاها شهر)</td><td>3,000 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('إجازة قراءة واحدة فردية (عضو فضي)', 3000)">حجز</button></td></tr>
-            <tr><td>عرض القراءات العشر الصغرى (الشاطبية)</td><td>بمعدل 300 ر.س للجزء (مدة 4 أشهر)</td><td>30,000 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('إجازة القراءات العشر الصغرى (عضو ذهبي)', 30000)">حجز</button></td></tr>
-            <tr><td>عرض القراءات العشر الكبرى (طيبة النشر)</td><td>بمعدل 300 ر.س للجزء (مدة 4 أشهر)</td><td>30,000 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('إجازة القراءات العشر الكبرى (عضو ذهبي)', 30000)">حجز</button></td></tr>
-          </table>
-        `;
-      } else if (currentProgram.type === 'ruqya') {
-        container.innerHTML = `
-          <table class="pricing-table">
-            <tr><th>الخطة</th><th>سعر الجلسة</th><th>إجمالي الرسوم</th><th>الحجز</th></tr>
-            <tr><td>جلسة واحدة</td><td>300 ر.س</td><td>300 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('جلسة رقية شرعية واحدة', 300)">حجز</button></td></tr>
-            <tr><td>5 جلسات</td><td>240 ر.س</td><td>1,200 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('باقة 5 جلسات رقية شرعية', 1200)">حجز</button></td></tr>
-            <tr><td>10 جلسات</td><td>200 ر.س</td><td>2,000 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('باقة 10 جلسات رقية شرعية', 2000)">حجز</button></td></tr>
+            <tr><td>عرض قراءة واحدة (فردية)</td><td>بمعدل ${sar(ij.one_part)} للجزء (مدة أقصاها شهر)</td><td>${sar(ij.one)}</td><td><button class="btn-table-action" onclick="selectPlan('إجازة قراءة واحدة فردية (عضو فضي)', ${ij.one})">حجز</button></td></tr>
+            <tr><td>عرض القراءات العشر الصغرى (الشاطبية)</td><td>بمعدل ${sar(ij.sughra_part)} للجزء (مدة 4 أشهر)</td><td>${sar(ij.sughra)}</td><td><button class="btn-table-action" onclick="selectPlan('إجازة القراءات العشر الصغرى (عضو ذهبي)', ${ij.sughra})">حجز</button></td></tr>
+            <tr><td>عرض القراءات العشر الكبرى (طيبة النشر)</td><td>بمعدل ${sar(ij.kubra_part)} للجزء (مدة 4 أشهر)</td><td>${sar(ij.kubra)}</td><td><button class="btn-table-action" onclick="selectPlan('إجازة القراءات العشر الكبرى (عضو ذهبي)', ${ij.kubra})">حجز</button></td></tr>
           </table>
         `;
       } else if (currentProgram.type === 'research') {
+        const rs = PP.research;
         container.innerHTML = `
           <div style="background: #FFFBEB; border: 1px solid var(--gold-18k); padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
             <h4 style="color: var(--navy-dark); margin-bottom: 5px;">عرض خاص: حجز إعداد البحث / الرسالة كاملاً</h4>
             <p style="font-size: 13px; color: var(--text-muted);">شاملاً (وضع العنوان + الخطة + المقدمة والتمهيد + جميع الفصول + الفهارس)</p>
-            <p style="font-size: 17px; font-weight: 800; color: var(--navy-dark); margin: 5px 0;">3,800 ريال سعودي</p>
-            <button class="btn-gold" style="max-width: 280px; margin: 8px auto 0;" onclick="selectPlan('حجز إعداد البحث كاملاً', 3800)">حجز البحث كاملاً</button>
+            <p style="font-size: 17px; font-weight: 800; color: var(--navy-dark); margin: 5px 0;">${rs.full.toLocaleString('en-US')} ريال سعودي</p>
+            <button class="btn-gold" style="max-width: 280px; margin: 8px auto 0;" onclick="selectPlan('حجز إعداد البحث كاملاً', ${rs.full})">حجز البحث كاملاً</button>
           </div>
 
           <table class="pricing-table">
             <tr><th>نوع الخدمة البحثية المنفردة</th><th>الرسوم</th><th>الحجز المنفرد</th></tr>
-            <tr><td>وضع عنوان البحث أو الرسالة</td><td>100 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('خدمة وضع عنوان البحث', 100)">حجز</button></td></tr>
-            <tr><td>إعداد خطة البحث أو الرسالة</td><td>200 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد خطة البحث', 200)">حجز</button></td></tr>
-            <tr><td>إعداد مقدمة أو تمهيد البحث</td><td>500 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد مقدمة/تمهيد البحث', 500)">حجز</button></td></tr>
-            <tr><td>إعداد فصول البحث أو الرسالة</td><td>2,000 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد فصول البحث', 2000)">حجز</button></td></tr>
-            <tr><td>إعداد الفهارس المخصصة</td><td>1,000 ر.س</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد الفهارس', 1000)">حجز</button></td></tr>
-            <tr><td>المراجع والتدقيق اللغوي المُحكم</td><td>10 ر.س / صفحة</td><td><button class="btn-table-action" onclick="selectPlan('خدمة التدقيق اللغوي المُحكم', 10)">حجز</button></td></tr>
+            <tr><td>وضع عنوان البحث أو الرسالة</td><td>${sar(rs.title)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة وضع عنوان البحث', ${rs.title})">حجز</button></td></tr>
+            <tr><td>إعداد خطة البحث أو الرسالة</td><td>${sar(rs.plan)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد خطة البحث', ${rs.plan})">حجز</button></td></tr>
+            <tr><td>إعداد مقدمة أو تمهيد البحث</td><td>${sar(rs.intro)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد مقدمة/تمهيد البحث', ${rs.intro})">حجز</button></td></tr>
+            <tr><td>إعداد فصول البحث أو الرسالة</td><td>${sar(rs.chapters)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد فصول البحث', ${rs.chapters})">حجز</button></td></tr>
+            <tr><td>إعداد الفهارس المخصصة</td><td>${sar(rs.index)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد الفهارس', ${rs.index})">حجز</button></td></tr>
+            <tr><td>المراجع والتدقيق اللغوي المُحكم</td><td>${sar(rs.proof)} / صفحة</td><td><button class="btn-table-action" onclick="selectPlan('خدمة التدقيق اللغوي المُحكم', ${rs.proof})">حجز</button></td></tr>
           </table>
         `;
       } else {
