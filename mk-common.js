@@ -285,23 +285,26 @@
 // صفحة «كادر المعلمين» تُخفى حتى يبلغ عدد المعلمين المنشورين ٥ (بمن فيهم أ/ ميمونة)، ثم تظهر تلقائيًا.
 // يبقى التعريف بأ/ ميمونة وأنها المشرفة التعليمية ظاهرًا، ومن يفتح صفحة الكادر يُحوَّل إلى نبذتها.
 (function () {
-  var MIN = 5, KEY = 'mk_tcount', root = document.documentElement;
+  // الحد وطريقة الظهور من لوحة الإدارة ← إعدادات الموقع (تلقائي / ظاهرة دائمًا / مخفية دائمًا)
+  var KEY = 'mk_tcount', root = document.documentElement;
   var st = document.createElement('style');
   st.textContent = 'html.mk-few-teachers a[href$="teachers.html"],html.mk-few-teachers a[href*="teachers.html#"],html.mk-few-teachers a[href*="teachers.html?"],html.mk-few-teachers [data-hide-few]{display:none!important}';
   (document.head || root).appendChild(st);
-  function apply(n) {
-    var few = !(n >= MIN);
+  function apply(c) {
+    c = c || {}; var mode = c.mode || 'auto', min = +c.min || 5;
+    var few = mode === 'hide' ? true : mode === 'show' ? false : !((c.n || 0) >= min);
     root.classList.toggle('mk-few-teachers', few);
     if (few && /\/teachers\.html$/.test(location.pathname)) location.replace('teacher.html?who=maimouna');
   }
   var c = null; try { c = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
-  apply(c ? c.n : 0); // حتى يصل العدد: مخفية (لا تظهر ثم تختفي)
+  apply(c); // حتى يصل العدد: مخفية (لا تظهر ثم تختفي)
   if (c && Date.now() - c.t < 10 * 60 * 1000) return;
   try {
-    MK.get('mk_teachers?select=id&published=eq.true').then(function (r) {
-      var n = Array.isArray(r) ? r.length : 0;
-      try { localStorage.setItem(KEY, JSON.stringify({ n: n, t: Date.now() })); } catch (e) {}
-      apply(n);
+    Promise.all([MK.get('mk_teachers?select=id&published=eq.true'), MK.get('site_settings?select=value&key=eq.makeen').catch(function () { return []; })]).then(function (r) {
+      var n = Array.isArray(r[0]) ? r[0].length : 0, m = (Array.isArray(r[1]) && r[1][0] && r[1][0].value) || {};
+      var v = { n: n, t: Date.now(), mode: m.teachers_mode || 'auto', min: +m.teachers_min || 5 };
+      try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {}
+      apply(v);
     }).catch(function () {});
   } catch (e) {}
 })();
