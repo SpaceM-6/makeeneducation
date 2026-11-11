@@ -135,6 +135,7 @@
       <div class="switch"><span>تذكير الحصص وانتهاء الاشتراك</span><label class="tg"><input type="checkbox" id="nClasses"><span></span></label></div>
       <div class="switch"><span>📿 أذكار الصباح والمساء والنوم</span><label class="tg"><input type="checkbox" id="nAdhkar"><span></span></label></div>
       <div class="switch"><span>🔊 نغمة التنبيه: «حي على الصلاة» للصلاة، و«ألا بذكر الله تطمئن القلوب» للأذكار</span><label class="tg"><input type="checkbox" id="nSound"><span></span></label></div>
+      <div class="tone-test" style="display:flex;gap:8px;flex-wrap:wrap;margin:-2px 0 10px"><button type="button" class="btn ghost" style="flex:1;min-width:140px" onclick="MNApp.playTone('prayer')">▶ اسمع/ي نغمة الصلاة</button><button type="button" class="btn ghost" style="flex:1;min-width:140px" onclick="MNApp.playTone('adhkar')">▶ اسمع/ي نغمة الأذكار</button></div>
       <div class="row" id="sleepRow" style="margin:2px 0 4px"><div><label class="f" for="nSleep">وقت تذكير أذكار النوم</label><input type="time" id="nSleep" value="22:30"></div></div>
       <div class="switch"><span>الأذكار بعد كل صلاة</span><label class="tg"><input type="checkbox" id="nAfter"><span></span></label></div>
       <div class="switch"><span>🌙 تذكير الصيام المسنون (ليلة الاثنين والخميس والأيام البيض وعرفة وعاشوراء)</span><label class="tg"><input type="checkbox" id="nFast"><span></span></label></div>
@@ -275,7 +276,7 @@
     const n = P.notify = Object.assign({ prayer: true, wird: true, classes: true }, P.notify || {});
     $('nPrayer').checked = n.prayer !== false; $('nWird').checked = n.wird !== false; $('nDaily').checked = n.daily !== false; $('nClasses').checked = n.classes !== false; $('nAdhkar').checked = n.adhkar !== false; $('nSound').checked = n.sound !== false; $('nAfter').checked = n.afterPrayer === true; $('nFast').checked = n.fast !== false; $('nOcc').checked = n.occasions !== false; $('nSleep').value = /^\d{2}:\d{2}$/.test(n.sleep || '') ? n.sleep : '22:30'; $('sleepRow').style.display = n.adhkar !== false ? '' : 'none';
   }
-  ['nPrayer', 'nWird', 'nDaily', 'nClasses', 'nAdhkar', 'nSound', 'nAfter', 'nFast', 'nOcc'].forEach((id) => $(id).onchange = () => { const k = { nSound: 'sound', nPrayer: 'prayer', nWird: 'wird', nDaily: 'daily', nClasses: 'classes', nAdhkar: 'adhkar', nAfter: 'afterPrayer', nFast: 'fast', nOcc: 'occasions' }[id]; P.notify[k] = $(id).checked; if (id === 'nAdhkar') $('sleepRow').style.display = $(id).checked ? '' : 'none'; save(); if (id === 'nSound' && $(id).checked && window.MNApp && MNApp.playTone) MNApp.playTone('prayer'); });
+  ['nPrayer', 'nWird', 'nDaily', 'nClasses', 'nAdhkar', 'nSound', 'nAfter', 'nFast', 'nOcc'].forEach((id) => $(id).onchange = () => { const k = { nSound: 'sound', nPrayer: 'prayer', nWird: 'wird', nDaily: 'daily', nClasses: 'classes', nAdhkar: 'adhkar', nAfter: 'afterPrayer', nFast: 'fast', nOcc: 'occasions' }[id]; P.notify[k] = $(id).checked; if (id === 'nAdhkar') $('sleepRow').style.display = $(id).checked ? '' : 'none'; save(); if (window.MNApp && MNApp.playTone && $(id).checked) { if (id === 'nSound' || id === 'nPrayer') MNApp.playTone('prayer'); else if (id === 'nAdhkar') MNApp.playTone('adhkar'); } });
   $('nSleep').onchange = () => { if (/^\d{2}:\d{2}$/.test($('nSleep').value)) { P.notify.sleep = $('nSleep').value; save(); } };
 
   function renderMethod() {
