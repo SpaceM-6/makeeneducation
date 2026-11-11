@@ -1,5 +1,5 @@
 // تطبيق MakeenEducation: الصفحات من الشبكة أولًا، والصور والملفات من الذاكرة
-const V = 'mk-202611111940';
+const V = 'mk-202611111945';
 const SHELL = ['./', 'index.html', 'programs.html', 'teachers.html', 'today.html', 'mk.css', 'mk-common.js', 'manifest.webmanifest', 'icons/icon-192.png', 'assets/makeen-logo.jpeg'];
 self.addEventListener('install', (e) => { self.skipWaiting(); e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', (e) => e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)))).then(() => self.clients.claim())));
@@ -14,10 +14,10 @@ self.addEventListener('fetch', (e) => {
 });
 // الإشعارات: مواقيت الصلاة، والورد، وزادك اليومي، وتذكير الحصص (تصل حتى والتطبيق مغلق)
 const at = (u) => new URL(String(u || '').replace(/^\//, '') || './', self.registration.scope).href;
-// نغمة التنبيه: «حي على الصلاة» للصلاة، و«ألا بذكر الله تطمئن القلوب» للأذكار (تُسمع في التطبيق المفتوح، وعند فتح الإشعار)
+// نغمة التنبيه: «حي على الصلاة» للصلاة، و«ألا بذكر الله تطمئن القلوب» للأذكار (الصباح والمساء والنوم وبعد الصلاة) والورد اليومي (تُسمع في التطبيق المفتوح، وعند فتح الإشعار)
 const TONE_TAGS = { prayer: 1, adhkar: 1 };
 // تُعرف النغمة من نوع الإشعار، أو من عنوانه إن لم يُذكر النوع
-const toneOf = (d) => TONE_TAGS[d.tag] ? d.tag : /أذكار|الأذكار/.test(d.title || '') ? 'adhkar' : /وقت صلاة|حان.*الصلاة|الأذان/.test(d.title || '') ? 'prayer' : '';
+const toneOf = (d) => TONE_TAGS[d.tag] ? d.tag : (d.tag === 'wird' || /أذكار|الأذكار|الورد|وردك|وِرد/.test(d.title || '')) ? 'adhkar' : /وقت صلاة|حان.*الصلاة|الأذان/.test(d.title || '') ? 'prayer' : '';
 const withTone = (u, tag) => { if (!TONE_TAGS[tag]) return u; try { const x = new URL(u, self.location.origin); x.searchParams.set('tone', tag); return x.href; } catch (e) { return u; } };
 self.addEventListener('push', (e) => {
   let d = {};
