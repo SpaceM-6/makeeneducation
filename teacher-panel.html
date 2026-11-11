@@ -84,6 +84,7 @@
 <script src="https://maimoonah.com/js/pwlogin.js?v=6"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script src="https://maimoonah.com/js/avail.js?v=1"></script>
+<script src="https://maimoonah.com/js/tlessons.js?v=1"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -183,9 +184,11 @@
       ${S.length ? '<div class="stu-cards">' + S.map(stuCard).join('') + '</div>' : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}
       <p class="muted" style="margin-top:10px;font-size:13px">تظهر لك بيانات الدراسة فقط، ويُمنع تبادل أرقام الهواتف أو الحسابات الشخصية مع الطلاب. المواعيد بعلامة ⚠ خارج أوقاتك المتاحة؛ راجع/ي الإدارة فيها.</p></section>
       <section class="card"><h2>🕒 أوقاتي المتاحة</h2>${avHtml}<div class="row-btns"><button type="button" class="btn sm ghost" id="avEdit">✏️ تعديل أوقاتي</button></div></section>
+      <section class="card tl-box" id="tlBox"></section>
       <section class="card"><h2>🎓 ملفي</h2><div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}</div>
       ${progs.length ? `<details class="progs"><summary>برامجي (${progs.length})</summary><div class="chips">${progs.map((p) => `<span class="chip">${esc(String(p).replace(/^برنامج\s+/, ''))}</span>`).join('')}</div></details>` : ''}
       ${t.id ? `<div class="row-btns"><a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}">صفحتي التعريفية</a></div>` : ''}</section>`;
+    if (window.MN && MN.tlessons && t.id && $('tlBox')) MN.tlessons.panel($('tlBox'), sb, t.id);
     // صفحة بيانات الطالب: تُفتح من بطاقته (#stu-…) ولها زر رجوع
     const sid = (location.hash.match(/^#stu-(.+)$/) || [])[1], cur = sid && S.find((x) => String(x.sub_id) === sid);
     if (cur) {
