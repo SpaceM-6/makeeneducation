@@ -85,7 +85,7 @@ var BOOKS_HTML = (function () {
         '<p class="hint" style="font-size:12.5px;color:var(--muted);margin:10px 0 0">التقييمات من طلاب درسوا فعلًا مع ' + (she ? 'المعلمة' : 'المعلم') + '، ويكتبونها من لوحة الطالب، وتراجعها إدارة مكين قبل نشرها.</p></section>';
     if (window.MNItems) MNItems.mount(main);
     // الدروس الصوتية للمعلم/ة والاشتراك فيها
-    (function () { var b = document.getElementById('tlBox'); if (!b) return; var go = function () { if (window.MN && MN.tlessons) MN.tlessons.page(b, t); }; if (window.MN && MN.tlessons) return go(); var sc = document.createElement('script'); sc.src = ((window.MN_CFG && MN_CFG.base) || '') + '/js/tlessons.js?v=1'; sc.onload = go; document.head.appendChild(sc); })();
+    (function () { var b = document.getElementById('tlBox'); if (!b) return; var go = function () { if (window.MN && MN.tlessons) MN.tlessons.page(b, t); }; if (window.MN && MN.tlessons) return go(); var sc = document.createElement('script'); sc.src = ((window.MN_CFG && MN_CFG.base) || '') + '/js/tlessons.js?v=2'; sc.onload = go; document.head.appendChild(sc); })();
     if (location.hash === '#books') { var bk = document.getElementById('books'); if (bk) setTimeout(function () { bk.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 200); }
   }).catch(function () { main.innerHTML = '<p class="mk-msg">تعذّر التحميل، حاول/ي مرة أخرى.</p>'; });
 })();
