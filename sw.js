@@ -1,5 +1,5 @@
 // تطبيق MakeenEducation: الصفحات من الشبكة أولًا، والصور والملفات من الذاكرة
-const V = 'mk-202611100735';
+const V = 'mk-202611111930';
 const SHELL = ['./', 'index.html', 'programs.html', 'teachers.html', 'today.html', 'mk.css', 'mk-common.js', 'manifest.webmanifest', 'icons/icon-192.png', 'assets/makeen-logo.jpeg'];
 self.addEventListener('install', (e) => { self.skipWaiting(); e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', (e) => e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)))).then(() => self.clients.claim())));
@@ -14,12 +14,16 @@ self.addEventListener('fetch', (e) => {
 });
 // الإشعارات: مواقيت الصلاة، والورد، وزادك اليومي، وتذكير الحصص (تصل حتى والتطبيق مغلق)
 const at = (u) => new URL(String(u || '').replace(/^\//, '') || './', self.registration.scope).href;
+// نغمة التنبيه: «حي على الصلاة» للصلاة، و«ألا بذكر الله تطمئن القلوب» للأذكار (تُسمع في التطبيق المفتوح، وعند فتح الإشعار)
+const TONE_TAGS = { prayer: 1, adhkar: 1 };
+const withTone = (u, tag) => { if (!TONE_TAGS[tag]) return u; try { const x = new URL(u, self.location.origin); x.searchParams.set('tone', tag); return x.href; } catch (e) { return u; } };
 self.addEventListener('push', (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch (x) { d = { body: e.data && e.data.text() }; }
+  if (TONE_TAGS[d.tag]) e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((l) => l.forEach((c) => c.postMessage({ type: 'mn-tone', tag: d.tag }))));
   e.waitUntil(self.registration.showNotification(d.title || 'تطبيق MakeenEducation', {
     body: d.body || '', icon: at('icons/icon-192.png'), badge: at('icons/icon-192.png'), dir: 'rtl', lang: 'ar',
-    tag: d.tag || undefined, renotify: !!d.tag, data: { url: d.url || './' },
+    tag: d.tag || undefined, renotify: !!d.tag, data: { url: withTone(d.url || './', d.tag) },
     actions: d.tag === 'daily' ? [{ action: 'open', title: 'اقرأ' }, { action: 'close', title: '✕ إغلاق' }] : []
   }));
 });
