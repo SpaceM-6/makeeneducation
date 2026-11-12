@@ -1,5 +1,5 @@
 // تطبيق MakeenEducation: الصفحات من الشبكة أولًا، والصور والملفات من الذاكرة
-const V = 'mk-202611111945';
+const V = 'mk-202611121840';
 const SHELL = ['./', 'index.html', 'programs.html', 'teachers.html', 'today.html', 'mk.css', 'mk-common.js', 'manifest.webmanifest', 'icons/icon-192.png', 'assets/makeen-logo.jpeg'];
 self.addEventListener('install', (e) => { self.skipWaiting(); e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).catch(() => {})); });
 self.addEventListener('activate', (e) => e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k)))).then(() => self.clients.claim())));
@@ -27,6 +27,7 @@ self.addEventListener('push', (e) => {
   e.waitUntil(self.registration.showNotification(d.title || 'تطبيق MakeenEducation', {
     body: d.body || '', icon: at('icons/icon-192.png'), badge: at('icons/icon-192.png'), dir: 'rtl', lang: 'ar',
     tag: d.tag || undefined, renotify: !!d.tag, data: { url: withTone(d.url || './', tone) },
+    silent: false, vibrate: tone ? [300, 150, 300, 150, 300] : undefined,
     actions: d.tag === 'daily' ? [{ action: 'open', title: 'اقرأ' }, { action: 'close', title: '✕ إغلاق' }] : []
   }));
 });
