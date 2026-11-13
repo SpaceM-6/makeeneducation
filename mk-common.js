@@ -311,5 +311,5 @@
 // حسابات التواصل الاجتماعي في فقاعة التواصل والقائمة الجانبية والتذييل لكل صفحات مكين
 (function () {
   if (window.__mkSocial || document.querySelector('script[src*="mk-social.js"]')) return;
-  var s = document.createElement('script'); s.src = 'mk-social.js?v=4'; s.defer = true; (document.head || document.documentElement).appendChild(s);
+  var s = document.createElement('script'); s.src = 'mk-social.js?v=5'; s.defer = true; (document.head || document.documentElement).appendChild(s);
 })();
