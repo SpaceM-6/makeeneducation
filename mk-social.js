@@ -25,6 +25,13 @@
       var p = document.createElement('div'); p.innerHTML = '<p style="margin:10px 0 0;font-weight:700">تابعونا على حساباتنا</p>' + row('mn-social');
       f.appendChild(p);
     });
+    // القائمة الجانبية
+    var dr = document.querySelector('#mkDrawer .mk-drawer') || document.querySelector('.mk-drawer');
+    if (dr && !dr.querySelector('.mn-social')) {
+      var q = document.createElement('div'); q.style.cssText = 'padding:14px 4px 4px;text-align:center;border-top:1px solid #E2E8F0;margin-top:8px';
+      q.innerHTML = '<small style="font-weight:800;color:#12355B">تابعونا على حساباتنا</small>' + row('mn-social');
+      dr.appendChild(q);
+    }
     var panel = document.getElementById('mcPanel');
     if (panel && !panel.querySelector('.mn-social')) {
       var d = document.createElement('div'); d.style.cssText = 'padding:8px 4px 4px;text-align:center';
@@ -38,5 +45,9 @@
       }).join('');
     });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  window.__mkSocial = 1;
+  // فقاعة التواصل والقائمة الجانبية تُبنى بعد تحميل الصفحة، فنعيد المحاولة حتى تظهرا
+  function later() { run(); var n = 0, t = setInterval(function () { run(); if (++n > 20 || (document.getElementById('mcPanel') && document.querySelector('.mk-drawer'))) clearInterval(t); }, 500); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', later); else later();
+  document.addEventListener('click', function () { setTimeout(run, 50); }, true);
 })();
