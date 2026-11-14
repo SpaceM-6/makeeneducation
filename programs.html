@@ -1137,7 +1137,7 @@
 
     function openProgramModal(id) {
       // في موقع ميمونة: برنامج الإجازات يحيل إلى قسم الدورات والإجازات؛ وفي موقع مكين يفتح اختياراته هنا
-      if (id === 4 && /(^|\.)maimoonah\.com$/.test(location.hostname)) { location.href = '/#ijazat'; return; }
+      if (id === 4 && (/(^|\.)maimoonah\.com$/.test(location.hostname) || /[?&]from=maimouna/.test(location.search))) { location.href = 'https://maimoonah.com/#ijazat'; return; }
       selectedProgramIDGlobal = id;
       { const c = document.getElementById('p_confirm'); if (c) c.checked = false; document.getElementById('programBookingForm').classList.remove('confirmed'); }
       const currentProgram = programsData.find(p => p.id === id);
