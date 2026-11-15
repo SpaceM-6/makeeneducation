@@ -314,3 +314,9 @@
   if (window.__mkSocial || document.querySelector('script[src*="mk-social.js"]')) return;
   var s = document.createElement('script'); s.src = 'mk-social.js?v=6'; s.defer = true; (document.head || document.documentElement).appendChild(s);
 })();
+
+// إحصاء الزيارات (بلا ملفات تعريف ارتباط) — يظهر في لوحة التحكم
+(function () {
+  if (window.__mnTrack || document.querySelector('script[src*="track.js"]')) return;
+  var s = document.createElement('script'); s.src = (/maimoonah\.com$/i.test(location.hostname) ? '/js/track.js' : 'https://maimoonah.com/js/track.js') + '?v=1'; s.defer = true; (document.head || document.documentElement).appendChild(s);
+})();
