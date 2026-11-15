@@ -13,13 +13,13 @@
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="mk.css?v=fb6fbc6f">
-<script src="mk-common.js?v=s1515t"></script>
+<script src="mk-common.js?v=bb7c1a5f"></script>
 <script src="https://maimoonah.com/js/protect.js?v=3" defer></script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/dailypick.js"></script>
-<script src="https://maimoonah.com/js/daily.js?v=20261110b" defer></script>
+<script src="https://maimoonah.com/js/daily.js?v=20261101e" defer></script>
 <script src="https://maimoonah.com/js/bookalerts.js" defer></script>
 </head>
 <body data-daily-popup data-app-bar>
@@ -28,11 +28,6 @@
 <footer class="mk-foot">© شركة مكين للاستشارات والتدريب والتعليم</footer>
 <script>
 
-// إجازات المقرئة الشيخة ميمونة: غلافها، والإحالة إلى قسم الإجازات في موقعها
-var IJ_HTML = '<section class="mk-box" id="ijazat-maimouna"><h2>إجازاتها القرآنية</h2><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">' +
-  '<img src="https://maimoonah.com/img/ij-cover-sughra.jpg" alt="غلاف الإجازة في القراءات العشر" style="width:150px;border-radius:10px;border:2px solid #D4B466;box-shadow:0 8px 20px rgba(10,30,60,.25);cursor:zoom-in" onclick="var o=document.createElement(\'div\');o.style.cssText=\'position:fixed;inset:0;z-index:5000;background:rgba(8,18,35,.88);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out\';o.innerHTML=\'<img style=max-width:100%;max-height:100%;border-radius:10px src=\'+this.src+\'>\';o.onclick=function(){o.remove()};document.body.appendChild(o)">' +
-  '<div style="flex:1;min-width:220px"><p style="margin:0 0 8px">مجازة بالقراءات العشر الصغرى والكبرى بالسند المتصل إلى رسول الله ﷺ، وتُجيز طلابها وطالباتها في:</p><ul style="margin:0 0 10px;padding-inline-start:20px"><li>القراءات العشر كاملة (الإجازة الجامعة)</li><li>قراءة إمام واحد بروايتيه</li><li>رواية واحدة يختارها الطالب/ة، مثل رواية حفص عن عاصم</li></ul><p style="margin:0 0 10px;color:var(--muted);font-size:14px">من طريقي الشاطبية والدرة (الصغرى)، أو من طريق طيبة النشر (الكبرى)، بإجازة مكتوبة مختومة عليها رمز تحقق QR.</p>' +
-  '<a class="mk-btn" href="https://maimoonah.com/#ijazat">تصفّح/ي إجازاتها وسجّل/ي</a></div></div></section>';
 var BOOKS_HTML = (function () {
   var M = 'https://maimoonah.com/', L = [
     ['tadabbur', 'تدبر التنزيل لأهل العصر والتأويل', 'img/cover-tadabbur.jpg?v=2', 'يصدر مطبوعًا ورقميًا وصوتيًا قريبًا'],
@@ -71,7 +66,7 @@ var BOOKS_HTML = (function () {
     if (!t) { main.innerHTML = '<p class="mk-msg">هذه الصفحة غير متاحة حاليًا. <a href="teachers.html">عودة إلى المعلمين</a></p>'; return; }
     var s = (r[1] || [])[0] || {}, revs = r[2] || [];
     document.title = MK.title(t) + ' | معلمو مكين';
-    var sec = function (h, v) { return v ? '<section class="mk-box"' + (h === 'الإجازات والأسانيد' ? ' id="ijazat"' : '') + '><h2>' + h + '</h2><p class="mk-pre">' + E(v) + '</p></section>' : ''; };
+    var sec = function (h, v) { return v ? '<section class="mk-box"><h2>' + h + '</h2><p class="mk-pre">' + E(v) + '</p></section>' : ''; };
     var she = t.gender === 'f';
     main.innerHTML =
       '<section class="mk-box" data-item="teacher:' + t.id + '" data-title="' + E(MK.title(t)) + '" data-sub="' + E(t.headline || '') + '" data-url="teacher.html?id=' + t.id + '" data-img="' + E(t.photo_url || '') + '"><div class="mk-prof">' + MK.avatar(t, 120) + '<div style="flex:1;min-width:200px">' +
@@ -80,7 +75,7 @@ var BOOKS_HTML = (function () {
         (t.level || t.specialty ? '<p class="mk-head">' + E([t.level, t.specialty].filter(Boolean).join(' · ')) + '</p>' : '') +
         '<div>' + MK.progStarsHtml((t.programs || []).length) + '</div>' + (s.n ? '<div>' + MK.stars(s.avg_stars, s.n) + ' <small>من آراء الطلاب</small></div>' : '') + '</div></div>' +
         '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><a class="mk-btn" href="programs.html">احجز/ي مع ' + E(MK.title(t)) + '</a><a class="mk-btn ghost" href="teachers.html">كل المعلمين والمعلمات</a></div></section>' +
-      sec(she ? 'نبذة عنها' : 'نبذة عنه', t.bio) + '<section class="mk-box tl-box" id="tlBox" hidden></section>' + (t.is_head ? BOOKS_HTML : '') + sec('المؤهلات العلمية', t.quals) + (t.is_head && /^ميمونة/.test(t.first_name || '') ? IJ_HTML : '') + sec('الإجازات والأسانيد', t.ijazat) + sec('الخبرة', t.experience) +
+      sec(she ? 'نبذة عنها' : 'نبذة عنه', t.bio) + '<section class="mk-box tl-box" id="tlBox" hidden></section>' + (t.is_head ? BOOKS_HTML : '') + sec('المؤهلات العلمية', t.quals) + sec('الإجازات والأسانيد', t.ijazat) + sec('الخبرة', t.experience) +
       ((t.programs || []).length ? '<section class="mk-box" id="mk-progs"><h2>البرامج التي ' + (she ? 'تدرّسها' : 'يدرّسها') + '</h2><div class="mk-tags" style="justify-content:flex-start">' + t.programs.map(function (p) { return '<a class="mk-tag" style="text-decoration:none;font-size:13.5px" href="programs.html">' + E(p) + '</a>'; }).join('') + '</div></section>' : '') +
       '<section class="mk-box"><h2>آراء الطلاب والطالبات</h2>' +
         (revs.length ? revs.map(function (v) {
@@ -95,6 +90,6 @@ var BOOKS_HTML = (function () {
   }).catch(function () { main.innerHTML = '<p class="mk-msg">تعذّر التحميل، حاول/ي مرة أخرى.</p>'; });
 })();
 </script>
-<script src="mk-social.js?v=6" defer></script>
+<script src="mk-social.js?v=2" defer></script>
 </body>
 </html>

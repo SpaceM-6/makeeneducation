@@ -14,13 +14,13 @@
 <meta name="description" content="نموذج انضمام المعلمين والمعلمات إلى كادر شركة مكين.">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="mk.css?v=fb6fbc6f">
-<script src="mk-common.js?v=s1515t"></script>
+<script src="mk-common.js?v=bb7c1a5f"></script>
 <script src="https://maimoonah.com/js/protect.js?v=3" defer></script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
 <script src="https://maimoonah.com/js/dailypick.js"></script>
-<script src="https://maimoonah.com/js/daily.js?v=20261110b" defer></script>
+<script src="https://maimoonah.com/js/daily.js?v=20261101e" defer></script>
 <script src="https://maimoonah.com/js/bookalerts.js" defer></script>
 </head>
 <body data-daily-popup data-app-bar>
@@ -81,7 +81,12 @@
 
     <section class="mk-step" data-step="4" hidden>
       <h2>٥. الوثائق والتعهدات</h2>
-      <p class="hint" style="margin:0 0 6px">ارفع/ي صور أو ملفات PDF لوثيقة التخرج الجامعي إن وجدت، والإجازات القرآنية، والشهادات الأخرى. حتى ١٠ ملفات، كل ملف حتى ١٠ ميجابايت.</p>
+      <p class="hint" style="margin:0 0 6px"><b>وثائق مطلوبة:</b> صورة واضحة أو ملف PDF لكل منها، كل ملف حتى ١٠ ميجابايت.</p>
+      <label class="mk-drop" for="idFront">🪪 البطاقة الشخصية (الوجه الأمامي) *<input id="idFront" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"></label><div class="mk-fname" id="idFrontName"></div>
+      <label class="mk-drop" for="idBack" style="margin-top:8px">🪪 البطاقة الشخصية (الظهر) *<input id="idBack" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"></label><div class="mk-fname" id="idBackName"></div>
+      <label class="mk-drop" for="fish" style="margin-top:8px">📄 الفيش الجنائي (صحيفة الحالة الجنائية) *<input id="fish" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"></label><div class="mk-fname" id="fishName"></div>
+      <p class="hint" style="margin:6px 0 14px">من خارج مصر: ارفع/ي بطاقة الهوية الوطنية أو جواز السفر، وشهادة خلوّ السوابق (حسن السيرة والسلوك) الصادرة من بلدك.</p>
+      <p class="hint" style="margin:0 0 6px"><b>وثائق إضافية:</b> وثيقة التخرج الجامعي إن وجدت، والإجازات القرآنية، والشهادات الأخرى. حتى ٧ ملفات.</p>
       <label class="mk-drop" for="docs">📎 اضغط/ي لاختيار الوثائق<input id="docs" type="file" multiple accept="image/jpeg,image/png,image/webp,application/pdf"></label>
       <ul class="mk-files" id="docList"></ul>
       <div class="mk-checks" style="grid-template-columns:1fr;margin-top:14px">
@@ -106,7 +111,7 @@
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); }, E = MK.esc;
-  var step = 0, N = 6, gender = '', days = [], hours = [], docs = [];
+  var step = 0, N = 6, gender = '', days = [], hours = [], docs = [], REQ = { idFront: 'id-front', idBack: 'id-back', fish: 'criminal-record' };
   var TZ = (Intl.DateTimeFormat().resolvedOptions().timeZone) || 'UTC';
   $('tzShow').textContent = TZ;
   MK.LEVELS.forEach(function (l) { var o = document.createElement('option'); o.value = o.textContent = l; $('level').appendChild(o); });
@@ -135,9 +140,18 @@
     this.querySelectorAll('[data-h]').forEach(function (x) { x.setAttribute('aria-pressed', hours.indexOf(+x.dataset.h) >= 0); });
   };
   $('photo').onchange = function () { var f = this.files[0]; $('photoName').textContent = f ? '✓ ' + f.name : ''; };
+  Object.keys(REQ).forEach(function (k) {
+    $(k).onchange = function () {
+      var f = this.files[0]; $(k + 'Name').textContent = '';
+      if (!f) return;
+      if (!/^(image\/(jpeg|png|webp)|application\/pdf)$/.test(f.type)) { this.value = ''; return say('نقبل الصور وملفات PDF فقط: ' + f.name); }
+      if (f.size > 10 * 1024 * 1024) { this.value = ''; return say('الملف أكبر من ١٠ ميجابايت: ' + f.name); }
+      say(''); $(k + 'Name').textContent = '✓ ' + f.name;
+    };
+  });
   $('docs').onchange = function () {
     [].slice.call(this.files).forEach(function (f) {
-      if (docs.length >= 10) return;
+      if (docs.length >= 7) return;
       if (!/^(image\/(jpeg|png|webp)|application\/pdf)$/.test(f.type)) return say('نقبل الصور وملفات PDF فقط: ' + f.name);
       if (f.size > 10 * 1024 * 1024) return say('الملف أكبر من ١٠ ميجابايت: ' + f.name);
       docs.push(f);
@@ -160,6 +174,9 @@
     if (s === 1) { if (!v('level')) return 'اختر/ي المستوى العلمي.'; if (!v('specialty')) return 'اكتب/ي التخصص العلمي.'; }
     if (s === 2 && !document.querySelectorAll('#progs input:checked').length) return 'اختر/ي برنامجًا واحدًا على الأقل.';
     if (s === 3) { if (!days.length) return 'اختر/ي يومًا واحدًا على الأقل.'; if (!hours.length) return 'اختر/ي ساعة واحدة على الأقل.'; }
+    if (s === 4 && !$('idFront').files[0]) return 'ارفع/ي صورة البطاقة الشخصية (الوجه الأمامي).';
+    if (s === 4 && !$('idBack').files[0]) return 'ارفع/ي صورة البطاقة الشخصية (الظهر).';
+    if (s === 4 && !$('fish').files[0]) return 'ارفع/ي الفيش الجنائي.';
     if (s === 4 && !($('c1').checked && $('c2').checked && $('c3').checked)) return 'يلزم الموافقة على التعهدات الثلاثة.';
     return '';
   }
@@ -180,7 +197,7 @@
       box('المؤهلات', 1, row('المستوى العلمي', v('level')) + row('التخصص', v('specialty')) + row('التعريف', v('headline')) + row('الشهادات', v('quals')) + row('الإجازات', v('ijazat')) + row('الخبرة', v('experience')) + row('النبذة', v('bio'))) +
       box('البرامج (' + progs.length + ')', 2, '<div style="margin-top:4px">' + MK.progStarsHtml(progs.length) + '</div>' + row('البرامج', progs.join('، '))) +
       box('الأوقات المتاحة', 3, row('الأيام', days.length === 7 ? 'كل الأيام' : days.slice().sort().map(function (d) { return MK.DAYS[d]; }).join('، ')) + row('الساعات', hours.slice().sort(function (a, b) { return a - b; }).map(MK.hourLabel).join('، ')) + row('التوقيت', TZ) + row('ملاحظة', v('availNote'))) +
-      box('الوثائق', 4, row('الملفات', docs.length ? docs.map(function (f) { return f.name; }).join('، ') : 'لا توجد'));
+      box('الوثائق', 4, row('البطاقة (وجه)', $('idFront').files[0] ? '✓ ' + $('idFront').files[0].name : '') + row('البطاقة (ظهر)', $('idBack').files[0] ? '✓ ' + $('idBack').files[0].name : '') + row('الفيش الجنائي', $('fish').files[0] ? '✓ ' + $('fish').files[0].name : '') + row('ملفات أخرى', docs.length ? docs.map(function (f) { return f.name; }).join('، ') : 'لا توجد'));
   }
   $('review').onclick = function (e) { var b = e.target.closest('[data-edit]'); if (b) { step = +b.dataset.edit; show(); } };
   $('back').onclick = function () { if (step > 0) { step--; show(); } };
@@ -200,9 +217,12 @@
     var folder = 'apply/' + uid() + '/', up = [];
     shrink($('photo').files[0]).then(function (blob) { return blob ? MK.upload('mk-apps', folder + 'photo.jpg', blob) : null; })
     .then(function (photo) {
-      return docs.reduce(function (pr, f, i) {
+      var ext = function (f) { return f.type === 'application/pdf' ? 'pdf' : f.type.split('/')[1].replace('jpeg', 'jpg'); };
+      return Object.keys(REQ).reduce(function (pr, k) {
+        return pr.then(function () { var f = $(k).files[0]; btn.textContent = 'رفع الوثائق المطلوبة…'; return MK.upload('mk-apps', folder + REQ[k] + '.' + ext(f), f).then(function (p) { up.push(p); }); });
+      }, Promise.resolve()).then(function () { return docs.reduce(function (pr, f, i) {
         return pr.then(function () { btn.textContent = 'رفع الوثيقة ' + (i + 1) + ' من ' + docs.length + '…'; var ext = f.type === 'application/pdf' ? 'pdf' : f.type.split('/')[1].replace('jpeg', 'jpg'); return MK.upload('mk-apps', folder + 'doc-' + (i + 1) + '.' + ext, f).then(function (p) { up.push(p); }); });
-      }, Promise.resolve()).then(function () { return photo; });
+      }, Promise.resolve()); }).then(function () { return photo; });
     }).then(function (photo) {
       btn.textContent = 'جارٍ الإرسال…';
       return MK.rpc('mk_apply', { p: { full_name: v('full_name'), first_name: MK.displayName(v('full_name')), gender: gender, age: v('age'), country: v('country'), profession: v('profession'),
@@ -218,6 +238,6 @@
   show(); window.scrollTo(0, 0);
 })();
 </script>
-<script src="mk-social.js?v=6" defer></script>
+<script src="mk-social.js?v=2" defer></script>
 </body>
 </html>
