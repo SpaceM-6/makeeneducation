@@ -211,7 +211,7 @@
   };
   // ===== زر التواصل العائم (بلا شات مباشر) =====
   var FAB_CSS = '.mc-fab{position:fixed;bottom:16px;left:16px;z-index:1900;width:56px;height:56px;border-radius:50%;border:2px solid #F3D37A;background:#12355B;color:#F3D37A;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 22px rgba(18,53,91,.35);-webkit-tap-highlight-color:transparent}' +
-    '.mc-panel{position:fixed;bottom:84px;left:16px;z-index:1900;width:290px;max-width:calc(100vw - 32px);background:#FFFDF8;border:1.5px solid #DCC79A;border-radius:16px;box-shadow:0 14px 34px rgba(74,56,24,.25);padding:16px;font-family:Cairo,Tahoma,sans-serif;direction:rtl;display:none}' +
+    '.mc-panel{position:fixed;bottom:84px;left:16px;max-height:calc(100vh - 110px);overflow-y:auto;z-index:1900;width:290px;max-width:calc(100vw - 32px);background:#FFFDF8;border:1.5px solid #DCC79A;border-radius:16px;box-shadow:0 14px 34px rgba(74,56,24,.25);padding:16px;font-family:Cairo,Tahoma,sans-serif;direction:rtl;display:none}' +
     '.mc-panel.open{display:block;animation:mcIn .2s ease-out}@keyframes mcIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}' +
     '.mc-panel h3{margin:0 0 12px;font-size:18px;color:#12355B;font-weight:800;display:flex;justify-content:space-between;align-items:center}' +
     '.mc-x{background:none;border:none;font-size:20px;color:#4A3818;cursor:pointer;line-height:1;padding:2px 6px}' +
@@ -232,6 +232,17 @@
       '<a class="mc-row" href="programs.html">' + SV('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/>') + '<span>البرامج والتسجيل<small>اختر/ي برنامجك وسجّل/ي</small></span></a>' +
       '<a class="mc-row gold" href="join.html">' + SV('<circle cx="10" cy="8" r="4"/><path d="M3 21c0-4 3-6.5 7-6.5"/><path d="M18 14v6M15 17h6"/>') + '<span>انضم/ي إلى كادر مكين<small style="color:#12355B">للمعلمين والمعلمات</small></span></a>' +
       '<a class="mc-row" href="' + MK.MAIN + '/complaints.html?from=makeen">' + SV('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4.5"/><path d="M12 15.5h.01"/>') + '<span>الشكاوى والبلاغات<small>رسالة مباشرة إلى الإدارة</small></span></a>';
+    // حسابات مكين على مواقع التواصل داخل الفقاعة
+    var SOC = [
+      ['فيسبوك', 'https://www.facebook.com/makeeneducation', '#1877F2', 'M14 8.5V6.8c0-.8.5-1 .9-1H17V2.2L14.1 2.2C10.9 2.2 10.2 4.6 10.2 6.1v2.4H8v3.7h2.2V22h3.8v-9.8h2.9l.4-3.7z'],
+      ['إنستغرام', 'https://www.instagram.com/makeeneducation', '#C13584', 'M12 7.3A4.7 4.7 0 1 0 12 16.7 4.7 4.7 0 0 0 12 7.3zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm6-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM16.3 2H7.7A5.7 5.7 0 0 0 2 7.7v8.6A5.7 5.7 0 0 0 7.7 22h8.6a5.7 5.7 0 0 0 5.7-5.7V7.7A5.7 5.7 0 0 0 16.3 2zm4 14.3a4 4 0 0 1-4 4H7.7a4 4 0 0 1-4-4V7.7a4 4 0 0 1 4-4h8.6a4 4 0 0 1 4 4z'],
+      ['يوتيوب', 'https://www.youtube.com/@makeeneducation', '#FF0000', 'M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3z'],
+      ['تيك توك', 'https://www.tiktok.com/@makeeneducation', '#111111', 'M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.3 6.3 0 1 0 5.4 6.2V8.6a7.8 7.8 0 0 0 4.4 1.4V6.7a4.4 4.4 0 0 1-4.4-4.4z']
+    ];
+    var soc = document.createElement('div'); soc.className = 'mn-social mc-soc'; soc.style.cssText = 'margin-top:14px;padding-top:12px;border-top:1px solid #EFE2CB;text-align:center';
+    soc.innerHTML = '<div style="font-weight:800;color:#12355B;font-size:14.5px;margin-bottom:10px">تابعونا على حسابات مكين</div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">' +
+      SOC.map(function (x) { return '<a href="' + x[1] + '" target="_blank" rel="noopener" aria-label="مكين على ' + x[0] + '" title="' + x[0] + '" style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#F6EEE2;color:' + x[2] + ';text-decoration:none"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="' + x[3] + '"/></svg></a>'; }).join('') + '</div>';
+    p.appendChild(soc);
     var tog = function (on) { on = on == null ? !p.classList.contains('open') : on; p.classList.toggle('open', on); b.setAttribute('aria-expanded', on); };
     b.onclick = function () { tog(); };
     p.querySelector('.mc-x').onclick = function () { tog(false); };
