@@ -1108,7 +1108,7 @@
     function _loadSB() {
       if (_sb) return Promise.resolve(_sb);
       return new Promise((res, rej) => { const sc = document.createElement('script');
-        sc.src = '/js/vendor/supabase-2.45.4.js';
+        sc.src = 'https://maimoonah.com/js/vendor/supabase-2.45.4.js';
         sc.onload = () => { _sb = window.supabase.createClient(SB_URL, SB_ANON); res(_sb); }; sc.onerror = rej; document.head.appendChild(sc); });
     }
     // تظهر الأسعار للإدارة فقط
