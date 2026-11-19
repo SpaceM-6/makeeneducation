@@ -1172,9 +1172,11 @@
     let selectedPlanNameGlobal = "";
     let selectedProgramIDGlobal = 0;
 
-    // أسعار الإجازات وخدمات البحوث (بالريال السعودي): ما حُفظ في لوحة الإدارة يحل محل هذه القيم
+    // أسعار الإجازات: بالجنيه لأهل مصر، وبالدولار لبقية العالم (شاملة ٤$ رسوم الحوالة الدولارية)؛ وخدمات البحوث بالريال السعودي
+    // ما حُفظ في لوحة الإدارة يحل محل هذه القيم
     const PROG_PRICES_DEF = {
-      ijaza: { one: 3000, one_part: 100, sughra: 30000, sughra_part: 300, kubra: 30000, kubra_part: 300 },
+      ijaza: { riwaya_egp: 1500, riwaya_part_egp: 50, qiraa_egp: 3000, qiraa_part_egp: 100, sughra_egp: 20000, sughra_part_egp: 667, kubra_egp: 20000, kubra_part_egp: 667,
+        riwaya_usd: 404, riwaya_part_usd: 18, qiraa_usd: 804, qiraa_part_usd: 31, sughra_usd: 5337, sughra_part_usd: 182, kubra_usd: 5337, kubra_part_usd: 182 },
       research: { full: 3800, title: 100, plan: 200, intro: 500, chapters: 2000, index: 1000, proof: 10 }
     };
     function progPrices() {
@@ -1183,6 +1185,23 @@
       return out;
     }
     const sar = (n) => (+n).toLocaleString('en-US') + ' ر.س';
+    // جدول الإجازات بعملة بلد الإقامة: مصر بالجنيه، وغيرها بالدولار
+    function ijazaTable() {
+      const box = document.getElementById('ijazaTableBox'), c = document.getElementById('ijCountrySelect').value;
+      document.getElementById('programBookingForm').style.display = 'none';
+      if (!c) { box.innerHTML = ''; return; }
+      const eg = c === 'مصر', sx = eg ? '_egp' : '_usd', ij = progPrices().ijaza;
+      priceCountry = c; priceNationality = '';
+      currentCurrency = eg ? { code: 'EGP', name: 'جنيه مصري', short: 'ج.م', rate: 1 } : { code: 'USD', name: 'دولار أمريكي', short: '$', rate: 1 };
+      const f = (n) => (+n).toLocaleString('en-US') + ' ' + currentCurrency.short;
+      const R = [['riwaya', 'إجازة في رواية واحدة', 'إجازة في رواية واحدة'], ['qiraa', 'إجازة في قراءة واحدة (بروايتيها)', 'إجازة في قراءة واحدة'],
+        ['sughra', 'إجازة القراءات العشر الصغرى جمعًا (الشاطبية والدرة)', 'إجازة القراءات العشر الصغرى'], ['kubra', 'إجازة القراءات العشر الكبرى جمعًا (طيبة النشر)', 'إجازة القراءات العشر الكبرى']];
+      box.innerHTML = `<table class="pricing-table">
+            <tr><th>نوع الإجازة</th><th>المعدل</th><th>الرسوم</th><th>الحجز</th></tr>
+            ${R.map(([k, t, n]) => `<tr><td>${t}</td><td>بمعدل ${f(ij[k + '_part' + sx])} للجزء</td><td>${f(ij[k + sx])}</td><td><button class="btn-table-action" onclick="selectPlan('${n}', ${+ij[k + sx]})">حجز</button></td></tr>`).join('')}
+          </table>`;
+    }
+    window.ijazaTable = ijazaTable;
     // «ارقيني»: الحجز بالجلسة الواحدة عبر واتساب مكين
     function ruqPaint() {
       const r = (window.MN && MN.SET && MN.SET.ruqya) || {}, el = document.getElementById('ruqPrice'); if (!el) return;
@@ -1228,14 +1247,12 @@
 
       const PP = progPrices();
       if (currentProgram.type === 'ijaza') {
-        const ij = PP.ijaza;
         container.innerHTML = `
-          <table class="pricing-table">
-            <tr><th>نوع الإجازة</th><th>المعدل</th><th>الرسوم</th><th>الحجز</th></tr>
-            <tr><td>عرض قراءة واحدة (فردية)</td><td>بمعدل ${sar(ij.one_part)} للجزء (مدة أقصاها شهر)</td><td>${sar(ij.one)}</td><td><button class="btn-table-action" onclick="selectPlan('إجازة قراءة واحدة فردية (عضو فضي)', ${ij.one})">حجز</button></td></tr>
-            <tr><td>عرض القراءات العشر الصغرى (الشاطبية)</td><td>بمعدل ${sar(ij.sughra_part)} للجزء (مدة 4 أشهر)</td><td>${sar(ij.sughra)}</td><td><button class="btn-table-action" onclick="selectPlan('إجازة القراءات العشر الصغرى (عضو ذهبي)', ${ij.sughra})">حجز</button></td></tr>
-            <tr><td>عرض القراءات العشر الكبرى (طيبة النشر)</td><td>بمعدل ${sar(ij.kubra_part)} للجزء (مدة 4 أشهر)</td><td>${sar(ij.kubra)}</td><td><button class="btn-table-action" onclick="selectPlan('إجازة القراءات العشر الكبرى (عضو ذهبي)', ${ij.kubra})">حجز</button></td></tr>
-          </table>
+          <div class="form-group">
+            <label for="ijCountrySelect">بلد الإقامة:</label>
+            <select id="ijCountrySelect" onchange="ijazaTable()">${priceCountryOptions('اختر/ي بلد إقامتك')}</select>
+          </div>
+          <div id="ijazaTableBox"></div>
         `;
       } else if (currentProgram.type === 'research') {
         const rs = PP.research;
@@ -1707,7 +1724,7 @@
         adminMsg += `• الخطة المختار كفالتها: ${selectedPlanNameGlobal}\n`;
         adminMsg += (slotsVisible() ? `• مواعيد الحصص: ` : `• الفترة المفضلة: `) + `${timeSlot}\n`;
         adminMsg += `• طريقة الدفع: ${payment}\n`;
-        if (priceCountry) adminMsg += `• التسعير حسب: الجنسية ${priceNationality} / الإقامة ${priceCountry}\n`;
+        if (priceCountry) adminMsg += priceNationality ? `• التسعير حسب: الجنسية ${priceNationality} / الإقامة ${priceCountry}\n` : `• بلد الإقامة: ${priceCountry}\n`;
         adminMsg += `• ${document.getElementById('programPriceDisplay').textContent}`;
 
         window.open(`https://wa.me/${MAKEEN_WHATSAPP}?text=${encodeURIComponent(adminMsg)}`, '_blank');
