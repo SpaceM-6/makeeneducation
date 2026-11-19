@@ -98,9 +98,9 @@
     ['join-terms.html', 'شروط الالتحاق بكادر مكين التعليمي', IC('<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13l2 2 3-3"/>')],
     ['study-terms.html', 'شروط الدراسة في مكين', IC('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/><path d="M15 10l1.5 1.5L19 9"/>')],
     ['messages.html', 'مراسلة إدارة مكين', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>')],
-    ['https://wa.me/201013356935', 'تواصل معنا عبر الواتساب', IC('<path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.4z"/><path d="M9.5 9.5c.3 1.7 1.8 3.4 3.6 3.9l1-1 1.6.8"/>'), 'ext'],
     [MK.MAIN + '/', 'موقع أ/ ميمونة', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>')],
-    ['privacy.html', 'سياسة الخصوصية', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')]
+    ['privacy.html', 'سياسة الخصوصية', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')],
+    ['contact.html', 'تواصل معنا', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8 11h8M8 14h5"/>')]
   ];
   var CSS = '.mk-menu-btn{width:44px;height:44px;border-radius:10px;border:1.5px solid #F3D37A;background:transparent;color:#F3D37A;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}' +
     '.mk-dov{position:fixed;inset:0;z-index:3000;display:none;justify-content:flex-end;align-items:stretch;background:rgba(18,53,91,.55)}.mk-dov.open{display:flex}' +
