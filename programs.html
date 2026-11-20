@@ -357,7 +357,8 @@
     .bb-tabs button { display: flex; flex-direction: column; align-items: center; gap: 2px; border: 0; background: transparent; border-radius: 10px; padding: 8px 4px; font: inherit; font-weight: 800; font-size: 13.5px; color: var(--navy-dark); cursor: pointer; }
     .bb-tabs button svg { width: 22px; height: 22px; color: #86661B; }
     .bb-tabs button.on { background: var(--btn-navy,var(--navy-dark)); color:var(--on-navy,var(--gold-18k)); } .bb-tabs button.on svg { color: var(--gold-18k); }
-    #bbPrintedBox[hidden], #bbConsentBox[hidden], #bbForm[hidden], #bbDone[hidden], #bbErr[hidden] { display: none; }
+    #bbPayBox, #tbPayBox, #bbTg, #tbTg { display: none !important; }
+    #bbWa[hidden], #tbWa[hidden], .bb-tabs[hidden], #bbPrintedBox[hidden], #bbConsentBox[hidden], #bbForm[hidden], #bbDone[hidden], #bbErr[hidden] { display: none; }
     .books-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 30px; }
     .book-item-card { background: var(--white); border-radius: 12px; border: 1px solid #E2E8F0; padding: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
     .book-audio-chip { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin-top: 14px; background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 999px; padding: 6px 14px; font-weight: 800; font-size: 14px; color: var(--navy-dark); }
