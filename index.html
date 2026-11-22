@@ -465,7 +465,7 @@
 <meta name="theme-color" content="#12355B">
 <script src="https://maimoonah.com/js/promos.js" defer></script>
 <script src="https://maimoonah.com/js/board.js?v=20261122b" defer></script>
-<script src="mk-common.js?v=d2881175"></script>
+<script src="mk-common.js?v=3bede121"></script>
 <style>/* ===== ثيم مكين (اقتراح جيميناي): كريمي رخامي + طوبي + زيتوني + بني — يبقى الهيدر والشريط العلوي والصورة الاستفتاحية والتعريف كما هي ===== */
 :root{--g-terra:#B5654A;--g-terra2:#C97B5E;--g-olive:#5E6B2E;--g-olive2:#6E7C37;--g-brown:#3B2A20;--g-brown2:#5A4636;--g-gold:#C9A45C;--g-cream:#F6EFE2;--g-card:#FFFDF8;--g-line:#E4CDB9}
 body{background-color:var(--g-cream)}
@@ -582,6 +582,7 @@ h1.section-title,h2.section-title,.section-title,.page-title{color:var(--g-brown
 .mn-ticker .dots i.on{background:#C9A45C!important}
 body>header{border-bottom-color:#C9A45C!important;color:#C9A45C!important}
 body>header .brand-logo-text,body>header .brand-logo-text span,body>header .mk-two{color:#C9A45C!important}
+body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .brand img{border-color:#C9A45C!important}
 </style>
 <script>document.addEventListener("DOMContentLoaded",function(){var t=0,k=setInterval(function(){var b=document.getElementById("mnBoard");if(++t>40)clearInterval(k);if(b&&!b.querySelector(".g-line")&&b.querySelector(".mnb-head")){b.insertAdjacentHTML("afterbegin","<div class=\"g-line\" aria-hidden=\"true\"><i>✦</i><i>✦</i></div>");clearInterval(k);}},250);});</script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
@@ -814,5 +815,23 @@ body>header .brand-logo-text,body>header .brand-logo-text span,body>header .mk-t
       overlay.classList.remove('show');
     }
   </script>
+<script id="mkGold">/* توحيد ذهبي الشريط العلوي مع ذهبي القائمة الجانبية (#C9A45C) في كل صفحات مكين */
+(function () {
+  var BRIGHT = /243, 211, 122|229, 193, 88/, G = '#C9A45C', G2 = '#B8935A';
+  function fix() {
+    document.querySelectorAll('header, header *, .mk-top, .mk-top *').forEach(function (e) {
+      var c = getComputedStyle(e);
+      if (BRIGHT.test(c.color)) e.style.setProperty('color', G, 'important');
+      if (BRIGHT.test(c.backgroundColor)) e.style.setProperty('background-color', G, 'important');
+      if (BRIGHT.test(c.backgroundImage)) e.style.setProperty('background-image', 'linear-gradient(90deg,' + G + ',' + G2 + ')', 'important');
+      ['Top', 'Right', 'Bottom', 'Left'].forEach(function (s) {
+        if (BRIGHT.test(c['border' + s + 'Color'])) e.style.setProperty('border-' + s.toLowerCase() + '-color', G, 'important');
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
+  window.addEventListener('load', function () { fix(); setTimeout(fix, 1500); });
+})();
+</script>
 </body>
 </html>

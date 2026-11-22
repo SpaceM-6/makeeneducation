@@ -899,7 +899,7 @@
 </style>
 <script src="https://maimoonah.com/js/classes.js" defer></script>
 <script src="https://maimoonah.com/js/promos.js" defer></script>
-<script src="mk-common.js?v=d2881175"></script>
+<script src="mk-common.js?v=3bede121"></script>
 <style>.mk-intro{max-width:760px;margin:-4px auto 22px;text-align:center;background:rgba(255,255,255,.9);border:1px solid #E2E8F0;box-shadow:inset 0 4px 0 #F3D37A;border-radius:14px;padding:14px 16px;box-shadow:0 6px 18px rgba(0,0,0,.05)}.mk-intro p{margin:0;font-size:15.5px;line-height:1.95;color:#12355B;font-weight:700}.mk-nosub{max-width:760px;margin:-8px auto 22px;text-align:center;background:#FFF8E6;border:1px solid #F3D37A;border-radius:14px;padding:14px 16px}.mk-nosub p{margin:0 0 10px;font-size:16px;font-weight:800;color:#12355B}.mk-nosub .btn-gold{max-width:320px;margin:0 auto}</style>
 <script>document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("mkNoSub");if(!b||typeof _loadSB!=="function")return;_loadSB().then(function(sb){return sb.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(!s){b.hidden=false;return;}return sb.rpc("my_subscriptions").then(function(x){if(!x.error&&!(Array.isArray(x.data)&&x.data.length))b.hidden=false;});});}).catch(function(){b.hidden=false;});});</script>
 <script>document.addEventListener("DOMContentLoaded",function(){var f=/[?&]from=maimouna/.test(location.search);try{if(f)sessionStorage.setItem("mk_from_mn","1");f=f||sessionStorage.getItem("mk_from_mn")==="1"}catch(e){}var i=document.getElementById("mkIntro");if(i&&f)i.hidden=false;});</script>
@@ -1027,6 +1027,7 @@ h1.section-title,h2.section-title,.section-title,.page-title{color:var(--g-brown
 .mn-ticker .dots i.on{background:#C9A45C!important}
 body>header{border-bottom-color:#C9A45C!important;color:#C9A45C!important}
 body>header .brand-logo-text,body>header .brand-logo-text span,body>header .mk-two{color:#C9A45C!important}
+body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .brand img{border-color:#C9A45C!important}
 </style>
 </head>
 <body data-daily-popup data-app-bar>
@@ -2019,6 +2020,24 @@ body>header .brand-logo-text,body>header .brand-logo-text span,body>header .mk-t
     var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn-close-bottom'; btn.textContent = 'إغلاق';
     btn.onclick = function () { top.click(); }; box.appendChild(btn);
   });
+</script>
+<script id="mkGold">/* توحيد ذهبي الشريط العلوي مع ذهبي القائمة الجانبية (#C9A45C) في كل صفحات مكين */
+(function () {
+  var BRIGHT = /243, 211, 122|229, 193, 88/, G = '#C9A45C', G2 = '#B8935A';
+  function fix() {
+    document.querySelectorAll('header, header *, .mk-top, .mk-top *').forEach(function (e) {
+      var c = getComputedStyle(e);
+      if (BRIGHT.test(c.color)) e.style.setProperty('color', G, 'important');
+      if (BRIGHT.test(c.backgroundColor)) e.style.setProperty('background-color', G, 'important');
+      if (BRIGHT.test(c.backgroundImage)) e.style.setProperty('background-image', 'linear-gradient(90deg,' + G + ',' + G2 + ')', 'important');
+      ['Top', 'Right', 'Bottom', 'Left'].forEach(function (s) {
+        if (BRIGHT.test(c['border' + s + 'Color'])) e.style.setProperty('border-' + s.toLowerCase() + '-color', G, 'important');
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
+  window.addEventListener('load', function () { fix(); setTimeout(fix, 1500); });
+})();
 </script>
 </body>
 </html>
