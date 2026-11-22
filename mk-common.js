@@ -7,9 +7,10 @@
       for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (/^sb-.*-auth-token$/.test(k)) { var v = JSON.parse(localStorage.getItem(k)); if (v && v.user) u = v.user; } }
       p = JSON.parse(localStorage.getItem('mn_profile') || 'null');
     } catch (e) {}
-    if (!u) return '';
+    // بلا حساب: يكفي اسم مستخدم التطبيق الذي أكمل بياناته
+    if (!u) u = { user_metadata: {}, email: '' };
     var md = u.user_metadata || {}, em = String(u.email || '').toLowerCase();
-    var full = String(md.full_name || md.name || (p && p.name) || '').trim();
+    var full = String(md.full_name || md.name || (p && (p.n1 || p.name)) || '').trim();
     var name = full.split(/\s+/)[0] || '';
     var teacher = em === 'info@maimoonah.com' || /^(tm|tf)$/.test((p && p.role) || '') || md.role === 'teacher';
     if (!name && em === 'info@maimoonah.com') name = 'ميمونة';
