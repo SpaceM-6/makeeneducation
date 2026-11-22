@@ -60,6 +60,27 @@
   .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; } .chip { background:#EEF2F7; color:var(--navy); border-radius:999px; padding:3px 12px; font-size:13.5px; font-weight:700; }
   .av-sum { display:grid; gap:10px; } .av-sum small { display:block; color:var(--brown); font-size:13px; } .av-sum b { color:var(--navy); }
   .hello-t .stats { margin-top:10px; }
+  .tabs { position:sticky; top:0; z-index:5; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; background:rgba(248,249,250,.94); backdrop-filter:blur(6px); padding:8px 2px; margin:0 0 12px; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tabs button { flex:0 0 auto; background:#fff; color:var(--navy); border:1.5px solid var(--line); border-radius:999px; padding:6px 14px; font:800 14px Cairo, sans-serif; cursor:pointer; white-space:nowrap; }
+  .tabs button.on { background:var(--navy); color:var(--gold); border-color:var(--navy); }
+  .tabs button b { background:var(--gold); color:var(--navy); border-radius:999px; padding:0 7px; margin-inline-start:4px; font-size:12px; }
+  .pane[hidden] { display:none !important; }
+  .wk { display:grid; gap:8px; margin-top:10px; }
+  .wk-day { display:grid; grid-template-columns:92px 1fr; gap:10px; align-items:start; border:1px solid var(--line); border-radius:12px; padding:8px 10px; background:#fff; }
+  .wk-day.today { border-color:var(--gold); background:#FFFBEB; }
+  .wk-day.empty { opacity:.55; }
+  .wk-dn { font-weight:900; color:var(--navy); padding-top:4px; } .wk-dn small { display:block; color:var(--brown); font-weight:600; font-size:12px; line-height:1.4; }
+  .wk-items { display:flex; flex-wrap:wrap; gap:6px; }
+  .wk-it { display:flex; flex-direction:column; text-decoration:none; color:inherit; background:#EEF4FB; border:1px solid #BFD3EA; border-radius:10px; padding:4px 10px; line-height:1.55; min-width:120px; }
+  .wk-it b { color:var(--navy); font-size:14.5px; } .wk-it small { color:var(--brown); font-size:12.5px; }
+  .wk-it.pending { background:#FFFBEB; border-color:#FCD34D; } .wk-it.warn { border-color:#F59E0B; box-shadow:inset 3px 0 0 #F59E0B; }
+  .wk-legend { display:flex; gap:12px; flex-wrap:wrap; margin-top:10px; font-size:13px; color:var(--brown); } .wk-legend i { display:inline-block; width:12px; height:12px; border-radius:4px; vertical-align:-1px; margin-inline-end:4px; }
+  .sec-h { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
+  .stu-sec { border-top:1px solid var(--line); margin-top:12px; padding-top:4px; }
+  .stu-actions { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; margin-top:12px; }
+  .stu-actions .btn { padding:11px 10px; }
+  @media (max-width:520px) { .wk-day { grid-template-columns:1fr; gap:4px; } .wk-dn small { display:inline; margin-inline-start:6px; } .stats .stat b { font-size:20px; } }
   .note { background:#EEF4FB; border:1px solid #BFD3EA; color:var(--navy); border-radius:10px; padding:10px 12px; font-size:14px; }
 </style>
 <script src="https://maimoonah.com/js/classes.js"></script>
@@ -242,18 +263,23 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     const f = (k, v) => v ? `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>` : '';
     return `<div class="facts">${f('آخر حصة', arDate(x.day))}${f('ملخص الدرس', x.summary)}${f('توقفنا عند', /^\d+:\d+$/.test(x.stop_at || '') ? 'سورة رقم ' + x.stop_at.split(':')[0] + ' · آية ' + x.stop_at.split(':')[1] : x.stop_at)}${f('الواجب', x.hw_from ? (x.hw_kind || '') + ' ' + x.hw_from + (x.hw_to ? ' – ' + x.hw_to : '') : '')}${f('السؤال المطلوب', x.question)}${f('التقدير', x.grade)}</div>`;
   }
+  function stuActions(s) {
+    if (/البحوث/.test(s.program || '')) return `<div class="stu-actions"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>`;
+    if (s.status !== 'active') return '';
+    return `<div class="stu-actions"><a class="btn" href="room.html?sub=${s.sub_id}&mode=video">🎥 دخول الغرفة</a><a class="btn ghost" href="room.html?sub=${s.sub_id}&mode=audio">🎧 حلقة صوتية</a><a class="btn ghost" href="https://maimoonah.com/mushaf.html?sub=${s.sub_id}&lesson">📝 تسجيل الحصة والواجب</a></div>`;
+  }
   function stuHtml(s, av) {
     const b = ST[s.status] || ST.pending;
     const f = (k, v) => v ? `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>` : '';
     let h = `<div class="stu" id="s-${s.sub_id}"><div class="stu-top"><h2>${esc(s.first_name)}${s.age ? ` <small class="muted">(${esc(s.age)} سنة)</small>` : ''}</h2><span class="badge ${b[0]}">${b[1]}</span></div>`;
-    if (s.status === 'active' && !/البحوث/.test(s.program || '')) h += `<div data-callslot="${s.sub_id}"></div>`;
     if (s.health) h += `<div class="health">⚕ ظروف صحية خاصة: ${esc(s.health)}</div>`;
-    h += `<div class="facts">${f('البرنامج', s.program)}${f('الخطة', s.plan)}${f('نوع الاشتراك', PER[s.period])}${f('المستوى', s.level)}${f('التخصص العلمي', s.specialty)}${f('المهنة', s.job)}${f('مقدار الحفظ', s.hifz)}${f('مستوى التجويد', s.tajweed)}${s.ends_on ? f('ينتهي الاشتراك', arDate(s.ends_on)) : ''}</div>`;
-    h += `<h3>مواعيده (بتوقيتك)</h3><div>${slotsHtml(s, av)}</div>`;
+    h += stuActions(s);
+    if (s.status === 'active' && !/البحوث/.test(s.program || '')) h += `<div data-callslot="${s.sub_id}"></div>`;
+    h += `<div class="stu-sec"><h3>🕒 مواعيده (بتوقيتك)</h3><div>${slotsHtml(s, av)}</div></div>`;
     if (s.status === 'active') {
       const list = C.sessions(s, s.marks || {}), stt = C.stats(list);
       const fs = (k, v, n) => `<div class="fact"><small>${k}</small><b data-stat="${n}">${v}</b></div>`;
-      h += `<h3>الحصص والحضور</h3><div class="facts" data-stats="${s.sub_id}">${fs('منجزة', stt.done, 'done')}${fs('متبقية', stt.remaining, 'remaining')}${fs('غياب', stt.absent, 'absent')}${fs('الإجمالي', stt.total, 'total')}</div>`;
+      h += `<div class="stu-sec"><h3>✅ الحصص والحضور</h3><div class="facts" data-stats="${s.sub_id}">${fs('منجزة', stt.done, 'done')}${fs('متبقية', stt.remaining, 'remaining')}${fs('غياب', stt.absent, 'absent')}${fs('الإجمالي', stt.total, 'total')}</div>`;
       // حالة كل حصة يغيّرها المعلم/ة: حضر، غاب، أُلغيت (الحالية مظللة)
       const row = (x) => { const st = (s.marks || {})[x.day] || x.status, fut = x.at.getTime() > Date.now() + 3600000;
         const btn = (k, t, c) => `<button class="btn sm ${c}${st === k ? ' on' : ''}" data-mark="${k}" data-sub="${s.sub_id}" data-day="${x.day}" aria-pressed="${st === k}">${st === k ? '✓ ' : ''}${t}</button>`;
@@ -261,11 +287,31 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       const now = Date.now(), past = list.filter((x) => x.at.getTime() < now + 3600000).reverse(), next = list.filter((x) => x.at.getTime() >= now + 3600000);
       h += past.slice(0, 3).map(row).join('') + (next[0] ? row(next[0]) : '');
       if (past.length > 3 || next.length > 1) h += `<details class="all-sess"><summary>كل الحصص (${list.length}) — لتعديل أي حصة سابقة أو إلغاء حصة قادمة</summary>${past.slice(3).map(row).join('')}${next.slice(1).map(row).join('')}</details>`;
-      h += `<h3>آخر حصة</h3>${lastLessonHtml(s)}`;
-      if (/البحوث/.test(s.program || '')) h += `<div class="row-btns"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>`; else
-      h += `<div class="row-btns"><a class="btn" href="room.html?sub=${s.sub_id}&mode=video">🎥 دخول الغرفة</a><a class="btn ghost" href="room.html?sub=${s.sub_id}&mode=audio">🎧 حلقة صوتية</a><a class="btn ghost" href="https://maimoonah.com/mushaf.html?sub=${s.sub_id}&lesson">📝 تسجيل الحصة والملخص والواجب</a></div>`;
-    } else h += /البحوث/.test(s.program || '') ? `<div class="row-btns"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>` : `<p class="note" style="margin-top:10px">بانتظار تفعيل الإدارة لاشتراكه، ثم تظهر هنا الغرفة وتسجيل الحصص.</p>`;
+      h += `</div><div class="stu-sec"><h3>📖 آخر حصة</h3>${lastLessonHtml(s)}</div>`;
+    } else if (!/البحوث/.test(s.program || '')) h += `<p class="note" style="margin-top:10px">بانتظار تفعيل الإدارة لاشتراكه، ثم تظهر هنا الغرفة وتسجيل الحصص.</p>`;
+    h += `<div class="stu-sec"><h3>📋 بيانات الاشتراك والطالب/ة</h3><div class="facts">${f('البرنامج', s.program)}${f('الخطة', s.plan)}${f('نوع الاشتراك', PER[s.period])}${s.ends_on ? f('ينتهي الاشتراك', arDate(s.ends_on)) : ''}${f('المستوى', s.level)}${f('مقدار الحفظ', s.hifz)}${f('مستوى التجويد', s.tajweed)}${f('التخصص العلمي', s.specialty)}${f('المهنة', s.job)}</div></div>`;
     return h + '</div>';
+  }
+  // الجدول الأسبوعي: مواعيد كل الطلاب (الفعّالين وبانتظار التفعيل) بتوقيت المعلم/ة، من السبت إلى الجمعة
+  function weekHtml(students, av) {
+    const today = new Date().toISOString().slice(0, 10), ref = C.addDays(today, -C.dow(today));
+    const atz = (av && av.tz) || TZ, byDay = [[], [], [], [], [], [], []];
+    students.forEach((s) => (Array.isArray(s.slots) ? s.slots : []).forEach((x) => {
+      const at = C.zoned(C.addDays(ref, x.dow), x.time, s.slots_tz || 'Africa/Cairo'), mine = inTz(at, TZ), t = inTz(at, atz);
+      const ok = av && Array.isArray(av.days) && Array.isArray(av.hours) ? av.days.includes(t.dow) && av.hours.includes(t.h) : true;
+      const p = new Intl.DateTimeFormat('en-US', { timeZone: TZ, hourCycle: 'h23', hour: 'numeric', minute: '2-digit' }).formatToParts(at);
+      const mins = Number((p.find((y) => y.type === 'hour') || {}).value) % 24 * 60 + Number((p.find((y) => y.type === 'minute') || {}).value);
+      byDay[mine.dow].push({ s, at, mins, ok });
+    }));
+    const todayDow = inTz(new Date(), TZ).dow;
+    const order = [6, 0, 1, 2, 3, 4, 5];
+    const total = byDay.reduce((a, d) => a + d.length, 0);
+    if (!total) return '<p class="muted" style="margin-top:8px">لم تُحدَّد مواعيد لطلابك بعد.</p>';
+    return '<div class="wk">' + order.map((d) => {
+      const L = byDay[d].sort((a, b) => a.mins - b.mins);
+      return `<div class="wk-day${d === todayDow ? ' today' : ''}${L.length ? '' : ' empty'}"><div class="wk-dn">${DAYS[d]}${d === todayDow ? '<small>اليوم</small>' : ''}${L.length ? `<small>${L.length} ${L.length === 1 ? 'حصة' : 'حصص'}</small>` : ''}</div><div class="wk-items">${L.length ? L.map(({ s, at, ok }) =>
+        `<a class="wk-it${s.status === 'active' ? '' : ' pending'}${ok ? '' : ' warn'}" href="#stu-${esc(s.sub_id)}" title="${ok ? '' : 'خارج أوقاتك المتاحة'}"><b>${esc(C.fmtTime(at, TZ))}${ok ? '' : ' ⚠'}</b><span>${esc(s.first_name)}</span><small>${esc(String(s.program || '').replace(/^برنامج\s+/, ''))}</small></a>`).join('') : '<span class="muted" style="font-size:13px;padding-top:4px">لا حصص</span>'}</div></div>`;
+    }).join('') + '</div><div class="wk-legend"><span><i style="background:#EEF4FB;border:1px solid #BFD3EA"></i>اشتراك فعّال</span><span><i style="background:#FFFBEB;border:1px solid #FCD34D"></i>بانتظار التفعيل</span><span>⚠ خارج أوقاتك المتاحة</span></div>';
   }
   function stuCard(s) {
     const b = ST[s.status] || ST.pending;
@@ -300,22 +346,33 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     const TZN = { 'Africa/Cairo': 'مصر', 'Asia/Riyadh': 'السعودية', 'Asia/Dubai': 'الإمارات', 'Asia/Kuwait': 'الكويت', 'Asia/Qatar': 'قطر' };
     const avHtml = days ? `<div class="av-sum"><div><small>الأيام</small><b>${esc(days)}</b></div><div><small>الساعات${av.tz ? ' (بتوقيت ' + esc(TZN[av.tz] || av.tz) + ')' : ''}</small><span class="chips">${hoursRanges(av.hours).map((r) => `<span class="chip">${esc(r)}</span>`).join('')}</span></div></div>` : '<p class="muted">لم تُسجَّل بعد.</p>';
     const progs = t.programs || [];
+    const pend = S.length - act.length;
+    const TABS = [['home', '🏠 الرئيسية', up.today], ['week', '🗓 الجدول الأسبوعي', 0], ['students', '👥 طلابي', pend], ['avail', '🕒 أوقاتي', 0], ['lessons', '🎙 دروسي', 0], ['profile', '🎓 ملفي', 0]];
+    let tab = ''; try { tab = sessionStorage.getItem('mk_tp_tab') || ''; } catch (e) {}
+    if (!TABS.some((x) => x[0] === tab)) tab = 'home';
     $('dash').innerHTML = `<section class="card hello-t"><h1>أهلًا ${esc(t.name || '')}</h1>${t.headline ? `<p class="muted">${esc(t.headline)}</p>` : ''}
       <div class="stats"><div class="stat"><b>${up.today}</b><small>حصة اليوم</small></div><div class="stat"><b>${up.n}</b><small>حصة في ٧ أيام</small></div><div class="stat"><b>${act.length}</b><small>طالب/ة مشترك/ة</small></div></div></section>
-      <section class="card"><h2>📅 حصصك القادمة</h2>${up.html}</section>
-      <section class="card"><h2>👥 طلابي <small class="muted">(${S.length}${S.length - act.length ? ' · ' + (S.length - act.length) + ' بانتظار التفعيل' : ''})</small></h2>
-      ${S.length ? '<div class="stu-cards">' + S.map(stuCard).join('') + '</div>' : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}
-      <p class="muted" style="margin-top:10px;font-size:13px">تظهر لك بيانات الدراسة فقط، ويُمنع تبادل أرقام الهواتف أو الحسابات الشخصية مع الطلاب. المواعيد بعلامة ⚠ خارج أوقاتك المتاحة؛ راجع/ي الإدارة فيها.</p></section>
-      <section class="card"><h2>🕒 أوقاتي المتاحة</h2>${avHtml}<div class="row-btns"><button type="button" class="btn sm ghost" id="avEdit">✏️ تعديل أوقاتي</button></div></section>
-      <section class="card tl-box" id="tlBox"></section>
-      <section class="card"><h2>🎓 ملفي</h2><div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}</div>
-      ${progs.length ? `<details class="progs"><summary>برامجي (${progs.length})</summary><div class="chips">${progs.map((p) => `<span class="chip">${esc(String(p).replace(/^برنامج\s+/, ''))}</span>`).join('')}</div></details>` : ''}
-      ${t.id ? `<div class="row-btns"><a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}">صفحتي التعريفية</a></div>` : ''}</section>`;
+      <nav class="tabs" role="tablist">${TABS.map(([k, l, n]) => `<button type="button" role="tab" data-tab="${k}" class="${k === tab ? 'on' : ''}" aria-selected="${k === tab}">${l}${n ? `<b>${n}</b>` : ''}</button>`).join('')}</nav>
+      <div class="pane" data-pane="home"><section class="card"><h2>📅 حصصك القادمة</h2>${up.html}</section>
+        ${S.length ? `<section class="card"><div class="sec-h"><h2>👥 طلابي</h2><button type="button" class="btn sm ghost" data-go="students">عرض الكل</button></div><div class="stu-cards">${S.slice(0, 4).map(stuCard).join('')}</div></section>` : ''}</div>
+      <div class="pane" data-pane="week"><section class="card"><h2>🗓 الجدول الأسبوعي لكل طلابك</h2><p class="muted">مواعيد جميع اشتراكات طلابك بتوقيتك، من السبت إلى الجمعة. اضغط/ي على أي موعد لفتح صفحة الطالب/ة.</p>${weekHtml(S, av)}</section></div>
+      <div class="pane" data-pane="students"><section class="card"><h2>👥 طلابي <small class="muted">(${S.length}${pend ? ' · ' + pend + ' بانتظار التفعيل' : ''})</small></h2>
+        ${S.length ? '<div class="stu-cards">' + S.slice().sort((x, y) => (x.status === 'active' ? 0 : 1) - (y.status === 'active' ? 0 : 1)).map(stuCard).join('') + '</div>' : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}
+        <p class="muted" style="margin-top:10px;font-size:13px">تظهر لك بيانات الدراسة فقط، ويُمنع تبادل أرقام الهواتف أو الحسابات الشخصية مع الطلاب. المواعيد بعلامة ⚠ خارج أوقاتك المتاحة؛ راجع/ي الإدارة فيها.</p></section></div>
+      <div class="pane" data-pane="avail"><section class="card"><h2>🕒 أوقاتي المتاحة</h2>${avHtml}<div class="row-btns"><button type="button" class="btn sm ghost" id="avEdit">✏️ تعديل أوقاتي</button></div></section></div>
+      <div class="pane" data-pane="lessons"><section class="card tl-box" id="tlBox"></section></div>
+      <div class="pane" data-pane="profile"><section class="card"><h2>🎓 ملفي</h2><div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}</div>
+      ${progs.length ? `<details class="progs" open><summary>برامجي (${progs.length})</summary><div class="chips">${progs.map((p) => `<span class="chip">${esc(String(p).replace(/^برنامج\s+/, ''))}</span>`).join('')}</div></details>` : ''}
+      ${t.id ? `<div class="row-btns"><a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}">صفحتي التعريفية</a></div>` : ''}</section></div>`;
+    const showTab = (k) => { document.querySelectorAll('.pane').forEach((p) => { p.hidden = p.dataset.pane !== k; }); document.querySelectorAll('[data-tab]').forEach((x) => { const on = x.dataset.tab === k; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); }); try { sessionStorage.setItem('mk_tp_tab', k); } catch (e) {} };
+    showTab(tab);
+    document.querySelectorAll('[data-tab]').forEach((x) => x.onclick = () => { showTab(x.dataset.tab); x.scrollIntoView({ inline: 'nearest', block: 'nearest' }); });
+    document.querySelectorAll('[data-go]').forEach((x) => x.onclick = () => showTab(x.dataset.go));
     if (window.MN && MN.tlessons && t.id && $('tlBox')) MN.tlessons.panel($('tlBox'), sb, t.id);
     // صفحة بيانات الطالب: تُفتح من بطاقته (#stu-…) ولها زر رجوع
     const sid = (location.hash.match(/^#stu-(.+)$/) || [])[1], cur = sid && S.find((x) => String(x.sub_id) === sid);
     if (cur) {
-      $('dash').innerHTML = `<div class="row-btns" style="margin:0 0 10px"><a class="btn ghost" href="#">→ طلابي</a></div>` + stuHtml(cur, av);
+      $('dash').innerHTML = `<div class="row-btns" style="margin:0 0 10px"><a class="btn ghost" href="#">→ رجوع إلى اللوحة</a></div>` + stuHtml(cur, av);
       window.scrollTo(0, 0);
     }
     { const ab = $('avEdit'); if (ab) ab.onclick = () => MN.availEdit(D.teacher.availability, async (nv) => {
