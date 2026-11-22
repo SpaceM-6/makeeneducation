@@ -517,6 +517,59 @@ body{background-color:var(--g-cream)}
 .mc-fab{width:50px!important;height:50px!important;bottom:86px!important}
 .mn-board .mnb-card .tg{background:var(--g-olive)!important;color:#FFF8E8!important}
 .mn-soon .mnb-card small,.mn-soon .mnb-card .tx small{color:#B5654A!important;font-weight:800}
+/* ===== الواجهة الأولى: مسافات أوسع وزخرفة وتنظيم ===== */
+.company-hero{padding:56px 6% 64px!important;gap:0;margin-bottom:0}
+.company-hero .main-hero-logo{width:118px!important;height:118px!important;margin:0 0 6px!important;box-shadow:0 0 0 6px rgba(243,211,122,.14),0 0 0 12px rgba(243,211,122,.06),0 14px 30px rgba(0,0,0,.45)!important}
+.company-hero .h-orn{display:flex;align-items:center;justify-content:center;gap:10px;width:min(320px,80%);margin:18px auto 16px;color:#F3D37A;font-size:16px}
+.company-hero .h-orn::before,.company-hero .h-orn::after{content:"";flex:1;height:1.5px;background:linear-gradient(90deg,transparent,#F3D37A)}
+.company-hero .h-orn::after{background:linear-gradient(270deg,transparent,#F3D37A)}
+.company-hero h1{font-size:clamp(24px,6.4vw,34px)!important;line-height:1.55!important;margin:0 0 4px!important;letter-spacing:.2px;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.company-hero .h-kicker{display:inline-block;margin:0 0 4px;background:rgba(243,211,122,.14);border:1px solid rgba(243,211,122,.5);color:#F3D37A;font-weight:800;font-size:13px;border-radius:999px;padding:4px 14px}
+.company-hero p{max-width:620px!important;font-size:clamp(14.5px,3.9vw,16.5px)!important;line-height:2.15!important;background:rgba(11,30,54,.42);border:1px solid rgba(243,211,122,.22);border-radius:20px;padding:16px 18px!important;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.company-hero .h-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}
+.company-hero .h-cta a{display:inline-flex;align-items:center;justify-content:center;min-width:170px;padding:12px 22px;border-radius:999px;font-weight:900;font-size:15px;text-decoration:none}
+.company-hero .h-cta .p{background:linear-gradient(180deg,#C97B5E,#B5654A);color:#fff;box-shadow:0 10px 22px rgba(0,0,0,.3)}
+.company-hero .h-cta .s{background:transparent;color:#F3D37A;border:1.5px solid #F3D37A}
+.mn-board{margin-top:46px!important}
+/* ===== الثيم على كل صفحات مكين (الهيدر والتذييل يبقيان كحليين) ===== */
+h1.section-title,h2.section-title,.section-title,.page-title{color:var(--g-brown)!important}
+.btn-gold,a.btn-gold,button.btn-gold,.btn-option,.btn-table-action,.mk-nosub .btn-gold{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;border:0!important;border-radius:999px!important;box-shadow:0 8px 18px rgba(181,101,74,.28)!important}
+.btn-option{border-radius:14px!important}
+.tab-btn{border-radius:999px!important;border:1.5px solid var(--g-olive2)!important;background:var(--g-card)!important;color:var(--g-olive)!important;font-weight:900!important}
+.tab-btn.active{background:var(--g-olive)!important;color:#FFF8E8!important;box-shadow:0 0 0 2px var(--g-gold)!important}
+.service-card{background:var(--g-card)!important;border-color:var(--g-line)!important}
+.service-card .service-number{background:var(--g-olive)!important;color:#FFF8E8!important}
+.service-card h4{color:var(--g-brown)!important}
+.service-card .sc-tags span{background:#F3EEDC!important;color:var(--g-olive)!important;border-color:#D9D2B0!important}
+.service-card .sc-more{color:var(--g-terra)!important}
+.service-card.lit{border-color:#E0B44C!important;box-shadow:0 0 0 3px rgba(224,180,76,.55),0 0 28px rgba(224,180,76,.75)!important;background:linear-gradient(180deg,#FFFBEF,#FCEFCB)!important}
+.prog-page{background:var(--g-cream)!important}
+.pp-hero{background:linear-gradient(160deg,#F7EBD6,#F0DFC3)!important;color:var(--g-brown)!important;border:1.5px solid var(--g-gold)!important;box-shadow:0 14px 30px rgba(91,60,40,.14)!important}
+.pp-hero h1{color:var(--g-brown)!important}.pp-hero p{color:var(--g-brown2)!important}
+.pp-hero .sc-tags span{background:var(--g-olive)!important;color:#FFF8E8!important;border-color:var(--g-olive)!important}
+.pp-sec{background:var(--g-card)!important;border-color:var(--g-line)!important}
+.pp-sec h2{color:var(--g-brown)!important}.pp-sec ul,.pp-sec p{color:var(--g-brown2)!important}
+.pp-pk div{background:#FFFCF4!important;border-color:var(--g-line)!important}.pp-pk div.gold{background:#F7EBD6!important;border-color:var(--g-terra2)!important}.pp-pk b{color:var(--g-brown)!important}
+.pp-rev{border-inline-start-color:var(--g-terra)!important}.pp-rev b{color:var(--g-brown)!important}
+.modal-content{background:var(--g-card)!important;border-radius:22px!important}
+.modal-content h2,.modal-content h3{color:var(--g-brown)!important}
+.pricing-table th{background:var(--g-olive)!important;color:#FFF8E8!important}
+.form-group input,.form-group select,.form-group textarea,input.form-control,select.form-control,textarea.form-control{border-color:var(--g-line)!important;border-radius:12px!important}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--g-terra)!important;box-shadow:0 0 0 3px rgba(181,101,74,.15)!important}
+.mk-intro,.mk-nosub{background:var(--g-card)!important;border-color:var(--g-line)!important}
+.mk-intro p,.mk-nosub p{color:var(--g-brown)!important}
+/* صفحات أخرى: الانضمام والتواصل ولوحة الطالب */
+.mk-h1,.mk-wrap h1,.mk-wrap h2,.mk-box h3{color:var(--g-brown)!important}
+.mk-btn{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;border:0!important;border-radius:999px!important}
+.mk-btn.ghost{background:transparent!important;color:var(--g-terra)!important;border:1.5px solid var(--g-terra)!important}
+.mk-share{background:var(--g-card)!important;color:var(--g-olive)!important;border:1.5px solid var(--g-olive2)!important}
+.mk-step.on b,.mk-step.on span,.mk-step.cur b,.mk-step.active b{background:var(--g-olive)!important;color:#FFF8E8!important;border-color:var(--g-olive)!important}
+.mk-pill.on,.mk-pill.sel,.mk-pill[aria-pressed="true"]{background:var(--g-olive)!important;color:#FFF8E8!important;border-color:var(--g-olive)!important}
+.mk-box,.mk-note{background:var(--g-card)!important;border-color:var(--g-line)!important}
+.main{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;border-color:var(--g-terra)!important;color:#fff!important}
+.mk-steps li.on{color:var(--g-brown)!important}
+.mk-steps li.on::before{background:var(--g-olive)!important;border-color:var(--g-olive)!important;color:#FFF8E8!important}
+.mk-steps li.done::before{background:var(--g-gold)!important;border-color:var(--g-gold)!important;color:#fff!important}
 </style>
 <script>document.addEventListener("DOMContentLoaded",function(){var t=0,k=setInterval(function(){var b=document.getElementById("mnBoard");if(++t>40)clearInterval(k);if(b&&!b.querySelector(".g-line")&&b.querySelector(".mnb-head")){b.insertAdjacentHTML("afterbegin","<div class=\"g-line\" aria-hidden=\"true\"><i>✦</i><i>✦</i></div>");clearInterval(k);}},250);});</script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
@@ -542,10 +595,11 @@ body{background-color:var(--g-cream)}
   <section class="company-hero">
     <!-- جعل اللوجو الكيمي قابل للنقر والتكبير والتحميل المباشر -->
     <img src="assets/makeen-logo.jpeg" alt="لوجو شركة مكين الرسمي" class="main-hero-logo" onclick="openImageModal('assets/makeen-logo.jpeg', 'لوجو_شركة_مكين_الرسمي.jpeg')">
-    <h1>شركة مكين للاستشارات والتدريب والتعليم</h1>
+    <div class="h-orn">✦</div><span class="h-kicker">التعليم القرآني والشرعي عن بُعد</span><h1>شركة مكين للاستشارات والتدريب والتعليم</h1><div class="h-orn">✦</div>
     <p>
       مؤسسة تعليمية واستشارية عالمية رائدة مقرها الرئيسي بجمهورية مصر العربية، وتصل خدماتها للطلاب والحافظين في جميع أنحاء العالم. نختص باستقطاب نخبة المعلمين المتقنين الحاملين للأسانيد العالية وتقديم باقة متكاملة من البرامج القرآنية والشرعية واللغوية.
     </p>
+      <div class="h-cta"><a class="p" href="programs.html">تصفّح/ي البرامج</a><a class="s" href="join.html">انضم/ي إلى كادر مكين</a></div>
   </section>
 
   <div class="container">
