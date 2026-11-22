@@ -91,7 +91,8 @@
 
 </style>
 <meta name="theme-color" content="#12355B">
-<script src="https://maimoonah.com/js/classes.js"></script>
+<script src="https://maimoonah.com/js/classes.js?v=3"></script>
+<script src="https://maimoonah.com/js/attcal.js?v=1"></script>
 
 <script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/app.js?v=2026112210"></script>
@@ -300,7 +301,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
   const dayLong = (d) => d.toLocaleDateString('ar-EG', { timeZone: VTZ, weekday: 'long', day: 'numeric', month: 'long' });
   const CAL = {};
   const ST_AR = { upcoming: 'حصة قادمة', done: 'تمت', absent: 'غياب', cancelled: 'أُلغيت' };
-  function sessionsOf(s) { return window.MNClasses ? MNClasses.sessions(s, s.marks || {}) : []; }
+  function sessionsOf(s) { return window.MNClasses ? MNClasses.sessions(s, s.marks || {}, null, s.makeups) : []; }
   function trackHtml(s) {
     if (!Array.isArray(s.slots) || !s.slots.length) return `<p class="note" style="margin-top:12px;">تُضاف أيام حصصك وساعاتها إلى تقويمك هنا بعد تأكيدها.</p>`;
     const list = sessionsOf(s), st = MNClasses.stats(list);
@@ -311,40 +312,14 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       <div class="st"><b>${AR(st.total)}</b><small>إجمالي الحصص</small></div></div>`;
     if (st.absent) h += `<p style="margin:6px 0 0;font-size:13.5px;color:#991B1B">غياب: ${AR(st.absent)} ${st.absent === 1 ? 'حصة' : 'حصص'}</p>`;
     if (st.next && s.status === 'active') h += `<div class="nextc"><div><small>حصتك القادمة</small><b>${dayLong(st.next.at)} — ${tV(st.next.at)}</b></div><span class="cdn" data-cd="${st.next.at.getTime()}"></span></div>`;
-    h += `<div class="cal" id="cal-${s.id}"></div><div class="dayinfo" id="di-${s.id}"></div>
-      <div class="legend"><span><i style="background:#12355B"></i>حصة قادمة</span><span><i style="background:#DCFCE7;box-shadow:inset 0 0 0 2px #22C55E"></i>تمت</span><span><i style="background:#FEE2E2;box-shadow:inset 0 0 0 2px #F87171"></i>غياب</span><span><i style="background:#DBEAFE;box-shadow:inset 0 0 0 2px #93C5FD"></i>أُلغيت</span><span><i style="background:#FFF8E6;border-radius:3px"></i>مدة الاشتراك</span><span>🏁 نهاية الاشتراك</span></div>
+    if (st.postponed) h += `<p style="margin:4px 0 0;font-size:13.5px;color:#1D4ED8">مؤجلة: ${AR(st.postponed)} ${st.postponed === 1 ? 'حصة' : 'حصص'} (تظهر حصة التعويض في التقويم)</p>`;
+    h += `<div id="cal-${s.id}"></div>
       <div class="row-btns" style="margin-top:10px"><button class="btn ghost" data-ics="${s.id}">📅 أضف الحصص إلى تقويم جوالك</button></div>`;
     return h;
   }
   function drawCal(s) {
-    const box = document.getElementById('cal-' + s.id); if (!box) return;
-    const list = sessionsOf(s), byDay = {};
-    list.forEach((c) => { (byDay[ymdV(c.at)] = byDay[ymdV(c.at)] || []).push(c); });
-    if (!CAL[s.id]) { const st = MNClasses.stats(list); const ref = st.next ? st.next.at : new Date(); const k = ymdV(ref); CAL[s.id] = { y: +k.slice(0, 4), m: +k.slice(5, 7) }; }
-    const { y, m } = CAL[s.id];
-    const first = new Date(Date.UTC(y, m - 1, 1)), days = new Date(Date.UTC(y, m, 0)).getUTCDate();
-    const lead = (first.getUTCDay() + 1) % 7; // الأسبوع يبدأ بالسبت
-    const today = ymdV(new Date());
-    let h = `<div class="cal-h"><button data-nav="-1" aria-label="الشهر السابق">›</button><b>${MONTHS[m - 1]} ${AR(y)}</b><button data-nav="1" aria-label="الشهر التالي">‹</button></div><div class="cal-g">`;
-    h += ['سبت', 'أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة'].map((w) => `<span class="wd">${w}</span>`).join('');
-    for (let k = 0; k < lead; k++) h += '<span></span>';
-    for (let d = 1; d <= days; d++) {
-      const key = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-      const cs = byDay[key] || [];
-      const inRange = s.starts_on && s.ends_on && key >= s.starts_on && key <= s.ends_on;
-      let cls = 'd' + (inRange ? ' in' : '') + (key === today ? ' today' : '') + (key === s.ends_on ? ' end' : '');
-      if (cs.length) cls += ' cls ' + cs[0].status;
-      h += cs.length ? `<button class="${cls}" data-day="${key}" aria-label="${d} ${MONTHS[m - 1]}: ${ST_AR[cs[0].status]} ${tV(cs[0].at)}">${AR(d)}<small>${tV(cs[0].at).replace(/\s?[صم]$/, '')}</small></button>` : `<span class="${cls}">${AR(d)}</span>`;
-    }
-    box.innerHTML = h + '</div>';
-    box.querySelectorAll('[data-nav]').forEach((b) => b.onclick = () => { let mm = m + Number(b.dataset.nav), yy = y; if (mm < 1) { mm = 12; yy--; } if (mm > 12) { mm = 1; yy++; } CAL[s.id] = { y: yy, m: mm }; drawCal(s); });
-    box.querySelectorAll('[data-day]').forEach((b) => b.onclick = () => {
-      const di = document.getElementById('di-' + s.id);
-      di.style.display = 'block';
-      const les = (s.lessons || []).find((l) => l.day === b.dataset.day);
-      di.innerHTML = byDay[b.dataset.day].map((c) => `<b>${dayLong(c.at)}</b> — الساعة ${tV(c.at)} · ${ST_AR[c.status]}`).join('<br>') +
-        (les ? `<br>${les.taken_from ? 'أخذنا ' + rng(les.taken_from, les.taken_to) : ''}${les.hw_from ? ' · الواجب: ' + rng(les.hw_from, les.hw_to) : ''}${les.stop_at ? ' · توقفنا عند ' + posLabel(les.stop_at) : ''}` : '');
-    });
+    const box = document.getElementById('cal-' + s.id); if (!box || !window.MNAttCal) return;
+    MNAttCal.mount(box, { sub: s, marks: s.marks || {}, makeups: s.makeups || [], lessons: s.lessons || [], tz: VTZ, editable: false });
   }
   function icsFor(s) {
     const z = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
@@ -535,7 +510,10 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     if (!$('pwChange')) { const b = document.createElement('button'); b.type = 'button'; b.id = 'pwChange'; b.className = 'btn ghost'; b.textContent = '🔑 تغيير كلمة المرور'; b.onclick = () => MN.pwChange(sb); const rb = document.querySelector('#settings .row-btns'); if (rb) rb.appendChild(b); }
     const { data, error } = await sb.rpc('my_subscriptions');
     if (error) { $('subs').innerHTML = '<section class="card">تعذّر تحميل اشتراكاتك الآن، حدّث الصفحة بعد قليل.</section>'; return; }
-    SUBS = Array.isArray(data) ? data : []; render();
+    SUBS = Array.isArray(data) ? data : [];
+    // حصص التعويض (يحدّدها المعلم/ة عند تأجيل حصة)
+    try { const ids = SUBS.map((x) => x.id); if (ids.length) { const mk = await sb.from('class_makeups').select('sub_id,from_day,at,status').in('sub_id', ids); if (!mk.error) SUBS.forEach((x) => { x.makeups = (mk.data || []).filter((m) => String(m.sub_id) === String(x.id)); }); } } catch (e) {}
+    render();
     // المعلم/ة المباشر/ة مع زر اتصال دائم، وتنبيه إن كان/ت في حلقة أخرى الآن، وموعد الحصة بالضبط
     const act = SUBS.filter((x) => x.status === 'active');
     MN.callSetup(sb, { role: 'student', myName: (act[0] && act[0].name) || 'الطالب/ة', subs: act.map((x) => ({ id: x.id, peer: x.teacher ? 'أ/ ' + String(x.teacher.name || '').replace(/^أ\/\s*/, '') : 'المعلم/ة', title: x.program })) });

@@ -91,7 +91,7 @@
   .prof-list { display:grid; gap:8px; margin-top:12px; } .prof-list .btn { text-align:start; display:flex; justify-content:space-between; align-items:center; }
   .note { background:#EEF4FB; border:1px solid #BFD3EA; color:var(--navy); border-radius:10px; padding:10px 12px; font-size:14px; }
 </style>
-<script src="https://maimoonah.com/js/classes.js"></script>
+<script src="https://maimoonah.com/js/classes.js?v=3"></script>
 <style id="mkTheme">/* ===== ثيم مكين (اقتراح جيميناي): كريمي رخامي + طوبي + زيتوني + بني — يبقى الهيدر والشريط العلوي والصورة الاستفتاحية والتعريف كما هي ===== */
 :root{--g-terra:#B5654A;--g-terra2:#C97B5E;--g-olive:#5E6B2E;--g-olive2:#6E7C37;--g-brown:#3B2A20;--g-brown2:#5A4636;--g-gold:#C9A45C;--g-cream:#F6EFE2;--g-card:#FFFDF8;--g-line:#E4CDB9}
 body{background-color:var(--g-cream)}
@@ -237,6 +237,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 <script src="https://maimoonah.com/js/avail.js?v=1"></script>
 <script src="https://maimoonah.com/js/instapay.js?v=4"></script>
 <script src="https://maimoonah.com/js/tlessons.js?v=8"></script>
+<script src="https://maimoonah.com/js/attcal.js?v=1"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -285,17 +286,12 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     if (s.status === 'active' && !/البحوث/.test(s.program || '')) h += `<div data-callslot="${s.sub_id}"></div>`;
     h += `<div class="stu-sec"><h3>🕒 مواعيده (بتوقيتك)</h3><div>${slotsHtml(s, av)}</div></div>`;
     if (s.status === 'active') {
-      const list = C.sessions(s, s.marks || {}), stt = C.stats(list);
+      const stt = C.stats(C.sessions(s, s.marks || {}, null, s.makeups));
       const fs = (k, v, n) => `<div class="fact"><small>${k}</small><b data-stat="${n}">${v}</b></div>`;
-      h += `<div class="stu-sec"><h3>✅ الحصص والحضور</h3><div class="facts" data-stats="${s.sub_id}">${fs('منجزة', stt.done, 'done')}${fs('متبقية', stt.remaining, 'remaining')}${fs('غياب', stt.absent, 'absent')}${fs('الإجمالي', stt.total, 'total')}</div>`;
-      // حالة كل حصة يغيّرها المعلم/ة: حضر، غاب، أُلغيت (الحالية مظللة)
-      const row = (x) => { const st = (s.marks || {})[x.day] || x.status, fut = x.at.getTime() > Date.now() + 3600000;
-        const btn = (k, t, c) => `<button class="btn sm ${c}${st === k ? ' on' : ''}" data-mark="${k}" data-sub="${s.sub_id}" data-day="${x.day}" aria-pressed="${st === k}">${st === k ? '✓ ' : ''}${t}</button>`;
-        return `<div class="sess"><span>${DAYS[inTz(x.at, TZ).dow]} ${arDate(x.day)} · ${esc(C.fmtTime(x.at, TZ))} — <b data-st="${st}">${MARK[st] || ''}</b></span><span>${fut ? '' : btn('done', 'حضر', 'green') + ' ' + btn('absent', 'غاب', 'red') + ' '}${btn('cancelled', 'أُلغيت', 'ghost')}</span></div>`; };
-      const now = Date.now(), past = list.filter((x) => x.at.getTime() < now + 3600000).reverse(), next = list.filter((x) => x.at.getTime() >= now + 3600000);
-      h += past.slice(0, 3).map(row).join('') + (next[0] ? row(next[0]) : '');
-      if (past.length > 3 || next.length > 1) h += `<details class="all-sess"><summary>كل الحصص (${list.length}) — لتعديل أي حصة سابقة أو إلغاء حصة قادمة</summary>${past.slice(3).map(row).join('')}${next.slice(1).map(row).join('')}</details>`;
-      h += `</div><div class="stu-sec"><h3>📖 آخر حصة</h3>${lastLessonHtml(s)}</div>`;
+      h += `<div class="stu-sec"><h3>🗓 متابعة الحصص</h3><p class="muted" style="font-size:13.5px">اضغط/ي على يوم الحصة لتسجيل الحضور أو الغياب أو التأجيل والتعويض، وما أخذتموه والملاحظات. كل ما تسجّله/تسجّلينه يظهر في لوحة الطالب/ة.</p>
+        <div class="facts" data-stats="${s.sub_id}">${fs('حضر', stt.done, 'done')}${fs('غياب', stt.absent, 'absent')}${fs('متبقية', stt.remaining, 'remaining')}${fs('مؤجلة', stt.postponed || 0, 'postponed')}${fs('الإجمالي', stt.total, 'total')}</div>
+        <div data-attcal="${s.sub_id}"></div>`;
+      h += `</div><div class="stu-sec"><h3>📖 آخر درس مسجّل</h3><div data-last>${lastLessonHtml(s)}</div></div>`;
     } else if (!/البحوث/.test(s.program || '')) h += `<p class="note" style="margin-top:10px">بانتظار تفعيل الإدارة لاشتراكه، ثم تظهر هنا الغرفة وتسجيل الحصص.</p>`;
     h += `<div class="stu-sec"><h3>📋 بيانات الاشتراك والطالب/ة</h3><div class="facts">${f('البرنامج', s.program)}${f('الخطة', s.plan)}${f('نوع الاشتراك', PER[s.period])}${s.ends_on ? f('ينتهي الاشتراك', arDate(s.ends_on)) : ''}${f('المستوى', s.level)}${f('مقدار الحفظ', s.hifz)}${f('مستوى التجويد', s.tajweed)}${f('التخصص العلمي', s.specialty)}${f('المهنة', s.job)}</div></div>`;
     return h + '</div>';
@@ -323,12 +319,12 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
   }
   function stuCard(s) {
     const b = ST[s.status] || ST.pending;
-    let nx = ''; if (s.status === 'active') { const c = C.sessions(s, s.marks || {}).find((x) => x.at.getTime() + C.CLASS_MIN * 60000 > Date.now()); if (c) nx = DAYS[inTz(c.at, TZ).dow] + ' ' + C.fmtTime(c.at, TZ); }
+    let nx = ''; if (s.status === 'active') { const c = C.sessions(s, s.marks || {}, null, s.makeups).find((x) => x.at.getTime() + C.CLASS_MIN * 60000 > Date.now()); if (c) nx = DAYS[inTz(c.at, TZ).dow] + ' ' + C.fmtTime(c.at, TZ); }
     return `<a class="stu-card" href="#stu-${esc(s.sub_id)}"><span class="sc-av">${esc((s.first_name || '؟').trim().charAt(0))}</span><span class="sc-t"><b>${esc(s.first_name)}</b><small>${esc(s.program || '')}</small>${nx ? `<small>🕒 الحصة القادمة: ${esc(nx)}</small>` : ''}</span><span class="badge ${b[0]}">${b[1]}</span></a>`;
   }
   function upcomingHtml(students) {
     const now = Date.now(), wk = now + 7 * 86400000, all = [];
-    students.filter((s) => s.status === 'active').forEach((s) => C.sessions(s, s.marks || {}).forEach((x) => { if (x.at.getTime() + C.CLASS_MIN * 60000 > now && x.at.getTime() < wk && x.status === 'upcoming') all.push({ s, x }); }));
+    students.filter((s) => s.status === 'active').forEach((s) => C.sessions(s, s.marks || {}, null, s.makeups).forEach((x) => { if (x.at.getTime() + C.CLASS_MIN * 60000 > now && x.at.getTime() < wk && x.status === 'upcoming') all.push({ s, x }); }));
     all.sort((a, b) => a.x.at - b.x.at);
     if (!all.length) return { n: 0, today: 0, html: '<p class="muted">لا حصص في الأيام السبعة القادمة.</p>' };
     const dkey = (d) => d.toLocaleDateString('en-CA', { timeZone: TZ });
@@ -349,7 +345,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
   // أقرب حصة قادمة مع زر الدخول المباشر
   function nextBox(act) {
     const now = Date.now(); let best = null;
-    act.forEach((s) => C.sessions(s, s.marks || {}).forEach((x) => { const end = x.at.getTime() + C.CLASS_MIN * 60000; if (end > now && x.status === 'upcoming' && (!best || x.at < best.x.at)) best = { s, x }; }));
+    act.forEach((s) => C.sessions(s, s.marks || {}, null, s.makeups).forEach((x) => { const end = x.at.getTime() + C.CLASS_MIN * 60000; if (end > now && x.status === 'upcoming' && (!best || x.at < best.x.at)) best = { s, x }; }));
     if (!best) return '';
     const { s, x } = best, mins = Math.round((x.at.getTime() - now) / 60000);
     const when = mins <= 0 ? 'الآن' : mins < 60 ? 'بعد ' + mins + ' دقيقة' : DAYS[inTz(x.at, TZ).dow] + ' ' + C.fmtTime(x.at, TZ);
@@ -402,6 +398,13 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     if (cur) {
       $('dash').innerHTML = `<div class="row-btns" style="margin:0 0 10px"><a class="btn ghost" href="#">→ رجوع إلى اللوحة</a></div>` + stuHtml(cur, av);
       window.scrollTo(0, 0);
+      const ce = document.querySelector(`[data-attcal="${cur.sub_id}"]`);
+      if (ce && window.MNAttCal) MNAttCal.mount(ce, { sub: cur, marks: cur.marks || {}, makeups: cur.makeups || [], lessons: cur.lessons || [], tz: TZ, editable: true, sb,
+        mushaf: (day) => `mushaf.html?sub=${encodeURIComponent(cur.sub_id)}&lesson&day=${day}`,
+        onChange: (st) => { cur.marks = st.marks; cur.makeups = st.makeups; cur.lessons = st.lessons;
+          const t = C.stats(C.sessions(cur, cur.marks, null, cur.makeups)), box = document.querySelector(`[data-stats="${cur.sub_id}"]`);
+          if (box) ['done', 'absent', 'remaining', 'postponed', 'total'].forEach((n) => { const e = box.querySelector(`[data-stat="${n}"]`); if (e) e.textContent = t[n] || 0; });
+          const ll = document.querySelector('.stu-sec [data-last]'); if (ll) ll.innerHTML = lastLessonHtml(cur); } });
     }
     { const ab = $('avEdit'); if (ab) ab.onclick = () => MN.availEdit(D.teacher.availability, async (nv) => {
       const r = await sb.rpc('teacher_set_availability', { p: nv });
@@ -409,19 +412,6 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       if (r.data !== 'ok') return 'تعذّر الحفظ: هذا البريد غير مربوط بصفحة معلم/ة.';
       D.teacher.availability = nv; render(); if (window._mkPaintCall) window._mkPaintCall(); return null;
     }); }
-    document.querySelectorAll('[data-mark]').forEach((b) => b.onclick = async () => {
-      if (b.classList.contains('on')) return;
-      const row = b.closest('.sess'), sub = b.dataset.sub, day = b.dataset.day, k = b.dataset.mark;
-      // يتغيّر اللون فورًا في مكانه، ثم يُحفظ (ويرجع إن تعذّر الحفظ)
-      const prev = row.querySelector('[data-mark].on');
-      const paint = (on) => { row.querySelectorAll('[data-mark]').forEach((x) => { const a = x === on; x.classList.toggle('on', a); x.setAttribute('aria-pressed', a); x.textContent = (a ? '✓ ' : '') + x.textContent.replace(/^✓ /, ''); }); const lb = row.querySelector('b[data-st]'); if (lb) { const kk = on ? on.dataset.mark : 'upcoming'; lb.dataset.st = kk; lb.textContent = MARK[kk] || ''; } };
-      paint(b);
-      const { error } = await sb.rpc('teacher_mark', { p_sub: sub, p_day: day, p_status: k });
-      if (error) { paint(prev); alert('تعذّر الحفظ، حاول/ي مرة أخرى.'); return; }
-      const st = D.students.find((x) => String(x.sub_id) === sub); if (!st) return;
-      st.marks = Object.assign({}, st.marks || {}, { [day]: k });
-      const box = document.querySelector(`[data-stats="${sub}"]`); if (box) { const t = C.stats(C.sessions(st, st.marks)); ['done', 'remaining', 'absent', 'total'].forEach((n) => { const e = box.querySelector(`[data-stat="${n}"]`); if (e) e.textContent = t[n]; }); }
-    });
   }
   window.addEventListener('hashchange', () => { if (D) { render(); if (window._mkPaintCall) window._mkPaintCall(); } });
   async function load() {
@@ -429,6 +419,8 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     if (error) { $('dash').innerHTML = '<section class="card">تعذّر تحميل لوحتك الآن، حدّث/ي الصفحة بعد قليل.</section>'; return; }
     if (!data || data.error) { $('dash').innerHTML = `<section class="card"><h1>هذا البريد غير مسجّل في كادر مكين</h1><p class="muted">ادخل/ي بالبريد الذي كتبته في طلب الانضمام، أو تواصل/ي مع الإدارة.</p><div class="row-btns"><a class="btn ghost" href="join.html">طلب الانضمام إلى كادر مكين</a></div></section>`; return; }
     D = data;
+    // حصص التعويض لكل الطلاب (تظهر في التقويم والجدول)
+    try { const ids = (D.students || []).map((x) => x.sub_id); if (ids.length) { const mk = await sb.from('class_makeups').select('sub_id,from_day,at,status').in('sub_id', ids); if (!mk.error) (D.students || []).forEach((x) => { x.makeups = (mk.data || []).filter((m) => String(m.sub_id) === String(x.sub_id)); }); } } catch (e) {}
     // الأوقات المتاحة المحفوظة (يعدّلها المعلم/ة بنفسه/ا)
     try { const av = await sb.rpc('teacher_availability'); if (!av.error && av.data && av.data.days) D.teacher.availability = av.data; } catch (e) {}
     render();
