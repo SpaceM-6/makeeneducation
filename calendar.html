@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<script> if (window.top !== window.self && !/[?&]tg=1/.test(location.search)) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }</script>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://maimoonah.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: https://maimoonah.com https://cdn.jsdelivr.net; connect-src 'self' https://*.supabase.co https://maimoonah.com; worker-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التقويم الإسلامي | شركة مكين</title>
+<link rel="canonical" href="https://makeeneducation.com/calendar.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="شركة مكين"><meta property="og:locale" content="ar_AR"><meta property="og:title" content="التقويم الإسلامي | شركة مكين"><meta property="og:description" content="التقويم الهجري: الأيام المسنون صيامها، والأعياد والمناسبات، وأحداث السيرة النبوية وفتوحات الخلفاء الراشدين بتواريخها ومصادرها."><meta property="og:image" content="https://makeeneducation.com/icons/icon-512.png"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="التقويم الهجري: الأيام المسنون صيامها، والأعياد والمناسبات، وأحداث السيرة النبوية وفتوحات الخلفاء الراشدين بتواريخها ومصادرها.">
+<link rel="icon" href="https://maimoonah.com/favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="https://maimoonah.com/favicon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#12355B">
+<style>
+  :root { --navy:#12355B; --navy2:#0B2440; --gold:#F3D37A; --gold2:#A8822F; --ink:#2B2416; --brown:#6B5320; --line:#DCC79A; --cream:#FBF6EA;
+          --c-fast:#1E6B4F; --c-occ:#A8822F; --c-sira:#12355B; --c-khulafa:#7C3A5B; --c-forbid:#B42318; }
+  * { box-sizing:border-box; }
+  html, body { overflow-x:clip; max-width:100%; }
+  body { margin:0; background:#F6EEE2 url('/img/beige-texture.jpg') repeat center top; color:var(--ink); font-family:Cairo, Tahoma, sans-serif; line-height:1.8; }
+  header { background:var(--navy); border-bottom:3px solid var(--gold); padding:8px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; position:sticky; top:0; z-index:30; }
+  header a.home { color:var(--gold); text-decoration:none; font-weight:800; font-size:14.5px; }
+  header img { width:42px; height:42px; border-radius:50%; border:2px solid var(--gold); display:block; }
+  main { max-width:760px; margin:0 auto; padding:0 14px 60px; }
+  .hero { margin:14px 0; background:linear-gradient(160deg, var(--navy) 0%, var(--navy2) 100%); color:#fff; border:1px solid var(--gold); border-radius:22px; padding:20px 18px; position:relative; overflow:hidden; }
+  .hero::before { content:'☾'; position:absolute; left:18px; top:-14px; font-size:120px; color:rgba(243,211,122,.13); line-height:1; }
+  .hero small { color:#C9D3E0; font-weight:700; }
+  .hero h1 { margin:2px 0 0; color:var(--gold); font-size:30px; line-height:1.4; }
+  .hero .greg { color:#E2E8F0; font-size:15px; }
+  .pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; position:relative; }
+  .pill { border-radius:999px; padding:4px 12px; font-size:13.5px; font-weight:800; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:#fff; }
+  .pill.fast { background:#DCFCE7; color:#14532D; border-color:#86EFAC; }
+  .pill.forbid { background:#FEE4E2; color:#912018; border-color:#FDA29B; }
+  .pill.occ { background:#FCEFD3; color:#7A5A12; border-color:var(--gold); }
+  .tmr { margin-top:10px; font-size:14px; color:#E2E8F0; position:relative; } .tmr b { color:var(--gold); }
+  .card { background:rgba(255,253,248,.97); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:14px; }
+  h2 { color:var(--navy); font-size:20px; margin:0 0 10px; display:flex; align-items:center; gap:8px; }
+  .mhead { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; }
+  .mhead h2 { margin:0; flex-direction:column; align-items:center; gap:0; text-align:center; flex:1; }
+  .mhead h2 small { font-size:13px; color:var(--brown); font-weight:700; }
+  .nav { width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line); background:#fff; color:var(--navy); font-size:20px; cursor:pointer; font-weight:800; }
+  .grid { display:grid; grid-template-columns:repeat(7, 1fr); gap:5px; }
+  .wd { text-align:center; font-size:13px; font-weight:800; color:var(--brown); padding-bottom:2px; }
+  .cell { position:relative; min-height:58px; border-radius:12px; background:#fff; border:1px solid #EADFC6; cursor:pointer; padding:4px 2px 14px; text-align:center; font:inherit; color:var(--ink); }
+  .cell .hd { font-size:18px; font-weight:900; line-height:1.3; display:block; }
+  .cell .gd { font-size:12px; color:#8A7A55; display:block; line-height:1.2; }
+  .cell .dots { position:absolute; bottom:4px; left:0; right:0; display:flex; gap:3px; justify-content:center; }
+  .cell .dots i { width:7px; height:7px; border-radius:50%; display:block; }
+  .cell.fast { background:#F0FBF4; border-color:#A7E3BC; }
+  .cell.forbid { background:#FFF4F2; border-color:#F9C0B7; }
+  .cell.today { outline:2.5px solid var(--gold); outline-offset:-1px; }
+  .cell.sel { background:var(--navy); border-color:var(--navy); color:#fff; } .cell.sel .gd { color:#C9D3E0; }
+  .cell.empty { visibility:hidden; }
+  .legend { display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:10px; font-size:13px; color:var(--brown); font-weight:700; }
+  .legend span { display:inline-flex; align-items:center; gap:5px; } .legend i { width:9px; height:9px; border-radius:50%; display:inline-block; }
+  .dayinfo { margin-top:12px; border-top:1px dashed var(--line); padding-top:12px; }
+  .dayinfo h3 { margin:0 0 8px; color:var(--navy); font-size:17px; }
+  .ev { border-inline-start:4px solid var(--c-occ); background:var(--cream); border-radius:12px; padding:10px 12px; margin-bottom:10px; }
+  .ev.fast { border-color:var(--c-fast); } .ev.sira { border-color:var(--c-sira); } .ev.khulafa { border-color:var(--c-khulafa); } .ev.forbid { border-color:var(--c-forbid); background:#FFF4F2; }
+  .ev .k { font-size:13px; font-weight:800; color:var(--gold2); }
+  .ev.fast .k { color:var(--c-fast); } .ev.sira .k { color:var(--c-sira); } .ev.khulafa .k { color:var(--c-khulafa); } .ev.forbid .k { color:var(--c-forbid); }
+  .ev h4 { margin:0; font-size:16px; color:var(--ink); }
+  .ev p { margin:4px 0 0; font-size:14.5px; line-height:1.95; }
+  .ev .src { font-size:13px; color:#7A6A45; margin-top:4px; }
+  .ev .src a { color:var(--navy); font-weight:700; text-decoration:none; border-bottom:1px dotted var(--gold2); }
+  .ev a.more { display:inline-block; margin-top:8px; background:var(--navy); color:var(--on-navy,var(--gold)); text-decoration:none; font-weight:800; font-size:13.5px; border-radius:999px; padding:4px 14px; }
+  .ev .when { font-size:13px; color:var(--brown); font-weight:700; }
+  .secnav { position:sticky; top:61px; z-index:20; display:flex; gap:8px; overflow-x:auto; padding:10px 2px; margin:0 -2px 4px; background:linear-gradient(#F6EEE2 80%, rgba(246,238,226,0)); scrollbar-width:none; }
+  .secnav::-webkit-scrollbar { display:none; }
+  .secnav a { flex:0 0 auto; text-decoration:none; font-weight:800; font-size:13.5px; color:var(--navy); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:5px 14px; white-space:nowrap; }
+  .secnav a.on { background:var(--navy); color:var(--on-navy,var(--gold)); border-color:var(--navy); }
+  .card.big { scroll-margin-top:118px; }
+  .shead { display:flex; align-items:center; gap:12px; margin:0 0 12px; padding-bottom:10px; border-bottom:1px dashed var(--line); }
+  .shead .si { flex:0 0 auto; width:40px; height:40px; border-radius:12px; background:var(--navy); color:var(--on-navy,var(--gold)); display:grid; place-items:center; font-weight:900; font-size:19px; }
+  .shead h2 { margin:0; font-size:20px; } .shead small { color:var(--brown); font-size:13px; font-weight:700; line-height:1.6; display:block; }
+  .sub { margin:4px 0 10px; }
+  .sub > summary { cursor:pointer; list-style:none; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:14px; background:var(--cream); border:1px solid #EADFC6; font-weight:800; color:var(--navy); font-size:15.5px; }
+  .sub > summary::-webkit-details-marker { display:none; }
+  .sub > summary .c { margin-inline-start:auto; font-size:13px; color:var(--brown); background:#fff; border-radius:999px; padding:0 10px; border:1px solid #EADFC6; }
+  .sub > summary::after { content:'⌄'; color:var(--gold2); }
+  .sub[open] > summary { background:var(--navy); color:var(--on-navy,var(--gold)); border-color:var(--navy); }
+  .sub[open] > summary::after { content:'⌃'; }
+  .sub > .in { padding:10px 2px 0; }
+  .crumbs { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:14px 0 10px; font-size:14px; font-weight:800; }
+  .crumbs a { color:var(--navy); text-decoration:none; background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:3px 12px; }
+  .crumbs span { color:var(--gold2); }
+  .crumbs b { color:var(--brown); }
+  .tiles { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+  .tile { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:4px; min-height:132px; padding:14px 10px; text-decoration:none; color:var(--navy); background:linear-gradient(160deg,#fff,#FBF6EA); border:1.5px solid var(--line); border-radius:18px; box-shadow:0 4px 12px rgba(120,90,30,.08); position:relative; transition:transform .12s; }
+  .tile:active { transform:scale(.97); }
+  .tile .ic svg.seal { width:42px; height:42px; color:#86661B; display:block; margin:0 auto; }
+  .shead .si svg.seal { width:32px; height:32px; color:var(--gold); }
+  .tile .ic { font-size:32px; line-height:1.2; }
+  .tile b { font-size:15.5px; line-height:1.5; }
+  .tile small { color:var(--brown); font-size:13px; font-weight:700; line-height:1.6; }
+  .tile .cnt { position:absolute; top:8px; left:8px; background:var(--navy); color:var(--on-navy,var(--gold)); border-radius:999px; font-size:13px; font-weight:800; padding:0 9px; }
+  .tiles .tile:last-child:nth-child(odd) { grid-column:1 / -1; }
+  .links .btn { display:flex; align-items:center; justify-content:center; gap:6px; min-height:52px; line-height:1.4; }
+  .chips { display:flex; gap:8px; overflow-x:auto; padding:2px 0 10px; scrollbar-width:none; } .chips::-webkit-scrollbar { display:none; }
+  .chip { flex:0 0 auto; font:inherit; font-weight:800; font-size:13.5px; color:var(--navy); background:#fff; border:1.5px solid var(--line); border-radius:999px; padding:4px 14px; cursor:pointer; }
+  .chip.on { background:var(--navy); color:var(--on-navy,var(--gold)); border-color:var(--navy); }
+  .up { display:flex; gap:12px; align-items:stretch; padding:10px 0; border-bottom:1px dashed #E8DCC0; cursor:pointer; }
+  .up:last-child { border-bottom:0; }
+  .up .dd { flex:0 0 64px; text-align:center; background:var(--navy); color:#fff; border-radius:14px; padding:6px 2px; line-height:1.3; }
+  .up .dd b { display:block; font-size:22px; color:var(--gold); } .up .dd small { font-size:12px; }
+  .up .tt { flex:1; } .up .tt h4 { margin:0; font-size:15.5px; color:var(--navy); } .up .tt div { font-size:13px; color:var(--brown); }
+  .up .left { flex:0 0 auto; align-self:center; font-size:13px; font-weight:800; color:var(--gold2); background:var(--cream); border-radius:999px; padding:2px 10px; }
+  .tl { position:relative; padding-inline-start:22px; }
+  .tl::before { content:''; position:absolute; inset-block:6px; inset-inline-start:7px; width:2px; background:linear-gradient(var(--gold), var(--line)); }
+  .yr { position:relative; margin:16px 0 8px; font-weight:900; color:var(--gold2); font-size:16px; }
+  .yr::before { content:''; position:absolute; inset-inline-start:-20px; top:9px; width:12px; height:12px; border-radius:50%; background:var(--gold); border:2px solid #fff; box-shadow:0 0 0 1.5px var(--gold); }
+  details.fq { border:1px solid var(--line); border-radius:14px; background:#fff; margin-bottom:10px; overflow:hidden; }
+  details.fq summary { cursor:pointer; padding:12px 14px; font-weight:800; color:var(--navy); list-style:none; display:flex; align-items:center; gap:8px; }
+  details.fq summary::-webkit-details-marker { display:none; }
+  details.fq summary::after { content:'⌄'; margin-inline-start:auto; color:var(--gold2); }
+  details.fq[open] summary::after { content:'⌃'; }
+  details.fq .b { padding:0 14px 12px; font-size:14.5px; line-height:1.95; }
+  details.fq .b .src { font-size:13px; color:#7A6A45; } details.fq .b .src a { color:var(--navy); font-weight:700; text-decoration:none; border-bottom:1px dotted var(--gold2); }
+  .note { background:#FFF7E6; color:#7A5A12; border:1px solid #F3D37A; border-radius:14px; padding:10px 14px; font-size:13.5px; }
+  .links { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .btn { display:block; font:inherit; font-weight:800; cursor:pointer; text-decoration:none; text-align:center; background:var(--navy); color:var(--on-navy,var(--gold)); border:0; border-radius:999px; padding:10px 14px; }
+  .btn.ghost { background:#fff; color:var(--navy); border:1.5px solid var(--navy); }
+  footer { text-align:center; color:var(--brown); font-size:13px; padding:20px 14px 40px; } footer a { color:var(--navy); font-weight:700; }
+  @media (max-width:420px) { .cell { min-height:52px; } .cell .hd { font-size:16px; } .hero h1 { font-size:25px; } }
+.mk-subnav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px 12px 0}.mk-subnav a{font:800 13.5px Cairo,Tahoma,sans-serif;text-decoration:none;color:#5E6B2E;background:#FFF8E8;border:1.5px solid #C9A45C;border-radius:999px;padding:5px 14px}
+.mk-brand{display:flex;align-items:center;gap:8px;color:#C9A45C;text-decoration:none;font-weight:800}.mk-brand img{width:40px;height:40px;border-radius:50%;border:2px solid #C9A45C}
+</style>
+<script src="https://maimoonah.com/js/night.js?v=1"></script>
+<script src="https://maimoonah.com/js/protect.js?v=3" defer></script>
+<script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
+<script src="https://maimoonah.com/js/items.js"></script>
+<script src="https://maimoonah.com/js/app.js"></script>
+<script src="https://maimoonah.com/js/dailypick.js"></script>
+<script src="https://maimoonah.com/js/daily.js?v=20261101e" defer></script>
+<script src="https://maimoonah.com/js/bookalerts.js" defer></script>
+<script src="mk-common.js?v=0095ed08"></script>
+<style id="mkTheme">/* ===== ثيم مكين (اقتراح جيميناي): كريمي رخامي + طوبي + زيتوني + بني — يبقى الهيدر والشريط العلوي والصورة الاستفتاحية والتعريف كما هي ===== */
+:root{--g-terra:#B5654A;--g-terra2:#C97B5E;--g-olive:#5E6B2E;--g-olive2:#6E7C37;--g-brown:#3B2A20;--g-brown2:#5A4636;--g-gold:#C9A45C;--g-cream:#F6EFE2;--g-card:#FFFDF8;--g-line:#E4CDB9}
+body{background-color:var(--g-cream)}
+.container .section-title,.container h2:not(.mk-keep){color:var(--g-brown)!important}
+.container .section-title::after{background:var(--g-gold)!important}
+.container .section-subtitle,.container p{color:var(--g-brown2)}
+/* الزخرفة: خطوط ذهبية بنجمتين حول العناوين والشارات */
+.g-orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px auto 14px;max-width:620px}
+.g-orn::before,.g-orn::after{content:"";flex:1;height:1.5px;background:linear-gradient(90deg,transparent,var(--g-gold))}
+.g-orn::after{background:linear-gradient(270deg,transparent,var(--g-gold))}
+.g-orn i{font-style:normal;color:var(--g-gold);font-size:20px;line-height:1}
+.g-badge{display:inline-block;background:var(--g-olive);color:#FFF8E8;font-weight:900;font-size:18px;padding:7px 30px;clip-path:polygon(14% 0,86% 0,100% 50%,86% 100%,14% 100%,0 50%);box-shadow:0 0 0 2px var(--g-gold);filter:drop-shadow(0 0 0 var(--g-gold))}
+/* لوحة «جديد» */
+.mn-board{border-block:0!important;background:transparent!important}
+.mn-board::before,.mn-board::after{display:none!important}
+.mn-board .mnb-head{position:relative;display:block!important;width:fit-content;margin:4px auto 16px!important;background:var(--g-olive);color:#FFF8E8!important;font-weight:900;font-size:18px!important;padding:7px 32px!important;clip-path:none;border-radius:0;--cut:14px;mask:none;box-shadow:0 0 0 2px var(--g-gold);clip-path:polygon(var(--cut) 0,calc(100% - var(--cut)) 0,100% 50%,calc(100% - var(--cut)) 100%,var(--cut) 100%,0 50%)}
+.mn-board .mnb-head .mnb-dot{display:none!important}
+.mn-board .mnb-wrapH{position:relative}
+.mn-board{position:relative}
+.mn-board .g-line{position:absolute;top:22px;inset-inline:16px;height:20px;display:flex;justify-content:space-between;align-items:center;pointer-events:none;color:var(--g-gold);font-size:20px;background:linear-gradient(90deg,transparent,var(--g-gold) 12%,transparent 38%,transparent 62%,var(--g-gold) 88%,transparent) center/100% 1.5px no-repeat}
+.mn-board .mnb-card{background:var(--g-card)!important;border:1.5px solid var(--g-terra2)!important;border-radius:20px!important;box-shadow:0 10px 24px rgba(91,60,40,.10)!important}
+.mn-board .mnb-card b,.mn-board .mnb-card .mnb-txt b{color:var(--g-brown)!important}
+.mn-board [class*="tag"],.mn-board .mnb-card em,.mn-board .mnb-card .badge{background:var(--g-olive)!important;color:#FFF8E8!important}
+/* بطاقة «الدراسة مع شركة مكين» */
+.mk-study{background:linear-gradient(160deg,#F7EBD6,#F0DFC3)!important;color:var(--g-brown)!important;border:0!important;box-shadow:0 14px 30px rgba(91,60,40,.14)!important;text-align:start!important}
+.mk-study .mk-study-tag{background:var(--g-olive)!important;color:#FFF8E8!important}
+.mk-study h2{color:var(--g-brown)!important}
+.mk-study p{color:var(--g-brown2)!important}
+.mk-study .mk-study-btn{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;box-shadow:0 10px 20px rgba(181,101,74,.35)!important;border:0!important}
+/* البطاقات العامة */
+.about-makeen-card,.feature-card,.teacher-card,.mk-ad,.mn-soon .mnb-card{background:var(--g-card)!important;border:1.5px solid var(--g-line)!important;border-radius:22px!important;box-shadow:0 8px 22px rgba(91,60,40,.08)!important}
+.teacher-card.head-teacher{border-color:var(--g-terra2)!important}
+.feature-card .feature-icon{color:var(--g-terra)!important}
+.feature-card h3,.teacher-card h3,.teacher-card h3 a,.about-makeen-card h2,.about-makeen-card h3,.mk-ad b{color:var(--g-brown)!important}
+.teacher-title{color:var(--g-terra)!important}
+.head-badge{background:var(--g-olive)!important;color:#FFF8E8!important}
+.mk-ad .ic{background:var(--g-olive)!important;color:#FFF8E8!important}
+.mk-ad em{color:var(--g-terra)!important}
+/* الأزرار */
+.btn-view-profile{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;border:0!important;border-radius:999px!important;box-shadow:0 8px 16px rgba(181,101,74,.25)!important}
+.btn-view-profile.btn-view-bio{background:transparent!important;color:var(--g-terra)!important;border:1.5px solid var(--g-terra)!important;box-shadow:none!important}
+/* منظومة البرامج */
+.programs-summary-box{background:linear-gradient(160deg,#F7EBD6,#F0DFC3)!important;border:1.5px solid var(--g-gold)!important;border-radius:24px!important;color:var(--g-brown)!important}
+.programs-summary-box h2,.programs-summary-box h3{color:var(--g-brown)!important}
+.programs-summary-box p{color:var(--g-brown2)!important}
+.programs-summary-box .tag-item{background:var(--g-card)!important;color:var(--g-olive)!important;border:1.5px solid var(--g-olive2)!important}
+.programs-summary-box a.btn-gold,.programs-summary-box .btn-gold,.programs-summary-box a[class*="btn"]{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;border-radius:999px!important}
+/* زر المحادثة لا يغطي الأزرار */
+.mc-fab{width:50px!important;height:50px!important;bottom:86px!important}
+.mn-board .mnb-card .tg{background:var(--g-olive)!important;color:#FFF8E8!important}
+.mn-soon .mnb-card small,.mn-soon .mnb-card .tx small{color:#B5654A!important;font-weight:800}
+/* ===== الواجهة الأولى: مسافات أوسع وزخرفة وتنظيم ===== */
+.company-hero{padding:56px 6% 64px!important;gap:0;margin-bottom:0}
+.company-hero .main-hero-logo{width:118px!important;height:118px!important;margin:0 0 6px!important;box-shadow:0 0 0 6px rgba(243,211,122,.14),0 0 0 12px rgba(243,211,122,.06),0 14px 30px rgba(0,0,0,.45)!important}
+.company-hero .h-orn{display:flex;align-items:center;justify-content:center;gap:10px;width:min(320px,80%);margin:18px auto 16px;color:#F3D37A;font-size:16px}
+.company-hero .h-orn::before,.company-hero .h-orn::after{content:"";flex:1;height:1.5px;background:linear-gradient(90deg,transparent,#F3D37A)}
+.company-hero .h-orn::after{background:linear-gradient(270deg,transparent,#F3D37A)}
+.company-hero h1{font-size:clamp(24px,6.4vw,34px)!important;line-height:1.55!important;margin:0 0 4px!important;letter-spacing:.2px;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.company-hero .h-kicker{display:inline-block;margin:0 0 4px;background:rgba(243,211,122,.14);border:1px solid rgba(243,211,122,.5);color:#F3D37A;font-weight:800;font-size:13px;border-radius:999px;padding:4px 14px}
+.company-hero p{max-width:620px!important;font-size:clamp(14.5px,3.9vw,16.5px)!important;line-height:2.15!important;background:rgba(11,30,54,.42);border:1px solid rgba(243,211,122,.22);border-radius:20px;padding:16px 18px!important;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.company-hero .h-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}
+.company-hero .h-cta a{display:inline-flex;align-items:center;justify-content:center;min-width:170px;padding:12px 22px;border-radius:999px;font-weight:900;font-size:15px;text-decoration:none}
+.company-hero .h-cta .p{background:linear-gradient(180deg,#C97B5E,#B5654A);color:#fff;box-shadow:0 10px 22px rgba(0,0,0,.3)}
+.company-hero .h-cta .s{background:transparent;color:#F3D37A;border:1.5px solid #F3D37A}
+.mn-board{margin-top:46px!important}
+/* ===== الثيم على كل صفحات مكين (الهيدر والتذييل يبقيان كحليين) ===== */
+h1.section-title,h2.section-title,.section-title,.page-title{color:var(--g-brown)!important}
+.btn-gold,a.btn-gold,button.btn-gold,.btn-option,.btn-table-action,.mk-nosub .btn-gold{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;border:0!important;border-radius:999px!important;box-shadow:0 8px 18px rgba(181,101,74,.28)!important}
+.btn-option{border-radius:14px!important}
+.tab-btn{border-radius:999px!important;border:1.5px solid var(--g-olive2)!important;background:var(--g-card)!important;color:var(--g-olive)!important;font-weight:900!important}
+.tab-btn.active{background:var(--g-olive)!important;color:#FFF8E8!important;box-shadow:0 0 0 2px var(--g-gold)!important}
+.service-card{background:var(--g-card)!important;border-color:var(--g-line)!important}
+.service-card .service-number{background:var(--g-olive)!important;color:#FFF8E8!important}
+.service-card h4{color:var(--g-brown)!important}
+.service-card .sc-tags span{background:#F3EEDC!important;color:var(--g-olive)!important;border-color:#D9D2B0!important}
+.service-card .sc-more{color:var(--g-terra)!important}
+.service-card.lit{border-color:#E0B44C!important;box-shadow:0 0 0 3px rgba(224,180,76,.55),0 0 28px rgba(224,180,76,.75)!important;background:linear-gradient(180deg,#FFFBEF,#FCEFCB)!important}
+.prog-page{background:var(--g-cream)!important}
+.pp-hero{background:linear-gradient(160deg,#F7EBD6,#F0DFC3)!important;color:var(--g-brown)!important;border:1.5px solid var(--g-gold)!important;box-shadow:0 14px 30px rgba(91,60,40,.14)!important}
+.pp-hero h1{color:var(--g-brown)!important}.pp-hero p{color:var(--g-brown2)!important}
+.pp-hero .sc-tags span{background:var(--g-olive)!important;color:#FFF8E8!important;border-color:var(--g-olive)!important}
+.pp-sec{background:var(--g-card)!important;border-color:var(--g-line)!important}
+.pp-sec h2{color:var(--g-brown)!important}.pp-sec ul,.pp-sec p{color:var(--g-brown2)!important}
+.pp-pk div{background:#FFFCF4!important;border-color:var(--g-line)!important}.pp-pk div.gold{background:#F7EBD6!important;border-color:var(--g-terra2)!important}.pp-pk b{color:var(--g-brown)!important}
+.pp-rev{border-inline-start-color:var(--g-terra)!important}.pp-rev b{color:var(--g-brown)!important}
+.modal-content{background:var(--g-card)!important;border-radius:22px!important}
+.modal-content h2,.modal-content h3{color:var(--g-brown)!important}
+.pricing-table th{background:var(--g-olive)!important;color:#FFF8E8!important}
+.form-group input,.form-group select,.form-group textarea,input.form-control,select.form-control,textarea.form-control{border-color:var(--g-line)!important;border-radius:12px!important}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--g-terra)!important;box-shadow:0 0 0 3px rgba(181,101,74,.15)!important}
+.mk-intro,.mk-nosub{background:var(--g-card)!important;border-color:var(--g-line)!important}
+.mk-intro p,.mk-nosub p{color:var(--g-brown)!important}
+/* صفحات أخرى: الانضمام والتواصل ولوحة الطالب */
+.mk-h1,.mk-wrap h1,.mk-wrap h2,.mk-box h3{color:var(--g-brown)!important}
+.mk-btn{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;border:0!important;border-radius:999px!important}
+.mk-btn.ghost{background:transparent!important;color:var(--g-terra)!important;border:1.5px solid var(--g-terra)!important}
+.mk-share{background:var(--g-card)!important;color:var(--g-olive)!important;border:1.5px solid var(--g-olive2)!important}
+.mk-step.on b,.mk-step.on span,.mk-step.cur b,.mk-step.active b{background:var(--g-olive)!important;color:#FFF8E8!important;border-color:var(--g-olive)!important}
+.mk-pill.on,.mk-pill.sel,.mk-pill[aria-pressed="true"]{background:var(--g-olive)!important;color:#FFF8E8!important;border-color:var(--g-olive)!important}
+.mk-box,.mk-note{background:var(--g-card)!important;border-color:var(--g-line)!important}
+.main{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;border-color:var(--g-terra)!important;color:#fff!important}
+.mk-steps li.on{color:var(--g-brown)!important}
+.mk-steps li.on::before{background:var(--g-olive)!important;border-color:var(--g-olive)!important;color:#FFF8E8!important}
+.mk-steps li.done::before{background:var(--g-gold)!important;border-color:var(--g-gold)!important;color:#fff!important}
+/* الشريط العلوي: نفس ذهبي القائمة الجانبية (#C9A45C) */
+.mk-top{--gold:#C9A45C;--gold2:#B8935A;border-bottom-color:#C9A45C!important}
+.mk-top .mk-brand,.mk-top .mk-brand span{color:#C9A45C!important}
+.mk-top .mk-brand img,.header-logo,.mini-header-logo{border-color:#C9A45C!important;box-shadow:0 0 0 3px rgba(201,164,92,.18)}
+.mk-menu-btn{border-color:#C9A45C!important;color:#C9A45C!important}
+.mk-hflag .fl,.mn-flag{border-color:#C9A45C!important}
+.mk-top nav a{border-color:rgba(201,164,92,.5)!important}.mk-top nav a.on{background:#C9A45C!important}
+.mn-ticker{border-bottom-color:rgba(201,164,92,.6)!important}
+.mn-ticker .lbl{background:#C9A45C!important;color:#12355B!important}
+.mn-ticker .dots i.on{background:#C9A45C!important}
+body>header{border-bottom-color:#C9A45C!important;color:#C9A45C!important}
+body>header .brand-logo-text,body>header .brand-logo-text span,body>header .mk-two{color:#C9A45C!important}
+body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .brand img{border-color:#C9A45C!important}
+/* مسافة ~١.٥ سم بين الشريط العلوي/شريط الإعلانات وصورة الرئيسية، وتظليل أزرق أخف */
+.company-hero{margin-top:56px!important;border-radius:0;background:linear-gradient(90deg,rgba(18,53,91,0) 30%,rgba(18,53,91,.32) 50%,rgba(18,53,91,0) 70%),linear-gradient(135deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.38) 100%),url('assets/hero-boy.jpg') right 70%/50% 100% no-repeat,url('assets/hero-girl.jpg') left 70%/50% 100% no-repeat,#12355B!important}
+@media (max-width:760px){.company-hero{background:linear-gradient(180deg,rgba(18,53,91,0) 24%,rgba(18,53,91,.5) 50%,rgba(18,53,91,0) 76%),linear-gradient(180deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.4) 100%),url('assets/hero-boy.jpg') 78% top/auto 50% no-repeat,url('assets/hero-girl.jpg') 78% bottom/auto 50% no-repeat,#12355B!important}}
+.company-hero h1,.company-hero .h-kicker{text-shadow:0 2px 12px rgba(0,0,0,.6),0 0 2px rgba(0,0,0,.5)}
+</style>
+</head>
+<body data-daily-popup data-app-bar>
+<header class="mk-top"><a class="mk-brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>شركة مكين</span></a><button type="button" class="mk-menu-btn" onclick="mkOpenDrawer()" aria-label="القائمة"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></header>
+<nav class="mk-subnav"><a href="today.html">🕌 مواقيت الصلاة</a><a href="adhkar.html">📿 الأذكار والرقية</a></nav>
+<main>
+  <section class="hero" id="hero"></section>
+
+  <nav class="crumbs" id="crumbs" hidden></nav>
+
+  <section class="card big" id="sec-month">
+    <div class="shead"><span class="si">📅</span><div><h2>التقويم الشهري</h2><small>اضغط/ي أي يوم لترى ما فيه من صيام أو مناسبة</small></div></div>
+    <div class="mhead">
+      <button class="nav" id="prevM" type="button" aria-label="الشهر السابق">›</button>
+      <h2 id="mTitle"></h2>
+      <button class="nav" id="nextM" type="button" aria-label="الشهر التالي">‹</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="legend">
+      <span><i style="background:var(--c-fast)"></i>صيام مسنون</span>
+      <span><i style="background:var(--c-forbid)"></i>لا يُصام</span>
+      <span><i style="background:var(--c-occ)"></i>مناسبة</span>
+      <span><i style="background:var(--c-sira)"></i>السيرة النبوية</span>
+      <span><i style="background:var(--c-khulafa)"></i>الخلفاء الراشدون</span>
+    </div>
+    <div class="dayinfo" id="dayInfo"></div>
+    <div id="monthInfo"></div>
+  </section>
+
+  <section class="card" id="homeTiles">
+    <div class="shead"><span class="si">☰</span><div><h2>أقسام التقويم الإسلامي</h2><small>اختر/ي قسمًا لتفتح صفحته وفروعه</small></div></div>
+    <div class="tiles" id="secTiles"></div>
+  </section>
+
+  <section class="card big" id="sec-up" hidden>
+    <div class="chips" id="chips"></div>
+    <div id="upList"></div>
+  </section>
+
+  <section class="card big" id="view" hidden>
+    <div class="shead" id="vHead"></div>
+    <div id="vBody"></div>
+  </section>
+
+  <section class="card">
+    <div class="links">
+      <a class="btn" href="adhkar.html">📿 الأذكار والرقية</a>
+      <a class="btn ghost" href="today.html#notif">🔔 تفعيل التذكيرات</a>
+    </div>
+  </section>
+  <p class="note">التاريخ الهجري هنا حسب تقويم أم القرى، وقد يختلف يومًا بحسب رؤية الهلال في بلدك؛ فالعبرة في الصيام والأعياد بإعلان بلدك. وتواريخ أحداث السيرة على ما رواه أهل السير، وما اختلفوا فيه ذكرنا الخلاف، وما لم يُروَ له يوم محدد ذكرناه بشهره أو سنته فقط.</p>
+</main>
+<footer>شركة مكين للاستشارات والتدريب والتعليم · <a href="index.html">الرئيسية</a> · <a href="adhkar.html">الأذكار</a></footer>
+<script src="https://maimoonah.com/js/islamic.js?v=8"></script>
+<script>
+(function () {
+  var I = window.MNIslamic, AR = I.toAr, $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var GM = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  var noon = function (d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12); };
+  var TODAY = noon(new Date()), DAY = 86400000;
+  var gLabel = function (d) { return AR(d.getDate()) + ' ' + GM[d.getMonth()] + ' ' + AR(d.getFullYear()) + 'م'; };
+  var srcHtml = function (src) { return src && src.length ? '<div class="src">المصدر: ' + src.map(function (x) { return '<a href="' + x[1] + '" target="_blank" rel="noopener">' + esc(x[0]) + '</a>'; }).join('، ') + '</div>' : ''; };
+  var kindOf = function (o) { return o.k === 'fast' ? 'fast' : o.k; };
+  var yearTxt = function (o) { return o.y ? 'سنة ' + AR(o.y) + 'هـ' : ''; };
+  function more(o) { return o.id ? '<a class="more" href="event.html?id=' + o.id + '">📜 اقرأ التفاصيل ←</a>' : ''; }
+  function evHtml(o) {
+    var f = o.k === 'fast' && I.FAST_BY[o.f];
+    return '<div class="ev ' + kindOf(o) + '"><div class="k">' + I.KINDS[o.k] + (o.y ? ' · ' + yearTxt(o) : '') + '</div><h4>' + esc(o.t) + '</h4><p>' + esc(o.info) + '</p>' + srcHtml(o.src || (f && f.src)) + more(o) + '</div>';
+  }
+  function fastHtml(x) {
+    var f = I.FAST_BY[x.id];
+    return '<div class="ev fast"><div class="k">صيام</div><h4>' + esc(x.t) + '</h4>' + (f ? '<p>' + esc(f.info) + '</p>' + srcHtml(f.src) : '') + '</div>';
+  }
+  function forbidHtml(t) { return '<div class="ev forbid"><div class="k">لا يُصام</div><h4>' + esc(t) + '</h4>' + srcHtml(I.FAST_BY.forbid.src) + '</div>'; }
+
+  // ===== البطاقة العلوية =====
+  (function hero() {
+    var x = I.day(TODAY), tm = I.day(new Date(TODAY.getTime() + DAY));
+    var p = [];
+    if (x.forbid) p.push('<span class="pill forbid">⛔ ' + esc(x.forbid) + '</span>');
+    x.fasts.filter(function (f) { return f.strong; }).forEach(function (f) { p.push('<span class="pill fast">🌙 ' + esc(f.t) + '</span>'); });
+    x.occ.forEach(function (o) { p.push('<span class="pill occ">' + (o.k === 'occ' ? '📅 ' : '📜 ') + esc(o.t) + '</span>'); });
+    if (!p.length) p.push('<span class="pill">' + I.WD[x.wd] + '</span>');
+    var tf = tm.fasts.filter(function (f) { return f.strong; });
+    var tt = tm.forbid ? '⛔ ' + tm.forbid : tf.length ? '🌙 ' + tf.map(function (f) { return f.t; }).join('، ') : tm.occ.length ? tm.occ[0].t : '';
+    $('hero').innerHTML = '<small>اليوم ' + I.WD[x.wd] + '</small><h1>' + I.hijriLabel(x.h) + '</h1><div class="greg">' + gLabel(TODAY) + '</div><div class="pills">' + p.join('') + '</div>' + (tt ? '<div class="tmr"><b>غدًا:</b> ' + esc(tt) + '</div>' : '');
+  })();
+
+  // ===== الشهر =====
+  var anchor = TODAY, sel = TODAY;
+  var qd = (location.search.match(/[?&]d=(\d{4}-\d{2}-\d{2})/) || [])[1];
+  if (qd) { var a = qd.split('-').map(Number); sel = anchor = new Date(a[0], a[1] - 1, a[2], 12); }
+  function dots(x) {
+    var c = [];
+    if (x.forbid) c.push('var(--c-forbid)'); else if (x.hasFast) c.push('var(--c-fast)');
+    x.occ.forEach(function (o) { var v = o.k === 'occ' ? 'var(--c-occ)' : o.k === 'sira' ? 'var(--c-sira)' : o.k === 'khulafa' ? 'var(--c-khulafa)' : 'var(--c-fast)'; if (c.indexOf(v) < 0) c.push(v); });
+    return c.slice(0, 4).map(function (v) { return '<i style="background:' + v + '"></i>'; }).join('');
+  }
+  function renderMonth() {
+    var days = I.monthDays(anchor), h0 = I.hijri(days[0]), last = days[days.length - 1];
+    $('mTitle').innerHTML = I.MONTHS[h0.m - 1] + ' ' + AR(h0.y) + 'هـ<small>' + GM[days[0].getMonth()] + (days[0].getMonth() !== last.getMonth() ? ' – ' + GM[last.getMonth()] : '') + ' ' + AR(last.getFullYear()) + 'م</small>';
+    var g = I.WD.map(function (w) { return '<div class="wd">' + w.replace('ال', '') + '</div>'; }).join('');
+    for (var i = 0; i < days[0].getDay(); i++) g += '<div class="cell empty"></div>';
+    days.forEach(function (d, i) {
+      var x = I.day(d), cls = 'cell' + (x.forbid ? ' forbid' : x.hasFast ? ' fast' : '') + (+d === +TODAY ? ' today' : '') + (+d === +sel ? ' sel' : '');
+      g += '<button type="button" class="' + cls + '" data-t="' + d.getTime() + '"><span class="hd">' + AR(x.h.d) + '</span><span class="gd">' + AR(d.getDate()) + (d.getDate() === 1 || i === 0 ? ' ' + GM[d.getMonth()].slice(0, 3) : '') + '</span><span class="dots">' + dots(x) + '</span></button>';
+    });
+    $('grid').innerHTML = g;
+    // ما في الشهر بلا يوم محدد، ومواسم الشهر
+    var mon = I.OCC.filter(function (o) { return o.m === h0.m && (o.d == null || (o.k === 'fast' && o.d2 && o.d2 - o.d > 10)); });
+    if (h0.m === 7 || h0.m === 11 || h0.m === 12 || h0.m === 1) mon.unshift({ k: 'occ', t: 'من الأشهر الحرم', info: I.FAST_BY.haram.info, src: I.FAST_BY.haram.src });
+    $('monthInfo').innerHTML = mon.length ? '<div class="dayinfo"><h3>وفي شهر ' + I.MONTHS[h0.m - 1] + '</h3>' + mon.map(evHtml).join('') + '</div>' : '';
+    renderDay();
+  }
+  function renderDay() {
+    var x = I.day(sel), h = '<h3>' + I.WD[x.wd] + ' ' + I.hijriLabel(x.h) + ' <span style="font-weight:600;color:var(--brown);font-size:13.5px">· ' + gLabel(sel) + '</span></h3>';
+    var body = '';
+    if (x.forbid) body += forbidHtml(x.forbid);
+    x.fasts.forEach(function (f) { body += fastHtml(f); });
+    x.occ.forEach(function (o) { body += evHtml(o); });
+    $('dayInfo').innerHTML = h + (body || '<p style="margin:0;color:var(--brown)">لا مناسبة خاصة في هذا اليوم، و«أحب الأعمال إلى الله أدومها وإن قل».</p>');
+  }
+  $('grid').addEventListener('click', function (e) { var b = e.target.closest('.cell'); if (!b || !b.dataset.t) return; sel = new Date(+b.dataset.t); renderMonth(); $('dayInfo').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
+  $('prevM').onclick = function () { var d = I.monthDays(anchor)[0]; anchor = new Date(d.getTime() - 3 * DAY); sel = I.monthDays(anchor)[0]; renderMonth(); };
+  $('nextM').onclick = function () { var ds = I.monthDays(anchor); anchor = new Date(ds[ds.length - 1].getTime() + 3 * DAY); sel = I.monthDays(anchor)[0]; renderMonth(); };
+  renderMonth();
+
+  // ===== القادم =====
+  var filt = 'all';
+  var CH = [['all', 'الكل'], ['fast', 'الصيام'], ['occ', 'المناسبات'], ['sira', 'السيرة'], ['khulafa', 'الخلفاء الراشدون']];
+  $('chips').innerHTML = CH.map(function (c) { return '<button type="button" class="chip' + (c[0] === 'all' ? ' on' : '') + '" data-k="' + c[0] + '">' + c[1] + '</button>'; }).join('');
+  $('chips').onclick = function (e) { var b = e.target.closest('.chip'); if (!b) return; filt = b.dataset.k; [].forEach.call($('chips').children, function (c) { c.classList.toggle('on', c === b); }); renderUp(); };
+  var UP = I.upcoming(TODAY, 365);
+  function renderUp() {
+    var rows = [], seenWhite = {};
+    UP.forEach(function (u) {
+      var x = u.info, left = Math.round((u.date - TODAY) / DAY), items = [];
+      if (x.forbid) items.push({ k: 'fast', t: x.forbid, cls: 'forbid' });
+      x.fasts.forEach(function (f) {
+        if (!f.strong || f.id === 'monthu') return;
+        if (f.id === 'ramadan') { if (x.h.d === 1) items.push({ k: 'fast', t: 'بداية شهر رمضان' }); return; }
+        if (f.id === 'white') { var key = x.h.y + '-' + x.h.m; if (seenWhite[key]) return; seenWhite[key] = 1; items.push({ k: 'fast', t: 'الأيام البيض (١٣ و١٤ و١٥)' }); return; }
+        items.push({ k: 'fast', t: f.t });
+      });
+      x.occ.forEach(function (o) { if (o.d2 && o.d !== x.h.d) return; items.push({ k: o.k, t: o.t + (o.y ? ' (' + yearTxt(o) + ')' : '') }); });
+      items.filter(function (it) { return filt === 'all' || it.k === filt; }).forEach(function (it) { rows.push({ d: u.date, x: x, left: left, it: it }); });
+    });
+    $('upList').innerHTML = rows.slice(0, 40).map(function (r) {
+      return '<div class="up" data-t="' + r.d.getTime() + '"><div class="dd"><b>' + AR(r.x.h.d) + '</b><small>' + I.MONTHS[r.x.h.m - 1] + '</small></div><div class="tt"><h4 style="color:' + (r.it.cls === 'forbid' ? 'var(--c-forbid)' : 'var(--c-' + r.it.k + ')') + '">' + esc(r.it.t) + '</h4><div>' + I.WD[r.x.wd] + ' · ' + gLabel(r.d) + '</div></div><span class="left">' + (r.left === 0 ? 'اليوم' : r.left === 1 ? 'غدًا' : 'بعد ' + AR(r.left) + ' يومًا') + '</span></div>';
+    }).join('') || '<p class="muted">لا شيء في الأشهر القادمة.</p>';
+  }
+  $('upList').onclick = function (e) { var r = e.target.closest('.up'); if (!r) return; var d = new Date(+r.dataset.t); location.href = 'calendar.html?d=' + d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  renderUp();
+
+  // ===== الأقسام والفروع: كل قسم وكل فرع في صفحة مستقلة =====
+  var dateTxt = function (o) { return o.m ? (o.d ? AR(o.d) + (o.d2 && o.d2 !== o.d ? '–' + AR(o.d2) : '') + ' ' : '') + I.MONTHS[o.m - 1] + (o.y ? ' ' + AR(o.y) + 'هـ' : '') : 'بلا تاريخ محدد'; };
+  var card = function (o) { return '<div class="ev ' + kindOf(o) + '"><div class="when">' + dateTxt(o) + '</div><h4>' + esc(o.t) + '</h4><p>' + esc(o.info) + '</p>' + srcHtml(o.src || (o.f && I.FAST_BY[o.f] && I.FAST_BY[o.f].src)) + more(o) + '</div>'; };
+  var fcard = function (f) { return '<div class="ev ' + (f.id === 'forbid' ? 'forbid' : 'fast') + '"><h4>' + (f.id === 'forbid' ? '⛔ ' : '🌙 ') + esc(f.t) + '</h4><p>' + esc(f.info) + '</p>' + srcHtml(f.src) + '</div>'; };
+  var yk = function (o) { return o.y || (o.k === 'sira' && /غزوة/.test(o.t) ? 99 : 0); };
+  var byDate = function (a, b) { return yk(a) - yk(b) || (a.m || 0) - (b.m || 0) || (a.d || 0) - (b.d || 0); };
+  var fastsOf = function (ids) { return I.FASTS.filter(function (f) { return ids.indexOf(f.id) > -1; }).map(fcard); };
+  var OC = I.OCC.filter(function (o) { return o.k === 'occ' || o.f === 'arafah'; }).sort(byDate);
+  var isEid = function (o) { return /عيد|التشريق/.test(o.t); };
+  var SI = I.OCC.filter(function (o) { return o.k === 'sira'; }).concat(I.INFO.filter(function (o) { return o.k === 'sira'; })).sort(byDate);
+  var grp = function (o) { return /سرية/.test(o.t) ? 'saraya' : /غزوة|فتح مكة/.test(o.t) ? 'ghazawat' : /زواج|خديجة|أولاد|إبراهيم|السنة الثانية/.test(o.t) ? 'family' : /مولد النبي|وصول|وفاة النبي/.test(o.t) ? 'hayat' : 'ahdath'; };
+  var KH = I.OCC.filter(function (o) { return o.k === 'khulafa'; }).concat(I.INFO.filter(function (o) { return o.k === 'khulafa'; })).sort(byDate);
+  var kg = function (o) { return /القادسية|نهاوند/.test(o.t) ? 'iraq' : /مصر/.test(o.t) ? 'egypt' : 'sham'; };
+  var siraOf = function (g) { return SI.filter(function (o) { return grp(o) === g; }).map(card); };
+  var khOf = function (g) { return KH.filter(function (o) { return kg(o) === g; }).map(card); };
+  var RAJAB = '<p class="note" style="margin:6px 0 0">أما رجب فهو من الأشهر الحرم، ولم نجد في صيامه على الخصوص حديثًا صحيحًا، فيُصام فيه ما يُصام في غيره من الاثنين والخميس والأيام البيض.</p>';
+  // خاتم النبوة: «محمد رسول الله» ثلاثة أسطر داخل دائرة، يُرسم بلون النص المحيط
+  var SEAL = '<svg class="seal" viewBox="0 0 64 64" aria-label="خاتم النبوة" role="img"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="32" r="24.5" fill="none" stroke="currentColor" stroke-width="1"/><g fill="currentColor" font-family="Amiri, serif" font-weight="700" text-anchor="middle"><text x="32" y="23" font-size="11">الله</text><text x="32" y="36" font-size="11">رسول</text><text x="32" y="49" font-size="11">محمد</text></g></svg>';
+  var SECS = [
+    { id: 'up', ic: '⏳', t: 'القادم من المناسبات', d: 'ما يأتي خلال العام مرتبًا بالأقرب' },
+    { id: 'fast', ic: '🌙', t: 'الصيام المسنون', d: 'الفريضة والتطوع والمواسم والأيام التي لا تُصام', br: [
+      { id: 'fard', ic: '🌙', t: 'صيام الفريضة', it: fastsOf(['ramadan']) },
+      { id: 'tatawwu', ic: '🔁', t: 'صيام التطوع المتكرر', d: 'الاثنين والخميس والأيام البيض', it: fastsOf(['monthu', 'white']) },
+      { id: 'mawasim', ic: '✨', t: 'مواسم الصيام في العام', d: 'عرفة وعاشوراء والمحرم وشوال وشعبان', it: fastsOf(['arafah', 'muharram', 'shawwal', 'shaban']) },
+      { id: 'haram', ic: '🕋', t: 'الأشهر الحرم', it: fastsOf(['haram']), tail: RAJAB },
+      { id: 'forbid', ic: '⛔', t: 'أيام لا تُصام', d: 'العيدان وأيام التشريق', it: fastsOf(['forbid']) }] },
+    { id: 'occ', ic: '🎉', t: 'الأعياد والمواسم', d: 'العيدان وأيام التشريق والأيام الفاضلة', br: [
+      { id: 'eid', ic: '🎉', t: 'العيدان وأيام التشريق', it: OC.filter(isEid).map(card) },
+      { id: 'fadl', ic: '✨', t: 'المواسم والأيام الفاضلة', d: 'رأس السنة والأشهر الحرم والعشر وعرفة', it: OC.filter(function (o) { return !isEid(o); }).map(card) }] },
+    { id: 'sira', ic: SEAL, t: 'السيرة النبوية', d: 'حياته ﷺ والغزوات والسرايا وأمهات المؤمنين', br: [
+      { id: 'hayat', ic: SEAL, t: 'من حياة النبي ﷺ', d: 'المولد والهجرة والوفاة', it: siraOf('hayat') },
+      { id: 'ghazawat', ic: SEAL, t: 'الغزوات', d: 'ما خرج فيه ﷺ بنفسه', it: siraOf('ghazawat') },
+      { id: 'saraya', ic: SEAL, t: 'السرايا', d: 'ما بعث فيه أصحابه', it: siraOf('saraya') },
+      { id: 'ahdath', ic: SEAL, t: 'أحداث كبرى', d: 'القبلة والحديبية وحجة الوداع', it: siraOf('ahdath') },
+      { id: 'family', ic: '🏡', t: 'أمهات المؤمنين وآل البيت', it: siraOf('family') }] },
+    { id: 'khulafa', ic: '⭐', t: 'الخلافة الراشدة', d: 'فتوح الشام والعراق وفارس ومصر', br: [
+      { id: 'sham', ic: '🏰', t: 'فتوح الشام', it: khOf('sham') },
+      { id: 'iraq', ic: '🌴', t: 'فتوح العراق وفارس', it: khOf('iraq') },
+      { id: 'egypt', ic: '🌊', t: 'فتح مصر', it: khOf('egypt') }] }
+  ];
+  var cnt = function (x) { return x.br ? x.br.reduce(function (n, b) { return n + b.it.length; }, 0) : null; };
+  var tile = function (href, x, n) { return '<a class="tile" href="' + href + '"><span class="ic">' + x.ic + '</span><b>' + esc(x.t) + '</b>' + (x.d ? '<small>' + esc(x.d) + '</small>' : '') + (n ? '<span class="cnt">' + AR(n) + '</span>' : '') + '</a>'; };
+  var head = function (x) { return '<span class="si">' + x.ic + '</span><div><h2>' + esc(x.t) + '</h2>' + (x.d ? '<small>' + esc(x.d) + '</small>' : '') + '</div>'; };
+  $('secTiles').innerHTML = SECS.map(function (x) { return tile('calendar.html?s=' + x.id, x, cnt(x)); }).join('');
+  var qs = function (k) { return (location.search.match(new RegExp('[?&]' + k + '=([a-z]+)')) || [])[1]; };
+  var S = SECS.filter(function (x) { return x.id === qs('s'); })[0];
+  if (S) {
+    var B = S.br && S.br.filter(function (x) { return x.id === qs('b'); })[0];
+    ['hero', 'sec-month', 'homeTiles'].forEach(function (id) { $(id).hidden = true; });
+    var cr = '<a href="calendar.html">📅 التقويم الإسلامي</a><span>‹</span>' + (B ? '<a href="calendar.html?s=' + S.id + '">' + esc(S.t) + '</a><span>‹</span><b>' + esc(B.t) + '</b>' : '<b>' + esc(S.t) + '</b>');
+    $('crumbs').innerHTML = cr; $('crumbs').hidden = false;
+    if (S.id === 'up') { $('sec-up').hidden = false; $('sec-up').insertAdjacentHTML('afterbegin', '<div class="shead">' + head(S) + '</div>'); }
+    else {
+      $('view').hidden = false;
+      if (B) { $('vHead').innerHTML = head(B); $('vBody').innerHTML = (B.it.join('') || '<p class="muted">لا شيء هنا بعد.</p>') + (B.tail || '');
+        var i = S.br.indexOf(B), nx = S.br[i + 1], pv = S.br[i - 1];
+        $('vBody').insertAdjacentHTML('beforeend', '<div class="links" style="margin-top:12px">' + (pv ? '<a class="btn ghost" href="calendar.html?s=' + S.id + '&b=' + pv.id + '">→ ' + esc(pv.t) + '</a>' : '<a class="btn ghost" href="calendar.html?s=' + S.id + '">→ ' + esc(S.t) + '</a>') + (nx ? '<a class="btn" href="calendar.html?s=' + S.id + '&b=' + nx.id + '">' + esc(nx.t) + ' ←</a>' : '<a class="btn" href="calendar.html">📅 التقويم الشهري</a>') + '</div>');
+        document.title = B.t + ' | ' + S.t + ' — التقويم الإسلامي';
+      } else { $('vHead').innerHTML = head(S); $('vBody').innerHTML = '<div class="tiles">' + S.br.map(function (b) { return tile('calendar.html?s=' + S.id + '&b=' + b.id, b, b.it.length); }).join('') + '</div>'; document.title = S.t + ' — التقويم الإسلامي'; }
+    }
+    window.scrollTo(0, 0);
+  }
+})();
+</script>
+<script src="https://maimoonah.com/js/islamic-pop.js?v=2" defer></script>
+<script src="https://maimoonah.com/js/share-lite.js?v=2" defer></script>
+<script src="mk-social.js?v=4" defer></script>
+<script src="https://maimoonah.com/js/track.js?v=1" defer></script>
+<script id="mkGold">/* توحيد ذهبي الشريط العلوي مع ذهبي القائمة الجانبية (#C9A45C) في كل صفحات مكين */
+(function () {
+  var BRIGHT = /243, 211, 122|229, 193, 88/, G = '#C9A45C', G2 = '#B8935A';
+  function fix() {
+    document.querySelectorAll('header, header *, .mk-top, .mk-top *').forEach(function (e) {
+      var c = getComputedStyle(e);
+      if (BRIGHT.test(c.color)) e.style.setProperty('color', G, 'important');
+      if (BRIGHT.test(c.backgroundColor)) e.style.setProperty('background-color', G, 'important');
+      if (BRIGHT.test(c.backgroundImage)) e.style.setProperty('background-image', 'linear-gradient(90deg,' + G + ',' + G2 + ')', 'important');
+      ['Top', 'Right', 'Bottom', 'Left'].forEach(function (s) {
+        if (BRIGHT.test(c['border' + s + 'Color'])) e.style.setProperty('border-' + s.toLowerCase() + '-color', G, 'important');
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
+  window.addEventListener('load', function () { fix(); setTimeout(fix, 1500); });
+})();
+</script>
+</body>
+</html>

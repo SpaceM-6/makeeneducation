@@ -36,6 +36,7 @@
       'برنامج إعداد معلمات القرآن', 'برنامج الإعداد للمسابقات القرآنية', 'برنامج تعليم اللغة العربية بأقسامه', 'برنامج الإجازة في الحديث النبوي',
       'برنامج دراسة مصطلح الحديث', 'برنامج دراسة شروحات الحديث', 'دراسة تاريخ الفقه الإسلامي', 'دراسة أصول الفقه الإسلامي', 'دراسة فقه المسلم',
       'خدمات البحوث الشرعية العلمية', 'برامج الأطفال'],
+    PROG_TITLES: { 1: 'برنامج الحفظ والمراجعة والسرد', 2: 'برنامج التفسير الشامل', 3: 'برنامج تصحيح التلاوة المتقدم', 4: 'برنامج الإجازة في قراءة واحدة أو القراءات العشر', 6: 'برنامج الإعجاز اللغوي والصوتي في القرآن', 7: 'برنامج أسماء الله الحسنى وصفاته', 8: 'برنامج فقه الدعاء', 9: 'برنامج (اشرح لي كتاب)', 10: 'برنامج إعداد معلمات القرآن', 11: 'برنامج الإعداد للمسابقات القرآنية', 12: 'برنامج تعليم اللغة العربية بأقسامه', 14: 'برنامج دراسة مصطلح الحديث', 15: 'برنامج دراسة شروحات الحديث', 16: 'دراسة تاريخ الفقه الإسلامي', 17: 'دراسة أصول الفقه الإسلامي', 18: 'دراسة فقه المسلم', 19: 'خدمات البحوث الشرعية العلمية' },
     esc: function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); },
     // قراءة عامة من قاعدة البيانات (ما تسمح به الصلاحيات للزوار فقط)
     get: function (path) {
@@ -94,10 +95,26 @@
     ['index.html#about-makeen-section', 'من نحن وعن شركة مكين', IC('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>')],
     ['programs.html', 'البرامج والتسجيل', IC('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/>')],
     ['teachers.html', 'المعلمون والمعلمات', IC('<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M16 4.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z"/>')],
+    ['audio.html', 'الدروس الصوتية', IC('<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="7" rx="1.5"/><rect x="17" y="14" width="4" height="7" rx="1.5"/>')],
+    ['family.html', 'تسجيل العائلات', IC('<circle cx="8" cy="7" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M2.5 20c.5-3.6 2.8-5.6 5.5-5.6s5 2 5.5 5.6"/><path d="M14 20c.3-2.6 1.6-4 3-4s2.7 1.4 3 4"/>')],
+    ['orgs.html', 'اشتراكات المؤسسات', IC('<path d="M3 21h18M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/>')],
+    ['offers.html', 'العروض', IC('<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3-6-3-6 0h6zm0 0c2-3 6-3 6 0h-6z"/>')],
+    ['', 'عبادتي اليومية', '', 'sec'],
+    ['today.html', 'مواقيت الصلاة ويومي', IC('<path d="M12 3a6 6 0 0 0 0 12 6 6 0 0 1 0-12z"/><path d="M4 21h16M6 21v-4h12v4"/>')],
+    ['calendar.html', 'التقويم الإسلامي', IC('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>')],
+    ['adhkar.html', 'الأذكار والرقية الشرعية', IC('<circle cx="12" cy="5" r="2"/><circle cx="18" cy="9" r="2"/><circle cx="18" cy="16" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="6" cy="16" r="2"/><circle cx="6" cy="9" r="2"/>')],
+    [MK.MAIN + '/mushaf.html', 'المصحف', IC('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/>')],
+    ['', 'الطلاب والشهادات', '', 'sec'],
+    ['reviews.html', 'تجارب وتقييمات الطلاب', IC('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>')],
+    ['success.html', 'قصص النجاح', IC('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/>')],
+    ['my-certs.html', 'شهاداتي وإجازاتي', IC('<circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-3 5 3-1.5-7.5"/>')],
+    [MK.MAIN + '/cert.html', 'التحقق من الشهادات والإجازات', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')],
+    ['', 'عن مكين', '', 'sec'],
     ['join.html', 'انضم/ي إلى كادر مكين', IC('<circle cx="10" cy="8" r="4"/><path d="M3 21c0-4 3-6.5 7-6.5"/><path d="M18 14v6M15 17h6"/>'), 'gold'],
     ['join-terms.html', 'شروط الالتحاق بكادر مكين التعليمي', IC('<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13l2 2 3-3"/>')],
     ['study-terms.html', 'شروط الدراسة في مكين', IC('<path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5c-3-.5-6 0-8 1.5z"/><path d="M12 6v14.5"/><path d="M15 10l1.5 1.5L19 9"/>')],
     ['messages.html', 'مراسلة إدارة مكين', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>')],
+    ['complaints.html', 'الشكاوى والاقتراحات', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4.5M12 15.5h.01"/>')],
     [MK.MAIN + '/', 'موقع أ/ ميمونة', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>')],
     ['privacy.html', 'سياسة الخصوصية', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')],
     ['contact.html', 'تواصل معنا', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8 11h8M8 14h5"/>')]
@@ -108,6 +125,7 @@
     '@keyframes mkDrIn{from{transform:translateX(-100%)}to{transform:none}}' +
     '.mk-drawer a.flag{background:#12355B;color:#F3D37A;border-radius:12px;border:0;margin:4px 0}.mk-drawer a.flag small{display:block;color:#CBD5E1;font-weight:600;font-size:13px}.mk-drawer a.flag .fl{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid #F3D37A;display:inline-flex;align-items:center;justify-content:center;overflow:hidden}' +
     '.mk-drawer a.top{font-weight:900}' +
+    '.mk-dsec{margin:16px 4px 6px;font:900 13px Cairo,Tahoma,sans-serif;color:#B5654A;letter-spacing:.3px}' +
     '.mk-dhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #F3D37A;padding-bottom:10px;margin-bottom:8px}' +
     '.mk-hello{background:#FFF8E6;border:1px solid #E8D29A;border-radius:12px;padding:10px 12px;margin:4px 0 8px;color:#12355B;font-weight:800;font-size:16px;line-height:1.7}.mk-hello[hidden]{display:none}' +
     '.mk-dhead strong{color:#12355B;font-size:17px;display:flex;align-items:center;gap:8px}.mk-dhead img{width:36px;height:36px;border-radius:50%;border:2px solid #F3D37A}' +
@@ -163,6 +181,7 @@
     ov.innerHTML = '<nav class="mk-drawer" aria-label="القائمة"><div class="mk-dhead"><strong><img src="assets/makeen-logo.jpeg" alt="">القائمة</strong><button type="button" class="mk-dx">✕ إغلاق</button></div><div class="mk-hello" data-hello hidden></div>' +
       MK.MENU.map(function (m) {
         var cls = m[3] === 'gold' ? 'gold' : m[3] === 'install' ? 'inst' : m[3] === 'flag' ? 'flag' : m[3] === 'top' ? 'top' + (m[0] === here ? ' cur' : '') : (m[0] === here ? 'cur' : '');
+        if (m[3] === 'sec') return '<div class="mk-dsec">' + m[1] + '</div>';
         if (m[3] === 'flag') return '<a href="' + m[0] + '" class="flag" data-flag><span class="fl">' + m[2] + '</span><span><b>' + m[1] + '</b><small data-place></small></span></a>';
         return '<a href="' + m[0] + '"' + (cls ? ' class="' + cls + '"' : '') + (m[3] === 'install' ? ' data-install hidden' : '') + (m[3] === 'ext' ? ' target="_blank" rel="noopener"' : '') + (m[0] === here ? ' aria-current="page"' : '') + '>' + m[2] + m[1] + '</a>';
       }).join('') + '</nav>';
