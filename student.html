@@ -92,7 +92,7 @@
 </style>
 <meta name="theme-color" content="#12355B">
 <script src="https://maimoonah.com/js/classes.js?v=3"></script>
-<script src="https://maimoonah.com/js/attcal.js?v=1"></script>
+<script src="https://maimoonah.com/js/attcal.js?v=2"></script>
 
 <script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/app.js?v=2026112210"></script>
@@ -366,7 +366,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       ${x.hw_from ? `<div class="fact" style="background:#FFF7E0;border-color:#F3D37A"><small>الواجب (${esc(x.hw_kind || '')})</small><b><a href="https://maimoonah.com/mushaf.html?sub=${s.id}&at=${x.hw_from}" style="color:inherit">${rng(x.hw_from, x.hw_to)}</a></b></div>` : ''}
       ${x.grade ? `<div class="fact"><small>التقدير</small><b>${esc(x.grade)}</b></div>` : ''}</div>`;
     if (x.summary) h += `<div class="fact" style="margin-top:8px"><small>ملخص الدرس</small><b style="white-space:pre-wrap;font-weight:600">${esc(x.summary)}</b></div>`;
-    if (x.question) h += `<div class="fact" style="margin-top:8px;background:#EEF2FF;border-color:#A5B4FC"><small>سؤال مطلوب منك الإجابة عليه</small><b>${esc(x.question)}</b></div>`;
+    if (x.question) h += `<div class="fact" style="margin-top:8px;background:#EEF2FF;border-color:#A5B4FC"><small>❓ سؤال اليوم</small><b>${esc(x.question)}</b></div>`;
     if (x.notes) h += `<p class="note" style="margin-top:8px;white-space:pre-wrap">${esc(x.notes)}</p>`;
     if (L.length > 1) h += `<details style="margin-top:8px"><summary style="cursor:pointer;color:var(--brown);font-weight:700">الحصص السابقة (${AR(L.length - 1)})</summary><ul class="notes">${L.slice(1).map((l) => `<li><small>${arDate(l.day)}${l.grade ? ' · ' + esc(l.grade) : ''}</small>${l.taken_from ? 'أخذنا ' + rng(l.taken_from, l.taken_to) : ''}${l.hw_from ? ' · الواجب: ' + rng(l.hw_from, l.hw_to) : ''}${l.stop_at ? ' · توقفنا عند ' + posLabel(l.stop_at) : ''}${l.summary ? '\nملخص الدرس: ' + esc(l.summary) : ''}${l.question ? '\nالسؤال: ' + esc(l.question) : ''}${l.notes ? '\n' + esc(l.notes) : ''}</li>`).join('')}</ul></details>`;
     return h;

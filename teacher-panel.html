@@ -237,7 +237,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 <script src="https://maimoonah.com/js/avail.js?v=1"></script>
 <script src="https://maimoonah.com/js/instapay.js?v=4"></script>
 <script src="https://maimoonah.com/js/tlessons.js?v=8"></script>
-<script src="https://maimoonah.com/js/attcal.js?v=1"></script>
+<script src="https://maimoonah.com/js/attcal.js?v=2"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -275,7 +275,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
   function stuActions(s) {
     if (/البحوث/.test(s.program || '')) return `<div class="stu-actions"><a class="btn" href="research.html?sub=${s.sub_id}">💬 لوحة المتابعة البحثية</a></div>`;
     if (s.status !== 'active') return '';
-    return `<div class="stu-actions"><a class="btn" href="room.html?sub=${s.sub_id}&mode=video">🎥 دخول الغرفة</a><a class="btn ghost" href="room.html?sub=${s.sub_id}&mode=audio">🎧 حلقة صوتية</a><a class="btn ghost" href="https://maimoonah.com/mushaf.html?sub=${s.sub_id}&lesson">📝 تسجيل الحصة والواجب</a></div>`;
+    return `<div class="stu-actions"><a class="btn" href="room.html?sub=${s.sub_id}&mode=video">🎥 دخول الغرفة</a><a class="btn ghost" href="room.html?sub=${s.sub_id}&mode=audio">🎧 حلقة صوتية</a><a class="btn ghost" href="lesson.html?sub=${s.sub_id}">📝 درس اليوم والواجب</a></div>`;
   }
   function stuHtml(s, av) {
     const b = ST[s.status] || ST.pending;
@@ -400,7 +400,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       window.scrollTo(0, 0);
       const ce = document.querySelector(`[data-attcal="${cur.sub_id}"]`);
       if (ce && window.MNAttCal) MNAttCal.mount(ce, { sub: cur, marks: cur.marks || {}, makeups: cur.makeups || [], lessons: cur.lessons || [], tz: TZ, editable: true, sb,
-        mushaf: (day) => `mushaf.html?sub=${encodeURIComponent(cur.sub_id)}&lesson&day=${day}`,
+        lessonUrl: (day) => `lesson.html?sub=${encodeURIComponent(cur.sub_id)}&day=${day}`,
         onChange: (st) => { cur.marks = st.marks; cur.makeups = st.makeups; cur.lessons = st.lessons;
           const t = C.stats(C.sessions(cur, cur.marks, null, cur.makeups)), box = document.querySelector(`[data-stats="${cur.sub_id}"]`);
           if (box) ['done', 'absent', 'remaining', 'postponed', 'total'].forEach((n) => { const e = box.querySelector(`[data-stat="${n}"]`); if (e) e.textContent = t[n] || 0; });
