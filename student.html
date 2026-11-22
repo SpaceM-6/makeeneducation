@@ -441,7 +441,13 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       <div class="fact"><small>نهاية الاشتراك</small><b>${arDate(s.ends_on)}</b></div></div>`;
     h += infoHtml(s);
     if (s.status === 'active' && left != null && left <= 7) h += `<p class="alert">${left === 0 ? 'ينتهي اشتراكك اليوم' : left === 1 ? 'بقي يوم واحد على انتهاء اشتراكك' : left === 2 ? 'بقي يومان على انتهاء اشتراكك' : `بقي ${left} ${left <= 10 ? 'أيام' : 'يومًا'} على انتهاء اشتراكك`}، فجدّده من الأسفل حتى لا تنقطع حلقتك.</p>`;
-    if (s.status === 'expired') h += `<p class="alert red">انتهى اشتراكك في ${arDate(s.ends_on)}. جدّده من الأسفل ليعود رابط الحلقة إلى لوحتك.</p>`;
+    if (s.status === 'expired') {
+      // انتهت المدة: التجديد من صفحة البرنامج نفسه في مكين (وإلا صفحة البرامج)
+      const pr = (MN.catalog ? MN.catalog() : []).find((x) => x.type === 'program' && String(x.title || '').trim() === String(s.program || '').trim());
+      let href = pr && pr.url ? pr.url : 'programs.html';
+      if (!/maimoonah\.com$/.test(location.hostname) && !/^\/makeen\//.test(location.pathname)) href = href.replace(/^\/makeen\//, '/');
+      h += `<p class="alert red"><b>انتهت مدة اشتراكك</b>${s.ends_on ? ` في ${arDate(s.ends_on)}` : ''}. ولتجديد الاشتراك: <a class="btn" style="display:inline-block;margin-top:6px" href="${esc(href)}">صفحة البرامج والاشتراكات ←</a></p>`;
+    }
     if (s.status === 'stopped') h += `<p class="alert red">الاشتراك موقوف حاليًا. للاستفسار تواصل معنا عبر الواتساب.</p>`;
     if (s.status === 'active') {
       h += `<div data-callslot="${s.id}"></div>`;
