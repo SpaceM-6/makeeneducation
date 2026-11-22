@@ -116,7 +116,7 @@
     ['messages.html', 'مراسلة إدارة مكين', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>')],
     ['complaints.html', 'الشكاوى والبلاغات', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4.5M12 15.5h.01"/>')],
     ['suggestions.html', 'الاقتراحات والتحسينات', IC('<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>')],
-    [MK.MAIN + '/', 'موقع أ/ ميمونة', IC('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>')],
+    [MK.MAIN + '/', 'موقع أ/ ميمونة', '<img src="assets/maimouna-icon.jpg" alt="" class="mk-dlogo" width="44" height="44">'],
     ['privacy.html', 'سياسة الخصوصية', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')],
     ['contact.html', 'تواصل معنا', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8 11h8M8 14h5"/>')]
   ];
@@ -126,6 +126,7 @@
     '@keyframes mkDrIn{from{transform:translateX(-100%)}to{transform:none}}' +
     '.mk-drawer a.flag{background:#12355B;color:#F3D37A;border-radius:12px;border:0;margin:4px 0}.mk-drawer a.flag small{display:block;color:#CBD5E1;font-weight:600;font-size:13px}.mk-drawer a.flag .fl{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid #F3D37A;display:inline-flex;align-items:center;justify-content:center;overflow:hidden}' +
     '.mk-drawer a.top{font-weight:900}' +
+    '.mk-drawer a img.mk-dlogo{flex:0 0 auto;width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #C9A45C;box-shadow:0 2px 8px rgba(59,42,32,.15);background:#fff}' +
     '.mk-dsec{margin:16px 4px 6px;font:900 13px Cairo,Tahoma,sans-serif;color:#B5654A;letter-spacing:.3px}' +
     '.mk-dhead{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #F3D37A;padding-bottom:10px;margin-bottom:8px}' +
     '.mk-hello{background:#FFF8E6;border:1px solid #E8D29A;border-radius:12px;padding:10px 12px;margin:4px 0 8px;color:#12355B;font-weight:800;font-size:16px;line-height:1.7}.mk-hello[hidden]{display:none}' +
