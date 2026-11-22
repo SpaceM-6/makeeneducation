@@ -133,6 +133,29 @@
       '.mk-drawer{background:#F8F9FA url("assets/marble.jpg") 0 0/900px auto repeat!important}';
     var st = document.createElement('style'); st.textContent = M; (document.head || document.documentElement).appendChild(st);
   })();
+  // ===== ثيم القائمة الجانبية (أسلوب جيميناي: كريمي رخامي + طوبي + زيتوني + بني + زخرفة ذهبية) =====
+  (function () {
+    var D = '.mk-dov{background:rgba(59,42,32,.45)!important;backdrop-filter:blur(2px)}' +
+      '.mk-drawer{background:#F6EFE2 url("assets/marble.jpg") 0 0/900px auto repeat!important;border-right:0!important;border-left:0!important;box-shadow:10px 0 34px rgba(59,42,32,.28)!important;padding:16px 14px 28px!important;border-radius:0 26px 26px 0}' +
+      '.mk-dhead{border-bottom:0!important;position:relative;padding:4px 2px 18px!important;margin-bottom:12px!important;background:linear-gradient(90deg,transparent,#C9A45C 15%,#C9A45C 85%,transparent) bottom/100% 1.5px no-repeat}' +
+      '.mk-dhead::after{content:"✦";position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);color:#C9A45C;font-size:18px;padding:0 6px;line-height:1;text-shadow:0 0 6px #F6EFE2,0 0 10px #F6EFE2}' +
+      '@media (max-width:600px){.mk-drawer{width:80vw!important;max-width:340px!important}}' +
+      '.mk-dhead strong{color:#3B2A20!important;font-size:18px!important;font-weight:900}' +
+      '.mk-dhead img{border-color:#C9A45C!important;box-shadow:0 0 0 3px rgba(201,164,92,.18)}' +
+      '.mk-dx{background:transparent!important;color:#B5654A!important;border:1.5px solid #B5654A!important;border-radius:999px!important;padding:4px 12px!important}' +
+      '.mk-hello{background:#FFFDF8!important;border:1.5px solid #E4CDB9!important;color:#3B2A20!important;border-radius:16px!important}' +
+      '.mk-drawer a{color:#3B2A20!important;font-weight:800!important;border-bottom:0!important;background:rgba(255,253,248,.78);border:1px solid #EADCC8;border-radius:14px;margin:6px 0;padding:11px 10px!important;transition:background .2s,transform .15s}' +
+      '.mk-drawer a:active{transform:scale(.98)}' +
+      '.mk-drawer a svg{color:#B5654A!important;width:22px;height:22px;padding:5px;box-sizing:content-box;border-radius:50%;background:#F7E6DC}' +
+      '.mk-drawer a:hover,.mk-drawer a.cur{background:#FBEDE4!important;border-color:#C97B5E!important;box-shadow:inset -4px 0 0 #B5654A}' +
+      '.mk-drawer a.gold{background:linear-gradient(180deg,#C97B5E,#B5654A)!important;color:#fff!important;border:0!important;box-shadow:0 8px 18px rgba(181,101,74,.3)!important}' +
+      '.mk-drawer a.gold svg{color:#fff!important;background:rgba(255,255,255,.18)}' +
+      '.mk-drawer a.flag{background:#5E6B2E!important;color:#FFF8E8!important;border:0!important;box-shadow:0 0 0 2px #C9A45C}' +
+      '.mk-drawer a.flag small{color:#EDE6CF!important}.mk-drawer a.flag .fl{border-color:#C9A45C!important}' +
+      '.mk-drawer a.inst{color:#5E6B2E!important;border-style:dashed;border-color:#6E7C37}' +
+      '.mk-drawer a.top{font-weight:900!important}';
+    var st = document.createElement('style'); st.textContent = D; (document.head || document.documentElement).appendChild(st);
+  })();
   function ensureDrawer() {
     if (document.getElementById('mkDrawer') || !document.body) return;
     var here = location.pathname.split('/').pop() || 'index.html';
