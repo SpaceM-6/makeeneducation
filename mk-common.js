@@ -148,16 +148,16 @@
   (function () { var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st); })();
   // ===== هوية مكين: خلفية رخام أبيض في كل الصفحات =====
   (function () {
-    var M = 'body{background:#F8F9FA url("assets/marble.jpg") 0 0/1400px auto repeat!important}' +
+    var M = 'body{background:#F8F9FA url("assets/marble.webp") 0 0/1400px auto repeat!important}' +
       '.about-makeen-card,.feature-card,.teacher-card,.mk-ad{background-color:rgba(255,255,255,.86)!important}' +
       '.value-box-features{background:rgba(248,250,252,.8)!important}' +
-      '.mk-drawer{background:#F8F9FA url("assets/marble.jpg") 0 0/900px auto repeat!important}';
+      '.mk-drawer{background:#F8F9FA url("assets/marble.webp") 0 0/900px auto repeat!important}';
     var st = document.createElement('style'); st.textContent = M; (document.head || document.documentElement).appendChild(st);
   })();
   // ===== ثيم القائمة الجانبية (أسلوب جيميناي: كريمي رخامي + طوبي + زيتوني + بني + زخرفة ذهبية) =====
   (function () {
     var D = '.mk-dov{background:rgba(59,42,32,.45)!important;backdrop-filter:blur(2px)}' +
-      '.mk-drawer{background:#F6EFE2 url("assets/marble.jpg") 0 0/900px auto repeat!important;border-right:0!important;border-left:0!important;box-shadow:10px 0 34px rgba(59,42,32,.28)!important;padding:16px 14px 28px!important;border-radius:0 26px 26px 0}' +
+      '.mk-drawer{background:#F6EFE2 url("assets/marble.webp") 0 0/900px auto repeat!important;border-right:0!important;border-left:0!important;box-shadow:10px 0 34px rgba(59,42,32,.28)!important;padding:16px 14px 28px!important;border-radius:0 26px 26px 0}' +
       '.mk-dhead{border-bottom:0!important;position:relative;padding:4px 2px 18px!important;margin-bottom:12px!important;background:linear-gradient(90deg,transparent,#C9A45C 15%,#C9A45C 85%,transparent) bottom/100% 1.5px no-repeat}' +
       '.mk-dhead::after{content:"✦";position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);color:#C9A45C;font-size:18px;padding:0 6px;line-height:1;text-shadow:0 0 6px #F6EFE2,0 0 10px #F6EFE2}' +
       '@media (max-width:600px){.mk-drawer{width:80vw!important;max-width:340px!important}}' +

@@ -16,7 +16,7 @@
   :root { --navy:#12355B; --gold:#F3D37A; --ink:#1F2937; --brown:#4B5563; --line:#E2E8F0; }
   * { box-sizing:border-box; } [hidden] { display:none !important; }
   html, body { overflow-x:clip; max-width:100%; height:100%; }
-  body { margin:0; background:#F8F9FA url('assets/marble.jpg') 0 0/1400px auto repeat; color:var(--ink); font-family:Cairo, Tahoma, sans-serif; line-height:1.8; display:flex; flex-direction:column; }
+  body { margin:0; background:#F8F9FA url('assets/marble.webp') 0 0/1400px auto repeat; color:var(--ink); font-family:Cairo, Tahoma, sans-serif; line-height:1.8; display:flex; flex-direction:column; }
   header { background:var(--navy); border-bottom:3px solid var(--gold); padding:8px 12px; display:flex; align-items:center; gap:10px; flex:0 0 auto; }
   header a.back { color:var(--gold); text-decoration:none; font-weight:800; font-size:20px; }
   header .t { flex:1; min-width:0; } header .t b { display:block; color:var(--gold); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } header .t small { color:#E2E8F0; font-size:12.5px; }
@@ -164,8 +164,8 @@ body>header{border-bottom-color:#C9A45C!important;color:#C9A45C!important}
 body>header .brand-logo-text,body>header .brand-logo-text span,body>header .mk-two{color:#C9A45C!important}
 body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .brand img{border-color:#C9A45C!important}
 /* مسافة ~١.٥ سم بين الشريط العلوي/شريط الإعلانات وصورة الرئيسية، وتظليل أزرق أخف */
-.company-hero{margin-top:56px!important;border-radius:0;background:linear-gradient(90deg,rgba(18,53,91,0) 30%,rgba(18,53,91,.32) 50%,rgba(18,53,91,0) 70%),linear-gradient(135deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.38) 100%),url('assets/hero-boy.jpg') right 70%/50% 100% no-repeat,url('assets/hero-girl.jpg') left 70%/50% 100% no-repeat,#12355B!important}
-@media (max-width:760px){.company-hero{background:linear-gradient(180deg,rgba(18,53,91,0) 24%,rgba(18,53,91,.5) 50%,rgba(18,53,91,0) 76%),linear-gradient(180deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.4) 100%),url('assets/hero-boy.jpg') 78% top/auto 50% no-repeat,url('assets/hero-girl.jpg') 78% bottom/auto 50% no-repeat,#12355B!important}}
+.company-hero{margin-top:56px!important;border-radius:0;background:linear-gradient(90deg,rgba(18,53,91,0) 30%,rgba(18,53,91,.32) 50%,rgba(18,53,91,0) 70%),linear-gradient(135deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.38) 100%),url('assets/hero-boy.webp') right 70%/50% 100% no-repeat,url('assets/hero-girl.webp') left 70%/50% 100% no-repeat,#12355B!important}
+@media (max-width:760px){.company-hero{background:linear-gradient(180deg,rgba(18,53,91,0) 24%,rgba(18,53,91,.5) 50%,rgba(18,53,91,0) 76%),linear-gradient(180deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.4) 100%),url('assets/hero-boy.webp') 78% top/auto 50% no-repeat,url('assets/hero-girl.webp') 78% bottom/auto 50% no-repeat,#12355B!important}}
 .company-hero h1,.company-hero .h-kicker{text-shadow:0 2px 12px rgba(0,0,0,.6),0 0 2px rgba(0,0,0,.5)}
 </style>
 </head>
@@ -269,6 +269,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
   boot();
 </script>
 <script src="https://maimoonah.com/js/track.js?v=1" defer></script>
+<script src="https://maimoonah.com/js/skeleton.js?v=1" defer></script>
 <script id="mkGold">/* توحيد ذهبي الشريط العلوي مع ذهبي القائمة الجانبية (#C9A45C) في كل صفحات مكين */
 (function () {
   var BRIGHT = /243, 211, 122|229, 193, 88/, G = '#C9A45C', G2 = '#B8935A';

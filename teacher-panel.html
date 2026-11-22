@@ -16,7 +16,7 @@
   :root { --navy:#12355B; --gold:#F3D37A; --ink:#1F2937; --brown:#4B5563; --line:#E2E8F0; }
   * { box-sizing:border-box; } [hidden] { display:none !important; }
   html, body { overflow-x:clip; max-width:100%; }
-  body { margin:0; background:#F8F9FA url('assets/marble.jpg') 0 0/1400px auto repeat; color:var(--ink); font-family:Cairo, Tahoma, sans-serif; line-height:1.9; }
+  body { margin:0; background:#F8F9FA url('assets/marble.webp') 0 0/1400px auto repeat; color:var(--ink); font-family:Cairo, Tahoma, sans-serif; line-height:1.9; }
   header { background:var(--navy); border-bottom:3px solid var(--gold); padding:8px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
   header .brand { display:flex; align-items:center; gap:10px; color:var(--gold); font-weight:800; text-decoration:none; }
   header img { width:44px; height:44px; border-radius:50%; border:2px solid var(--gold); }
@@ -181,13 +181,13 @@ body>header{border-bottom-color:#C9A45C!important;color:#C9A45C!important}
 body>header .brand-logo-text,body>header .brand-logo-text span,body>header .mk-two{color:#C9A45C!important}
 body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .brand img{border-color:#C9A45C!important}
 /* مسافة ~١.٥ سم بين الشريط العلوي/شريط الإعلانات وصورة الرئيسية، وتظليل أزرق أخف */
-.company-hero{margin-top:56px!important;border-radius:0;background:linear-gradient(90deg,rgba(18,53,91,0) 30%,rgba(18,53,91,.32) 50%,rgba(18,53,91,0) 70%),linear-gradient(135deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.38) 100%),url('assets/hero-boy.jpg') right 70%/50% 100% no-repeat,url('assets/hero-girl.jpg') left 70%/50% 100% no-repeat,#12355B!important}
-@media (max-width:760px){.company-hero{background:linear-gradient(180deg,rgba(18,53,91,0) 24%,rgba(18,53,91,.5) 50%,rgba(18,53,91,0) 76%),linear-gradient(180deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.4) 100%),url('assets/hero-boy.jpg') 78% top/auto 50% no-repeat,url('assets/hero-girl.jpg') 78% bottom/auto 50% no-repeat,#12355B!important}}
+.company-hero{margin-top:56px!important;border-radius:0;background:linear-gradient(90deg,rgba(18,53,91,0) 30%,rgba(18,53,91,.32) 50%,rgba(18,53,91,0) 70%),linear-gradient(135deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.38) 100%),url('assets/hero-boy.webp') right 70%/50% 100% no-repeat,url('assets/hero-girl.webp') left 70%/50% 100% no-repeat,#12355B!important}
+@media (max-width:760px){.company-hero{background:linear-gradient(180deg,rgba(18,53,91,0) 24%,rgba(18,53,91,.5) 50%,rgba(18,53,91,0) 76%),linear-gradient(180deg,rgba(18,53,91,.5) 0%,rgba(30,58,138,.4) 100%),url('assets/hero-boy.webp') 78% top/auto 50% no-repeat,url('assets/hero-girl.webp') 78% bottom/auto 50% no-repeat,#12355B!important}}
 .company-hero h1,.company-hero .h-kicker{text-shadow:0 2px 12px rgba(0,0,0,.6),0 0 2px rgba(0,0,0,.5)}
 </style>
 </head>
 <body data-app-bar>
-<header><a class="brand" href="index.html"><img src="assets/makeen-logo.jpeg" alt="شعار شركة مكين"><span>لوحة المعلم</span></a><span style="display:flex;gap:6px"><button type="button" id="pwBtn" hidden onclick="MN.pwChange(sb)">🔑 كلمة المرور</button><button type="button" id="logoutBtn" hidden>خروج</button></span></header>
+<header><a class="brand" href="index.html"><img src="assets/makeen-logo.webp" alt="شعار شركة مكين"><span>لوحة المعلم</span></a><span style="display:flex;gap:6px"><button type="button" id="pwBtn" hidden onclick="MN.pwChange(sb)">🔑 كلمة المرور</button><button type="button" id="logoutBtn" hidden>خروج</button></span></header>
 <main>
   <section class="card" id="loginBox" hidden>
     <h1>لوحة المعلم في مكين</h1>
@@ -201,7 +201,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 
 <script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
-<script src="https://maimoonah.com/js/app.js?v=2026112209"></script>
+<script src="https://maimoonah.com/js/app.js?v=2026112210"></script>
 <script src="https://maimoonah.com/js/sb.js?v=c1"></script>
 <script src="https://maimoonah.com/js/pwlogin.js?v=8"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
