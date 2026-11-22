@@ -94,7 +94,7 @@
 <script src="https://maimoonah.com/js/classes.js"></script>
 
 <script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
-<script src="https://maimoonah.com/js/app.js?v=2026112207"></script>
+<script src="https://maimoonah.com/js/app.js?v=2026112208"></script>
 
 <style id="mkTheme">/* ===== ثيم مكين (اقتراح جيميناي): كريمي رخامي + طوبي + زيتوني + بني — يبقى الهيدر والشريط العلوي والصورة الاستفتاحية والتعريف كما هي ===== */
 :root{--g-terra:#B5654A;--g-terra2:#C97B5E;--g-olive:#5E6B2E;--g-olive2:#6E7C37;--g-brown:#3B2A20;--g-brown2:#5A4636;--g-gold:#C9A45C;--g-cream:#F6EFE2;--g-card:#FFFDF8;--g-line:#E4CDB9}
@@ -237,6 +237,15 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 
   <div id="dash" style="display:none;">
     <div class="hello"><h1 id="helloName">أهلًا بك</h1><p id="who"></p></div>
+    <section class="card" id="memberCard" style="border:1.5px dashed #C9A04A;background:#FFFBF0">
+      <h2 style="margin:0 0 8px">🪪 بطاقة عضويتك</h2>
+      <div class="facts">
+        <div class="fact"><small>رقم العضوية</small><b dir="ltr" id="mcCode">—</b></div>
+        <div class="fact"><small>الاسم</small><b id="mcName">—</b></div>
+        <div class="fact"><small>البريد الإلكتروني</small><b dir="ltr" id="mcEmail">—</b></div>
+        <div class="fact"><small>رقم الجوال / الواتساب</small><b dir="ltr" id="mcPhone">—</b></div>
+      </div>
+    </section>
     <section class="card" data-book-alerts-list hidden></section>
     <div id="subs"><div class="card"><span class="spin"></span> جارٍ تحميل اشتراكاتك…</div></div>
     <section class="card" id="settings">
@@ -265,7 +274,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 
 <script src="https://maimoonah.com/js/vendor/supabase-2.45.4.js"></script>
 <script src="https://maimoonah.com/js/sb.js?v=c1"></script>
-<script src="https://maimoonah.com/js/pwlogin.js?v=7"></script>
+<script src="https://maimoonah.com/js/pwlogin.js?v=8"></script>
 <script src="https://maimoonah.com/js/catalog.js"></script>
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script>
@@ -462,7 +471,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       const progs = (MN.catalog ? MN.catalog() : []).filter((x) => x.type === 'program');
       const em = esc(MYEMAIL);
       $('subs').innerHTML = `<section class="card nosub">
-        <h2>أنت غير مسجّل في أي برنامج</h2>
+        <h2>أنت غير مشترك/ة في برنامج حالي</h2>
         <p style="margin:6px 0 0">اشترك/ي في برنامج تعليمي لتُفتح لك لوحة الطالب: رابط الحلقة والغرفة الدراسية، ومواعيد حصصك وتقويمها، ومتابعة ما أخذته وواجباتك، وملاحظات معلمك/معلمتك.</p>
         <h3>خطوات الاشتراك</h3>
         <ol class="steps">
@@ -536,8 +545,14 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     if (window.MNApp) MNApp.linkStudent(session.access_token);
     else window.addEventListener('load', () => window.MNApp && MNApp.linkStudent(session.access_token));
     const m = SUBS.find((x) => x.member_no) || SUBS[0] || {};
-    $('setEmail').textContent = session.user.email; $('setMember').textContent = m.member_no || '—';
-    $('editReq').href = waHref(`السلام عليكم، أرغب في تعديل بيانات حسابي في لوحة الطالب.\nرقم العضوية: ${m.member_no || '—'}\nالبريد الحالي: ${session.user.email}\nالتعديل المطلوب: `);
+    // رقم العضوية الموحّد (التطبيق والمنصة ومكين): من حساب العضوية، وإلا من رقم الاشتراك
+    let MEM = '';
+    try { const ap = (window.MNApp && MNApp.profile && MNApp.profile()) || {}; const r = await sb.rpc('my_member', { p_code: ap.member || null, p_phone: ap.wa || null, p_site: (window.MN_CFG || {}).site || null }); if (!r.error && r.data) { MEM = r.data; if (window.MNApp && MNApp.syncMember) MNApp.syncMember(); } } catch (e) {}
+    MEM = MEM || m.member_no || '';
+    { const md = session.user.user_metadata || {}, ap = (window.MNApp && MNApp.profile && MNApp.profile()) || {};
+      $('mcCode').textContent = MEM || '—'; $('mcName').textContent = (m.name || md.full_name || ap.name || '—'); $('mcEmail').textContent = session.user.email || '—'; $('mcPhone').textContent = (m.phone || md.phone || ap.wa || '—'); }
+    $('setEmail').textContent = session.user.email; $('setMember').textContent = MEM || '—';
+    $('editReq').href = waHref(`السلام عليكم، أرغب في تعديل بيانات حسابي في لوحة الطالب.\nرقم العضوية: ${MEM || '—'}\nالبريد الحالي: ${session.user.email}\nالتعديل المطلوب: `);
     if (location.hash === '#settings') setTimeout(() => $('settings').scrollIntoView({ behavior: 'smooth' }), 150);
   }
   sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_IN' && $('loginBox').style.display === 'block') location.reload(); });
