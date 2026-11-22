@@ -466,6 +466,58 @@
 <script src="https://maimoonah.com/js/promos.js" defer></script>
 <script src="https://maimoonah.com/js/board.js?v=20261107b" defer></script>
 <script src="mk-common.js?v=d3c5ab4a"></script>
+<style>/* ===== ثيم مكين (اقتراح جيميناي): كريمي رخامي + طوبي + زيتوني + بني — يبقى الهيدر والشريط العلوي والصورة الاستفتاحية والتعريف كما هي ===== */
+:root{--g-terra:#B5654A;--g-terra2:#C97B5E;--g-olive:#5E6B2E;--g-olive2:#6E7C37;--g-brown:#3B2A20;--g-brown2:#5A4636;--g-gold:#C9A45C;--g-cream:#F6EFE2;--g-card:#FFFDF8;--g-line:#E4CDB9}
+body{background-color:var(--g-cream)}
+.container .section-title,.container h2:not(.mk-keep){color:var(--g-brown)!important}
+.container .section-title::after{background:var(--g-gold)!important}
+.container .section-subtitle,.container p{color:var(--g-brown2)}
+/* الزخرفة: خطوط ذهبية بنجمتين حول العناوين والشارات */
+.g-orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px auto 14px;max-width:620px}
+.g-orn::before,.g-orn::after{content:"";flex:1;height:1.5px;background:linear-gradient(90deg,transparent,var(--g-gold))}
+.g-orn::after{background:linear-gradient(270deg,transparent,var(--g-gold))}
+.g-orn i{font-style:normal;color:var(--g-gold);font-size:20px;line-height:1}
+.g-badge{display:inline-block;background:var(--g-olive);color:#FFF8E8;font-weight:900;font-size:18px;padding:7px 30px;clip-path:polygon(14% 0,86% 0,100% 50%,86% 100%,14% 100%,0 50%);box-shadow:0 0 0 2px var(--g-gold);filter:drop-shadow(0 0 0 var(--g-gold))}
+/* لوحة «جديد» */
+.mn-board{border-block:0!important;background:transparent!important}
+.mn-board::before,.mn-board::after{display:none!important}
+.mn-board .mnb-head{position:relative;display:block!important;width:fit-content;margin:4px auto 16px!important;background:var(--g-olive);color:#FFF8E8!important;font-weight:900;font-size:18px!important;padding:7px 32px!important;clip-path:none;border-radius:0;--cut:14px;mask:none;box-shadow:0 0 0 2px var(--g-gold);clip-path:polygon(var(--cut) 0,calc(100% - var(--cut)) 0,100% 50%,calc(100% - var(--cut)) 100%,var(--cut) 100%,0 50%)}
+.mn-board .mnb-head .mnb-dot{display:none!important}
+.mn-board .mnb-wrapH{position:relative}
+.mn-board{position:relative}
+.mn-board .g-line{position:absolute;top:22px;inset-inline:16px;height:20px;display:flex;justify-content:space-between;align-items:center;pointer-events:none;color:var(--g-gold);font-size:20px;background:linear-gradient(90deg,transparent,var(--g-gold) 12%,transparent 38%,transparent 62%,var(--g-gold) 88%,transparent) center/100% 1.5px no-repeat}
+.mn-board .mnb-card{background:var(--g-card)!important;border:1.5px solid var(--g-terra2)!important;border-radius:20px!important;box-shadow:0 10px 24px rgba(91,60,40,.10)!important}
+.mn-board .mnb-card b,.mn-board .mnb-card .mnb-txt b{color:var(--g-brown)!important}
+.mn-board [class*="tag"],.mn-board .mnb-card em,.mn-board .mnb-card .badge{background:var(--g-olive)!important;color:#FFF8E8!important}
+/* بطاقة «الدراسة مع شركة مكين» */
+.mk-study{background:linear-gradient(160deg,#F7EBD6,#F0DFC3)!important;color:var(--g-brown)!important;border:0!important;box-shadow:0 14px 30px rgba(91,60,40,.14)!important;text-align:start!important}
+.mk-study .mk-study-tag{background:var(--g-olive)!important;color:#FFF8E8!important}
+.mk-study h2{color:var(--g-brown)!important}
+.mk-study p{color:var(--g-brown2)!important}
+.mk-study .mk-study-btn{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;box-shadow:0 10px 20px rgba(181,101,74,.35)!important;border:0!important}
+/* البطاقات العامة */
+.about-makeen-card,.feature-card,.teacher-card,.mk-ad,.mn-soon .mnb-card{background:var(--g-card)!important;border:1.5px solid var(--g-line)!important;border-radius:22px!important;box-shadow:0 8px 22px rgba(91,60,40,.08)!important}
+.teacher-card.head-teacher{border-color:var(--g-terra2)!important}
+.feature-card .feature-icon{color:var(--g-terra)!important}
+.feature-card h3,.teacher-card h3,.teacher-card h3 a,.about-makeen-card h2,.about-makeen-card h3,.mk-ad b{color:var(--g-brown)!important}
+.teacher-title{color:var(--g-terra)!important}
+.head-badge{background:var(--g-olive)!important;color:#FFF8E8!important}
+.mk-ad .ic{background:var(--g-olive)!important;color:#FFF8E8!important}
+.mk-ad em{color:var(--g-terra)!important}
+/* الأزرار */
+.btn-view-profile{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;border:0!important;border-radius:999px!important;box-shadow:0 8px 16px rgba(181,101,74,.25)!important}
+.btn-view-profile.btn-view-bio{background:transparent!important;color:var(--g-terra)!important;border:1.5px solid var(--g-terra)!important;box-shadow:none!important}
+/* منظومة البرامج */
+.programs-summary-box{background:linear-gradient(160deg,#F7EBD6,#F0DFC3)!important;border:1.5px solid var(--g-gold)!important;border-radius:24px!important;color:var(--g-brown)!important}
+.programs-summary-box h2,.programs-summary-box h3{color:var(--g-brown)!important}
+.programs-summary-box p{color:var(--g-brown2)!important}
+.programs-summary-box .tag-item{background:var(--g-card)!important;color:var(--g-olive)!important;border:1.5px solid var(--g-olive2)!important}
+.programs-summary-box a.btn-gold,.programs-summary-box .btn-gold,.programs-summary-box a[class*="btn"]{background:linear-gradient(180deg,var(--g-terra2),var(--g-terra))!important;color:#fff!important;border-radius:999px!important}
+/* زر المحادثة لا يغطي الأزرار */
+.mc-fab{width:50px!important;height:50px!important;bottom:86px!important}
+.mn-board .mnb-card .tg{background:var(--g-olive)!important;color:#FFF8E8!important}
+</style>
+<script>document.addEventListener("DOMContentLoaded",function(){var t=0,k=setInterval(function(){var b=document.getElementById("mnBoard");if(++t>40)clearInterval(k);if(b&&!b.querySelector(".g-line")&&b.querySelector(".mnb-head")){b.insertAdjacentHTML("afterbegin","<div class=\"g-line\" aria-hidden=\"true\"><i>✦</i><i>✦</i></div>");clearInterval(k);}},250);});</script>
 <script>window.MN_CFG={site:/(^|\.)maimoonah\.com$/.test(location.hostname)?"maimouna":"makeen",base:"https://maimoonah.com",app:"تطبيق MakeenEducation",icon:"assets/makeen-logo.jpeg",badge:"assets/makeen-logo.jpeg",today:"today.html",my:"my.html",logo:"#mk-no-header-flag"};</script>
 <script src="https://maimoonah.com/js/items.js"></script>
 <script src="https://maimoonah.com/js/app.js"></script>
