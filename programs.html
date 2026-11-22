@@ -454,7 +454,7 @@
     .bk-rating { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; background: rgba(255,253,248,.9); border: 1px solid #DCC79A; border-radius: 12px; padding: 10px 14px; }
     .bk-stars { position: relative; display: inline-block; font-size: 26px; line-height: 1; color: #D6CBB0; letter-spacing: 2px; direction: ltr; }
     .bk-stars-fill { position: absolute; inset: 0 auto 0 0; overflow: hidden; white-space: nowrap; color: #E0A800; }
-    .bk-rating-text { font-size: 14px; color: #12355B; }
+    .bk-rating-text { font-size: 14px; color: #12355B; } .bk-rating { text-decoration: none; } .bk-rating-sm { margin: 8px 0 4px; padding: 6px 10px; width: fit-content; } .bk-rating-sm .bk-stars { font-size: 19px; } .bk-rating-sm .bk-rating-text { font-size: 13px; }
     .bk-reviews { margin: 10px 0 4px; display: grid; gap: 8px; } .bk-reviews h4 { margin: 0; color: #12355B; font-size: 15px; }
     .bk-rev { background: #FFFDF8; border: 1px solid #E8DCC0; border-radius: 10px; padding: 8px 12px; } .bk-rev p { margin: 4px 0 0; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
     .bk-rev-h { display: flex; gap: 8px; align-items: center; } .bk-rev-h b { color: #12355B; } .bk-rev-s { color: #E0A800; letter-spacing: 1px; direction: ltr; } .bk-rev-s i { color: #D6CBB0; font-style: normal; }
@@ -859,6 +859,35 @@
 .org-types b{display:block;color:var(--navy-dark);font-size:15px}.org-types small{color:var(--text-muted);font-size:13px}
 .org-btn{display:inline-block;background:var(--btn-navy,var(--navy-dark));color:var(--on-navy,var(--gold-18k));text-decoration:none;font-weight:800;border-radius:999px;padding:12px 28px;font-size:16px}
 .org-line{display:flex;align-items:center;gap:10px;margin-top:18px;padding:12px 16px;border-radius:14px;border:1.5px dashed var(--gold-18k);background:#FFFBF2;color:var(--navy-dark);text-decoration:none;font-size:15px}.org-line span:nth-child(2){flex:1}
+    /* ===== بطاقات البرامج + صفحة البرنامج المستقلة ===== */
+    .services-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .service-card { position: relative; flex-direction: column; gap: 10px; padding: 20px 18px 16px; border-radius: 18px; border: 1.5px solid #E7DCC4; background: linear-gradient(180deg, #FFFFFF, #FBF7EE); box-shadow: 0 6px 18px rgba(18,53,91,.07); transition: transform .25s, box-shadow .25s, border-color .25s; }
+    .service-card:hover { transform: translateY(-4px); border-color: var(--gold-18k); box-shadow: 0 12px 26px rgba(18,53,91,.12); }
+    .service-card .service-number { width: 44px; height: 44px; font-size: 17px; }
+    .service-card .sc-ic { font-size: 30px; line-height: 1; }
+    .service-card .sc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .service-card .sc-tags span { font-size: 11.5px; font-weight: 800; color: #86661B; background: #FFF6E0; border: 1px solid #F0DDAE; border-radius: 999px; padding: 2px 9px; }
+    .service-card .sc-more { margin-top: auto; font-weight: 800; color: var(--navy-dark); font-size: 13.5px; }
+    .service-card.lit { border-color: #E0B44C; box-shadow: 0 0 0 3px rgba(224,180,76,.55), 0 0 28px rgba(224,180,76,.75); background: linear-gradient(180deg, #FFFBEF, #FCEFCB); transform: scale(1.02); }
+    .prog-page { position: fixed; inset: 0; z-index: 1500; background: #F8F5EE; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .prog-page[hidden] { display: none; }
+    .pp-bar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 10px; background: #12355B; color: #F3D37A; padding: 12px 16px; box-shadow: 0 4px 14px rgba(0,0,0,.15); }
+    .pp-bar button { background: transparent; border: 1.5px solid #F3D37A; color: #F3D37A; border-radius: 999px; padding: 6px 14px; font-family: inherit; font-weight: 800; cursor: pointer; }
+    .pp-bar b { font-size: 15px; }
+    .pp-wrap { max-width: 860px; margin: 0 auto; padding: 18px 16px 110px; }
+    .pp-hero { text-align: center; background: linear-gradient(160deg, #12355B, #1E4A7A); color: #fff; border-radius: 22px; padding: 26px 18px; box-shadow: 0 14px 30px rgba(18,53,91,.25); border: 2px solid #E0B44C; }
+    .pp-hero .ic { font-size: 44px; } .pp-hero h1 { font-size: 24px; color: #F3D37A; margin: 8px 0; line-height: 1.5; } .pp-hero p { font-size: 15px; line-height: 1.9; opacity: .95; }
+    .pp-hero .sc-tags { justify-content: center; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; } .pp-hero .sc-tags span { background: rgba(243,211,122,.15); color: #F3D37A; border: 1px solid rgba(243,211,122,.5); border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 800; }
+    .pp-sec { background: #fff; border: 1px solid #EADFC6; border-radius: 18px; padding: 18px; margin-top: 16px; box-shadow: 0 4px 14px rgba(18,53,91,.05); }
+    .pp-sec h2 { font-size: 18px; color: var(--navy-dark); margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+    .pp-sec ul { margin: 0; padding-inline-start: 20px; line-height: 2; color: #334155; font-size: 14.5px; }
+    .pp-pk { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+    .pp-pk div { border: 1.5px solid #EADFC6; border-radius: 14px; padding: 14px; background: #FFFCF4; } .pp-pk b { display: block; color: var(--navy-dark); font-size: 15px; margin-bottom: 4px; } .pp-pk span { font-size: 13.5px; color: #475569; line-height: 1.8; }
+    .pp-pk div.gold { border-color: #E0B44C; background: #FFF6E0; }
+    .pp-rev { border-inline-start: 4px solid #E0B44C; background: #FFFCF4; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; } .pp-rev b { color: var(--navy-dark); font-size: 13.5px; } .pp-rev p { font-size: 13.5px; color: #334155; line-height: 1.9; margin: 4px 0 0; } .pp-rev .st { color: #E0B44C; letter-spacing: 2px; }
+    .pp-cta { position: fixed; bottom: 0; inset-inline: 0; z-index: 3; background: rgba(255,255,255,.96); border-top: 1px solid #EADFC6; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); display: flex; justify-content: center; }
+    .pp-cta .btn-gold { max-width: 420px; width: 100%; font-size: 16px; }
+    body.pp-open .mc-fab { display: none !important; }
 
   .mk-top { background:var(--navy-dark, #12355B); border-bottom:3px solid var(--gold-18k, #C9A04A); padding:8px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; position:sticky; top:0; z-index:100; }
   .mk-top a { color:var(--gold-18k, #F3D37A); text-decoration:none; font-weight:800; display:flex; align-items:center; gap:8px; }
@@ -901,6 +930,11 @@
 
       <div id="adultsProgramsArea">
         <div class="services-grid" id="servicesGrid"></div>
+      </div>
+      <div id="progPage" class="prog-page" hidden aria-live="polite">
+        <div class="pp-bar"><button type="button" onclick="closeProgPage()">→ كل البرامج</button><b>برامج شركة مكين</b></div>
+        <div class="pp-wrap" id="progPageBody"></div>
+        <div class="pp-cta"><button type="button" class="btn-gold" id="progPageBook">احجز/ي مكانك في البرنامج</button></div>
       </div>
 
       <div id="kidsProgramsArea" style="display: none;">
@@ -1156,16 +1190,92 @@
       { id: 19, title: "خدمات البحوث الشرعية العلمية", desc: "مراجعة، تحقيق، صياغة وفهرسة الرسائل والبحوث العلمية.", value: "إخراج بحوثك ورسائلك العلمية بمنتهى الدقة والضبط الشرعي المحكم.", type: "research" }
     ];
 
+    // ===== تفاصيل كل برنامج: صفحة مستقلة (#program-N) — التعريف، طريقة الدراسة، المحتوى، الحصص، الباقات، الخطط، التقييمات =====
+    const PROG_GROUP = [2, 3, 6, 7, 8, 12, 13, 14, 15, 16, 17, 18]; // نفس قائمة GROUP_PROGS (البرامج التي فيها حلقات جماعية)
+    const PROG_ICON = { 1: '📖', 2: '🌿', 3: '🎙️', 4: '📜', 6: '✨', 7: '💎', 8: '🤲', 9: '📚', 10: '👩‍🏫', 11: '🏆', 12: '🖋️', 14: '🔎', 15: '🕯️', 16: '🏛️', 17: '⚖️', 18: '🕌', 19: '🎓' };
+    const PROG_CONTENT = {
+      1: ['تحديد المستوى ونقطة البداية ومقدار الحفظ اليومي المناسب', 'حفظ جديد بخطة مكتوبة ومتابعة كل حصة', 'مراجعة القريب والبعيد بجدول ثابت حتى لا يتفلّت المحفوظ', 'السرد المتصل لأجزاء كاملة لتثبيت الحفظ', 'تصحيح التلاوة والتجويد أثناء التسميع'],
+      2: ['مقدمات في علوم القرآن وأصول التفسير', 'تفسير السور بالترتيب: المعاني والمفردات وأسباب النزول', 'دلالات الآيات وهداياتها', 'تطبيق الهدايات القرآنية على واقع الحياة'],
+      3: ['مخارج الحروف وصفاتها تطبيقًا عمليًا', 'أحكام النون والميم والمدود والراءات واللامات', 'الوقف والابتداء', 'معالجة اللحن الجلي والخفي', 'تحسين الأداء الصوتي والتلاوة بإتقان'],
+      4: ['إجازة في رواية واحدة أو قراءة واحدة بروايتيها', 'إجازة في القراءات العشر الصغرى جمعًا (الشاطبية والدرة)', 'إجازة في القراءات العشر الكبرى', 'القراءة على الشيخة ختمة كاملة بالسند المتصل إلى النبي ﷺ'],
+      6: ['النظم القرآني وتناسق الألفاظ', 'الإعجاز الصوتي وأثر الأصوات في المعنى', 'دلالات الألفاظ والفروق اللغوية', 'تطبيقات من سور مختارة'],
+      7: ['شرح معاني الأسماء الحسنى والصفات', 'آثار كل اسم في القلب والسلوك', 'الدعاء بالأسماء الحسنى عن بصيرة'],
+      8: ['آداب الدعاء وشروطه', 'أوقات الإجابة وأحوالها', 'موانع الإجابة وعلاجها', 'الأدعية المأثورة الصحيحة'],
+      9: ['اختيار الكتاب المناسب لمستواك وهدفك', 'القراءة المنهجية وتحليل العبارة', 'شرح المسائل والمصطلحات', 'التلخيص والمراجعة'],
+      10: ['طرائق تدريس القرآن الكريم', 'ضبط التلاوة والتسميع والتصحيح', 'إدارة الحلقات وتحفيز الطالبات', 'التدريب العملي والطريق إلى الإجازة'],
+      11: ['تثبيت الحفظ وقوة الاستحضار', 'الأداء أمام لجان التحكيم', 'أسئلة المتشابهات والمواضع', 'رفع الثقة وإدارة التوتر'],
+      12: ['مبادئ اللغة العربية', 'النحو البسيط ثم المتقدم', 'الصرف', 'البلاغة'],
+      14: ['مقدمات علم مصطلح الحديث', 'أقسام الحديث: المقبول والمردود', 'شروط الصحة وعلل الحديث', 'تطبيقات على أحاديث مختارة'],
+      15: ['قراءة شروح الحديث المعتمدة', 'استنباط الأحكام والفوائد', 'الفوائد التربوية والسلوكية'],
+      16: ['نشأة الفقه وأطواره', 'المذاهب الفقهية وأعلامها', 'أسباب اختلاف الفقهاء'],
+      17: ['الأدلة الشرعية', 'دلالات الألفاظ', 'القواعد الأصولية وطرق الاستنباط'],
+      18: ['فقه الطهارة والصلاة', 'الصيام والزكاة والحج', 'فقه المعاملات اليومية', 'تجنّب المحرمات والشبهات'],
+      19: ['وضع عنوان البحث أو الرسالة', 'إعداد خطة البحث', 'إعداد المقدمة والتمهيد', 'إعداد الفصول', 'الفهارس المخصصة', 'المراجعة والتدقيق اللغوي المحكم']
+    };
+    const PROG_REV_KW = { 1: /حفظ|الجزء/, 2: /تفسير|تدبر/, 3: /تلاوة|تجويد|ترقيق|تفخيم|مخارج|الوقف/, 4: /إقراء|إجازة|سند/, 10: /معلم/, 11: /مسابق/, 12: /النحو|العربية/ };
+    const PROG_REVIEWS = [{"h": "الطالبة: طيف (السعودية) - الأمانة ورقة التعامل", "t": "أستاذة ميمونة مو بس معلمة قرآن، هي كنز من الأمانة وطيب اللسان والرقة. تدخل الحلقة بقلب حنون وحماس يشرح الصدر، وتصبر على أخطائنا وترمم تلاوتنا بحنان وأمومة علمية نادرة.. الله يحفظها ويجزاها عنا الجنة."}, {"h": "الطالبة: نورة (السعودية) - الأخلاق والأمانة العلمية", "t": "ما شفت بحياتي أرق ولا أطيب من لسان الشيخة ميمونة، طولة بال غير طبيعية وأمانة متناهية في نقل الحرف وإعطاء كل ذي حق حقه. تحسين إنك مع أم حنونة ومعلمة متمكنة في نفس الوقت، حظ اللي تتلمذ على يدها."}, {"h": "الطالبة: خلود (السعودية) - قيمة الرسوم والجودة العالية", "t": "بصراحة الرسوم ممتازة ومعقولة جداً مقارنة بالجودة الفخمة والمستوى العالي اللي تقدمه الشيخة ميمونة. أسلوبها وقدراتها العالية تختصر عليك سنوات طويلة من التعلم والتعثر وتختصر الوقت وترفع كفاءتك في وقت قياسي.. قسم بالله تستحق أكثر!"}, {"h": "الطالبة: ريم (السعودية) - قيمة البرامج واختصار السنوات", "t": "كل ريال تدفعينه في برامج شركة مكين مع الشيخة ميمونة يرجع لك أضعاف من الفائدة والعلم الصافي. الجودة ملكية والإتقان عالي، تختصر عليك سنين من التشتت وتطلعين حافظة ومتقنة وفاهمة الوقف والابتداء بدقة."}, {"h": "الطالبة: هتون ع. (السعودية) - تأسيس وإتقان التلاوة", "t": "الحمدلله أستاذة ميمونة شهادتي فيها مجروحةجزاها الله عني خير الجزاء أسستني من صغري، صبورة ومتقنة زادها الله من فضله.. لولا ضيق الوقت مع الدراسة لأكملت دروس التصحيح ولي عودة بإذن الله، الله يطرح البركة في أوقاتنا ويجعلنا نستعملها في ما يرضي الله"}, {"h": "الطالبة: رقية (السعودية) - حفظ القرآن والتجويد", "t": "أهلا وسهلا أ. ميمونة، جزاك الله عنا خيرا، وبارك فيك، وزادك علما وفضلا، ما قصرت، فقد أحسنت وأجدت، فكنت نعم المعلمة والأستاذة، حفظتُ القرآن وطبقتُ أحكامه وتجويده بفضل الله ثم حرصك واهتمامك. فجزاك الله عنا وعن الحافظات والمتعلمات كل خير. "}, {"h": "الطالبة: هتون ف. (السعودية) - الرقة والتمكن العلمي", "t": "الله يعطيها العافيه الاستاذه ماقصرت معنا أبدا والله صبوره جدا علينا وقلب جدا رقيق، اسأل الله رب العرش العظيم ان يكتب أجرها والله بتعطينا معلومات وتشرح لنا إذا م فهمن شي.. والله إنها من افضل المعلمات الللي مروا علي وماشاءالله تبارك الرحمن متقنة جدا للقران وتلاوه جدا جميله ومتقنة."}, {"h": "الطالبة: نبيلة (السعودية) - حلم وأسلوب التجويد", "t": "لا اجيد التجويد وصعب علي ودرست كثيراً عند معلمات متمكنات ولكن لم استطيع تجاوز الصعوبه حتى رحمني ربي واصبحت طالبه عند استاذة ميمونه الرائعه المتمكنه بأسلوبها السهل البسيط لتوصيل المعلومه وتطبيقها بكل سهوله واحببت التجويد؛ فهي استاذة تجمع بين العلم والحلم والاناة مع الطالب وتحبيب الماده له بأسلوب بسيط ممتع وسهل.. الله يجزاها عني خير ما جزا طالب عن معلمه وينفع بها أمة محمد صلى الله عليه وسلم ويزيدها علماً وعملاً وبركة."}, {"h": "الطالبة: رحمة (السعودية) - التمكن والقدوة الحسنة", "t": "أما عن الفائدة... لم أستفد بحياتي الطويلة كلها كما استفدت منك ياابنتي ميمونة والله ليست مجاملة بل حقيقة والله يشهد على ماأقول.... على قصر المدة التي قضيتها معك ومع البنات الغاليات إلا أنني استفدت فائدة عظيمة وانشرح صدري انشراحا لايوصف... قدوة في حسن الخلق وقدوة في تمكنك من القرآن وأحكامه وعلومه... ماشاء الله لاقوة إلا بالله... ليت بناتنا كلهن يحذون حذوك. "}, {"h": "الطالبة: آمال (مصر) - جودة المتابعة والدعاء", "t": "بالنسبة للشيخة ميمونه فهي ماشاء الله عليها وجزاها الله عنا كل خير وربنا يكثر من أمثالها.. وجزاكم الله خيرا وجعله في ميزان حسناتكم جميعا يارب العالمين."}, {"h": "الطالبة: الجوهرة (السعودية) - حلاوة الأسلوب والصبر", "t": "أنا شاركت مشاركة حديثة مع الاستاذه ميمونه، استفدت جداً … تصبر علينا .. رائعة جدا جدا حبيت القراءه من حلاة اسلوبها."}, {"h": "الطالبة: مشيرة (السعودية) - دقة الترقيق والتفخيم والوقف", "t": "بدأت مع الأستاذة من الجزء التاسع ومن أول الأيام استفدت استفادة قيّمة تبارك الرحمن، وتنبيهاتها دقيقة وفي الترقيق والتفخيم وهذا أكثر شيء عجبني، وأيضًا المعلمة كانت تفيدنا بمعلومات عامة عن الترتيل وطرق الابتداء والوقف وعن اللغة العربية.. تعاملها لطيف وترحيبها بنا يكون مفعم بالنشاط والحماس وتصبر علينا في تحسين الخطأ وتوضحه لنا بطريقة مبسطة، الله يجزيها عنَّا خير الجزاء."}, {"h": "الطالبة: ابتهال (السعودية) - أمانة الإقراء والنحو", "t": "الإستاذه من أفضل المعلمات والله في تصحيح التلاوة، تصحح التلاوة بكل امانه ومتقنها جداً في القرءان وفيها شي جدا مميز انها بتركز في الابتداء والوقف وهذا شي يعتمد على معرفه النحو بالاضافه إلى معرفه معنى الايات.. وصبوره والله جزاها الله عنا كل خير. "}];
+    let progLitT = null;
+    function progCardClick(el, id) {
+      document.querySelectorAll('.service-card.lit').forEach((c) => c.classList.remove('lit'));
+      el.classList.add('lit'); clearTimeout(progLitT);
+      progLitT = setTimeout(() => { openProgPage(id); setTimeout(() => el.classList.remove('lit'), 700); }, 280);
+    };
+    function progPkgs(p) {
+      const G = PROG_GROUP.includes(p.id);
+      if (p.type === 'ijaza') return [['إجازة في رواية واحدة', 'ختمة كاملة برواية واحدة، ويمكن الدفع كاملًا أو بالجزء.'], ['إجازة في قراءة واحدة', 'القراءة بروايتيها، كاملًا أو بالجزء.'], ['العشر الصغرى جمعًا', 'من طريقي الشاطبية والدرة، كاملًا أو بالجزء.', 1], ['العشر الكبرى', 'بالسند العالي المتصل، كاملًا أو بالجزء.', 1]];
+      if (p.type === 'research') return [['حجز البحث كاملًا', 'العنوان والخطة والمقدمة والتمهيد وجميع الفصول والفهارس.', 1], ['خدمات منفردة', 'العنوان، أو الخطة، أو المقدمة، أو الفصول، أو الفهارس، أو التدقيق اللغوي بالصفحة.']];
+      const a = [['الحجز بالساعة (عضو جديد)', 'حصة واحدة للتجربة أو عند الحاجة، دون التزام.'], ['الباقة الشهرية (عضو فضي)', 'من حصة إلى 6 حصص أسبوعيًا: من 4 إلى 24 حصة في الشهر، وكلما زادت الحصص قلّ سعر الحصة.'], ['الباقة السنوية (عضو ذهبي)', 'من حصة إلى 6 حصص أسبوعيًا: من 48 إلى 288 حصة في السنة، بأقل سعر للحصة.', 1]];
+      if (G) a.push(['الحلقة الجماعية', 'مع مجموعة بمواعيد ثابتة، تختار/ين الحلقة المناسبة لوقتك.']);
+      return a;
+    };
+    function progPlans(p) {
+      if (p.type === 'ijaza') return ['خطة هادئة: حصة أو حصتان أسبوعيًا', 'خطة منتظمة: 3–4 حصص أسبوعيًا', 'خطة مكثفة: 5–6 حصص أسبوعيًا لإتمام الختمة أسرع'];
+      if (p.type === 'research') return ['يُتفق على جدول التسليم حسب حجم البحث وموعد مناقشتك'];
+      return ['خطة هادئة: حصة أو حصتان أسبوعيًا', 'خطة منتظمة: 3–4 حصص أسبوعيًا', 'خطة مكثفة: 5–6 حصص أسبوعيًا'];
+    };
+    function openProgPage(id, noHash) {
+      const p = programsData.find((x) => x.id === id); if (!p) return;
+      const E = (t) => String(t || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      const G = PROG_GROUP.includes(id), R = p.type === 'research';
+      const kw = PROG_REV_KW[id];
+      let rv = kw ? PROG_REVIEWS.filter((r) => kw.test(r.h + ' ' + r.t)) : [];
+      const general = !rv.length; if (general) rv = PROG_REVIEWS.filter((r) => /الأمانة|الأخلاق|التمكن|الأسلوب|المتابعة|الرقة/.test(r.h)).slice(0, 3);
+      const method = R ? ['تواصل مباشر مع الشيخة لتحديد موضوع البحث ومتطلبات جامعتك', 'تسليم كل جزء مكتوبًا ومراجعته معك قبل الانتقال لما بعده', 'متابعة الطلب في لوحة الطالب'] :
+        ['حصص مباشرة عن بُعد على Google Meet مع الشيخة ميمونة عبدالعزيز ندا', G ? 'دراسة فردية، أو ضمن حلقة جماعية بمواعيد ثابتة' : 'دراسة فردية مخصّصة لمستواك وهدفك', 'تختار/ين أيام الحصص وساعاتها، وتظهر في تقويم لوحة الطالب', 'متابعة وتوجيه بين الحصص حتى تبلغ/ي هدفك'];
+      document.getElementById('progPageBody').innerHTML = `
+        <div class="pp-hero"><div class="ic">${PROG_ICON[id] || '📘'}</div><h1>${E(p.title)}</h1><p>${E(p.desc)}</p>
+          <div class="sc-tags"><span>عن بُعد</span>${G ? '<span>فردي أو جماعي</span>' : (R ? '<span>خدمة بحثية</span>' : '<span>فردي</span>')}${p.type === 'ijaza' ? '<span>سند متصل</span>' : ''}</div></div>
+        <div class="pp-sec"><h2>🎯 ماذا يمنحك البرنامج؟</h2><p style="line-height:2;color:#334155;font-size:15px">${E(p.value)}</p></div>
+        <div class="pp-sec"><h2>🧭 طريقة الدراسة</h2><ul>${method.map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
+        <div class="pp-sec"><h2>📋 محتوى البرنامج</h2><ul>${(PROG_CONTENT[id] || []).map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
+        ${R ? '' : `<div class="pp-sec"><h2>⏱️ عدد الحصص</h2><ul><li>من حصة واحدة إلى <b>6 حصص أسبوعيًا</b> كحدٍّ أقصى (حتى 24 حصة في الشهر)</li><li>تحدد/ين عدد الحصص عند اختيار الباقة، ويمكن الزيادة لاحقًا</li></ul></div>`}
+        <div class="pp-sec"><h2>💳 الباقات</h2><div class="pp-pk">${progPkgs(p).map(([t, d, g]) => `<div${g ? ' class="gold"' : ''}><b>${E(t)}</b><span>${E(d)}</span></div>`).join('')}</div>
+          <p style="font-size:13px;color:#64748B;margin-top:10px">تظهر الرسوم بعملة بلدك عند الحجز.</p></div>
+        <div class="pp-sec" id="ppPlans"><h2>🗓️ خطط الدراسة</h2><ul>${progPlans(p).map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
+        <div class="pp-sec"><h2>⭐ ${general ? 'من تقييمات طالبات الشيخة' : 'تقييمات الطالبات'}</h2>${rv.map((r) => `<div class="pp-rev"><span class="st">★★★★★</span> <b>${E(r.h)}</b><p>«${E(r.t)}»</p></div>`).join('') || '<p style="color:#64748B">كن/كوني أول من يقيّم هذا البرنامج.</p>'}</div>`;
+      document.getElementById('progPageBook').onclick = () => openProgramModal(id);
+      const pg = document.getElementById('progPage'); pg.hidden = false; pg.scrollTop = 0; document.body.style.overflow = 'hidden'; document.body.classList.add('pp-open');
+      if (!noHash && location.hash !== '#program-' + id) history.pushState(null, '', '#program-' + id);
+    };
+    function closeProgPage(noHist) {
+      const pg = document.getElementById('progPage'); if (!pg || pg.hidden) return;
+      pg.hidden = true; document.body.style.overflow = ''; document.body.classList.remove('pp-open');
+      if (!noHist && /^#program-/.test(location.hash)) history.pushState(null, '', location.pathname + location.search);
+    };
+    window.addEventListener('popstate', () => { const m = /^#program-(\d+)$/.exec(location.hash); if (m) openProgPage(+m[1], true); else closeProgPage(true); });
+
     const grid = document.getElementById('servicesGrid');
     if (grid) {
       programsData.forEach((p, pi) => {
         grid.innerHTML += `
-          <div class="service-card" onclick="openProgramModal(${p.id})" data-item="program:${p.id}" data-title="${p.title}" data-sub="من برامج شركة مكين للاستشارات والتدريب والتعليم" data-url="https://makeeneducation.com/programs.html#program-${p.id}">
-            <div class="service-number">${pi + 1}</div>
+          <div class="service-card" onclick="progCardClick(this, ${p.id})" data-item="program:${p.id}" data-title="${p.title}" data-sub="من برامج شركة مكين للاستشارات والتدريب والتعليم" data-url="https://makeeneducation.com/programs.html#program-${p.id}">
+            <div style="display:flex;align-items:center;gap:10px;width:100%"><div class="service-number">${pi + 1}</div><span class="sc-ic">${PROG_ICON[p.id] || '📘'}</span></div>
             <div data-acts-slot>
               <h4 style="color: var(--navy-dark);">${p.title}</h4>
               <p style="font-size: 13px; color: var(--text-muted);">${p.desc}</p>
             </div>
+            <div class="sc-tags"><span>عن بُعد</span>${PROG_GROUP.includes(p.id) ? '<span>فردي أو جماعي</span>' : ''}${p.type === 'ijaza' ? '<span>سند متصل</span>' : ''}</div>
+            <div class="sc-more">التفاصيل والباقات ‹</div>
           </div>
         `;
       });
@@ -1762,7 +1872,7 @@
     });
     function openDeepLink() {
       const h = decodeURIComponent(location.hash || '').slice(1);
-      if (h.startsWith('program-')) { const id = Number(h.slice(8)); if (programsData.some((p) => p.id === id)) setTimeout(() => openProgramModal(id), 300); }
+      if (h.startsWith('program-')) { const id = Number(h.slice(8)); if (programsData.some((p) => p.id === id)) setTimeout(() => openProgPage(id, true), 200); } else closeProgPage(true);
     }
     openDeepLink(); window.addEventListener('hashchange', openDeepLink);
 </script>
