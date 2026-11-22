@@ -81,6 +81,14 @@
   .stu-actions { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; margin-top:12px; }
   .stu-actions .btn { padding:11px 10px; }
   @media (max-width:520px) { .wk-day { grid-template-columns:1fr; gap:4px; } .wk-dn small { display:inline; margin-inline-start:6px; } .stats .stat b { font-size:20px; } }
+  .hello-t.mini { padding:10px 14px; } .hello-t.mini h1 { font-size:17px; margin:0; } .hello-t.mini .muted, .hello-t.mini .stats { display:none; }
+  .grp-h { display:flex; align-items:center; gap:8px; color:var(--navy); font-weight:800; font-size:15px; margin:14px 0 2px; } .grp-h small { color:var(--brown); font-weight:600; }
+  .stu-q { width:100%; padding:9px 12px; border:1px solid #CBD5E1; border-radius:10px; font:inherit; margin-top:10px; }
+  .next-box { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; background:linear-gradient(135deg,#12355B,#1E4E85); color:#fff; border-radius:14px; padding:12px 14px; margin-bottom:14px; }
+  .next-box small { display:block; color:#F3D37A; font-size:13px; } .next-box b { font-size:17px; } .next-box .btn { background:var(--gold); color:var(--navy); }
+  .days7 { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; } .days7 span { border-radius:10px; padding:4px 10px; font-size:13.5px; font-weight:800; background:#F1F5F9; color:#94A3B8; text-decoration:line-through; } .days7 span.on { background:#DCFCE7; color:#166534; text-decoration:none; }
+  .av-hint { background:#FFFBEB; border:1px solid #FCD34D; color:#78350F; border-radius:10px; padding:8px 12px; font-size:13.5px; margin-top:12px; }
+  .prof-list { display:grid; gap:8px; margin-top:12px; } .prof-list .btn { text-align:start; display:flex; justify-content:space-between; align-items:center; }
   .note { background:#EEF4FB; border:1px solid #BFD3EA; color:var(--navy); border-radius:10px; padding:10px 12px; font-size:14px; }
 </style>
 <script src="https://maimoonah.com/js/classes.js"></script>
@@ -228,7 +236,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 <script src="https://maimoonah.com/js/call.js?v=3"></script>
 <script src="https://maimoonah.com/js/avail.js?v=1"></script>
 <script src="https://maimoonah.com/js/instapay.js?v=4"></script>
-<script src="https://maimoonah.com/js/tlessons.js?v=7"></script>
+<script src="https://maimoonah.com/js/tlessons.js?v=8"></script>
 <script>
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -338,6 +346,17 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     for (let i = 0; i < h.length; i++) { let j = i; while (j + 1 < h.length && h[j + 1] === h[j] + 1) j++; out.push(i === j ? lb(h[i]) : lb(h[i]) + ' – ' + lb(h[j])); i = j; }
     return out;
   }
+  // أقرب حصة قادمة مع زر الدخول المباشر
+  function nextBox(act) {
+    const now = Date.now(); let best = null;
+    act.forEach((s) => C.sessions(s, s.marks || {}).forEach((x) => { const end = x.at.getTime() + C.CLASS_MIN * 60000; if (end > now && x.status === 'upcoming' && (!best || x.at < best.x.at)) best = { s, x }; }));
+    if (!best) return '';
+    const { s, x } = best, mins = Math.round((x.at.getTime() - now) / 60000);
+    const when = mins <= 0 ? 'الآن' : mins < 60 ? 'بعد ' + mins + ' دقيقة' : DAYS[inTz(x.at, TZ).dow] + ' ' + C.fmtTime(x.at, TZ);
+    const research = /البحوث/.test(s.program || '');
+    const go = research ? `research.html?sub=${s.sub_id}` : `room.html?sub=${s.sub_id}&mode=video`;
+    return `<div class="next-box"><div><small>الحصة القادمة · ${esc(when)}</small><b>${esc(s.first_name)}</b> <small style="display:inline;color:#E2E8F0">· ${esc(s.program || '')}</small></div>${mins <= 15 ? `<a class="btn" href="${go}">${research ? '💬 فتح المتابعة' : '🎥 دخول الغرفة'}</a>` : `<a class="btn" href="#stu-${esc(s.sub_id)}">صفحة الطالب/ة</a>`}</div>`;
+  }
   function render() {
     const t = D.teacher || {}, av = t.availability || null, S = D.students || [];
     const act = S.filter((s) => s.status === 'active'), up = upcomingHtml(S);
@@ -351,21 +370,30 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     let tab = ''; try { tab = sessionStorage.getItem('mk_tp_tab') || ''; } catch (e) {}
     if (!TABS.some((x) => x[0] === tab)) tab = 'home';
     $('dash').innerHTML = `<section class="card hello-t"><h1>أهلًا ${esc(t.name || '')}</h1>${t.headline ? `<p class="muted">${esc(t.headline)}</p>` : ''}
-      <div class="stats"><div class="stat"><b>${up.today}</b><small>حصة اليوم</small></div><div class="stat"><b>${up.n}</b><small>حصة في ٧ أيام</small></div><div class="stat"><b>${act.length}</b><small>طالب/ة مشترك/ة</small></div></div></section>
+      <div class="stats"><div class="stat"><b>${up.today}</b><small>حصة اليوم</small></div><div class="stat"><b>${up.n}</b><small>حصة في ٧ أيام</small></div><div class="stat"><b>${act.length}</b><small>طالب/ة</small></div></div></section>
       <nav class="tabs" role="tablist">${TABS.map(([k, l, n]) => `<button type="button" role="tab" data-tab="${k}" class="${k === tab ? 'on' : ''}" aria-selected="${k === tab}">${l}${n ? `<b>${n}</b>` : ''}</button>`).join('')}</nav>
-      <div class="pane" data-pane="home"><section class="card"><h2>📅 حصصك القادمة</h2>${up.html}</section>
+      <div class="pane" data-pane="home">${nextBox(act)}<section class="card"><h2>📅 حصصك القادمة</h2>${up.html}</section>
         ${S.length ? `<section class="card"><div class="sec-h"><h2>👥 طلابي</h2><button type="button" class="btn sm ghost" data-go="students">عرض الكل</button></div><div class="stu-cards">${S.slice(0, 4).map(stuCard).join('')}</div></section>` : ''}</div>
       <div class="pane" data-pane="week"><section class="card"><h2>🗓 الجدول الأسبوعي لكل طلابك</h2><p class="muted">مواعيد جميع اشتراكات طلابك بتوقيتك، من السبت إلى الجمعة. اضغط/ي على أي موعد لفتح صفحة الطالب/ة.</p>${weekHtml(S, av)}</section></div>
       <div class="pane" data-pane="students"><section class="card"><h2>👥 طلابي <small class="muted">(${S.length}${pend ? ' · ' + pend + ' بانتظار التفعيل' : ''})</small></h2>
-        ${S.length ? '<div class="stu-cards">' + S.slice().sort((x, y) => (x.status === 'active' ? 0 : 1) - (y.status === 'active' ? 0 : 1)).map(stuCard).join('') + '</div>' : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}
+        ${S.length ? (S.length > 6 ? '<input type="search" class="stu-q" id="stuQ" placeholder="ابحث/ي باسم الطالب/ة أو البرنامج">' : '') +
+          (act.length ? `<div class="grp-h">✅ مشتركون حاليًا <small>(${act.length})</small></div><div class="stu-cards" data-grp>${act.map(stuCard).join('')}</div>` : '') +
+          (pend ? `<div class="grp-h">⏳ بانتظار التفعيل <small>(${pend})</small></div><div class="stu-cards" data-grp>${S.filter((x) => x.status !== 'active').map(stuCard).join('')}</div>` : '')
+          : '<p class="note">لم يُسند إليك طلاب بعد. تظهر هنا بيانات طلابك فور إسنادهم إليك من الإدارة.</p>'}
         <p class="muted" style="margin-top:10px;font-size:13px">تظهر لك بيانات الدراسة فقط، ويُمنع تبادل أرقام الهواتف أو الحسابات الشخصية مع الطلاب. المواعيد بعلامة ⚠ خارج أوقاتك المتاحة؛ راجع/ي الإدارة فيها.</p></section></div>
-      <div class="pane" data-pane="avail"><section class="card"><h2>🕒 أوقاتي المتاحة</h2>${avHtml}<div class="row-btns"><button type="button" class="btn sm ghost" id="avEdit">✏️ تعديل أوقاتي</button></div></section></div>
+      <div class="pane" data-pane="avail"><section class="card"><h2>🕒 أوقاتي المتاحة</h2><p class="muted">الأيام والساعات التي يمكنك التدريس فيها، وعلى أساسها تُنسَّق مواعيد الطلاب الجدد معك.</p>
+        <div style="margin-top:10px"><small class="muted">الأيام</small><div class="days7">${[6, 0, 1, 2, 3, 4, 5].map((d) => `<span class="${av && Array.isArray(av.days) && av.days.includes(d) ? 'on' : ''}">${DAYS[d]}</span>`).join('')}</div></div>
+        ${days ? `<div style="margin-top:10px"><small class="muted">الساعات${av.tz ? ' (بتوقيت ' + esc(TZN[av.tz] || av.tz) + ')' : ''}</small><div class="chips">${hoursRanges(av.hours).map((r) => `<span class="chip">${esc(r)}</span>`).join('')}</div></div>` : '<p class="note" style="margin-top:10px">لم تُسجَّل أوقاتك بعد. سجّليها/سجّلها حتى تُنسَّق مواعيد الطلاب معك.</p>'}
+        <div class="row-btns"><button type="button" class="btn" id="avEdit">✏️ تعديل أوقاتي</button></div>
+        ${S.some((x) => /⚠/.test(slotsHtml(x, av))) ? '<div class="av-hint">⚠ بعض مواعيد طلابك خارج أوقاتك المتاحة. راجع/ي «الجدول الأسبوعي»، وتواصل/ي مع الإدارة لتعديلها.</div>' : ''}</section></div>
       <div class="pane" data-pane="lessons"><section class="card tl-box" id="tlBox"></section></div>
       <div class="pane" data-pane="profile"><section class="card"><h2>🎓 ملفي</h2><div class="facts">${t.level ? `<div class="fact"><small>المؤهل</small><b>${esc(t.level)}</b></div>` : ''}${t.specialty ? `<div class="fact"><small>التخصص</small><b>${esc(t.specialty)}</b></div>` : ''}</div>
       ${progs.length ? `<details class="progs" open><summary>برامجي (${progs.length})</summary><div class="chips">${progs.map((p) => `<span class="chip">${esc(String(p).replace(/^برنامج\s+/, ''))}</span>`).join('')}</div></details>` : ''}
-      ${t.id ? `<div class="row-btns"><a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}">صفحتي التعريفية</a></div>` : ''}</section></div>`;
-    const showTab = (k) => { document.querySelectorAll('.pane').forEach((p) => { p.hidden = p.dataset.pane !== k; }); document.querySelectorAll('[data-tab]').forEach((x) => { const on = x.dataset.tab === k; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); }); try { sessionStorage.setItem('mk_tp_tab', k); } catch (e) {} };
+      <div class="prof-list">${t.id ? `<a class="btn ghost" href="teacher.html?id=${encodeURIComponent(t.id)}"><span>👤 صفحتي التعريفية على الموقع</span><span>←</span></a>` : ''}<button type="button" class="btn ghost" onclick="MN.pwChange(sb)"><span>🔑 تغيير كلمة المرور</span><span>←</span></button><a class="btn ghost" href="contact.html"><span>💬 التواصل مع الإدارة</span><span>←</span></a></div></section></div>`;
+    const showTab = (k) => { const hl = document.querySelector('.hello-t'); if (hl) hl.classList.toggle('mini', k !== 'home'); document.querySelectorAll('.pane').forEach((p) => { p.hidden = p.dataset.pane !== k; }); document.querySelectorAll('[data-tab]').forEach((x) => { const on = x.dataset.tab === k; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); }); try { sessionStorage.setItem('mk_tp_tab', k); } catch (e) {} };
     showTab(tab);
+    { const on = document.querySelector('[data-tab].on'); if (on) on.scrollIntoView({ inline: 'center', block: 'nearest' }); window.scrollTo(0, 0); }
+    { const q = $('stuQ'); if (q) q.oninput = () => { const v = q.value.trim(); document.querySelectorAll('[data-grp] .stu-card').forEach((c) => { c.hidden = v && !c.textContent.includes(v); }); }; }
     document.querySelectorAll('[data-tab]').forEach((x) => x.onclick = () => { showTab(x.dataset.tab); x.scrollIntoView({ inline: 'nearest', block: 'nearest' }); });
     document.querySelectorAll('[data-go]').forEach((x) => x.onclick = () => showTab(x.dataset.go));
     if (window.MN && MN.tlessons && t.id && $('tlBox')) MN.tlessons.panel($('tlBox'), sb, t.id);
