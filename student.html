@@ -215,7 +215,7 @@ h1.section-title,h2.section-title,.section-title,.page-title{color:var(--g-brown
     <input type="email" id="email" placeholder="name@example.com" autocomplete="email">
     <div style="margin-top:10px;"><button class="btn" id="sendBtn" onclick="sendLink()">أرسل رابط الدخول</button></div>
     <div class="msg" id="loginMsg"></div>
-    <p class="note" style="margin-top:12px;">في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. وبعد اشتراكك في برنامج تُفتح لك لوحة الطالب. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.</p>
+    <p class="note" style="margin-top:12px;">في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك، ومتابعة الحضور والغياب والتأجيل والتعويض. وبعد اشتراكك في برنامج تُفتح لك لوحة الطالب. لم تشترك/ي بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.</p>
   </section>
 
   <div id="dash" style="display:none;">
@@ -487,7 +487,7 @@ h1.section-title,h2.section-title,.section-title,.page-title{color:var(--g-brown
     const { data: { session } } = await sb.auth.getSession();
     if (!session) {
       $('loginBox').style.display = 'block';
-      MN.pwMount($('loginBox'), sb, { signup: true, title: 'لوحة الطالب', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال وكلمة المرور. ليس لديك حساب؟ أنشئ/ي حسابك بالبريد ورقم الجوال في دقيقة، ثم اشترك/ي في البرنامج الذي تريده/ينه.', note: 'في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك. وبعد اشتراكك في برنامج تُفتح لك لوحة الطالب. ولم تشترك بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.' });
+      MN.pwMount($('loginBox'), sb, { signup: true, title: 'لوحة الطالب', intro: 'ادخل/ي بالبريد الإلكتروني أو رقم الجوال وكلمة المرور. ليس لديك حساب؟ أنشئ/ي حسابك بالبريد ورقم الجوال في دقيقة، ثم اشترك/ي في البرنامج الذي تريده/ينه.', note: 'في لوحتك تجد رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات معلمك/معلمتك، ومتابعة الحضور والغياب والتأجيل والتعويض. وبعد اشتراكك في برنامج تُفتح لك لوحة الطالب. لم تشترك/ي بعد؟ <a href="programs.html">اختر/ي برنامجك من هنا</a>.' });
       const hp = new URLSearchParams((location.hash || '').slice(1) + '&' + location.search.slice(1));
       if (hp.get('error_code') || hp.get('error')) {
         $('pwlMsg').innerHTML = '<b>هذا الرابط استُعمل من قبل أو انتهت مدته.</b> ادخل/ي بكلمة المرور، أو اضغط/ي «نسيت كلمة المرور؟» فيصلك رابط لتعيين كلمة جديدة.';
