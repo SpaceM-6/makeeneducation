@@ -118,6 +118,7 @@
     ['complaints.html', 'الشكاوى والبلاغات', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4.5M12 15.5h.01"/>')],
     ['suggestions.html', 'الاقتراحات والتحسينات', IC('<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>')],
     [MK.MAIN + '/', 'موقع أ/ ميمونة', '<img src="assets/maimouna-icon.jpg" alt="" class="mk-dlogo" width="44" height="44">'],
+    ['refund.html', 'سياسة الاسترجاع والاسترداد', IC('<path d="M4 12a8 8 0 1 0 2.3-5.7"/><path d="M4 4v4h4"/><path d="M12 8v4l2.5 1.5"/>')],
     ['privacy.html', 'سياسة الخصوصية', IC('<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>')],
     ['contact.html', 'تواصل معنا', IC('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8 11h8M8 14h5"/>')]
   ];
@@ -297,10 +298,9 @@
   // روابط سياسة الخصوصية والشروط في كل صفحات مكين (تُخدم من موقع ميمونة)
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('a[href="terms.html"]').forEach(function (a) { a.href = 'study-terms.html'; });
-    document.querySelectorAll('a[href="refund.html"]').forEach(function (a) { a.href = MK.MAIN + '/' + a.getAttribute('href'); });
     var f = document.querySelector('footer'); if (!f || f.querySelector('a[href$="privacy.html"]')) return;
     var p = document.createElement('p'); p.style.cssText = 'margin:6px 0 0;font-size:13.5px';
-    p.innerHTML = '<a href="privacy.html" style="color:inherit">سياسة الخصوصية</a> · <a href="join-terms.html" style="color:inherit">شروط الالتحاق بكادر مكين</a> · <a href="study-terms.html" style="color:inherit">شروط الدراسة للطلاب</a>';
+    p.innerHTML = '<a href="privacy.html" style="color:inherit">سياسة الخصوصية</a> · <a href="refund.html" style="color:inherit">سياسة الاسترجاع والاسترداد</a> · <a href="join-terms.html" style="color:inherit">شروط الالتحاق بكادر مكين</a> · <a href="study-terms.html" style="color:inherit">شروط الدراسة للطلاب</a>';
     f.appendChild(p);
   });
   // عدّاد زوار مكين ومستخدمي تطبيقه (لا يظهر قبل ١٠٠٠)
