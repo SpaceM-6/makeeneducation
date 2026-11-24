@@ -1378,30 +1378,17 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       if (G) a.push(['الحلقة الجماعية', 'مع مجموعة بمواعيد ثابتة، تختار/ين الحلقة المناسبة لوقتك.']);
       return a;
     };
-    // رسوم الباقة بعملة منطقة الزائر، تظهر عند الضغط عليها
+    // الضغط على الباقة يفتح نافذة الحجز على جدول رسومها مباشرة (بعملة منطقة الزائر)، ومنه يحجز فورًا
     function ppPkgPrice(el, id, i) {
       const p = programsData.find((x) => x.id === id); if (!p) return;
-      const box = el.querySelector('.pp-pr'), hint = el.querySelector('.pp-hint');
-      if (!box.hidden) { box.hidden = true; if (hint) hint.hidden = false; el.setAttribute('aria-expanded', 'false'); return; }
-      // التبديل بين الباقات: تُطوى الباقة المفتوحة وتُفتح المضغوطة
-      el.parentElement.querySelectorAll('[aria-expanded="true"]').forEach((o) => { o.setAttribute('aria-expanded', 'false'); const b = o.querySelector('.pp-pr'), t = o.querySelector('.pp-hint'); if (b) b.hidden = true; if (t) t.hidden = false; });
-      const F = (n) => '<b>' + tierFmt(n) + '</b>', S = (n) => F(fromSar(n)), PP = progPrices();
-      let h = '';
-      if (p.type === 'ijaza') {
-        const k = ['riwaya', 'qiraa', 'sughra', 'kubra'][i], ij = PP.ijaza, sx = MK_TIER === 'world' ? '_usd' : '_egp';
-        h = 'الرسوم: ' + F(ij[k + sx]) + '<br>أو ' + F(ij[k + '_part' + sx]) + ' للجزء';
-      } else if (p.type === 'research') {
-        const rs = PP.research;
-        h = i === 0 ? 'الرسوم: ' + S(rs.full) : 'العنوان ' + S(rs.title) + '<br>الخطة ' + S(rs.plan) + '<br>المقدمة أو التمهيد ' + S(rs.intro) + '<br>الفصول ' + S(rs.chapters) + '<br>الفهارس ' + S(rs.index) + '<br>التدقيق اللغوي ' + S(rs.proof) + ' للصفحة';
-      } else if (i === 0) {
-        h = 'سعر الحصة: ' + S(PLAN_PRICES.hourly);
-      } else if (i === 1 || i === 2) {
-        const per = i === 1 ? 4 : 48, k = i === 1 ? 'monthly' : 'yearly';
-        h = PLAN_PRICES[k].map((pp, j) => { const n = j + 1; return (n === 1 ? 'حصة واحدة' : n === 2 ? 'حصتان' : n + ' حصص') + ' أسبوعيًا: ' + S(pp * per * n) + (i === 1 ? ' شهريًا' : ' سنويًا'); }).join('<br>');
-      } else {
-        h = 'اختر/ي الحلقة المناسبة لوقتك عند الحجز.';
-      }
-      box.innerHTML = h; box.hidden = false; if (hint) hint.hidden = true; el.setAttribute('aria-expanded', 'true');
+      openProgramModal(id);
+      const modal = document.getElementById('programModal'); if (!modal || modal.style.display !== 'flex') return;
+      const mark = (node) => { if (!node) return; node.style.transition = 'background .3s'; node.style.background = '#FFF1CC'; node.style.outline = '2px solid #E0B44C'; setTimeout(() => node.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120); };
+      if (p.type === 'ijaza') { const rows = document.querySelectorAll('#ijazaTableBox tr'); mark(rows[i + 1]); return; }
+      if (p.type === 'research') { const c = document.getElementById('bookingOptionsContainer'); mark(i === 0 ? c.firstElementChild : c.querySelector('.pricing-table')); return; }
+      const ch = document.getElementById('modeChooser');
+      if (ch && !ch.hidden) { const b = document.querySelector('.mode-btn[data-mode="' + (i === 3 ? 'group' : 'single') + '"]'); if (b) b.click(); }
+      if (i < 3) { showPricingTable(['hourly', 'monthly', 'yearly'][i]); mark(document.getElementById('pricingTableArea')); }
     }
     window.ppPkgPrice = ppPkgPrice;
     function progPlans(p) {
@@ -1422,7 +1409,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         <div class="pp-sec"><h2>🧭 طريقة الدراسة</h2><ul>${method.map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
         <div class="pp-sec"><h2>📋 محتوى البرنامج</h2><ul>${(PROG_CONTENT[id] || []).map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
         ${R ? '' : `<div class="pp-sec"><h2>⏱️ عدد الحصص</h2><ul><li>من حصة واحدة إلى <b>6 حصص أسبوعيًا</b> كحدٍّ أقصى (حتى 24 حصة في الشهر)</li><li>تحدد/ين عدد الحصص عند اختيار الباقة، ويمكن الزيادة لاحقًا</li></ul></div>`}
-        <div class="pp-sec"><h2>💳 الباقات</h2><div class="pp-pk">${progPkgs(p).map(([t, d, g], i) => `<div role="button" tabindex="0" aria-expanded="false"${g ? ' class="gold"' : ''} onclick="ppPkgPrice(this, ${p.id}, ${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ppPkgPrice(this, ${p.id}, ${i})}"><b>${E(t)}</b><span>${E(d)}</span><em class="pp-pr" hidden></em><i class="pp-hint">اضغط/ي لمعرفة الرسوم</i></div>`).join('')}</div></div>
+        <div class="pp-sec"><h2>💳 الباقات</h2><div class="pp-pk">${progPkgs(p).map(([t, d, g], i) => `<div role="button" tabindex="0" aria-expanded="false"${g ? ' class="gold"' : ''} onclick="ppPkgPrice(this, ${p.id}, ${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ppPkgPrice(this, ${p.id}, ${i})}"><b>${E(t)}</b><span>${E(d)}</span><i class="pp-hint">اضغط/ي لعرض الرسوم والحجز</i></div>`).join('')}</div></div>
         <div class="pp-sec" id="ppPlans"><h2>🗓️ خطط الدراسة</h2><ul>${progPlans(p).map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
         <div class="pp-sec" id="ppRate"><h2>⭐ قيّم/ي هذا البرنامج</h2>
           <p style="font-size:14px;color:#475569;margin:0 0 10px">درستِ/درستَ في هذا البرنامج؟ شاركنا تجربتك، ويُنشر تقييمك بعد مراجعته بإذن الله.</p>
