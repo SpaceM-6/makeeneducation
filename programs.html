@@ -1258,7 +1258,20 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 <script>
     const TARGET_WHATSAPP = "201013356935";   // واتساب شركة مكين (موقع ميمونة أحد مواقع مكين)
     const MAKEEN_WHATSAPP = "201013356935";   // حجوزات برامج مكين تذهب إلى واتساب مكين دائمًا
-    let PRICES_HIDDEN = true;
+    // الأسعار ظاهرة للجميع بثلاث عملات حسب المنطقة الزمنية للزائر (نوفمبر ٢٠٢٦):
+    // دول الخليج بالريال، ومصر بالجنيه (الرقم نفسه)، وبقية العالم بالدولار (الريال ÷ ٣٫٧٥ + ٤)
+    let PRICES_HIDDEN = false;
+    const MK_TIER = (() => { let tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+      return tz === 'Africa/Cairo' ? 'egypt' : ['Asia/Riyadh','Asia/Dubai','Asia/Kuwait','Asia/Qatar','Asia/Bahrain','Asia/Muscat'].includes(tz) ? 'gulf' : 'world'; })();
+    const MK_TIER_LABEL = { gulf: 'دول الخليج', egypt: 'مصر', world: 'خارج مصر والخليج' }[MK_TIER];
+    function tierCurrency() {
+      return MK_TIER === 'gulf' ? { code:'SAR', name:'ريال سعودي', short:'ر.س', rate:1 }
+        : MK_TIER === 'egypt' ? { code:'EGP', name:'جنيه مصري', short:'ج.م', rate:1 }
+        : { code:'USD', name:'دولار أمريكي', short:'$', rate:1, fromSar:true };
+    }
+    // تحويل سعر مكتوب بالريال إلى عملة المنطقة
+    function fromSar(n) { n = +n; return MK_TIER === 'world' ? Math.ceil(n / 3.75) + 4 : n; }
+    function tierFmt(n) { const c = tierCurrency(), v = (+n).toLocaleString('en-US'); return c.code === 'USD' ? '$' + v : v + ' ' + c.short; }
 
     const ADMIN_H = '381c0ba669528286e3bac53cb3d11c7225148774a884e21ce492abf1868d6029';
     const SB_URL = 'https://arkopqzjjvrqrcaxroke.supabase.co', SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFya29wcXpqanZycXJjYXhyb2tlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzODM3MzUsImV4cCI6MjEwNzk1OTczNX0.ayR8IjhhlrrBIx-O2-fTvDlyc9Ax3w_JIoYrZ1LztR4';
@@ -1437,16 +1450,17 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       Object.keys(PROG_PRICES_DEF).forEach((g) => { out[g] = Object.assign({}, PROG_PRICES_DEF[g]); const v = set[g] || {}; Object.keys(out[g]).forEach((k) => { if (+v[k] > 0) out[g][k] = +v[k]; }); });
       return out;
     }
-    const sar = (n) => (+n).toLocaleString('en-US') + ' ر.س';
+    const sar = (n) => tierFmt(fromSar(n));
     // جدول الإجازات بعملة بلد الإقامة: مصر بالجنيه، وغيرها بالدولار
     function ijazaTable() {
-      const box = document.getElementById('ijazaTableBox'), c = document.getElementById('ijCountrySelect').value;
+      const box = document.getElementById('ijazaTableBox'); if (!box) return;
       document.getElementById('programBookingForm').style.display = 'none';
-      if (!c) { box.innerHTML = ''; return; }
-      const eg = c === 'مصر', sx = eg ? '_egp' : '_usd', ij = progPrices().ijaza;
-      priceCountry = c; priceNationality = '';
-      currentCurrency = eg ? { code: 'EGP', name: 'جنيه مصري', short: 'ج.م', rate: 1 } : { code: 'USD', name: 'دولار أمريكي', short: '$', rate: 1 };
-      const f = (n) => (+n).toLocaleString('en-US') + ' ' + currentCurrency.short;
+      const eg = MK_TIER === 'egypt', sx = eg ? '_egp' : '_usd', ij0 = progPrices().ijaza, ij = {};
+      // الخليج بالريال = الدولار × ٣٫٧٥ مقرّبًا
+      Object.keys(ij0).forEach((k) => { ij[k] = MK_TIER === 'gulf' && /_usd$/.test(k) ? Math.round(ij0[k] * 3.75) : ij0[k]; });
+      priceCountry = ''; priceNationality = '';
+      currentCurrency = tierCurrency(); delete currentCurrency.fromSar;
+      const f = (n) => fmtPrice(+n);
       const R = [['riwaya', 'إجازة في رواية واحدة', 'إجازة في رواية واحدة'], ['qiraa', 'إجازة في قراءة واحدة (بروايتيها)', 'إجازة في قراءة واحدة'],
         ['sughra', 'إجازة القراءات العشر الصغرى جمعًا (الشاطبية والدرة)', 'إجازة القراءات العشر الصغرى'], ['kubra', 'إجازة القراءات العشر الكبرى جمعًا (طيبة النشر)', 'إجازة القراءات العشر الكبرى']];
       box.innerHTML = `<table class="pricing-table">
@@ -1496,54 +1510,44 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 
       const container = document.getElementById('bookingOptionsContainer');
       document.getElementById('programBookingForm').style.display = 'none';
-      priceCountry = ''; priceNationality = ''; lastPricingType = ''; currentCurrency = { code:'SAR', name:'ريال سعودي', short:'ر.س', rate:1 };
+      priceCountry = ''; priceNationality = ''; lastPricingType = ''; currentCurrency = tierCurrency();
 
       const PP = progPrices();
       if (currentProgram.type === 'ijaza') {
         container.innerHTML = `
-          <div class="form-group">
-            <label for="ijCountrySelect">بلد الإقامة:</label>
-            <select id="ijCountrySelect" onchange="ijazaTable()">${priceCountryOptions('اختر/ي بلد إقامتك')}</select>
-          </div>
           <div id="ijazaTableBox"></div>
         `;
+        ijazaTable();
       } else if (currentProgram.type === 'research') {
         const rs = PP.research;
         container.innerHTML = `
           <div style="background: #FFFBEB; border: 1px solid var(--gold-18k); padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
             <h4 style="color: var(--navy-dark); margin-bottom: 5px;">عرض خاص: حجز إعداد البحث / الرسالة كاملاً</h4>
             <p style="font-size: 13px; color: var(--text-muted);">شاملاً (وضع العنوان + الخطة + المقدمة والتمهيد + جميع الفصول + الفهارس)</p>
-            <p style="font-size: 17px; font-weight: 800; color: var(--navy-dark); margin: 5px 0;">${rs.full.toLocaleString('en-US')} ريال سعودي</p>
-            <button class="btn-gold" style="max-width: 280px; margin: 8px auto 0;" onclick="selectPlan('حجز إعداد البحث كاملاً', ${rs.full})">حجز البحث كاملاً</button>
+            <p style="font-size: 17px; font-weight: 800; color: var(--navy-dark); margin: 5px 0;">${fromSar(rs.full).toLocaleString('en-US')} ${currentCurrency.name}</p>
+            <button class="btn-gold" style="max-width: 280px; margin: 8px auto 0;" onclick="selectPlan('حجز إعداد البحث كاملاً', ${fromSar(rs.full)})">حجز البحث كاملاً</button>
           </div>
 
           <table class="pricing-table">
             <tr><th>نوع الخدمة البحثية المنفردة</th><th>الرسوم</th><th>الحجز المنفرد</th></tr>
-            <tr><td>وضع عنوان البحث أو الرسالة</td><td>${sar(rs.title)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة وضع عنوان البحث', ${rs.title})">حجز</button></td></tr>
-            <tr><td>إعداد خطة البحث أو الرسالة</td><td>${sar(rs.plan)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد خطة البحث', ${rs.plan})">حجز</button></td></tr>
-            <tr><td>إعداد مقدمة أو تمهيد البحث</td><td>${sar(rs.intro)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد مقدمة/تمهيد البحث', ${rs.intro})">حجز</button></td></tr>
-            <tr><td>إعداد فصول البحث أو الرسالة</td><td>${sar(rs.chapters)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد فصول البحث', ${rs.chapters})">حجز</button></td></tr>
-            <tr><td>إعداد الفهارس المخصصة</td><td>${sar(rs.index)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد الفهارس', ${rs.index})">حجز</button></td></tr>
-            <tr><td>المراجع والتدقيق اللغوي المُحكم</td><td>${sar(rs.proof)} / صفحة</td><td><button class="btn-table-action" onclick="selectPlan('خدمة التدقيق اللغوي المُحكم', ${rs.proof})">حجز</button></td></tr>
+            <tr><td>وضع عنوان البحث أو الرسالة</td><td>${sar(rs.title)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة وضع عنوان البحث', ${fromSar(rs.title)})">حجز</button></td></tr>
+            <tr><td>إعداد خطة البحث أو الرسالة</td><td>${sar(rs.plan)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد خطة البحث', ${fromSar(rs.plan)})">حجز</button></td></tr>
+            <tr><td>إعداد مقدمة أو تمهيد البحث</td><td>${sar(rs.intro)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد مقدمة/تمهيد البحث', ${fromSar(rs.intro)})">حجز</button></td></tr>
+            <tr><td>إعداد فصول البحث أو الرسالة</td><td>${sar(rs.chapters)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد فصول البحث', ${fromSar(rs.chapters)})">حجز</button></td></tr>
+            <tr><td>إعداد الفهارس المخصصة</td><td>${sar(rs.index)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد الفهارس', ${fromSar(rs.index)})">حجز</button></td></tr>
+            <tr><td>المراجع والتدقيق اللغوي المُحكم</td><td>${sar(rs.proof)} / صفحة</td><td><button class="btn-table-action" onclick="selectPlan('خدمة التدقيق اللغوي المُحكم', ${fromSar(rs.proof)})">حجز</button></td></tr>
           </table>
         `;
       } else {
         container.innerHTML = `
-          <div class="form-group">
-            <label for="priceNationalitySelect">الجنسية:</label>
-            <select id="priceNationalitySelect" onchange="onPriceCountryChange()">${priceCountryOptions('اختر/ي جنسيتك', true)}</select>
-          </div>
-          <div class="form-group">
-            <label for="priceCountrySelect">بلد الإقامة:</label>
-            <select id="priceCountrySelect" onchange="onPriceCountryChange()">${priceCountryOptions('اختر/ي بلد إقامتك')}</select>
-          </div>
-          <div class="booking-options-btns" id="pricingButtons" style="display:none;">
+          <div class="booking-options-btns" id="pricingButtons">
             <button class="btn-option" onclick="showPricingTable('hourly')">الحجز بالساعة (عضو جديد)</button>
             <button class="btn-option" onclick="showPricingTable('monthly')">الحجز الشهري (عضو فضي / ذهبي)</button>
             <button class="btn-option" onclick="showPricingTable('yearly')">الحجز السنوي (عضو ذهبي)</button>
           </div>
           <div id="pricingTableArea"></div>
         `;
+        showPricingTable('monthly');
       }
       setInquiryMode(PRICES_HIDDEN, currentProgram);
       studyModeInit(id);
@@ -1711,13 +1715,14 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     }
 
     function convPrice(n) {
+      if (currentCurrency.fromSar) return fromSar(n);
       const v = n * currentCurrency.rate;
       if (currentCurrency.rate === 1) return v;
       if (v < 50) return Math.round(v * 100) / 100;
       if (v < 1000) return Math.round(v);
       return Math.round(v / 10) * 10;
     }
-    function fmtPrice(v) { return v.toLocaleString('en-US') + ' ' + currentCurrency.short; }
+    function fmtPrice(v) { return currentCurrency.code === 'USD' ? '$' + v.toLocaleString('en-US') : v.toLocaleString('en-US') + ' ' + currentCurrency.short; }
 
     // ===== أيام الحصص وساعاتها (تظهر بعد التفعيل في تقويم لوحة الطالب) =====
     const USER_TZ = (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'Africa/Cairo'; } catch (e) { return 'Africa/Cairo'; } })();
@@ -1977,6 +1982,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         adminMsg += `• الخطة المختار كفالتها: ${selectedPlanNameGlobal}\n`;
         adminMsg += (slotsVisible() ? `• مواعيد الحصص: ` : `• الفترة المفضلة: `) + `${timeSlot}\n`;
         adminMsg += `• طريقة الدفع: ${payment}\n`;
+        adminMsg += `• منطقة التسعير: ${MK_TIER_LABEL} (${currentCurrency.name})\n`;
         if (priceCountry) adminMsg += priceNationality ? `• التسعير حسب: الجنسية ${priceNationality} / الإقامة ${priceCountry}\n` : `• بلد الإقامة: ${priceCountry}\n`;
         adminMsg += `• ${document.getElementById('programPriceDisplay').textContent}`;
 
