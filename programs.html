@@ -630,7 +630,7 @@
     .slot-row .tp :disabled { opacity:.4; }
     .slot-row:has(.tp-ap input:disabled) .tp-ap label { opacity:.45; }
     @media (max-width:420px){ .slot-row { flex-wrap:wrap; } .slot-row .tp { width:100%; justify-content:flex-end; } }
-    #programBookingForm:not(.confirmed) #inquiryBox button[type=submit], #programBookingForm:not(.confirmed) #programSubmitBtn { display:none !important; }
+    #programBookingForm:not(.confirmed) #inquiryBox button[type=submit], #programBookingForm:not(.confirmed) #programPayBtns { display:none !important; }
     .confirm-box { display:flex; gap:10px; align-items:flex-start; background:#F0FDF4; border:1.5px solid #10B981; border-radius:10px; padding:12px; margin-top:12px; font-weight:700; color:var(--navy-dark); line-height:1.8; cursor:pointer; }
     .confirm-box input { width:22px; height:22px; flex:0 0 auto; margin-top:3px; accent-color:#10B981; }
     .slot-hint { font-size:13px; color:#6B5320; margin:2px 0 6px; line-height:1.7; }
@@ -884,6 +884,12 @@
     .pp-pk { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
     .pp-pk div { border: 1.5px solid #EADFC6; border-radius: 14px; padding: 14px; background: #FFFCF4; } .pp-pk b { display: block; color: var(--navy-dark); font-size: 15px; margin-bottom: 4px; } .pp-pk span { font-size: 13.5px; color: #475569; line-height: 1.8; }
     .pp-pk div.gold { border-color: #E0B44C; background: #FFF6E0; }
+    .mn-pay3 { display: grid; gap: 10px; margin-top: 12px; }
+    .mn-pay3 button, button.mn-pay3-wa { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; border-radius: 999px; font: inherit; font-weight: 800; font-size: 16px; cursor: pointer; padding: 0 14px; }
+    .mn-pay3-card { border: 0; background: #12355B; color: #fff; }
+    .mn-pay3-eg { border: 2px solid #5B2D90; background: #fff; color: #5B2D90; }
+    .mn-pay3-wa { border: 2px solid #25D366; background: #fff; color: #1E7A46; }
+    .mn-pay3 button:disabled { opacity: .6; }
     .pp-pk div[role="button"] { cursor: pointer; transition: box-shadow .15s; } .pp-pk div[role="button"]:hover, .pp-pk div[aria-expanded="true"] { box-shadow: 0 0 0 3px rgba(224,180,76,.35); }
     .pp-pk .pp-pr { display: block; font-style: normal; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E0B44C; font-size: 14px; line-height: 2; color: #334155; } .pp-pk .pp-pr[hidden], .pp-pk .pp-hint[hidden] { display: none; }
     .pp-pk .pp-pr b { color: var(--navy-dark); font-size: 15.5px; display: inline; margin: 0; } .pp-pk .pp-hint { display: block; font-style: normal; margin-top: 8px; font-size: 12.5px; color: #8A6A1F; font-weight: 700; }
@@ -902,6 +908,7 @@
 </style>
 <script src="https://maimoonah.com/js/classes.js?v=3" defer></script>
 <script src="https://maimoonah.com/js/promos.js" defer></script>
+<script src="https://maimoonah.com/js/instapay.js?v=6" defer></script>
 <script src="mk-common.js?v=c5daa482"></script>
 <style>.mk-intro{max-width:760px;margin:-4px auto 22px;text-align:center;background:rgba(255,255,255,.9);border:1px solid #E2E8F0;box-shadow:inset 0 4px 0 #F3D37A;border-radius:14px;padding:14px 16px;box-shadow:0 6px 18px rgba(0,0,0,.05)}.mk-intro p{margin:0;font-size:15.5px;line-height:1.95;color:#12355B;font-weight:700}.mk-nosub{max-width:760px;margin:-8px auto 22px;text-align:center;background:#FFF8E6;border:1px solid #F3D37A;border-radius:14px;padding:14px 16px}.mk-nosub p{margin:0 0 10px;font-size:16px;font-weight:800;color:#12355B}.mk-nosub .btn-gold{max-width:320px;margin:0 auto}</style>
 <script>document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("mkNoSub");if(!b||typeof _loadSB!=="function")return;_loadSB().then(function(sb){return sb.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(!s){b.hidden=false;return;}return sb.rpc("my_subscriptions").then(function(x){if(!x.error&&!(Array.isArray(x.data)&&x.data.length))b.hidden=false;});});}).catch(function(){b.hidden=false;});});</script>
@@ -1213,14 +1220,10 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
           <label for="programPaymentMethod">طريقة الدفع:</label>
           <select id="programPaymentMethod" onchange="updateProgramPaymentInfo()" required>
             <option value="payoneer">الدفع الإلكتروني بالبطاقة (باي موب Paymob)</option>
-            <option value="rajhi">الدفع الداخلي داخل السعودية (بنك الراجحي)</option>
           </select>
         </div>
 
         <div id="rajhiProgramDetails" class="payment-box-info" style="display: none;">
-          <strong>تفاصيل تحويل بنك الراجحي:</strong><br>
-          رقم الحساب: <code>523000010006086103150</code> | الآيبان: <code>SA2180000523608016103150</code><br>
-          <span style="color: #C53030;">* يضاف رسوم تحصيل داخلية قدرها 47 ريال سعودي للمبلغ عند التحويل.</span>
         </div>
 
         <div class="total-price-banner" id="programPriceDisplay">المبلغ المطلوب: 0 ر.س</div>
@@ -1229,7 +1232,12 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
           <p style="font-weight:800; color:var(--navy-dark); line-height:1.9;">لإجراء التقييم والاستفسار عن رسوم البرامج تواصل معنا عبر <a href="https://wa.me/201013356935" target="_blank" rel="noopener">الواتساب</a>.</p>
           <button type="submit" class="btn-gold" style="margin-top:8px;">إجراء التقييم والتواصل عبر الواتساب</button>
         </div>
-        <button type="submit" class="btn-gold" id="programSubmitBtn">تأكيد الحجز والتواصل مباشرة عبر الواتساب</button>
+        <div id="programPayBtns" class="mn-pay3">
+          <button type="submit" class="mn-pay3-card" id="programSubmitBtn" data-pay="card">💳 ادفع/ي بالبطاقة</button>
+          <button type="submit" class="mn-pay3-eg" data-pay="eg">🇪🇬 لأهل مصر: ادفع/ي بالجنيه المصري</button>
+          <button type="submit" class="mn-pay3-wa" data-pay="wa">💬 احجز/ي عبر واتساب</button>
+        </div>
+        <div id="programPayMsg" role="status" style="display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#FFFBEB;border:1px solid var(--gold-18k);font-weight:700;line-height:1.9;text-align:center"></div>
       </form>
     </div>
   </div>
@@ -1276,8 +1284,10 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     function fromSar(n) { n = +n; return MK_TIER === 'world' ? Math.ceil(n / 3.75) + 4 : n; }
     function tierFmt(n) { const c = tierCurrency(), v = (+n).toLocaleString('en-US'); return c.code === 'USD' ? '$' + v : v + ' ' + c.short; }
 
+    window.MN = window.MN || {}; // لزر «لأهل مصر» (instapay.js)
     const ADMIN_H = '381c0ba669528286e3bac53cb3d11c7225148774a884e21ce492abf1868d6029';
     const SB_URL = 'https://arkopqzjjvrqrcaxroke.supabase.co', SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFya29wcXpqanZycXJjYXhyb2tlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzODM3MzUsImV4cCI6MjEwNzk1OTczNX0.ayR8IjhhlrrBIx-O2-fTvDlyc9Ax3w_JIoYrZ1LztR4';
+    MN.SB_URL = MN.SB_URL || SB_URL; MN.SB_ANON = MN.SB_ANON || SB_ANON;
     let _sb = null;
     function _loadSB() {
       if (_sb) return Promise.resolve(_sb);
@@ -1480,7 +1490,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         ['sughra', 'إجازة القراءات العشر الصغرى جمعًا (الشاطبية والدرة)', 'إجازة القراءات العشر الصغرى'], ['kubra', 'إجازة القراءات العشر الكبرى جمعًا (طيبة النشر)', 'إجازة القراءات العشر الكبرى']];
       box.innerHTML = `<table class="pricing-table">
             <tr><th>نوع الإجازة</th><th>المعدل</th><th>الرسوم</th><th>الحجز</th></tr>
-            ${R.map(([k, t, n]) => `<tr><td>${t}</td><td>بمعدل ${f(ij[k + '_part' + sx])} للجزء</td><td>${f(ij[k + sx])}</td><td><button class="btn-table-action" onclick="selectPlan('${n}', ${+ij[k + sx]})">حجز</button></td></tr>`).join('')}
+            ${R.map(([k, t, n]) => `<tr><td>${t}</td><td>بمعدل ${f(ij[k + '_part' + sx])} للجزء</td><td>${f(ij[k + sx])}</td><td><button class="btn-table-action" onclick="selectPlan('${n}', ${+ij[k + sx]}, false, {t:'ijaza',k:'${k}'})">حجز</button></td></tr>`).join('')}
           </table>`;
     }
     window.ijazaTable = ijazaTable;
@@ -1540,17 +1550,17 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
             <h4 style="color: var(--navy-dark); margin-bottom: 5px;">عرض خاص: حجز إعداد البحث / الرسالة كاملاً</h4>
             <p style="font-size: 13px; color: var(--text-muted);">شاملاً (وضع العنوان + الخطة + المقدمة والتمهيد + جميع الفصول + الفهارس)</p>
             <p style="font-size: 17px; font-weight: 800; color: var(--navy-dark); margin: 5px 0;">${fromSar(rs.full).toLocaleString('en-US')} ${currentCurrency.name}</p>
-            <button class="btn-gold" style="max-width: 280px; margin: 8px auto 0;" onclick="selectPlan('حجز إعداد البحث كاملاً', ${fromSar(rs.full)})">حجز البحث كاملاً</button>
+            <button class="btn-gold" style="max-width: 280px; margin: 8px auto 0;" onclick="selectPlan('حجز إعداد البحث كاملاً', ${fromSar(rs.full)}, false, {t:'research',k:'full'})">حجز البحث كاملاً</button>
           </div>
 
           <table class="pricing-table">
             <tr><th>نوع الخدمة البحثية المنفردة</th><th>الرسوم</th><th>الحجز المنفرد</th></tr>
-            <tr><td>وضع عنوان البحث أو الرسالة</td><td>${sar(rs.title)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة وضع عنوان البحث', ${fromSar(rs.title)})">حجز</button></td></tr>
-            <tr><td>إعداد خطة البحث أو الرسالة</td><td>${sar(rs.plan)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد خطة البحث', ${fromSar(rs.plan)})">حجز</button></td></tr>
-            <tr><td>إعداد مقدمة أو تمهيد البحث</td><td>${sar(rs.intro)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد مقدمة/تمهيد البحث', ${fromSar(rs.intro)})">حجز</button></td></tr>
-            <tr><td>إعداد فصول البحث أو الرسالة</td><td>${sar(rs.chapters)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد فصول البحث', ${fromSar(rs.chapters)})">حجز</button></td></tr>
-            <tr><td>إعداد الفهارس المخصصة</td><td>${sar(rs.index)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد الفهارس', ${fromSar(rs.index)})">حجز</button></td></tr>
-            <tr><td>المراجع والتدقيق اللغوي المُحكم</td><td>${sar(rs.proof)} / صفحة</td><td><button class="btn-table-action" onclick="selectPlan('خدمة التدقيق اللغوي المُحكم', ${fromSar(rs.proof)})">حجز</button></td></tr>
+            <tr><td>وضع عنوان البحث أو الرسالة</td><td>${sar(rs.title)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة وضع عنوان البحث', ${fromSar(rs.title)}, false, {t:'research',k:'title'})">حجز</button></td></tr>
+            <tr><td>إعداد خطة البحث أو الرسالة</td><td>${sar(rs.plan)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد خطة البحث', ${fromSar(rs.plan)}, false, {t:'research',k:'plan'})">حجز</button></td></tr>
+            <tr><td>إعداد مقدمة أو تمهيد البحث</td><td>${sar(rs.intro)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد مقدمة/تمهيد البحث', ${fromSar(rs.intro)}, false, {t:'research',k:'intro'})">حجز</button></td></tr>
+            <tr><td>إعداد فصول البحث أو الرسالة</td><td>${sar(rs.chapters)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد فصول البحث', ${fromSar(rs.chapters)}, false, {t:'research',k:'chapters'})">حجز</button></td></tr>
+            <tr><td>إعداد الفهارس المخصصة</td><td>${sar(rs.index)}</td><td><button class="btn-table-action" onclick="selectPlan('خدمة إعداد الفهارس', ${fromSar(rs.index)}, false, {t:'research',k:'index'})">حجز</button></td></tr>
+            <tr><td>المراجع والتدقيق اللغوي المُحكم</td><td>${sar(rs.proof)} / صفحة</td><td><button class="btn-table-action" onclick="selectPlan('خدمة التدقيق اللغوي المُحكم', ${fromSar(rs.proof)}, false, {t:'research',k:'proof'})">حجز</button></td></tr>
           </table>
         `;
       } else {
@@ -1810,9 +1820,9 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       const form = document.getElementById('programBookingForm');
       const sel = document.getElementById('isSponsorshipSelect');
       if (sel) sel.closest('.form-group').style.display = '';
-      document.getElementById('paymentMethodGroup').style.display = on ? 'none' : '';
+      document.getElementById('paymentMethodGroup').style.display = 'none';
       document.getElementById('programPriceDisplay').style.display = on ? 'none' : '';
-      document.getElementById('programSubmitBtn').style.display = on ? 'none' : '';
+      document.getElementById('programPayBtns').style.display = on ? 'none' : '';
       document.getElementById('inquiryBox').style.display = on ? 'block' : 'none';
       if (!on) return;
       document.getElementById('rajhiProgramDetails').style.display = 'none';
@@ -1834,7 +1844,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
           <div style="text-align:center; padding: 15px; background: #EDF2F7; border-radius: 8px;">
             <p style="font-size: 15px; font-weight: bold; color: var(--navy-dark);">سعر الحجز بالساعة الواحدة (عضو جديد):</p>
             <p style="font-size: 22px; color: var(--navy-dark); font-weight: 800;">${fmtPrice(v)}</p>
-            <button class="btn-gold" style="margin-top: 10px;" onclick="selectPlan('حجز بالساعة (عضو جديد)', ${v}, false)">تأكيد الخيار</button>
+            <button class="btn-gold" style="margin-top: 10px;" onclick="selectPlan('حجز بالساعة (عضو جديد)', ${v}, false, {t:'hourly'})">تأكيد الخيار</button>
           </div>`;
         return;
       }
@@ -1849,12 +1859,14 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         const wk = n === 1 ? '1 حصة' : n === 2 ? '2 حصة' : n + ' حصص';
         const cnt = count <= 10 ? count + ' حصص' : count + ' حصة';
         const pw = n <= 2 ? n + ' حصة' : n + ' حصص';
-        rows += `<tr><td>${wk}</td><td>${cnt}</td><td>${fmtPrice(one)}</td><td>${fmtPrice(total)}</td><td><button class="btn-table-action" onclick="selectPlan('${tier} - ${pw} أسبوعياً ${badge}', ${total}, true)">حجز</button></td></tr>`;
+        rows += `<tr><td>${wk}</td><td>${cnt}</td><td>${fmtPrice(one)}</td><td>${fmtPrice(total)}</td><td><button class="btn-table-action" onclick="selectPlan('${tier} - ${pw} أسبوعياً ${badge}', ${total}, true, {t:'${type}',n:${n}})">حجز</button></td></tr>`;
       });
       area.innerHTML = `<table class="pricing-table">${rows}</table>`;
     }
 
-    function selectPlan(planName, priceSAR, showDaysSelect = false) {
+    let selectedPriceKey = null;
+    function selectPlan(planName, priceSAR, showDaysSelect = false, key = null) {
+      selectedPriceKey = key;
       selectedPlanNameGlobal = planName;
       selectedProgramBasePriceSAR = priceSAR;
       const bookingForm = document.getElementById('programBookingForm');
@@ -1882,6 +1894,31 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       }
     }
 
+    // الدفع بالبطاقة أو بالجنيه المصري بعد حفظ طلب الحجز (المبلغ يحسبه الخادم من الطلب نفسه)
+    async function progPayFlow(via, btn, isSponsor, quranTextInfo, timeSlot, email) {
+      const box = document.getElementById('programPayMsg'), btns = document.querySelectorAll('#programPayBtns button');
+      const say = (h) => { box.innerHTML = h; box.style.display = 'block'; box.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+      const waBtn = '<button type="button" class="mn-pay3-wa" style="margin-top:8px" onclick="document.querySelector(\'#programPayBtns [data-pay=wa]\').click()">💬 أكمل/ي الحجز عبر واتساب</button>';
+      if (!selectedPriceKey || STUDY_MODE === 'group') return say('اختر/ي الباقة من جدول الرسوم أولًا، أو أكمل/ي الحجز عبر واتساب.' + waBtn);
+      if (via === 'eg' && MK_TIER !== 'egypt') return say('الدفع بالجنيه المصري للمقيمين داخل مصر. ويمكنك الدفع بالبطاقة من الزر أعلاه.');
+      const old = btn.textContent; btns.forEach((b) => { b.disabled = true; }); btn.textContent = 'جارٍ حفظ طلبك…';
+      const done = () => { btns.forEach((b) => { b.disabled = false; }); btn.textContent = old; };
+      const req = await recordSubscription(isSponsor, quranTextInfo, timeSlot, via === 'eg' ? 'إنستاباي (داخل مصر)' : 'البطاقة (Paymob)');
+      if (!req) { done(); return say('تعذّر حفظ طلبك الآن. حاول/ي مرة أخرى، أو أكمل/ي الحجز عبر واتساب.' + waBtn); }
+      if (via === 'eg') {
+        done(); say('✓ حُفظ طلب حجزك برقم ' + req + '، وجارٍ فتح الدفع بالجنيه المصري…');
+        const prog = programsData.find((x) => x.id === selectedProgramIDGlobal) || {};
+        if (window.MN && MN.instaPayOpen) MN.instaPayOpen(btn, () => (+selectedProgramBasePriceSAR).toLocaleString('en-US') + ' ج.م', () => 'السلام عليكم، أرغب في حجز ' + (prog.title || '') + ' — ' + selectedPlanNameGlobal + ' (طلب رقم ' + req + ')', () => (prog.title || 'برنامج مكين') + ' — ' + selectedPlanNameGlobal);
+        else say('✓ حُفظ طلب حجزك برقم ' + req + '. أكمل/ي الدفع بالجنيه المصري عبر واتساب.' + waBtn);
+        return;
+      }
+      try {
+        const r = await fetch(SB_URL + '/functions/v1/Paymob', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON }, body: JSON.stringify({ action: 'prog_pay', req, email }) });
+        const j = await r.json().catch(() => ({}));
+        if (j && j.url) { location.href = j.url; return; }
+        done(); say((j && j.error === 'not_ready' ? 'الدفع بالبطاقة يُفعَّل قريبًا بإذن الله، وطلب حجزك محفوظ برقم ' + req + '. ' : 'تعذّر تجهيز رابط الدفع الآن، وطلب حجزك محفوظ برقم ' + req + '. ') + waBtn);
+      } catch (x) { done(); say('تعذّر الاتصال الآن، وطلب حجزك محفوظ برقم ' + req + '.' + waBtn); }
+    }
     function closeModal() { document.getElementById('programModal').style.display = 'none'; }
 
     function generateMemberID(prefix = "MKN") {
@@ -1902,6 +1939,8 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       if (selectedProgramIDGlobal <= 4) { details['مقدار الحفظ'] = v('p_quran_memorized'); details['مستوى التجويد'] = v('p_tajweed_level'); }
       if (isSponsor) { details['اسم الداعم'] = v('s_name'); details['جوال الداعم'] = v('s_phone'); details['مهنة الداعم'] = v('s_job'); details['جنسية الداعم'] = v('s_nationality'); details['بلد إقامة الداعم'] = v('s_country'); }
       Object.keys(details).forEach(k => { if (!details[k]) delete details[k]; });
+      if (selectedPriceKey && STUDY_MODE !== 'group') details._price = selectedPriceKey;
+      details._tz = USER_TZ;
       const p = { program: prog.title || '', plan: PRICES_HIDDEN ? '' : selectedPlanNameGlobal, name: v('p_name'), age: v('p_age'), phone: v('p_phone'),
         email: v('p_email').toLowerCase(), nationality: v('p_nationality'), country: v('p_country'), details,
         slots: slotsVisible() ? bookingSlots().filter((x) => x.time).map((x) => ({ dow: x.dow, time: x.time })) : [], tz: USER_TZ };
@@ -1909,9 +1948,10 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       if (STUDY_MODE === 'group') p.plan = selectedPlanNameGlobal;
       if (STUDY_MODE === 'group') details['نوع الدراسة'] = GROUP ? 'حلقة جماعية: ' + GROUP.title : 'حلقة جماعية (قائمة الانتظار)';
       try {
-        fetch(SB_URL + '/rest/v1/rpc/request_subscription', { method: 'POST', keepalive: true,
-          headers: { 'Content-Type': 'application/json', apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON }, body: JSON.stringify({ p }) }).catch(() => {});
-      } catch (x) {}
+        return fetch(SB_URL + '/rest/v1/rpc/request_subscription', { method: 'POST', keepalive: true,
+          headers: { 'Content-Type': 'application/json', apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON }, body: JSON.stringify({ p }) })
+          .then((r) => r.ok ? r.json() : null).catch(() => null);
+      } catch (x) { return Promise.resolve(null); }
     }
 
     document.getElementById('programBookingForm').addEventListener('submit', function(e) {
@@ -1933,7 +1973,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       const pNat = document.getElementById('p_nationality').value;
       const isResearch = document.getElementById('researchGroup').style.display !== 'none';
       const timeSlot = isResearch ? '' : slotsVisible() ? slotsSummary(true) : document.getElementById('timeSlotSelect').value;
-      const payment = document.getElementById('programPaymentMethod').value === 'rajhi' ? 'بنك الراجحي' : 'باي موب (Paymob)';
+      const payment = 'يُتفق عليه عبر واتساب';
 
       let quranTextInfo = "";
       if (selectedProgramIDGlobal <= 4) {
@@ -1943,6 +1983,8 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       }
 
       const pEmail = document.getElementById('p_email').value.trim().toLowerCase();
+      const via = (e.submitter && e.submitter.dataset.pay) || 'wa';
+      if (!PRICES_HIDDEN && via !== 'wa') { progPayFlow(via, e.submitter, isSponsor, quranTextInfo, timeSlot, pEmail); return; }
       recordSubscription(isSponsor, quranTextInfo, timeSlot, payment);
       const studentMemberID = generateMemberID("STD");
 
