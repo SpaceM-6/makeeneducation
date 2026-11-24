@@ -884,6 +884,9 @@
     .pp-pk { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
     .pp-pk div { border: 1.5px solid #EADFC6; border-radius: 14px; padding: 14px; background: #FFFCF4; } .pp-pk b { display: block; color: var(--navy-dark); font-size: 15px; margin-bottom: 4px; } .pp-pk span { font-size: 13.5px; color: #475569; line-height: 1.8; }
     .pp-pk div.gold { border-color: #E0B44C; background: #FFF6E0; }
+    .pp-pk div[role="button"] { cursor: pointer; transition: box-shadow .15s; } .pp-pk div[role="button"]:hover, .pp-pk div[aria-expanded="true"] { box-shadow: 0 0 0 3px rgba(224,180,76,.35); }
+    .pp-pk .pp-pr { display: block; font-style: normal; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E0B44C; font-size: 14px; line-height: 2; color: #334155; } .pp-pk .pp-pr[hidden], .pp-pk .pp-hint[hidden] { display: none; }
+    .pp-pk .pp-pr b { color: var(--navy-dark); font-size: 15.5px; display: inline; margin: 0; } .pp-pk .pp-hint { display: block; font-style: normal; margin-top: 8px; font-size: 12.5px; color: #8A6A1F; font-weight: 700; }
     .pp-rev { border-inline-start: 4px solid #E0B44C; background: #FFFCF4; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; } .pp-rev b { color: var(--navy-dark); font-size: 13.5px; } .pp-rev p { font-size: 13.5px; color: #334155; line-height: 1.9; margin: 4px 0 0; } .pp-rev .st { color: #E0B44C; letter-spacing: 2px; }
     .pp-cta { position: fixed; bottom: 0; inset-inline: 0; z-index: 3; background: rgba(255,255,255,.96); border-top: 1px solid #EADFC6; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); display: flex; justify-content: center; }
     .pp-cta .btn-gold { max-width: 420px; width: 100%; font-size: 16px; }
@@ -1375,6 +1378,32 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       if (G) a.push(['الحلقة الجماعية', 'مع مجموعة بمواعيد ثابتة، تختار/ين الحلقة المناسبة لوقتك.']);
       return a;
     };
+    // رسوم الباقة بعملة منطقة الزائر، تظهر عند الضغط عليها
+    function ppPkgPrice(el, id, i) {
+      const p = programsData.find((x) => x.id === id); if (!p) return;
+      const box = el.querySelector('.pp-pr'), hint = el.querySelector('.pp-hint');
+      if (!box.hidden) { box.hidden = true; if (hint) hint.hidden = false; el.setAttribute('aria-expanded', 'false'); return; }
+      // التبديل بين الباقات: تُطوى الباقة المفتوحة وتُفتح المضغوطة
+      el.parentElement.querySelectorAll('[aria-expanded="true"]').forEach((o) => { o.setAttribute('aria-expanded', 'false'); const b = o.querySelector('.pp-pr'), t = o.querySelector('.pp-hint'); if (b) b.hidden = true; if (t) t.hidden = false; });
+      const F = (n) => '<b>' + tierFmt(n) + '</b>', S = (n) => F(fromSar(n)), PP = progPrices();
+      let h = '';
+      if (p.type === 'ijaza') {
+        const k = ['riwaya', 'qiraa', 'sughra', 'kubra'][i], ij = PP.ijaza, sx = MK_TIER === 'world' ? '_usd' : '_egp';
+        h = 'الرسوم: ' + F(ij[k + sx]) + '<br>أو ' + F(ij[k + '_part' + sx]) + ' للجزء';
+      } else if (p.type === 'research') {
+        const rs = PP.research;
+        h = i === 0 ? 'الرسوم: ' + S(rs.full) : 'العنوان ' + S(rs.title) + '<br>الخطة ' + S(rs.plan) + '<br>المقدمة أو التمهيد ' + S(rs.intro) + '<br>الفصول ' + S(rs.chapters) + '<br>الفهارس ' + S(rs.index) + '<br>التدقيق اللغوي ' + S(rs.proof) + ' للصفحة';
+      } else if (i === 0) {
+        h = 'سعر الحصة: ' + S(PLAN_PRICES.hourly);
+      } else if (i === 1 || i === 2) {
+        const per = i === 1 ? 4 : 48, k = i === 1 ? 'monthly' : 'yearly';
+        h = PLAN_PRICES[k].map((pp, j) => { const n = j + 1; return (n === 1 ? 'حصة واحدة' : n === 2 ? 'حصتان' : n + ' حصص') + ' أسبوعيًا: ' + S(pp * per * n) + (i === 1 ? ' شهريًا' : ' سنويًا'); }).join('<br>');
+      } else {
+        h = 'اختر/ي الحلقة المناسبة لوقتك عند الحجز.';
+      }
+      box.innerHTML = h; box.hidden = false; if (hint) hint.hidden = true; el.setAttribute('aria-expanded', 'true');
+    }
+    window.ppPkgPrice = ppPkgPrice;
     function progPlans(p) {
       if (p.type === 'ijaza') return ['خطة هادئة: حصة أو حصتان أسبوعيًا', 'خطة منتظمة: 3–4 حصص أسبوعيًا', 'خطة مكثفة: 5–6 حصص أسبوعيًا لإتمام الختمة أسرع'];
       if (p.type === 'research') return ['يُتفق على جدول التسليم حسب حجم البحث وموعد مناقشتك'];
@@ -1393,8 +1422,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         <div class="pp-sec"><h2>🧭 طريقة الدراسة</h2><ul>${method.map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
         <div class="pp-sec"><h2>📋 محتوى البرنامج</h2><ul>${(PROG_CONTENT[id] || []).map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
         ${R ? '' : `<div class="pp-sec"><h2>⏱️ عدد الحصص</h2><ul><li>من حصة واحدة إلى <b>6 حصص أسبوعيًا</b> كحدٍّ أقصى (حتى 24 حصة في الشهر)</li><li>تحدد/ين عدد الحصص عند اختيار الباقة، ويمكن الزيادة لاحقًا</li></ul></div>`}
-        <div class="pp-sec"><h2>💳 الباقات</h2><div class="pp-pk">${progPkgs(p).map(([t, d, g]) => `<div${g ? ' class="gold"' : ''}><b>${E(t)}</b><span>${E(d)}</span></div>`).join('')}</div>
-          <p style="font-size:13px;color:#64748B;margin-top:10px">تظهر الرسوم بعملة بلدك عند الحجز.</p></div>
+        <div class="pp-sec"><h2>💳 الباقات</h2><div class="pp-pk">${progPkgs(p).map(([t, d, g], i) => `<div role="button" tabindex="0" aria-expanded="false"${g ? ' class="gold"' : ''} onclick="ppPkgPrice(this, ${p.id}, ${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ppPkgPrice(this, ${p.id}, ${i})}"><b>${E(t)}</b><span>${E(d)}</span><em class="pp-pr" hidden></em><i class="pp-hint">اضغط/ي لمعرفة الرسوم</i></div>`).join('')}</div></div>
         <div class="pp-sec" id="ppPlans"><h2>🗓️ خطط الدراسة</h2><ul>${progPlans(p).map((x) => `<li>${E(x)}</li>`).join('')}</ul></div>
         <div class="pp-sec" id="ppRate"><h2>⭐ قيّم/ي هذا البرنامج</h2>
           <p style="font-size:14px;color:#475569;margin:0 0 10px">درستِ/درستَ في هذا البرنامج؟ شاركنا تجربتك، ويُنشر تقييمك بعد مراجعته بإذن الله.</p>
@@ -1457,7 +1485,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       document.getElementById('programBookingForm').style.display = 'none';
       const eg = MK_TIER === 'egypt', sx = eg ? '_egp' : '_usd', ij0 = progPrices().ijaza, ij = {};
       // الخليج بالريال = الدولار × ٣٫٧٥ مقرّبًا
-      Object.keys(ij0).forEach((k) => { ij[k] = MK_TIER === 'gulf' && /_usd$/.test(k) ? Math.round(ij0[k] * 3.75) : ij0[k]; });
+      Object.keys(ij0).forEach((k) => { ij[k] = MK_TIER === 'gulf' && /_usd$/.test(k) ? ij0[k.replace(/_usd$/, '_egp')] : ij0[k]; });
       priceCountry = ''; priceNationality = '';
       currentCurrency = tierCurrency(); delete currentCurrency.fromSar;
       const f = (n) => fmtPrice(+n);
