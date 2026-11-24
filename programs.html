@@ -1235,7 +1235,6 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         <div id="programPayBtns" class="mn-pay3">
           <button type="submit" class="mn-pay3-card" id="programSubmitBtn" data-pay="card">💳 ادفع/ي بالبطاقة</button>
           <button type="submit" class="mn-pay3-eg" data-pay="eg">🇪🇬 لأهل مصر: ادفع/ي بالجنيه المصري</button>
-          <button type="submit" class="mn-pay3-wa" data-pay="wa">💬 احجز/ي عبر واتساب</button>
         </div>
         <div id="programPayMsg" role="status" style="display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#FFFBEB;border:1px solid var(--gold-18k);font-weight:700;line-height:1.9;text-align:center"></div>
       </form>
@@ -1898,18 +1897,24 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     async function progPayFlow(via, btn, isSponsor, quranTextInfo, timeSlot, email) {
       const box = document.getElementById('programPayMsg'), btns = document.querySelectorAll('#programPayBtns button');
       const say = (h) => { box.innerHTML = h; box.style.display = 'block'; box.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
-      const waBtn = '<button type="button" class="mn-pay3-wa" style="margin-top:8px" onclick="document.querySelector(\'#programPayBtns [data-pay=wa]\').click()">💬 أكمل/ي الحجز عبر واتساب</button>';
-      if (!selectedPriceKey || STUDY_MODE === 'group') return say('اختر/ي الباقة من جدول الرسوم أولًا، أو أكمل/ي الحجز عبر واتساب.' + waBtn);
+      const waBtn = '';
+      // الحلقات الجماعية وما رسومه بحسب الحجم (كالتدقيق بالصفحة): يُحفظ الطلب في الموقع، وتتواصل الإدارة مع الطالب/ة بالرسوم والموعد
+      if (!selectedPriceKey || STUDY_MODE === 'group') {
+        const o2 = btn.textContent; btns.forEach((b) => { b.disabled = true; }); btn.textContent = 'جارٍ حفظ طلبك…';
+        const rq = await recordSubscription(isSponsor, quranTextInfo, timeSlot, 'يُحدَّد بعد مراجعة الطلب');
+        btns.forEach((b) => { b.disabled = false; }); btn.textContent = o2;
+        return say(rq ? '✓ حُفظ طلب حجزك برقم ' + rq + '، ويظهر في لوحة الطالب، وسنتواصل معك قريبًا بإذن الله لتأكيد الموعد والدفع.' : 'تعذّر حفظ طلبك الآن. حاول/ي مرة أخرى بعد قليل.');
+      }
       if (via === 'eg' && MK_TIER !== 'egypt') return say('الدفع بالجنيه المصري للمقيمين داخل مصر. ويمكنك الدفع بالبطاقة من الزر أعلاه.');
       const old = btn.textContent; btns.forEach((b) => { b.disabled = true; }); btn.textContent = 'جارٍ حفظ طلبك…';
       const done = () => { btns.forEach((b) => { b.disabled = false; }); btn.textContent = old; };
       const req = await recordSubscription(isSponsor, quranTextInfo, timeSlot, via === 'eg' ? 'إنستاباي (داخل مصر)' : 'البطاقة (Paymob)');
-      if (!req) { done(); return say('تعذّر حفظ طلبك الآن. حاول/ي مرة أخرى، أو أكمل/ي الحجز عبر واتساب.' + waBtn); }
+      if (!req) { done(); return say('تعذّر حفظ طلبك الآن. حاول/ي مرة أخرى بعد قليل.'); }
       if (via === 'eg') {
         done(); say('✓ حُفظ طلب حجزك برقم ' + req + '، وجارٍ فتح الدفع بالجنيه المصري…');
         const prog = programsData.find((x) => x.id === selectedProgramIDGlobal) || {};
         if (window.MN && MN.instaPayOpen) MN.instaPayOpen(btn, () => (+selectedProgramBasePriceSAR).toLocaleString('en-US') + ' ج.م', () => 'السلام عليكم، أرغب في حجز ' + (prog.title || '') + ' — ' + selectedPlanNameGlobal + ' (طلب رقم ' + req + ')', () => (prog.title || 'برنامج مكين') + ' — ' + selectedPlanNameGlobal);
-        else say('✓ حُفظ طلب حجزك برقم ' + req + '. أكمل/ي الدفع بالجنيه المصري عبر واتساب.' + waBtn);
+        else say('✓ حُفظ طلب حجزك برقم ' + req + '، وسنرسل لك بيانات الدفع بالجنيه المصري.');
         return;
       }
       try {
@@ -1983,7 +1988,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       }
 
       const pEmail = document.getElementById('p_email').value.trim().toLowerCase();
-      const via = (e.submitter && e.submitter.dataset.pay) || 'wa';
+      const via = (e.submitter && e.submitter.dataset.pay) || 'card';
       if (!PRICES_HIDDEN && via !== 'wa') { progPayFlow(via, e.submitter, isSponsor, quranTextInfo, timeSlot, pEmail); return; }
       recordSubscription(isSponsor, quranTextInfo, timeSlot, payment);
       const studentMemberID = generateMemberID("STD");
