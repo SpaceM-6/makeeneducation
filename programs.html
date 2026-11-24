@@ -908,7 +908,7 @@
 </style>
 <script src="https://maimoonah.com/js/classes.js?v=3" defer></script>
 <script src="https://maimoonah.com/js/promos.js" defer></script>
-<script src="https://maimoonah.com/js/instapay.js?v=6" defer></script>
+<script src="https://maimoonah.com/js/instapay.js?v=7" defer></script>
 <script src="mk-common.js?v=c5daa482"></script>
 <style>.mk-intro{max-width:760px;margin:-4px auto 22px;text-align:center;background:rgba(255,255,255,.9);border:1px solid #E2E8F0;box-shadow:inset 0 4px 0 #F3D37A;border-radius:14px;padding:14px 16px;box-shadow:0 6px 18px rgba(0,0,0,.05)}.mk-intro p{margin:0;font-size:15.5px;line-height:1.95;color:#12355B;font-weight:700}.mk-nosub{max-width:760px;margin:-8px auto 22px;text-align:center;background:#FFF8E6;border:1px solid #F3D37A;border-radius:14px;padding:14px 16px}.mk-nosub p{margin:0 0 10px;font-size:16px;font-weight:800;color:#12355B}.mk-nosub .btn-gold{max-width:320px;margin:0 auto}</style>
 <script>document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("mkNoSub");if(!b||typeof _loadSB!=="function")return;_loadSB().then(function(sb){return sb.auth.getSession().then(function(r){var s=r.data&&r.data.session;if(!s){b.hidden=false;return;}return sb.rpc("my_subscriptions").then(function(x){if(!x.error&&!(Array.isArray(x.data)&&x.data.length))b.hidden=false;});});}).catch(function(){b.hidden=false;});});</script>
@@ -1159,7 +1159,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
           <div class="form-group">
             <label for="p_tajweed_level">مستوى التجويد:</label>
             <select id="p_tajweed_level">
-              <option value="ضعيف">ضعيف</option>
+              <option value="مبتدئ/ة">مبتدئ/ة</option>
               <option value="جيد">جيد</option>
               <option value="مُتقِن">مُتقِن</option>
               <option value="ماهر بالقرآن">ماهر بالقرآن</option>
@@ -1234,7 +1234,6 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         </div>
         <div id="programPayBtns" class="mn-pay3">
           <button type="submit" class="mn-pay3-card" id="programSubmitBtn" data-pay="card">💳 ادفع/ي بالبطاقة</button>
-          <button type="submit" class="mn-pay3-eg" data-pay="eg">🇪🇬 لأهل مصر: ادفع/ي بالجنيه المصري</button>
         </div>
         <div id="programPayMsg" role="status" style="display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#FFFBEB;border:1px solid var(--gold-18k);font-weight:700;line-height:1.9;text-align:center"></div>
       </form>
@@ -1905,16 +1904,16 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         btns.forEach((b) => { b.disabled = false; }); btn.textContent = o2;
         return say(rq ? '✓ حُفظ طلب حجزك برقم ' + rq + '، ويظهر في لوحة الطالب، وسنتواصل معك قريبًا بإذن الله لتأكيد الموعد والدفع.' : 'تعذّر حفظ طلبك الآن. حاول/ي مرة أخرى بعد قليل.');
       }
-      if (via === 'eg' && MK_TIER !== 'egypt') return say('الدفع بالجنيه المصري للمقيمين داخل مصر. ويمكنك الدفع بالبطاقة من الزر أعلاه.');
+      const local = window.MN && MN.isLocalPay && MN.isLocalPay(via);
+      if (local && !(MN.egBuyer && MN.egBuyer(document.getElementById('p_country').value))) return say('هذه الطريقة للدفع من داخل مصر فقط، ويمكنك الدفع بالبطاقة.');
       const old = btn.textContent; btns.forEach((b) => { b.disabled = true; }); btn.textContent = 'جارٍ حفظ طلبك…';
       const done = () => { btns.forEach((b) => { b.disabled = false; }); btn.textContent = old; };
-      const req = await recordSubscription(isSponsor, quranTextInfo, timeSlot, via === 'eg' ? 'إنستاباي (داخل مصر)' : 'البطاقة (Paymob)');
+      const req = await recordSubscription(isSponsor, quranTextInfo, timeSlot, local ? ({ instapay: 'إنستاباي', vodafone: 'فودافون كاش', fawry: 'فوري' })[via] + ' (داخل مصر)' : 'البطاقة (Paymob)');
       if (!req) { done(); return say('تعذّر حفظ طلبك الآن. حاول/ي مرة أخرى بعد قليل.'); }
-      if (via === 'eg') {
-        done(); say('✓ حُفظ طلب حجزك برقم ' + req + '، وجارٍ فتح الدفع بالجنيه المصري…');
-        const prog = programsData.find((x) => x.id === selectedProgramIDGlobal) || {};
-        if (window.MN && MN.instaPayOpen) MN.instaPayOpen(btn, () => (+selectedProgramBasePriceSAR).toLocaleString('en-US') + ' ج.م', () => 'السلام عليكم، أرغب في حجز ' + (prog.title || '') + ' — ' + selectedPlanNameGlobal + ' (طلب رقم ' + req + ')', () => (prog.title || 'برنامج مكين') + ' — ' + selectedPlanNameGlobal);
-        else say('✓ حُفظ طلب حجزك برقم ' + req + '، وسنرسل لك بيانات الدفع بالجنيه المصري.');
+      if (local) {
+        // إنستاباي / فودافون كاش / فوري: الحساب والمبلغ بالجنيه (يحسبه الخادم من طلب الحجز) ثم رفع صورة الإيصال هنا
+        done(); box.style.background = 'transparent'; box.style.border = '0'; box.style.padding = '0';
+        MN.egPayStart(box, { kind: 'prog', method: via, body: { req, email }, email });
         return;
       }
       try {
