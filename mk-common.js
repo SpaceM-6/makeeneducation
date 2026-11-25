@@ -21,6 +21,13 @@
   MN.paintHello = function (el) {
     if (!el) return; var t = MN.helloText();
     el.hidden = !t; el.textContent = t ? '👋 ' + t : '';
+    // علم الدولة بجانب الترحيب (من بيانات التطبيق في هذا الجهاز)
+    var pr = window.MNApp && MNApp.profile && MNApp.profile();
+    if (t && pr && pr.done && pr.cc && MNApp.flagHtml) {
+      var f = document.createElement('span'); f.className = 'mn-hello-flag';
+      f.style.cssText = 'display:inline-flex;vertical-align:middle;margin-inline-start:8px;width:24px;height:24px;border-radius:50%;overflow:hidden;border:1.5px solid #C9A66B';
+      f.title = (pr.country || '') + (pr.city ? ' — ' + pr.city : ''); f.innerHTML = MNApp.flagHtml(pr.cc, 24); el.appendChild(f);
+    }
   };
 })();
 
@@ -90,7 +97,7 @@
   MK.MENU = [
     ['#install', 'تثبيت تطبيق MakeenEducation', IC('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/>'), 'install'],
     ['student.html', 'لوحة الطالب', IC('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h3v3H8z"/>'), 'top'],
-    ['cart.html', 'اشتراكاتي', IC('<path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6.2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/>'), 'top'],
+    ['/cart.html', (/makeeneducation\.com$/.test(location.hostname) ? 'اشتراكاتي' : 'سلة مشترياتي'), IC('<path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6.2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/>'), 'top'],
     ['teacher-panel.html', 'لوحة المعلم', IC('<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M8 9h8M8 12h5"/>')],
     ['my.html', 'المفضلة والمحفوظات', IC('<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'), 'top'],
     ['index.html', 'الرئيسية', IC('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],
@@ -144,6 +151,7 @@
     'header .brand-logo-text .mk-two{display:inline-block;line-height:1.45;text-align:center;white-space:nowrap}' +
     '@media (max-width:520px){header .brand-logo-text .mk-two{font-size:15.5px!important}}' +
     '.mk-hact{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto}' +
+    '.mk-hflag{position:relative;color:#F3D37A}.mk-bell svg{display:block}.mk-bellc{position:absolute;top:-6px;inset-inline-end:-6px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:#B91C1C;color:#fff;font:800 11px/17px system-ui,sans-serif;text-align:center}.mk-bellc[hidden]{display:none}' +
     '.mk-hflag{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;background:none;text-decoration:none;-webkit-tap-highlight-color:transparent}' +
     '.mk-hflag .fl{width:36px;height:36px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid #F3D37A;background:rgba(255,255,255,.12);flex:0 0 auto}.mk-hflag .fl img{width:36px;height:36px;object-fit:cover;display:block}' +
         'footer{padding-bottom:92px!important}body:not(:has(footer)){padding-bottom:88px}';
@@ -213,18 +221,22 @@
   document.addEventListener('mn-profile', renderFlagItem);
   // علم الدولة و«يومي» في الشريط العلوي بجانب زر القائمة
   function headerFlag() {
-    var p = window.MNApp && MNApp.profile && MNApp.profile();
-    var fl = p && p.done && MNApp.flagHtml ? MNApp.flagHtml(p.cc, 30) : '🌍';
-    var title = p && p.done ? 'يومي: مواقيت الصلاة والورد · ' + (p.city || '') + (p.country && p.country !== 'دولة أخرى' ? '، ' + p.country : '') : 'يومي: مواقيت الصلاة والورد';
+    // جرس التنبيهات مكان العلم: يفتح «يومي» على «تنبيهاتي» (تذكير الحصص والسداد)، وعليه عدد التنبيهات
+    var title = 'تنبيهاتي ويومي: تذكير الحصص والسداد ومواقيت الصلاة';
+    var BELL = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>';
     document.querySelectorAll('.mk-menu-btn').forEach(function (btn) {
       var a = btn.parentNode.classList.contains('mk-hact') ? btn.parentNode.querySelector('.mk-hflag') : null;
       if (!a) {
         var w = document.createElement('span'); w.className = 'mk-hact';
-        a = document.createElement('a'); a.className = 'mk-hflag'; a.href = 'today.html';
+        a = document.createElement('a'); a.className = 'mk-hflag';
         btn.parentNode.insertBefore(w, btn); w.appendChild(a); w.appendChild(btn);
       }
-      a.innerHTML = '<span class="fl">' + fl + '</span>'; a.title = title; a.setAttribute('aria-label', title);
+      a.href = 'today.html#rmd';
+      if (!a.querySelector('[data-bell-count]')) a.innerHTML = '<span class="fl mk-bell">' + BELL + '</span><b class="mk-bellc" data-bell-count hidden></b>';
+      a.title = title; a.setAttribute('aria-label', title);
     });
+    if (window.MN && MN.paintBell) MN.paintBell();
+    else if (!document.querySelector('script[src*="/js/reminders.js"]')) { var sc = document.createElement('script'); sc.src = 'https://maimoonah.com/js/reminders.js?v=1'; sc.defer = true; document.head.appendChild(sc); }
   }
   document.addEventListener('mn-profile', headerFlag);
   document.addEventListener('DOMContentLoaded', function () { headerFlag(); setTimeout(headerFlag, 800); });
