@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: blob: https://maimoonah.com; connect-src 'self' https://*.supabase.co https://maimoonah.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<script> if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = 'none'; } }</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اشتراكاتي | مكين للاستشارات والتدريب والتعليم</title>
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#12355B; --gold:#C9A66B; --ink:#1F2937; --muted:#5A6577; --line:#E8DCC0; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#F6EEE2 url('https://maimoonah.com/img/beige-texture.webp') repeat center top; color:var(--ink); font-family:Tajawal, Tahoma, "Segoe UI", sans-serif; line-height:1.8; }
+  header { background:var(--navy); border-bottom:3px solid var(--gold); padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  header a { color:var(--gold); text-decoration:none; font-weight:800; }
+  header .secure { color:#E9E3D2; font-size:13.5px; }
+  main { max-width:620px; margin:0 auto; padding:22px 14px 48px; }
+  h1 { color:var(--navy); font-size:24px; margin:4px 0 4px; }
+  .steps { display:flex; gap:6px; font-size:13px; color:var(--muted); margin-bottom:16px; flex-wrap:wrap; }
+  .steps b { color:var(--navy); }
+  .card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:18px 16px; margin-bottom:14px; box-shadow:0 6px 20px rgba(18,53,91,.06); }
+  .card h2 { font-size:17px; color:var(--navy); margin:0 0 10px; }
+  .row { display:flex; justify-content:space-between; gap:12px; padding:7px 0; border-bottom:1px dashed #EFE6D2; font-size:15px; }
+  .row:last-child { border-bottom:0; }
+  .row span:first-child { color:var(--muted); }
+  .total { font-size:18px; font-weight:800; color:var(--navy); }
+  .pm { display:flex; align-items:center; gap:10px; border:2px solid var(--navy); border-radius:14px; padding:12px; background:#F7F9FC; }
+  .pm .dot { width:18px; height:18px; border-radius:50%; border:5px solid var(--navy); flex:none; }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+  .chip { font:700 12.5px/1 system-ui, sans-serif; direction:ltr; border:1px solid #CBD5E1; border-radius:6px; padding:5px 8px; color:#1E293B; background:#fff; }
+  .note { font-size:13.5px; color:var(--muted); margin:8px 0 0; }
+  label.agree { display:flex; gap:8px; align-items:flex-start; font-size:14.5px; margin:4px 0 12px; }
+  label.agree input { margin-top:7px; width:18px; height:18px; flex:none; }
+  a { color:var(--navy); }
+  .pay { display:flex; align-items:center; justify-content:center; width:100%; min-height:54px; border:0; border-radius:999px; background:var(--navy); color:#fff; font:inherit; font-weight:800; font-size:17px; cursor:pointer; }
+  .pay[disabled] { opacity:.55; cursor:not-allowed; }
+  .msg { margin-top:12px; font-size:14.5px; min-height:1em; }
+  .msg.bad { color:#991B1B; }
+  .eg { margin-top:12px; }
+  .email { display:flex; gap:8px; margin-top:8px; }
+  .email input { flex:1; padding:11px 12px; border:1.5px solid #CBD5E1; border-radius:12px; font:inherit; direction:ltr; }
+  .email button { border:0; border-radius:12px; background:var(--navy); color:#fff; font:inherit; font-weight:800; padding:0 16px; cursor:pointer; }
+  footer { text-align:center; font-size:13px; color:var(--muted); padding:8px 14px 30px; line-height:2; }
+  footer a { margin:0 6px; }
+</style>
+<style>
+  .it { display:flex; justify-content:space-between; gap:10px; align-items:center; padding:10px 0; border-bottom:1px dashed #EFE6D2; }
+  .it-t { display:flex; flex-direction:column; } .it-t small { color:var(--muted); font-size:13px; } .it-t .pr { color:var(--navy); font-weight:800; }
+  .it-a { display:flex; gap:8px; align-items:center; flex:none; }
+  .qty { display:flex; align-items:center; border:1.5px solid #CBD5E1; border-radius:999px; overflow:hidden; }
+  .qty button { width:34px; height:34px; border:0; background:#F7F9FC; font:800 18px/1 system-ui; color:var(--navy); cursor:pointer; } .qty span { min-width:30px; text-align:center; font-weight:800; }
+  .rm { border:0; background:none; color:#991B1B; font:inherit; font-size:13.5px; cursor:pointer; text-decoration:underline; }
+  .f { display:block; margin:8px 0; font-size:14.5px; } .f input, .f select { display:block; width:100%; margin-top:4px; padding:11px 12px; border:1.5px solid #CBD5E1; border-radius:12px; font:inherit; background:#fff; }
+  .row.tot { font-size:18px; font-weight:800; color:var(--navy); border-bottom:0; }
+  .opt { display:flex; gap:8px; align-items:center; margin:6px 0; font-size:14.5px; }
+  .ghost { display:flex; align-items:center; justify-content:center; width:100%; min-height:48px; border-radius:999px; border:1.5px solid var(--gold); background:#fff; color:var(--navy); font:inherit; font-weight:800; text-decoration:none; margin-top:10px; }
+</style>
+</head>
+<body>
+<header><a href="/" id="homeA">مكين للاستشارات والتدريب والتعليم</a><span class="secure">🔒 دفع آمن</span></header>
+<main>
+  <h1 id="title">اشتراكاتي</h1>
+  <div id="empty" class="card" hidden><h2>السلة فارغة</h2><p class="note">أضف/أضيفي الكتب والتفسير والاشتراكات من أقسام الموقع بزر «🛒 أضف إلى السلة»، ثم ادفع/ي مرة واحدة هنا.</p><a class="pay" href="/" style="text-decoration:none">تصفح/ي الموقع</a></div>
+  <div id="itemsBox" class="card" hidden><h2>البنود</h2><div id="list"></div><a class="ghost" href="/">＋ متابعة التسوق</a></div>
+  <div id="buyer" class="card" hidden>
+    <h2>بيانات المشتري</h2>
+    <label class="f">الاسم<input id="nm" autocomplete="name"></label>
+    <label class="f">البريد الإلكتروني (تصلك عليه رسالة الشراء)<input id="em" type="email" dir="ltr" autocomplete="email" placeholder="name@example.com"></label>
+    <label class="f">رقم الواتساب (مع مفتاح الدولة)<input id="ph" type="tel" dir="ltr" autocomplete="tel" placeholder="+20…"></label>
+    <label class="f">دولة الإقامة<select id="co"><option value="">— اختر/ي —</option><option>مصر</option><option>السعودية</option><option>الإمارات</option><option>الكويت</option><option>قطر</option><option>البحرين</option><option>عُمان</option><option>الأردن</option><option>فلسطين</option><option>لبنان</option><option>سوريا</option><option>العراق</option><option>اليمن</option><option>المغرب</option><option>الجزائر</option><option>تونس</option><option>ليبيا</option><option>السودان</option><option>موريتانيا</option><option>الولايات المتحدة</option><option>كندا</option><option>المملكة المتحدة</option><option>ألمانيا</option><option>فرنسا</option><option>تركيا</option><option>ماليزيا</option><option>إندونيسيا</option><option>باكستان</option><option>دولة أخرى</option></select></label>
+    <div id="shipBox" hidden>
+      <label class="f">المدينة / المحافظة<input id="ci" autocomplete="address-level2"></label>
+      <label class="f">عنوان الشحن التفصيلي<input id="ad" autocomplete="street-address" placeholder="الشارع، رقم المبنى"></label>
+      <div class="opt"><input type="radio" name="sh" id="sh1" value="express" checked><label for="sh1">شحن سريع (خارج مصر) — خلال ١٤ يومًا</label></div>
+      <div class="opt"><input type="radio" name="sh" id="sh2" value="normal"><label for="sh2">شحن عادي (خارج مصر) — خلال شهر</label></div>
+    </div>
+    <label class="agree"><input id="agree" type="checkbox"> <span>قرأتُ وأوافق على <a href="study-terms.html" target="_blank" rel="noopener">الشروط والأحكام</a> و<a href="refund.html" target="_blank" rel="noopener">سياسة الاسترجاع والاسترداد</a> و<a href="privacy.html" target="_blank" rel="noopener">سياسة الخصوصية</a>.</span></label>
+    <button id="go" class="pay" type="button">متابعة إلى الدفع</button>
+  </div>
+  <div id="payBox" class="card" hidden>
+    <h2>ملخص الطلب</h2>
+    <div id="sumRows"></div>
+    <div class="pm" style="margin-top:12px"><span class="dot"></span><div><b>💳 البطاقة البنكية</b><div class="chips"><span class="chip">Visa</span><span class="chip">Mastercard</span><span class="chip">Meeza</span></div></div></div>
+    <p class="note">تُدخل بيانات البطاقة في صفحة الدفع الآمنة لدى <b>Paymob</b>، ولا تمر بيانات بطاقتك على موقعنا.</p>
+    <button id="pay" class="pay" type="button">ادفع/ي الآن</button>
+    <div id="egBox" class="eg" hidden></div>
+    <div id="local" style="margin-top:10px"></div>
+  </div>
+  <div id="msg" class="msg" role="status"></div>
+</main>
+<footer>
+  شركة مكين للاستشارات والتدريب والتعليم<br>
+  <a href="study-terms.html">الشروط والأحكام</a>·<a href="refund.html">الاسترجاع والاسترداد</a>·<a href="privacy.html">الخصوصية</a>·<a href="contact.html">تواصل معنا</a>
+</footer>
+<script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com"};</script>
+<script src="https://maimoonah.com/js/sb.js?v=c7"></script>
+<script src="https://maimoonah.com/js/settings.js?v=4"></script>
+<script src="https://maimoonah.com/js/tierprice.js?v=5"></script>
+<script src="https://maimoonah.com/js/instapay.js?v=9"></script>
+<script src="https://maimoonah.com/js/cart.js?v=1"></script>
+<script src="https://maimoonah.com/js/cart-page.js?v=1"></script>
+</body>
+</html>

@@ -90,6 +90,7 @@
   MK.MENU = [
     ['#install', 'تثبيت تطبيق MakeenEducation', IC('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/>'), 'install'],
     ['student.html', 'لوحة الطالب', IC('<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h3v3H8z"/>'), 'top'],
+    ['cart.html', 'اشتراكاتي', IC('<path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6.2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/>'), 'top'],
     ['teacher-panel.html', 'لوحة المعلم', IC('<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M8 9h8M8 12h5"/>')],
     ['my.html', 'المفضلة والمحفوظات', IC('<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'), 'top'],
     ['index.html', 'الرئيسية', IC('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],
@@ -371,3 +372,9 @@
   var s = document.createElement('script'); s.src = (/maimoonah\.com$/i.test(location.hostname) ? '/js/track.js' : 'https://maimoonah.com/js/track.js') + '?v=1'; s.defer = true; (document.head || document.documentElement).appendChild(s);
 })();
 
+
+// «اشتراكاتي»: سلة مكين ورمزها في الشريط العلوي (من موقع ميمونة)
+(function () {
+  if ((window.MN && MN.cart) || document.querySelector('script[src*="/js/cart.js"]')) return;
+  var sc = document.createElement('script'); sc.src = 'https://maimoonah.com/js/cart.js?v=1'; sc.defer = true; document.head.appendChild(sc);
+})();
