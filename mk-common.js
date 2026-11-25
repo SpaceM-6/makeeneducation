@@ -376,5 +376,5 @@
 // «اشتراكاتي»: سلة مكين ورمزها في الشريط العلوي (من موقع ميمونة)
 (function () {
   if ((window.MN && MN.cart) || document.querySelector('script[src*="/js/cart.js"]')) return;
-  var sc = document.createElement('script'); sc.src = 'https://maimoonah.com/js/cart.js?v=3'; sc.defer = true; document.head.appendChild(sc);
+  var sc = document.createElement('script'); sc.src = 'https://maimoonah.com/js/cart.js?v=4'; sc.defer = true; document.head.appendChild(sc);
 })();
