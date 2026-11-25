@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://maimoonah.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فاتورة الشراء | منصة ميمونة التربوية التعليمية</title>
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#12355B; --gold:#C9A66B; --ink:#1F2937; --muted:#5A6577; --line:#E8DCC0; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#F6EEE2; color:var(--ink); font-family:Tajawal, Tahoma, "Segoe UI", sans-serif; line-height:1.8; }
+  header { background:var(--navy); border-bottom:3px solid var(--gold); padding:14px 16px; text-align:center; }
+  header a { color:var(--gold); text-decoration:none; font-weight:800; }
+  main { max-width:640px; margin:0 auto; padding:20px 14px 40px; }
+  .state { text-align:center; margin:6px 0 16px; }
+  .state h1 { color:var(--navy); font-size:24px; margin:4px 0; }
+  .state.bad h1 { color:#991B1B; }
+  .inv { background:#fff; border:1px solid var(--line); border-radius:18px; padding:20px 18px; box-shadow:0 6px 20px rgba(18,53,91,.06); position:relative; }
+  .inv.void::after { content:'غير مدفوعة'; position:absolute; top:40%; left:50%; transform:translate(-50%,-50%) rotate(-18deg); font-size:46px; font-weight:800; color:rgba(153,27,27,.13); pointer-events:none; }
+  .top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; border-bottom:2px solid var(--navy); padding-bottom:10px; margin-bottom:10px; }
+  .top h2 { margin:0; color:var(--navy); font-size:22px; }
+  .seller { font-size:13px; color:var(--muted); line-height:1.7; }
+  h3 { font-size:15px; color:var(--navy); margin:14px 0 4px; }
+  .row { display:flex; justify-content:space-between; gap:12px; padding:6px 0; border-bottom:1px dashed #EFE6D2; font-size:14.5px; }
+  .row span:first-child { color:var(--muted); }
+  .row span:last-child { text-align:left; }
+  #total { display:flex; justify-content:space-between; margin-top:10px; padding:12px; border-radius:12px; background:#F7F9FC; font-weight:800; font-size:18px; color:var(--navy); }
+  .foot { font-size:12.5px; color:var(--muted); margin-top:14px; line-height:1.8; }
+  .acts { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .btn { flex:1; display:flex; align-items:center; justify-content:center; min-height:48px; border-radius:999px; border:0; background:var(--navy); color:#fff; font:inherit; font-weight:800; text-decoration:none; cursor:pointer; padding:0 16px; }
+  .btn.ghost { background:#fff; color:var(--navy); border:1.5px solid var(--gold); }
+  #next { text-align:center; margin-top:16px; }
+  @media print { header, .acts, #next, .no-print { display:none !important; } body { background:#fff; } .inv { box-shadow:none; border:0; } }
+</style>
+</head>
+<body>
+<header><a href="/" id="home">منصة ميمونة التربوية التعليمية</a></header>
+<main>
+  <div id="state" class="state"></div>
+  <div id="inv" class="inv">
+    <div class="top">
+      <div><h2>فاتورة شراء</h2><div class="seller" id="sellerSite">منصة ميمونة التربوية التعليمية — maimoonah.com</div></div>
+      <div class="seller" style="text-align:left">شركة مكين للاستشارات والتدريب والتعليم<br>سجل تجاري ١٨٥٥ — استثمار المنيا<br>جمهورية مصر العربية</div>
+    </div>
+    <div id="meta"></div>
+    <h3>تفاصيل الطلب</h3>
+    <div id="items"></div>
+    <div id="total"></div>
+    <h3>الدفع</h3>
+    <div id="pay"></div>
+    <p class="foot">تمت معالجة الدفع عبر Paymob المرخّصة من البنك المركزي المصري، ولا نحتفظ ببيانات بطاقتك. الاسترجاع والاسترداد وفق <a href="refund.html">سياسة الاسترجاع</a>، وللاستفسار: <a href="contact.html">تواصل معنا</a>.</p>
+  </div>
+  <div class="acts"><button id="print" class="btn ghost" type="button">🖨️ طباعة / حفظ PDF</button><a class="btn ghost" href="/" id="home2">الصفحة الرئيسية</a></div>
+  <div id="next" hidden></div>
+</main>
+<script>
+  if (/makeeneducation\.com$/.test(location.hostname)) {
+    document.title = 'فاتورة الشراء | مكين للاستشارات والتدريب والتعليم';
+    document.getElementById('home').textContent = 'مكين للاستشارات والتدريب والتعليم';
+    document.getElementById('sellerSite').textContent = 'مكين — makeeneducation.com';
+  }
+</script>
+<script src="https://maimoonah.com/js/invoice-page.js?v=1"></script>
+</body>
+</html>
