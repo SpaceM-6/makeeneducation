@@ -13,7 +13,7 @@
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MakeenEducation"><script src="pwa.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="mk.css?v=fb6fbc6f">
-<script src="mk-common.js?v=c6cart02"></script>
+<script src="mk-common.js?v=c6cart03"></script>
 <script src="https://maimoonah.com/js/protect.js?v=3" defer></script>
 <style id="mkTheme">/* ===== ثيم مكين (اقتراح جيميناي): كريمي رخامي + طوبي + زيتوني + بني — يبقى الهيدر والشريط العلوي والصورة الاستفتاحية والتعريف كما هي ===== */
 :root{--g-terra:#B5654A;--g-terra2:#C97B5E;--g-olive:#5E6B2E;--g-olive2:#6E7C37;--g-brown:#3B2A20;--g-brown2:#5A4636;--g-gold:#C9A45C;--g-cream:#F6EFE2;--g-card:#FFFDF8;--g-line:#E4CDB9}
@@ -207,7 +207,7 @@ var BOOKS_HTML = (function () {
         '<p class="hint" style="font-size:12.5px;color:var(--muted);margin:10px 0 0">التقييمات من طلاب درسوا فعلًا مع ' + (she ? 'المعلمة' : 'المعلم') + '، ويكتبونها من لوحة الطالب، وتراجعها إدارة مكين قبل نشرها.</p></section>';
     if (window.MNItems) MNItems.mount(main);
     // الدروس الصوتية للمعلم/ة والاشتراك فيها
-    (function () { var b = document.getElementById('tlBox'); if (!b) return; var go = function () { if (window.MN && MN.tlessons) MN.tlessons.page(b, t); }; if (window.MN && MN.tlessons) return go(); var sc = document.createElement('script'); sc.src = ((window.MN_CFG && MN_CFG.base) || '') + '/js/tlessons.js?v=13'; sc.onload = go; document.head.appendChild(sc); })();
+    (function () { var b = document.getElementById('tlBox'); if (!b) return; var go = function () { if (window.MN && MN.tlessons) MN.tlessons.page(b, t); }; if (window.MN && MN.tlessons) return go(); var sc = document.createElement('script'); sc.src = ((window.MN_CFG && MN_CFG.base) || '') + '/js/tlessons.js?v=14'; sc.onload = go; document.head.appendChild(sc); })();
     if (location.hash === '#books') { var bk = document.getElementById('books'); if (bk) setTimeout(function () { bk.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 200); }
   }).catch(function () { main.innerHTML = '<p class="mk-msg">تعذّر التحميل، حاول/ي مرة أخرى.</p>'; });
 })();
