@@ -231,6 +231,14 @@
         a = document.createElement('a'); a.className = 'mk-hflag';
         btn.parentNode.insertBefore(w, btn); w.appendChild(a); w.appendChild(btn);
       }
+      // زر «مشترك جديد / الدخول» بجانب القائمة، كما في ميمونة
+      if (!btn.parentNode.querySelector('.mk-login')) {
+        mkLoginCss();
+        var lg = document.createElement('button'); lg.type = 'button'; lg.className = 'mk-login';
+        lg.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M4 12h11"/><path d="M11 8l4 4-4 4"/></svg><span>مشترك جديد / الدخول</span>';
+        lg.onclick = function () { MK.openLogin(); };
+        btn.parentNode.insertBefore(lg, btn);
+      }
       a.href = 'today.html#rmd';
       if (!a.querySelector('[data-bell-count]')) a.innerHTML = '<span class="fl mk-bell">' + BELL + '</span><b class="mk-bellc" data-bell-count hidden></b>';
       a.title = title; a.setAttribute('aria-label', title);
@@ -240,6 +248,37 @@
   }
   document.addEventListener('mn-profile', headerFlag);
   document.addEventListener('DOMContentLoaded', function () { headerFlag(); setTimeout(headerFlag, 800); });
+  function mkLoginCss() {
+    if (document.getElementById('mkLoginCss')) return;
+    var st = document.createElement('style'); st.id = 'mkLoginCss';
+    st.textContent = '.mk-login{display:inline-flex;align-items:center;gap:6px;background:#F3D37A;color:#12355B;border:0;border-radius:10px;padding:8px 10px;font:800 12.5px/1.2 inherit;font-family:inherit;cursor:pointer;white-space:nowrap;flex:0 0 auto}' +
+        '.mk-login svg{flex:0 0 auto}@media(max-width:420px){.mk-login{padding:7px 8px;font-size:11.5px;gap:4px}.mk-login svg{width:14px;height:14px}}' +
+        '#mkLogin{position:fixed;inset:0;background:rgba(10,25,45,.55);z-index:99990;display:none;align-items:center;justify-content:center;padding:16px;direction:rtl}' +
+        '#mkLogin .bx{background:#fff;border-radius:20px;max-width:430px;width:100%;padding:18px 18px 22px;box-shadow:0 20px 50px rgba(0,0,0,.25);font-family:inherit}' +
+        '#mkLogin .x{border:0;background:#F1F5F9;color:#12355B;border-radius:10px;padding:6px 12px;font:700 13px inherit;font-family:inherit;cursor:pointer}' +
+        '#mkLogin h3{margin:10px 0 14px;text-align:center;color:#12355B;font-size:19px}' +
+        '#mkLogin .tb{display:flex;gap:6px;background:#F1F5F9;border-radius:12px;padding:4px;margin-bottom:12px}#mkLogin .tb button{flex:1;border:0;background:none;border-radius:9px;padding:9px;font:800 14px inherit;font-family:inherit;color:#475569;cursor:pointer}#mkLogin .tb button.on{background:#12355B;color:#fff}' +
+        '#mkLogin p{font-size:14.5px;line-height:1.9;color:#334155;margin:6px 0 12px}' +
+        '#mkLogin a.g{display:block;text-align:center;text-decoration:none;background:#C9A66B;color:#12355B;font-weight:800;border-radius:12px;padding:12px;margin-top:8px}#mkLogin a.n{display:block;text-align:center;text-decoration:none;background:#12355B;color:#fff;font-weight:800;border-radius:12px;padding:12px;margin-top:8px}';
+    document.head.appendChild(st);
+  }
+  // نافذة «مشترك جديد / الدخول»: إنشاء حساب جديد، أو الدخول إلى لوحة الطالب أو «مكتبتي»
+  MK.openLogin = function (tab) {
+    var m = document.getElementById('mkLogin');
+    if (!m) {
+      mkLoginCss();
+      m = document.createElement('div'); m.id = 'mkLogin'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+      m.innerHTML = '<div class="bx"><button type="button" class="x" data-x>✕ إغلاق</button><h3>مشترك جديد / الدخول</h3>' +
+        '<div class="tb"><button type="button" data-t="new">مشترك جديد</button><button type="button" data-t="old">دخول</button></div>' +
+        '<div data-p="new"><p>أهلًا بك! أنشئ/ي حسابك بحساب جوجل بضغطة واحدة، أو بالبريد ورقم الجوال وكلمة المرور. حساب واحد لمكين ومنصة ميمونة.</p><a class="g" href="student.html?signup=1">إنشاء حساب جديد</a></div>' +
+        '<div data-p="old"><p>ادخل/ي بحساب جوجل، أو ببريدك الإلكتروني أو رقم جوالك وكلمة المرور: إلى لوحة الطالب (رابط الحلقة ومواعيدها، ومدة اشتراكك، وملاحظات المعلم/ة لك)، أو إلى «مكتبتي» لقراءة كتبك.</p>' +
+        '<a class="n" href="student.html">الدخول إلى لوحة الطالب</a><a class="g" href="https://maimoonah.com/library.html">الدخول إلى «مكتبتي»</a></div></div>';
+      document.body.appendChild(m);
+      m.addEventListener('click', function (e) { if (e.target === m || e.target.hasAttribute('data-x')) m.style.display = 'none'; var t = e.target.getAttribute('data-t'); if (t) show(t); });
+    }
+    function show(t) { m.querySelectorAll('[data-t]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-t') === t); }); m.querySelectorAll('[data-p]').forEach(function (d) { d.hidden = d.getAttribute('data-p') !== t; }); }
+    show(tab || 'old'); m.style.display = 'flex';
+  };
   MK.openDrawer = function () { ensureDrawer(); renderFlagItem(); if (window.MN && MN.paintHello) MN.paintHello(document.querySelector('#mkDrawer [data-hello]')); document.getElementById('mkDrawer').classList.add('open'); };
   MK.closeDrawer = function () { var d = document.getElementById('mkDrawer'); if (d) d.classList.remove('open'); };
   window.mkOpenDrawer = MK.openDrawer;
