@@ -252,7 +252,7 @@
     if (document.getElementById('mkLoginCss')) return;
     var st = document.createElement('style'); st.id = 'mkLoginCss';
     st.textContent = '.mk-login{display:inline-flex;align-items:center;gap:6px;background:#F3D37A;color:#12355B;border:0;border-radius:10px;padding:8px 10px;font:800 12.5px/1.2 inherit;font-family:inherit;cursor:pointer;white-space:nowrap;flex:0 0 auto}' +
-        '.mk-login svg{flex:0 0 auto}@media(max-width:420px){.mk-login{padding:7px 8px;font-size:11.5px;gap:4px}.mk-login svg{width:14px;height:14px}}' +
+        '.mk-login svg{flex:0 0 auto}@media(max-width:520px){.mk-login{padding:4px 7px;font-size:10.5px;line-height:1.3;gap:0;white-space:normal;max-width:74px;text-align:center;border-radius:9px}.mk-login svg{display:none}header .brand-logo-text .mk-two{font-size:13px!important;line-height:1.35!important}header .mk-hact{gap:5px!important}}' +
         '#mkLogin{position:fixed;inset:0;background:rgba(10,25,45,.55);z-index:99990;display:none;align-items:center;justify-content:center;padding:16px;direction:rtl}' +
         '#mkLogin .bx{background:#fff;border-radius:20px;max-width:430px;width:100%;padding:18px 18px 22px;box-shadow:0 20px 50px rgba(0,0,0,.25);font-family:inherit}' +
         '#mkLogin .x{border:0;background:#F1F5F9;color:#12355B;border-radius:10px;padding:6px 12px;font:700 13px inherit;font-family:inherit;cursor:pointer}' +
@@ -427,7 +427,7 @@
 // «اشتراكاتي»: سلة مكين ورمزها في الشريط العلوي (من موقع ميمونة)
 (function () {
   if ((window.MN && MN.cart) || document.querySelector('script[src*="/js/cart.js"]')) return;
-  var sc = document.createElement('script'); sc.src = 'https://maimoonah.com/js/cart.js?v=8'; sc.defer = true; document.head.appendChild(sc);
+  var sc = document.createElement('script'); sc.src = 'https://maimoonah.com/js/cart.js?v=9'; sc.defer = true; document.head.appendChild(sc);
 })();
 
 ;(function () { if (window.MN_PF || document.querySelector('script[src*="phonefield.js"]')) return; var s = document.createElement('script'); s.src = 'https://maimoonah.com/js/phonefield.js?v=4'; (document.head || document.documentElement).appendChild(s); })();   // خانة الواتساب: علم الدولة ومفتاحها
