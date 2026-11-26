@@ -70,12 +70,16 @@
     <label class="f">الاسم<input id="nm" autocomplete="name"></label>
     <label class="f">البريد الإلكتروني (تصلك عليه رسالة الشراء)<input id="em" type="email" dir="ltr" autocomplete="email" placeholder="name@example.com"></label>
     <label class="f">رقم الواتساب (مع مفتاح الدولة)<input id="ph" type="tel" dir="ltr" autocomplete="tel" placeholder="+20…"></label>
-    <label class="f">دولة الإقامة<select id="co"><option value="">— اختر/ي —</option><option>مصر</option><option>السعودية</option><option>الإمارات</option><option>الكويت</option><option>قطر</option><option>البحرين</option><option>عُمان</option><option>الأردن</option><option>فلسطين</option><option>لبنان</option><option>سوريا</option><option>العراق</option><option>اليمن</option><option>المغرب</option><option>الجزائر</option><option>تونس</option><option>ليبيا</option><option>السودان</option><option>موريتانيا</option><option>الولايات المتحدة</option><option>كندا</option><option>المملكة المتحدة</option><option>ألمانيا</option><option>فرنسا</option><option>تركيا</option><option>ماليزيا</option><option>إندونيسيا</option><option>باكستان</option><option>دولة أخرى</option></select></label>
+    <label class="f" id="coL">دولة الإقامة<select id="co"><option value="">— اختر/ي —</option><option>مصر</option><option>السعودية</option><option>الإمارات</option><option>الكويت</option><option>قطر</option><option>البحرين</option><option>عُمان</option><option>الأردن</option><option>فلسطين</option><option>لبنان</option><option>سوريا</option><option>العراق</option><option>اليمن</option><option>المغرب</option><option>الجزائر</option><option>تونس</option><option>ليبيا</option><option>السودان</option><option>موريتانيا</option><option>الولايات المتحدة</option><option>كندا</option><option>المملكة المتحدة</option><option>ألمانيا</option><option>فرنسا</option><option>تركيا</option><option>ماليزيا</option><option>إندونيسيا</option><option>باكستان</option><option>دولة أخرى</option></select></label>
     <div id="shipBox" hidden>
-      <label class="f">المدينة / المحافظة<input id="ci" autocomplete="address-level2"></label>
+      <label class="f" id="govL" hidden>المحافظة<select id="gov"><option value="">— اختر/ي محافظتك —</option><option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option><option>المنيا</option><option>أسيوط</option><option>سوهاج</option><option>قنا</option><option>الأقصر</option><option>أسوان</option><option>بني سويف</option><option>الفيوم</option><option>القليوبية</option><option>الشرقية</option><option>الدقهلية</option><option>الغربية</option><option>المنوفية</option><option>كفر الشيخ</option><option>البحيرة</option><option>دمياط</option><option>بورسعيد</option><option>الإسماعيلية</option><option>السويس</option><option>مطروح</option><option>البحر الأحمر</option><option>الوادي الجديد</option><option>شمال سيناء</option><option>جنوب سيناء</option></select></label>
+      <label class="f" id="ciL">المدينة<input id="ci" autocomplete="address-level2"></label>
       <label class="f">عنوان الشحن التفصيلي<input id="ad" autocomplete="street-address" placeholder="الشارع، رقم المبنى"></label>
-      <div class="opt"><input type="radio" name="sh" id="sh1" value="express" checked><label for="sh1">شحن سريع (خارج مصر) — خلال ١٤ يومًا</label></div>
-      <div class="opt"><input type="radio" name="sh" id="sh2" value="normal"><label for="sh2">شحن عادي (خارج مصر) — خلال شهر</label></div>
+      <p class="note" id="shipEg" hidden></p>
+      <div id="shipOut">
+      <div class="opt"><input type="radio" name="sh" id="sh1" value="express" checked><label for="sh1">شحن سريع — خلال ١٤ يومًا</label></div>
+      <div class="opt"><input type="radio" name="sh" id="sh2" value="normal"><label for="sh2">شحن عادي — خلال شهر</label></div>
+      </div>
     </div>
     <label class="agree"><input id="agree" type="checkbox"> <span>قرأتُ وأوافق على <a href="study-terms.html" target="_blank" rel="noopener">الشروط والأحكام</a> و<a href="refund.html" target="_blank" rel="noopener">سياسة الاسترجاع والاسترداد</a> و<a href="privacy.html" target="_blank" rel="noopener">سياسة الخصوصية</a>.</span></label>
     <button id="go" class="pay" type="button">متابعة إلى الدفع</button>
@@ -96,11 +100,11 @@
   <a href="study-terms.html">الشروط والأحكام</a>·<a href="refund.html">الاسترجاع والاسترداد</a>·<a href="privacy.html">الخصوصية</a>·<a href="contact.html">تواصل معنا</a>
 </footer>
 <script>window.MN_CFG={site:"makeen",base:"https://maimoonah.com"};</script>
-<script src="https://maimoonah.com/js/sb.js?v=c7"></script>
+<script src="https://maimoonah.com/js/sb.js?v=c8"></script>
 <script src="https://maimoonah.com/js/settings.js?v=4"></script>
 <script src="https://maimoonah.com/js/tierprice.js?v=5"></script>
-<script src="https://maimoonah.com/js/instapay.js?v=9"></script>
+<script src="https://maimoonah.com/js/instapay.js?v=10"></script>
 <script src="https://maimoonah.com/js/cart.js?v=4"></script>
-<script src="https://maimoonah.com/js/cart-page.js?v=2"></script>
+<script src="https://maimoonah.com/js/cart-page.js?v=3"></script>
 </body>
 </html>
