@@ -1,4 +1,5 @@
 // حماية من وضع الموقع داخل إطار موقع آخر (انتحال الصفحة أو خداع النقر): يُسمح فقط بإطارات من موقعي ميمونة ومكين
+function mnWait2() { try { var k = 'mn_visit0', t = +sessionStorage.getItem(k); if (!t) { t = Date.now(); sessionStorage.setItem(k, String(t)); } return Math.max(0, 120000 - (Date.now() - t)); } catch (e) { return 120000; } }   // النوافذ المنبثقة لا تظهر قبل دقيقتين من بدء الزيارة
 (function () {
   try {
     if (window.top === window.self) return;
@@ -63,7 +64,7 @@
     var close = function () { b.remove(); try { localStorage.setItem('mk_app_bar', '1'); } catch (e) {} };
     b.querySelector('.app-bar-x').onclick = close;
     b.querySelector('.app-bar-ok').onclick = function () { close(); window.mnInstallApp(); };
-    setTimeout(function () { if (deferred || ios || (android && !chrome)) document.body.appendChild(b); }, 6000);
+    setTimeout(function () { if (deferred || ios || (android && !chrome)) document.body.appendChild(b); }, Math.max(6000, mnWait2()));
   }
   function howto(viaOther) {
     ensureCss();
