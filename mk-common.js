@@ -391,4 +391,4 @@
   var sc = document.createElement('script'); sc.src = 'https://maimoonah.com/js/cart.js?v=5'; sc.defer = true; document.head.appendChild(sc);
 })();
 
-;(function () { if (window.MN_PF || document.querySelector('script[src*="phonefield.js"]')) return; var s = document.createElement('script'); s.src = 'https://maimoonah.com/js/phonefield.js?v=1'; (document.head || document.documentElement).appendChild(s); })();   // خانة الواتساب: علم الدولة ومفتاحها
+;(function () { if (window.MN_PF || document.querySelector('script[src*="phonefield.js"]')) return; var s = document.createElement('script'); s.src = 'https://maimoonah.com/js/phonefield.js?v=2'; (document.head || document.documentElement).appendChild(s); })();   // خانة الواتساب: علم الدولة ومفتاحها
