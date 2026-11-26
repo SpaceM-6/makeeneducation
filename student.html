@@ -508,12 +508,14 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
     { const fn = session.user.user_metadata && session.user.user_metadata.full_name; if (fn) $('helloName').textContent = 'أهلًا بك ' + fn; }
     $('who').textContent = 'أنت داخل ببريد: ' + session.user.email;
     if (!$('pwChange')) { const b = document.createElement('button'); b.type = 'button'; b.id = 'pwChange'; b.className = 'btn ghost'; b.textContent = '🔑 تغيير كلمة المرور'; b.onclick = () => MN.pwChange(sb); const rb = document.querySelector('#settings .row-btns'); if (rb) rb.appendChild(b); }
+    if (window.MN && MN.claimRecords) await MN.claimRecords(sb, session);   // اشتراكات سجّلتها الإدارة برقم الواتساب
     const { data, error } = await sb.rpc('my_subscriptions');
     if (error) { $('subs').innerHTML = '<section class="card">تعذّر تحميل اشتراكاتك الآن، حدّث الصفحة بعد قليل.</section>'; return; }
     SUBS = Array.isArray(data) ? data : [];
     // حصص التعويض (يحدّدها المعلم/ة عند تأجيل حصة)
     try { const ids = SUBS.map((x) => x.id); if (ids.length) { const mk = await sb.from('class_makeups').select('sub_id,from_day,at,status').in('sub_id', ids); if (!mk.error) SUBS.forEach((x) => { x.makeups = (mk.data || []).filter((m) => String(m.sub_id) === String(x.id)); }); } } catch (e) {}
     render();
+    if (window.MN && MN.grantsBox) MN.grantsBox(sb, $('subs'), SUBS);
     // المعلم/ة المباشر/ة مع زر اتصال دائم، وتنبيه إن كان/ت في حلقة أخرى الآن، وموعد الحصة بالضبط
     const act = SUBS.filter((x) => x.status === 'active');
     MN.callSetup(sb, { role: 'student', myName: (act[0] && act[0].name) || 'الطالب/ة', subs: act.map((x) => ({ id: x.id, peer: x.teacher ? 'أ/ ' + String(x.teacher.name || '').replace(/^أ\/\s*/, '') : 'المعلم/ة', title: x.program })) });
@@ -568,5 +570,6 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
   window.addEventListener('load', function () { fix(); setTimeout(fix, 1500); });
 })();
 </script>
+<script src="https://maimoonah.com/js/grants.js?v=1"></script>
 </body>
 </html>

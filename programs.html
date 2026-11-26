@@ -1574,7 +1574,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         `;
         showPricingTable('monthly');
       }
-      setInquiryMode(PRICES_HIDDEN, currentProgram);
+      setInquiryMode(PRICES_HIDDEN && !FREE, currentProgram);
       studyModeInit(id);
       document.getElementById('programModal').style.display = 'flex';
     }
@@ -1602,7 +1602,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         STUDY_MODE = 'single'; GROUP = null; document.getElementById('groupList').innerHTML = ''; document.getElementById('groupPicked').hidden = true;
         cont.style.display = ''; form.style.display = form.dataset.wasShown || 'none';
         const prog = programsData.find((p) => p.id === selectedProgramIDGlobal);
-        if (PRICES_HIDDEN) setInquiryMode(true, prog);
+        if (PRICES_HIDDEN && !FREE) setInquiryMode(true, prog);
         return;
       }
       STUDY_MODE = 'group'; cont.style.display = 'none'; form.style.display = 'none';
@@ -1835,9 +1835,39 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       form.style.display = 'block';
     }
 
+    // منحة «برنامج مجاني» لطالب/ة سجّلته الإدارة: باقة واحدة فقط (٤ حصص أسبوعيًّا لمدة ستة أشهر) بلا رسوم
+    let FREE = null, FREE_SEL = false;
+    (async () => { try {
+      const sb = await _loadSB(); const { data: { session } } = await sb.auth.getSession(); if (!session) return;
+      try { await sb.rpc('claim_my_records', { p_phone: null }); } catch (e) {}
+      const r = await sb.rpc('my_grants'); const g = (r && Array.isArray(r.data) && r.data[0]) || null;
+      if (!g || !g.free_program_months || g.free_program_used) return;
+      FREE = { months: g.free_program_months, perWeek: g.free_program_per_week || 4, email: String(session.user.email || '').toLowerCase() };
+      const b = document.createElement('div'); b.id = 'freeBanner';
+      b.style.cssText = 'max-width:900px;margin:12px auto;padding:14px 16px;border:2px solid #C9A66B;background:#FFFBF0;border-radius:14px;line-height:1.9;color:#12355B;font-weight:700;text-align:center';
+      b.innerHTML = '🎁 اختر/اختاري برنامجًا تدرسه مجانًا لمدة ' + (FREE.months === 6 ? 'ستة' : FREE.months) + ' أشهر مع الأستاذة ميمونة، بواقع ' + FREE.perWeek + ' حصص في الأسبوع.';
+      const host = document.querySelector('main') || document.body; host.insertBefore(b, host.firstChild);
+      if (lastPricingType) showPricingTable(lastPricingType);
+    } catch (e) {} })();
+    function selectFreePlan() {
+      FREE_SEL = true;
+      selectPlan('منحة مجانية لمدة ' + FREE.months + ' أشهر - ' + FREE.perWeek + ' حصص أسبوعياً', 0, true, null);
+      const em = document.getElementById('p_email'); if (em) { em.value = FREE.email; em.readOnly = true; }
+      document.getElementById('programPriceDisplay').textContent = 'مجانًا — منحة لمدة ' + FREE.months + ' أشهر';
+      const pb = document.getElementById('programPayBtns');
+      pb.querySelectorAll('button').forEach((x) => { x.style.display = x.dataset.pay === 'free' ? '' : 'none'; });
+      if (!pb.querySelector('[data-pay="free"]')) { const fb = document.createElement('button'); fb.type = 'submit'; fb.className = 'mn-pay3-card'; fb.dataset.pay = 'free'; fb.textContent = '✓ تأكيد اختيار البرنامج مجانًا'; pb.appendChild(fb); }
+    }
     function showPricingTable(type) {
       lastPricingType = type;
       const area = document.getElementById('pricingTableArea');
+      if (FREE) {
+        const pbt = document.getElementById('pricingButtons'); if (pbt) pbt.style.display = 'none';
+        area.innerHTML = `<div style="text-align:center;padding:16px;background:#FFFBF0;border:2px solid #C9A66B;border-radius:12px;line-height:1.9">
+          <p style="font-size:16px;font-weight:800;color:var(--navy-dark)">🎁 منحتك: ${FREE.perWeek} حصص أسبوعيًّا مجانًا لمدة ${FREE.months === 6 ? 'ستة' : FREE.months} أشهر مع الأستاذة ميمونة</p>
+          <button class="btn-gold" style="margin-top:8px" onclick="selectFreePlan()">اختيار هذا البرنامج مجانًا</button></div>`;
+        return;
+      }
       if (type === 'hourly') {
         const v = convPrice(PLAN_PRICES.hourly);
         area.innerHTML = `
@@ -1904,6 +1934,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
         const o2 = btn.textContent; btns.forEach((b) => { b.disabled = true; }); btn.textContent = 'جارٍ حفظ طلبك…';
         const rq = await recordSubscription(isSponsor, quranTextInfo, timeSlot, 'يُحدَّد بعد مراجعة الطلب');
         btns.forEach((b) => { b.disabled = false; }); btn.textContent = o2;
+        if (FREE_SEL) return say(rq ? '✓ حُفظ اختيارك المجاني برقم ' + rq + '، ووصل إلى الأستاذة ميمونة، ويظهر في لوحة الطالب. نبدأ الدراسة بإذن الله بعد تأكيد الموعد. <a href="student.html">لوحة الطالب ›</a>' : 'تعذّر حفظ اختيارك الآن. حاول/ي مرة أخرى بعد قليل.');
         return say(rq ? '✓ حُفظ طلب حجزك برقم ' + rq + '، ويظهر في لوحة الطالب، وسنتواصل معك قريبًا بإذن الله لتأكيد الموعد والدفع.' : 'تعذّر حفظ طلبك الآن. حاول/ي مرة أخرى بعد قليل.');
       }
       const local = window.MN && MN.isLocalPay && MN.isLocalPay(via);
@@ -1952,6 +1983,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       if (isSponsor) { details['اسم الداعم'] = v('s_name'); details['جوال الداعم'] = v('s_phone'); details['مهنة الداعم'] = v('s_job'); details['جنسية الداعم'] = v('s_nationality'); details['بلد إقامة الداعم'] = v('s_country'); }
       Object.keys(details).forEach(k => { if (!details[k]) delete details[k]; });
       if (selectedPriceKey && STUDY_MODE !== 'group') details._price = selectedPriceKey;
+      if (FREE_SEL) { details._grant = 'free'; details['طريقة الدفع'] = 'منحة مجانية (' + FREE.months + ' أشهر)'; }
       details._tz = USER_TZ;
       const p = { program: prog.title || '', plan: PRICES_HIDDEN ? '' : selectedPlanNameGlobal, name: v('p_name'), age: v('p_age'), phone: v('p_phone'),
         email: v('p_email').toLowerCase(), nationality: v('p_nationality'), country: v('p_country'), details,
@@ -1996,6 +2028,10 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
 
       const pEmail = document.getElementById('p_email').value.trim().toLowerCase();
       const via = (e.submitter && e.submitter.dataset.pay) || 'card';
+      if (via === 'free' && FREE_SEL) {
+        if (slotsVisible() && bookingSlots().length > FREE.perWeek) { const el = document.getElementById('slotErr'); el.textContent = 'منحتك ' + FREE.perWeek + ' حصص في الأسبوع: اختر/اختاري ' + FREE.perWeek + ' أيام فقط.'; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        progPayFlow(via, e.submitter, isSponsor, quranTextInfo, timeSlot, pEmail); return;
+      }
       if (!PRICES_HIDDEN && via !== 'wa') { progPayFlow(via, e.submitter, isSponsor, quranTextInfo, timeSlot, pEmail); return; }
       recordSubscription(isSponsor, quranTextInfo, timeSlot, payment);
       const studentMemberID = generateMemberID("STD");
