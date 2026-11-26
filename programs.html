@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <script> if (window.top !== window.self) { try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = "none"; } }</script>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://maimoonah.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com; img-src 'self' data: blob: https://images.unsplash.com https://*.supabase.co https://cdn.jsdelivr.net https://maimoonah.com; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://open.er-api.com https://maimoonah.com; worker-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://maimoonah.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://maimoonah.com https://*.paymob.com https://pay.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://*.paymob.com; font-src 'self' https://fonts.gstatic.com data: https://maimoonah.com https://cdn.jsdelivr.net https://*.paymob.com; img-src 'self' data: blob: https://images.unsplash.com https://*.supabase.co https://cdn.jsdelivr.net https://maimoonah.com https:; media-src 'self' blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://open.er-api.com https://maimoonah.com https://*.paymob.com https://cdn.jsdelivr.net; worker-src 'self'; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self' https:; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>برامج شركة مكين | التسجيل والحجز</title>
 <link rel="canonical" href="https://makeeneducation.com/programs.html">
@@ -1927,7 +1927,7 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
       try {
         const r = await fetch(SB_URL + '/functions/v1/Paymob', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON }, body: JSON.stringify({ action: 'prog_pay', req, email }) });
         const j = await r.json().catch(() => ({}));
-        if (j && j.url) { location.href = j.url; return; }
+        if (j && j.url) { (window.MN && MN.payCard ? MN.payCard(j.url, { back: j.back, amount: j.amount ? j.amount + ' ' + (j.currency || '') : '' }) : (location.href = j.url)); return; }
         done(); say((j && j.error === 'not_ready' ? 'الدفع بالبطاقة يُفعَّل قريبًا بإذن الله، وطلب حجزك محفوظ برقم ' + req + '. ' : 'تعذّر تجهيز رابط الدفع الآن، وطلب حجزك محفوظ برقم ' + req + '. ') + waBtn);
       } catch (x) { done(); say('تعذّر الاتصال الآن، وطلب حجزك محفوظ برقم ' + req + '.' + waBtn); }
     }
@@ -2118,5 +2118,6 @@ body>header .brand,body>header .brand span{color:#C9A45C!important}body>header .
   window.addEventListener('load', function () { fix(); setTimeout(fix, 1500); });
 })();
 </script>
+<script src="https://maimoonah.com/js/paycard.js?v=1" defer></script>
 </body>
 </html>
