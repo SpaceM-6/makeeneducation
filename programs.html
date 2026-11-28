@@ -482,6 +482,7 @@
     .form-group label { display: block; font-weight: 700; font-size: 13px; color: var(--navy-dark); margin-bottom: 5px; }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 14px; font-family: inherit; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } .form-row .form-group input, .form-row .form-group select { min-width: 0; } }
     
     
     .payment-toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
